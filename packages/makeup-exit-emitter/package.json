@@ -7,11 +7,9 @@
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "npm run clean && npm run lint && npm run compile && npm run test",
-    "prep": "npm run prepublishOnly",
     "compile": "babel src/index.js --out-file index.js",
     "clean": "rimraf *.log .DS_Store",
-    "version": "npm run prepublishOnly"
+    "version": "npm run clean && npm run compile"
   },
   "keywords": [
     "makeup",
@@ -25,7 +23,8 @@
   },
   "files": [
     "browser.json",
-    "index.js"
+    "index.js",
+    "package-lock.json"
   ],
   "browserslist": [
     "extends @ebay/browserslist-config"

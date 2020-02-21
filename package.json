@@ -42,9 +42,6 @@
         "webpack": "^4",
         "webpack-cli": "^3"
     },
-    "workspaces": [
-        "packages/*"
-    ],
     "browserslist": [
         "extends @ebay/browserslist-config"
     ]

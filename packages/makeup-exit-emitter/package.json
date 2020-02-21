@@ -1,0 +1,33 @@
+{
+  "name": "makeup-exit-emitter",
+  "description": "Emits custom 'focusExit' event when keyboard focus has exited an element and all of it's descendants",
+  "version": "0.2.4",
+  "main": "index.js",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-exit-emitter",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "npm run clean && npm run lint && npm run compile && npm run test",
+    "prep": "npm run prepublishOnly",
+    "compile": "babel src/index.js --out-file index.js",
+    "clean": "rimraf *.log .DS_Store",
+    "version": "npm run prepublishOnly"
+  },
+  "keywords": [
+    "makeup",
+    "ebay",
+    "accessibility",
+    "a11y"
+  ],
+  "dependencies": {
+    "custom-event": "^1",
+    "makeup-next-id": "~0.1.2"
+  },
+  "files": [
+    "browser.json",
+    "index.js"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

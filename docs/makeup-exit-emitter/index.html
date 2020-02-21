@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>makeup-exit-emitter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <style>
+            header {
+                border-bottom: 1px solid #eee;
+            }
+            .widget {
+                border: 2px dotted #eee;
+                margin: 16px 0;
+                padding: 16px;
+            }
+            .test {
+                border: 1px dotted #333;
+                margin: 20px 0;
+                padding: 10px;
+            }
+            .focusin {
+                background-color: #eee;
+            }
+            .mousein {
+                background-color: #ffcc00;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Demo: makeup-exit-emitter</h1>
+            <p>The dotted border marks the confines of a widget. Background will be grey whilst focus remains on or inside widget.</p>
+            <p>Note that a mouse click on buttons, checkboxes and radios <strong>does not</strong> set focus in some browsers (e.g. Safari)!</p>
+            <p>Open developer console to view debug output.</p>
+        </header>
+        <main role="main">
+            <h2>Test Area</h2>
+
+            <button>Button 1</button>
+            <input type="text" placeholder="input before widget" />
+            <p>text before widgets</p>
+
+            <div class="widget">
+                <button>Button 3</button>
+                <span>text inside widget</span>
+                <input type="text" placeholder="input inside widget" />
+            </div>
+
+            <div class="widget">
+                <button>Button 5</button>
+                <span>text inside widget</span>
+                <input type="text" placeholder="input inside widget" />
+            </div>
+
+            <p>text after widgets</p>
+            <input type="text" placeholder="input after widgets" />
+            <button>Button 7</button>
+        </main>
+        <script src="index.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "name": "makeup-next-id",
+  "description": "Assign the next id in sequence to an element, if an id property does not already exist.",
+  "version": "0.1.2",
+  "main": "index.js",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-next-id",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "npm run clean && npm run lint && npm run compile && npm run test",
+    "prep": "npm run prepublishOnly",
+    "compile": "babel src/index.js --out-file index.js",
+    "clean": "rimraf *.log .DS_Store",
+    "version": "npm run prepublishOnly"
+  },
+  "keywords": [
+    "makeup",
+    "ebay",
+    "accessibility",
+    "a11y"
+  ],
+  "dependencies": {
+    "nanoid": "^2"
+  },
+  "files": [
+    "browser.json",
+    "index.js"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

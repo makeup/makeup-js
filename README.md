@@ -1,2 +1,3 @@
 # makeup-js
-Mono-repo for all makeup modules
+
+All makeup modules are currently being moved over from their individual repos to this mono-repo.

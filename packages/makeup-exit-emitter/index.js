@@ -52,9 +52,7 @@ function onWidgetFocusIn() {
   window.addEventListener('blur', this.onWindowBlurListener);
 }
 
-var FocusExitEmitter =
-/*#__PURE__*/
-function () {
+var FocusExitEmitter = /*#__PURE__*/function () {
   function FocusExitEmitter(el) {
     _classCallCheck(this, FocusExitEmitter);
 

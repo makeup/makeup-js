@@ -8,8 +8,7 @@
   "license": "MIT",
   "scripts": {
     "compile": "babel src/index.js --out-file index.js",
-    "clean": "rimraf *.log .DS_Store",
-    "version": "npm run clean && npm run compile"
+    "clean": "rimraf *.log .DS_Store"
   },
   "keywords": [
     "makeup",

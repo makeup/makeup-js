@@ -1,7 +1,5 @@
 # makeup-exit-emitter
 
-A vanilla JavaScript port of <a href="https://github.com/makeup-jquery/jquery-focus-exit">jquery-focus-exit</a>.
-
 Emits custom 'focusExit' event when focus has exited an element and all of it's descendants.
 
 ## Experimental

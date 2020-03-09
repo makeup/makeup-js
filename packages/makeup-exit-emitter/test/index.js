@@ -1,7 +1,7 @@
 describe('makeup-focus-exit-emitter', function() {
     var ExitEmitter = require('../src/index.js');
 
-    var timeoutInterval = 250;
+    var timeoutInterval = 50;
     var dom = '<div id="test-element" tabindex="0"><button></button><button></button></div>'
             + '<div id="test-element-sibling" tabindex="0"><button></button><button></button></div>';
     var eventHandlers = {
@@ -42,8 +42,8 @@ describe('makeup-focus-exit-emitter', function() {
             testEl.addEventListener('focusExit', done);
 
             // excecute
-            testEl.querySelector('button').focus();
-            testElSibling.querySelector('button').focus();
+            window.setTimeout(() => testEl.querySelector('button').focus(), timeoutInterval);
+            window.setTimeout(() => testElSibling.querySelector('button').focus(), timeoutInterval);
         });
 
         it('should NOT trigger when focus moves from element root to element descendant', function(done) {

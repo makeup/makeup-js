@@ -38,6 +38,7 @@
         "makeup-exit-emitter": "latest",
         "makeup-expander": "latest",
         "makeup-focusables": "latest",
+        "makeup-key-emitter": "latest",
         "makeup-next-id": "latest",
         "mkdirp": "^1",
         "nodelist-foreach-polyfill": "^1",

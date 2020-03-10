@@ -1,3 +1,5 @@
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
+
 var Expander = require('../src/index.js');
 
 var containerEl = document.createElement('div');
@@ -15,10 +17,10 @@ var widget;
 widgetEl.addEventListener('expander-expand', onExpand);
 widgetEl.addEventListener('expander-collapse', onCollapse);
 
-document.body.appendChild(containerEl);
-
 describe('given a widget with default options', function() {
     beforeAll(function() {
+        document.body.innerHTML = '';
+        document.body.appendChild(containerEl);
         widget = new Expander(widgetEl);
     });
 
@@ -98,6 +100,8 @@ describe('given a widget with default options', function() {
 
 describe('given a widget with expandOnClick=true', function() {
     beforeAll(function() {
+        document.body.innerHTML = '';
+        document.body.appendChild(containerEl);
         widget = new Expander(widgetEl, { expandOnClick: true });
         widget.expanded = false;
         onExpand.calls.reset();
@@ -229,6 +233,8 @@ describe('given a widget with expandOnClick=true', function() {
 
 describe('given a widget with expandOnFocus=true', function() {
     beforeAll(function() {
+        document.body.innerHTML = '';
+        document.body.appendChild(containerEl);
         widget = new Expander(widgetEl, { expandOnFocus: true });
         widget.expanded = false;
         onExpand.calls.reset();
@@ -351,6 +357,8 @@ describe('given a widget with expandOnFocus=true', function() {
 
 describe('given a widget with expandOnHover=true', function() {
     beforeAll(function() {
+        document.body.innerHTML = '';
+        document.body.appendChild(containerEl);
         widget = new Expander(widgetEl, { expandOnHover: true });
         widget.expanded = false;
         onExpand.calls.reset();
@@ -471,6 +479,8 @@ describe('given a widget with expandOnHover=true', function() {
 
 describe('given a widget with expandedClass=foo', function() {
     beforeAll(function() {
+        document.body.innerHTML = '';
+        document.body.appendChild(containerEl);
         widget = new Expander(widgetEl, { expandedClass: 'foo--expanded' });
     });
 

@@ -1,6 +1,7 @@
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
+
 describe('makeup-focus-exit-emitter', function() {
     var ExitEmitter = require('../src/index.js');
-
     var timeoutInterval = 50;
     var dom = '<div id="test-element" tabindex="0"><button></button><button></button></div>'
             + '<div id="test-element-sibling" tabindex="0"><button></button><button></button></div>';
@@ -8,10 +9,8 @@ describe('makeup-focus-exit-emitter', function() {
         onFocusExit: function() {}
     };
 
-    document.body.innerHTML = dom;
-
-    var testEl = document.querySelector('#test-element');
-    var testElSibling = document.querySelector('#test-element-sibling');
+    var testEl;
+    var testElSibling;
 
     describe('when emitter class is imported', function() {
         it('FocusExitEmitter module should not be undefined', function() {
@@ -21,6 +20,9 @@ describe('makeup-focus-exit-emitter', function() {
 
     describe('when emitter is added', function() {
         beforeAll(function() {
+            document.body.innerHTML = dom;
+            testEl = document.querySelector('#test-element');
+            testElSibling = document.querySelector('#test-element-sibling');
             ExitEmitter.addFocusExit(testEl);
         });
 

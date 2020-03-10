@@ -1,0 +1,27 @@
+{
+  "name": "makeup-prevent-scroll-keys",
+  "description": "Prevents default scroll event when pressing down arrow, page down, spacebar, etc.",
+  "version": "0.0.3",
+  "main": "index.js",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-prevent-scroll-keys",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "babel src/index.js --out-file index.js",
+    "clean": "rimraf *.log .DS_Store"
+  },
+  "keywords": [
+    "makeup",
+    "ebay",
+    "accessibility",
+    "a11y"
+  ],
+  "files": [
+    "browser.json",
+    "index.js",
+    "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

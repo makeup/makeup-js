@@ -19,7 +19,8 @@ module.exports = function (config) {
             'packages/makeup-expander/test/index.js',
             'packages/makeup-focusables/test/index.js',
             'packages/makeup-key-emitter/test/index.js',
-            'packages/makeup-next-id/test/index.js'
+            'packages/makeup-next-id/test/index.js',
+            'packages/makeup-prevent-scroll-keys/test/index.js'
         ],
 
         preprocessors: {
@@ -27,7 +28,8 @@ module.exports = function (config) {
             'packages/makeup-expander/test/index.js': 'webpack',
             'packages/makeup-focusables/test/index.js': 'webpack',
             'packages/makeup-key-emitter/test/index.js': 'webpack',
-            'packages/makeup-next-id/test/index.js': 'webpack'
+            'packages/makeup-next-id/test/index.js': 'webpack',
+            'packages/makeup-prevent-scroll-keys/test/index.js': 'webpack'
         },
 
         webpack: {
@@ -59,6 +61,11 @@ module.exports = function (config) {
                         test: /\.js$/,
                         use: { loader: 'istanbul-instrumenter-loader' },
                         include: path.resolve('packages/makeup-next-id/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader' },
+                        include: path.resolve('packages/makeup-prevent-scroll-keys/src')
                     }
                 ]
             }

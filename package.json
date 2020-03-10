@@ -40,6 +40,7 @@
         "makeup-focusables": "latest",
         "makeup-key-emitter": "latest",
         "makeup-next-id": "latest",
+        "makeup-prevent-scroll-keys": "latest",
         "mkdirp": "^1",
         "nodelist-foreach-polyfill": "^1",
         "onchange": "^6",

@@ -1,0 +1,33 @@
+{
+  "name": "makeup-expander",
+  "description": "Creates the basic interactivity for an element that expands and collapses another element.",
+  "version": "0.8.4",
+  "main": "index.js",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-expander",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "babel src/index.js --out-file index.js",
+    "clean": "rimraf *.log .DS_Store"
+  },
+  "keywords": [
+    "makeup",
+    "ebay",
+    "accessibility",
+    "a11y"
+  ],
+  "dependencies": {
+    "custom-event": "^1",
+    "makeup-exit-emitter": "latest",
+    "makeup-focusables": "latest",
+    "makeup-next-id": "latest"
+  },
+  "files": [
+    "browser.json",
+    "index.js",
+    "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

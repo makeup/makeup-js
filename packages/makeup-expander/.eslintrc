@@ -1,0 +1,9 @@
+{
+  "extends": "ebay",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true
+  }
+}

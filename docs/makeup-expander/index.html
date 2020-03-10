@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>makeup-expander demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="icon" href="data:,">
+        <style>
+            .flyout {
+                position: relative;
+            }
+            span.expander {
+                display: inline-block;
+            }
+            .expander__content {
+                background-color: LightYellow;
+                border: 1px solid #eee;
+                display: none;
+                padding: 1rem;
+            }
+            .flyout__content {
+                left: 0;
+                position: absolute;
+                white-space: nowrap;
+                z-index: 1;
+            }
+            .expander__host[aria-expanded=true] ~ .expander__content,
+            .expander__host[aria-expanded=true] ~ .expander  .expander__content,
+            .expander__host-container--expanded .expander__content {
+                display: block;
+            }
+            .clipped {
+                border: 0;
+                clip: rect(1px 1px 1px 1px);
+                clip: rect(1px, 1px, 1px, 1px);
+                height: 1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                white-space: nowrap;
+                width: 1px;
+            }
+
+            .clipped--stealth:focus {
+                clip: auto;
+                height: auto;
+                overflow: visible;
+                width: auto;
+                white-space: normal;
+                background-color: #eee;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 1em;
+                padding: 2px 4px;
+                white-space: nowrap;
+                z-index: 2;
+            }
+            .expander__icon {
+                background-color: #006699;
+                border-radius: 1px;
+                display: block;
+                height: 20px;
+                pointer-events: none;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 20px;
+            }
+            input[readonly]:focus {
+                border-style: dotted;
+            }
+        </style>
+    </head>
+    <body>
+        <main role="main">
+            <h1>makeup-expander demo</h1>
+
+            <h2>Auto Collapse Off</h2>
+
+            <div class="expander expander--click-only">
+                <button class="expander__host">Click for Details</button>
+                <div class="expander__content">
+                    <p>Any kind of HTML control can go inside...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </div>
+
+            <hr />
+
+            <h2>Auto Collapse On</h2>
+
+            <span class="expander expander--click-only flyout">
+                <button class="expander__host flyout__host">Click for Flyout</button>
+                <div class="expander__content flyout__content">
+                    <p>Any kind of HTML control can go inside...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </span>
+
+            <span class="expander expander--focus-only flyout">
+                <input class="expander__host flyout__host" placeholder="Focus for flyout"/>
+                <div class="expander__content flyout__content">
+                    <p>Any kind of HTML control can go inside...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </span>
+
+            <span class="expander expander--focus-and-hover flyout">
+                <input class="expander__host flyout__host" placeholder="Focus or hover for flyout"/>
+                <div class="expander__content flyout__content">
+                    <p>Any kind of HTML control can go inside...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </span>
+
+            <span class="expander expander--hover-only flyout">
+                <a class="expander__host flyout__host" href="http://www.ebay.com">Hover for Flyout</a>
+                <div class="expander expander--stealth-only flyout">
+                    <button class="expander__host flyout__host clipped clipped--stealth">Expand Flyout</button>
+                    <div class="expander__content flyout__content">
+                        <p tabindex="-1">Any kind of HTML control can go inside...</p>
+                        <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                        <p>A button: <button>Click Me</button></p>
+                        <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                        <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                    </div>
+                </div>
+            </span>
+
+            <span class="expander expander--click-and-spacebar flyout">
+                <span style="position:relative">
+                    <input class="expander__host flyout__host" placeholder="Click input container for flyout" readonly size="25" type="text"/>
+                    <span class="expander__icon"></span>
+                </span>
+                <div class="expander__content flyout__content">
+                    <p>Any kind of HTML control can go inside...</p>
+                    <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
+                    <p>A button: <button>Click Me</button></p>
+                    <p>An input: <input type="text" aria-label="Dummy textbox"></p>
+                    <p>A checkbox: <input type="checkbox" aria-label="Dummy checkbox"></p>
+                </div>
+            </span>
+        </main>
+        <script src="index.min.js"></script>
+    </body>
+</html>

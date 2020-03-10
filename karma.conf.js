@@ -16,12 +16,14 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             'packages/makeup-exit-emitter/test/index.js',
+            'packages/makeup-expander/test/index.js',
             'packages/makeup-focusables/test/index.js',
             'packages/makeup-next-id/test/index.js'
         ],
 
         preprocessors: {
             'packages/makeup-exit-emitter/test/index.js': 'webpack',
+            'packages/makeup-expander/test/index.js': 'webpack',
             'packages/makeup-focusables/test/index.js': 'webpack',
             'packages/makeup-next-id/test/index.js': 'webpack'
         },
@@ -35,6 +37,11 @@ module.exports = function (config) {
                         test: /\.js$/,
                         use: { loader: 'istanbul-instrumenter-loader' },
                         include: path.resolve('packages/makeup-exit-emitter/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader' },
+                        include: path.resolve('packages/makeup-expander/src')
                     },
                     {
                         test: /\.js$/,

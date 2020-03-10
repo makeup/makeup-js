@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         'makeup-exit-emitter': './docs/makeup-exit-emitter/index.compiled.js',
         'makeup-expander': './docs/makeup-expander/index.compiled.js',
+        'makeup-floating-label': './docs/makeup-floating-label/index.compiled.js',
         'makeup-focusables': './docs/makeup-focusables/index.compiled.js',
         'makeup-key-emitter': './docs/makeup-key-emitter/index.compiled.js',
         'makeup-next-id': './docs/makeup-next-id/index.compiled.js',

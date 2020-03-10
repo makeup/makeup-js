@@ -37,6 +37,7 @@
         "lerna": "^3",
         "makeup-exit-emitter": "latest",
         "makeup-expander": "latest",
+        "makeup-floating-label": "latest",
         "makeup-focusables": "latest",
         "makeup-key-emitter": "latest",
         "makeup-next-id": "latest",

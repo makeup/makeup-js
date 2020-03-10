@@ -17,6 +17,7 @@ module.exports = function (config) {
         files: [
             'packages/makeup-exit-emitter/test/index.js',
             'packages/makeup-expander/test/index.js',
+            'packages/makeup-floating-label/test/index.js',
             'packages/makeup-focusables/test/index.js',
             'packages/makeup-key-emitter/test/index.js',
             'packages/makeup-next-id/test/index.js',
@@ -26,6 +27,7 @@ module.exports = function (config) {
         preprocessors: {
             'packages/makeup-exit-emitter/test/index.js': 'webpack',
             'packages/makeup-expander/test/index.js': 'webpack',
+            'packages/makeup-floating-label/test/index.js': 'webpack',
             'packages/makeup-focusables/test/index.js': 'webpack',
             'packages/makeup-key-emitter/test/index.js': 'webpack',
             'packages/makeup-next-id/test/index.js': 'webpack',
@@ -46,6 +48,11 @@ module.exports = function (config) {
                         test: /\.js$/,
                         use: { loader: 'istanbul-instrumenter-loader' },
                         include: path.resolve('packages/makeup-expander/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader' },
+                        include: path.resolve('packages/makeup-floating-label/src')
                     },
                     {
                         test: /\.js$/,

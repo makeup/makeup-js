@@ -1,7 +1,7 @@
 {
   "name": "makeup-keyboard-trap",
   "description": "Restricts keyboard tabindex to a single subtree in the DOM",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-keyboard-trap",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",

@@ -8,6 +8,7 @@ module.exports = {
         'makeup-floating-label': './docs/makeup-floating-label/index.compiled.js',
         'makeup-focusables': './docs/makeup-focusables/index.compiled.js',
         'makeup-key-emitter': './docs/makeup-key-emitter/index.compiled.js',
+        'makeup-keyboard-trap': './docs/makeup-keyboard-trap/index.compiled.js',
         'makeup-next-id': './docs/makeup-next-id/index.compiled.js',
         'makeup-prevent-scroll-keys': './docs/makeup-prevent-scroll-keys/index.compiled.js',
     },

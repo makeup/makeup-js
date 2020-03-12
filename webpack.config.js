@@ -11,6 +11,7 @@ module.exports = {
         'makeup-keyboard-trap': './docs/makeup-keyboard-trap/index.compiled.js',
         'makeup-next-id': './docs/makeup-next-id/index.compiled.js',
         'makeup-prevent-scroll-keys': './docs/makeup-prevent-scroll-keys/index.compiled.js',
+        'makeup-screenreader-trap': './docs/makeup-screenreader-trap/index.compiled.js',
     },
     mode: 'production',
     optimization: {

@@ -43,6 +43,7 @@
         "makeup-keyboard-trap": "latest",
         "makeup-next-id": "latest",
         "makeup-prevent-scroll-keys": "latest",
+        "makeup-screenreader-trap": "latest",
         "mkdirp": "^1",
         "nodelist-foreach-polyfill": "^1",
         "onchange": "^6",

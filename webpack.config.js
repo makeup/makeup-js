@@ -10,6 +10,7 @@ module.exports = {
         'makeup-key-emitter': './docs/makeup-key-emitter/index.compiled.js',
         'makeup-keyboard-trap': './docs/makeup-keyboard-trap/index.compiled.js',
         'makeup-modal': './docs/makeup-modal/index.compiled.js',
+        'makeup-navigation-emitter': './docs/makeup-navigation-emitter/index.compiled.js',
         'makeup-next-id': './docs/makeup-next-id/index.compiled.js',
         'makeup-prevent-scroll-keys': './docs/makeup-prevent-scroll-keys/index.compiled.js',
         'makeup-screenreader-trap': './docs/makeup-screenreader-trap/index.compiled.js',

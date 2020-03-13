@@ -42,6 +42,7 @@
         "makeup-key-emitter": "~0.1.3",
         "makeup-keyboard-trap": "~0.2.3",
         "makeup-modal": "~0.1.2",
+        "makeup-navigation-emitter": "~0.3.5",
         "makeup-next-id": "~0.1.3",
         "makeup-prevent-scroll-keys": "~0.0.4",
         "makeup-screenreader-trap": "~0.1.4",

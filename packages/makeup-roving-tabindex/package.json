@@ -1,7 +1,7 @@
 {
   "name": "makeup-roving-tabindex",
   "description": "Implements a roving tab index on given collection of elements",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "main": "index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-roving-tabindex",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",

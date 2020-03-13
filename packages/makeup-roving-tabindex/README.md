@@ -1,15 +1,6 @@
 # makeup-roving-tabindex
 
-<p>
-    <a href="https://travis-ci.org/makeup-js/makeup-roving-tabindex"><img src="https://api.travis-ci.org/makeup-js/makeup-roving-tabindex.svg?branch=master" alt="Build Status" /></a>
-    <a href='https://coveralls.io/github/makeup-js/makeup-roving-tabindex?branch=master'><img src='https://coveralls.io/repos/makeup-js/makeup-roving-tabindex/badge.svg?branch=master&service=github' alt='Coverage Status' /></a>
-    <a href="https://david-dm.org/makeup-js/makeup-roving-tabindex"><img src="https://david-dm.org/makeup-js/makeup-roving-tabindex.svg" alt="Dependency status" /></a>
-    <a href="https://david-dm.org/makeup-js/makeup-roving-tabindex#info=devDependencies"><img src="https://david-dm.org/makeup-js/makeup-roving-tabindex/dev-status.svg" alt="devDependency status" /></a>
-</p>
-
 Implements a roving tab index on given collection of elements
-
-A vanilla JavaScript port of <a href="https://github.com/ianmcburnie/jquery-roving-tabindex">jquery-roving-tabindex</a>.
 
 ## Experimental
 
@@ -94,14 +85,6 @@ Markup after:
 
 ## Dependencies
 
-* [makeup-navigation-emitter](https://github.com/makeup-js/makeup-navigation-emitter)
-* [custom-event-polyfill](https://github.com/krambuhl/custom-event-polyfill) (for IE)
-* [nodelist-foreach-polyfill](https://github.com/imagitama/nodelist-foreach-polyfill) (for IE)
-
-## CI Build
-
-https://travis-ci.org/makeup-js/makeup-roving-tabindex
-
-## Code Coverage
-
-https://coveralls.io/github/makeup-js/makeup-roving-tabindex
+* [makeup-navigation-emitter](https://github.com/makeup/makeup-js/tree/master/packages/makeup-navigation-emitter)
+* [custom-event-polyfill](https://github.com/krambuhl/custom-event-polyfill) (for IE11)
+* [nodelist-foreach-polyfill](https://github.com/imagitama/nodelist-foreach-polyfill) (for IE11)

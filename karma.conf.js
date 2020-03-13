@@ -26,6 +26,7 @@ module.exports = function (config) {
             'packages/makeup-navigation-emitter/test/index.js',
             'packages/makeup-next-id/test/index.js',
             'packages/makeup-prevent-scroll-keys/test/index.js',
+            'packages/makeup-roving-tabindex/test/index.js',
             'packages/makeup-screenreader-trap/test/index.js'
         ],
 
@@ -41,6 +42,7 @@ module.exports = function (config) {
             'packages/makeup-navigation-emitter/test/index.js': 'webpack',
             'packages/makeup-next-id/test/index.js': 'webpack',
             'packages/makeup-prevent-scroll-keys/test/index.js': 'webpack',
+            'packages/makeup-roving-tabindex/test/index.js': 'webpack',
             'packages/makeup-screenreader-trap/test/index.js': 'webpack',
         },
 
@@ -103,6 +105,11 @@ module.exports = function (config) {
                         test: /\.js$/,
                         use: { loader: 'istanbul-instrumenter-loader' },
                         include: path.resolve('packages/makeup-prevent-scroll-keys/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader' },
+                        include: path.resolve('packages/makeup-roving-tabindex/src')
                     },
                     {
                         test: /\.js$/,

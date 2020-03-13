@@ -14,6 +14,7 @@ module.exports = {
         'makeup-navigation-emitter': './docs/makeup-navigation-emitter/index.compiled.js',
         'makeup-next-id': './docs/makeup-next-id/index.compiled.js',
         'makeup-prevent-scroll-keys': './docs/makeup-prevent-scroll-keys/index.compiled.js',
+        'makeup-roving-tabindex': './docs/makeup-roving-tabindex/index.compiled.js',
         'makeup-screenreader-trap': './docs/makeup-screenreader-trap/index.compiled.js',
     },
     mode: 'production',

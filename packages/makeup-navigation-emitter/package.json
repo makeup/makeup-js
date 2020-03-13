@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "custom-event": "^1",
-    "makeup-exit-emitter": "~0.2.4",
+    "makeup-exit-emitter": "~0.2.6",
     "makeup-key-emitter": "~0.1.2",
     "nodelist-foreach-polyfill": "^1"
   },

@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
     devtool: 'source-map',
     entry: {
+        'makeup-active-descendant': './docs/makeup-active-descendant/index.compiled.js',
         'makeup-exit-emitter': './docs/makeup-exit-emitter/index.compiled.js',
         'makeup-expander': './docs/makeup-expander/index.compiled.js',
         'makeup-floating-label': './docs/makeup-floating-label/index.compiled.js',

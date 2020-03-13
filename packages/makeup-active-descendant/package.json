@@ -1,0 +1,32 @@
+{
+  "name": "makeup-active-descendant",
+  "description": "Implements ARIA active descendant keyboard navigation",
+  "version": "0.3.7",
+  "main": "index.js",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-active-descendant",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "babel src/index.js --out-file index.js",
+    "clean": "rimraf *.log .DS_Store"
+  },
+  "keywords": [
+    "makeup",
+    "ebay",
+    "accessibility",
+    "a11y"
+  ],
+  "dependencies": {
+    "custom-event": "^1",
+    "makeup-navigation-emitter": "~0.3.7",
+    "nodelist-foreach-polyfill": "^1"
+  },
+  "files": [
+    "browser.json",
+    "index.js",
+    "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

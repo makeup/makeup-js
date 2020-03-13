@@ -15,6 +15,7 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
+            'packages/makeup-active-descendant/test/index.js',
             'packages/makeup-exit-emitter/test/index.js',
             'packages/makeup-expander/test/index.js',
             'packages/makeup-floating-label/test/index.js',
@@ -29,6 +30,7 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
+            'packages/makeup-active-descendant/test/index.js': 'webpack',
             'packages/makeup-exit-emitter/test/index.js': 'webpack',
             'packages/makeup-expander/test/index.js': 'webpack',
             'packages/makeup-floating-label/test/index.js': 'webpack',
@@ -47,6 +49,11 @@ module.exports = function (config) {
             module: {
                 rules: [
                     // instrument only testing sources with Istanbul
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader' },
+                        include: path.resolve('packages/makeup-active-descendant/src')
+                    },
                     {
                         test: /\.js$/,
                         use: { loader: 'istanbul-instrumenter-loader' },

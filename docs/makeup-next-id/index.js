@@ -1,4 +1,4 @@
-const nextId = require('makeup-next-id');
+const nextId = require('../../packages/makeup-next-id');
 const listEl = document.getElementById('list');
 const testForm = document.getElementById('testForm');
 const inputEl = document.getElementById('prefix');

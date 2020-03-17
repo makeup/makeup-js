@@ -1,7 +1,7 @@
 // requires NodeList.forEach polyfill for IE
 require('nodelist-foreach-polyfill');
 
-const ActiveDescendant = require('makeup-active-descendant');
+const ActiveDescendant = require('../../packages/makeup-active-descendant');
 
 const navs = [];
 const appender = document.getElementById('appender');

@@ -4,7 +4,7 @@ if (typeof window !== 'undefined') {
     require('nodelist-foreach-polyfill');
 }
 
-const ExitEmitter = require('makeup-exit-emitter');
+const ExitEmitter = require('../../packages/makeup-exit-emitter');
 
 document.querySelectorAll('.widget').forEach((el) => {
     ExitEmitter.addFocusExit(el);

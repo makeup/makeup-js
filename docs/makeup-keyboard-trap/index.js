@@ -1,7 +1,7 @@
 // NodeList.forEach polyfill for IE
 require('nodelist-foreach-polyfill');
 
-const keyboardTrap = require('makeup-keyboard-trap');
+const keyboardTrap = require('../../packages/makeup-keyboard-trap');
 
 const trap = document.getElementById('trap');
 const btn = document.querySelector('button');

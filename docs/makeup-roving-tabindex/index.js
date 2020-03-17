@@ -1,7 +1,7 @@
 // requires NodeList.forEach polyfill for IE
 require('nodelist-foreach-polyfill');
 
-const RovingTabindex = require('makeup-roving-tabindex');
+const RovingTabindex = require('../../packages/makeup-roving-tabindex');
 
 const rovers = [];
 const appender = document.getElementById('appender');

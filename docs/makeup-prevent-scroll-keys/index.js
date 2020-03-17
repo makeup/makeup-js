@@ -1,4 +1,4 @@
-const scrollKeysPreventer = require('makeup-prevent-scroll-keys');
+const scrollKeysPreventer = require('../../packages/makeup-prevent-scroll-keys');
 const widgetEl = document.querySelector('.widget');
 
 scrollKeysPreventer.add(widgetEl);

@@ -1,4 +1,4 @@
-const focusable = require('makeup-focusables');
+const focusable = require('../../packages/makeup-focusables');
 
 const listEl = document.getElementById('list');
 const appender1 = document.getElementById('appender1');

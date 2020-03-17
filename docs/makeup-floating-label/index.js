@@ -1,7 +1,7 @@
 require('nodelist-foreach-polyfill');
 
 document.addEventListener('DOMContentLoaded', function() {
-    const FloatingLabel = require('makeup-floating-label');
+    const FloatingLabel = require('../../packages/makeup-floating-label');
 
     const widgetEls = document.querySelectorAll('.floating-label');
     const autofillBtn = document.getElementById('autofill');

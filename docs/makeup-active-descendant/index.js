@@ -25,7 +25,7 @@ widgetEls.forEach(function(el) {
     });
 
     const options = {
-        useAriaSelected: false
+        ignoreButtons: true
     };
 
     if (el.dataset.makeupInit !== undefined) {

@@ -18,7 +18,8 @@ const defaultOptions = {
     autoInit: -1,
     autoReset: -1,
     autoScroll: false,
-    axis: 'both'
+    axis: 'both',
+    ignoreButtons: false
 };
 
 function onModelMutation() {
@@ -105,7 +106,8 @@ class LinearActiveDescendant extends ActiveDescendant {
         this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
             autoInit: this._options.autoInit,
             autoReset: this._options.autoReset,
-            axis: this._options.axis
+            axis: this._options.axis,
+            ignoreButtons: this._options.ignoreButtons
         });
 
         this._focusEl = focusEl;

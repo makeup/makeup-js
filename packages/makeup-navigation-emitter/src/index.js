@@ -18,6 +18,7 @@ const defaultOptions = {
     axis: 'both',
     autoInit: 0,
     autoReset: null,
+    ignoreButtons: false,
     wrap: false
 };
 
@@ -31,19 +32,27 @@ function setData(els) {
     els.forEach((el, index) => el.setAttribute(dataSetKey, index));
 }
 
-function onKeyPrev() {
-    if (!this.atStart()) {
-        this.index--;
-    } else if (this.options.wrap) {
-        this.index = (this.filteredItems.length - 1);
+function isButton(el) {
+    return el.tagName.toLowerCase() === 'button' || el.type === 'button';
+}
+
+function onKeyPrev(e) {
+    if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
+        if (!this.atStart()) {
+            this.index--;
+        } else if (this.options.wrap) {
+            this.index = (this.filteredItems.length - 1);
+        }
     }
 }
 
-function onKeyNext() {
-    if (!this.atEnd()) {
-        this.index++;
-    } else if (this.options.wrap) {
-        this.index = 0;
+function onKeyNext(e) {
+    if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
+        if (!this.atEnd()) {
+            this.index++;
+        } else if (this.options.wrap) {
+            this.index = 0;
+        }
     }
 }
 
@@ -62,12 +71,16 @@ function onClick(e) {
     }
 }
 
-function onKeyHome() {
-    this.index = 0;
+function onKeyHome(e) {
+    if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
+        this.index = 0;
+    }
 }
 
-function onKeyEnd() {
-    this.index = this.filteredItems.length;
+function onKeyEnd(e) {
+    if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
+        this.index = this.filteredItems.length;
+    }
 }
 
 function onFocusExit() {

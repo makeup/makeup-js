@@ -106,8 +106,9 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 
 * `autoInit`: specify an integer or -1 for initial index (default: 0)
 * `autoReset`: specify an integer or -1 for index position when focus exits widget (default: null)
-* `wrap` : specify whether arrow keys should wrap/loop (default: false)
 * `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
+* `ignoreButtons`: if set to true, nested button elements will not trigger navigationModelChange events. This is useful in a combobox + button scenario, where only the textbox should trigger navigationModelChange events (default: false)
+* `wrap` : specify whether arrow keys should wrap/loop (default: false)
 
 ## Methods
 

@@ -62,6 +62,7 @@ function onHostFocus() {
 }
 
 function onHostHover() {
+  clearTimeout(this._mouseLeft);
   this._expandWasHoverActivated = true;
   this.expanded = true;
 }
@@ -70,8 +71,13 @@ function onFocusExit() {
   this.expanded = false;
 }
 
-function onMouseLeave() {
-  this.expanded = false;
+function onMouseLeave(e) {
+  var _this = this;
+
+  clearTimeout(this._mouseLeft);
+  this._mouseLeft = setTimeout(function () {
+    _this.expanded = false;
+  }, 300);
 }
 
 function _onDocumentClick() {
@@ -255,12 +261,14 @@ module.exports = /*#__PURE__*/function () {
     set: function set(bool) {
       if (bool === true) {
         this.hostEl.addEventListener('mouseenter', this._hostHoverListener);
+        this.contentEl.addEventListener('mouseenter', this._hostHoverListener);
 
         if (this.options.autoCollapse === true) {
           this.collapseOnMouseOut = true;
         }
       } else {
         this.hostEl.removeEventListener('mouseenter', this._hostHoverListener);
+        this.contentEl.removeEventListener('mouseenter', this._hostHoverListener);
       }
     }
   }, {
@@ -292,8 +300,10 @@ module.exports = /*#__PURE__*/function () {
     set: function set(bool) {
       if (bool === true) {
         this.el.addEventListener('mouseleave', this._mouseLeaveListener);
+        this.contentEl.addEventListener('mouseleave', this._mouseLeaveListener);
       } else {
         this.el.removeEventListener('mouseleave', this._mouseLeaveListener);
+        this.contentEl.removeEventListener('mouseleave', this._mouseLeaveListener);
       }
     }
   }, {

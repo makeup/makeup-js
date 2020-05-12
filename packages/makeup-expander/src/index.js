@@ -61,7 +61,7 @@ function onFocusExit() {
     this.expanded = false;
 }
 
-function onMouseLeave(e) {
+function onMouseLeave() {
     clearTimeout(this._mouseLeft);
     this._mouseLeft = setTimeout(() => {
         this.expanded = false;

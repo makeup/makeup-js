@@ -80,8 +80,8 @@ function onMouseLeave() {
   }, 300);
 }
 
-function _onDocumentClick() {
-  if (this.el.contains(event.target) === false) {
+function _onDocumentClick(e) {
+  if (this.el.contains(e.target) === false) {
     this.expanded = false;
   }
 }
@@ -94,11 +94,11 @@ function _onDocumentTouchMove() {
   this.documentClick = false;
 }
 
-function _onDocumentTouchEnd() {
+function _onDocumentTouchEnd(e) {
   if (this.documentClick === true) {
     this.documentClick = false;
 
-    if (this.el.contains(event.target) === false) {
+    if (this.el.contains(e.target) === false) {
       this.expanded = false;
     }
   }

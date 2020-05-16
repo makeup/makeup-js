@@ -1,7 +1,7 @@
 {
   "name": "makeup-expander",
   "description": "Creates the basic interactivity for an element that expands and collapses another element.",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "main": "index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-expander",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",

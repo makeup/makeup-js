@@ -15,8 +15,24 @@ const focusableElList = [
 ];
 
 const focusableElSelector = focusableElList.join();
+let request;
 
-module.exports = function(el, keyboardOnly = false) {
+module.exports = function(el, keyboardOnly = false, callback) {
+    if (callback) {
+        cancelAnimationFrame(request);
+        request = requestAnimationFrame(() => {
+            callback(getFocusables(el, keyboardOnly));
+        });
+    } else {
+        return getFocusables(el, keyboardOnly);
+    }
+};
+
+module.exports.cancelRequest = function() {
+    cancelAnimationFrame(request);
+};
+
+function getFocusables(el, keyboardOnly = false) {
     let focusableEls = Array.prototype.slice.call(el.querySelectorAll(focusableElSelector));
 
     // filter out elements with display: none
@@ -31,4 +47,4 @@ module.exports = function(el, keyboardOnly = false) {
     }
 
     return focusableEls;
-};
+}

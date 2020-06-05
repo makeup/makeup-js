@@ -51,8 +51,9 @@ console.log(keyboardItems.length) // outputs: 2
 
 * `el`: the element to search (default: undefined)
 * `keyboardOnly`: return only elements focusable in sequential keyboard navigation (default: false)
+* `callback`: if set, will call focusables after `requestAnimationFrame` and will pass the list of focusables in a callback method
 
-## Custom Events        
+## Custom Events
 
 * None
 

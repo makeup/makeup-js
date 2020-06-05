@@ -2,24 +2,18 @@
 
 var focusableElList = ['a[href]', 'area[href]', 'button:not([disabled])', 'embed', 'iframe', 'input:not([disabled])', 'object', 'select:not([disabled])', 'textarea:not([disabled])', '*[tabindex]', '*[contenteditable]'];
 var focusableElSelector = focusableElList.join();
-var request;
 
 module.exports = function (el) {
   var keyboardOnly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   var callback = arguments.length > 2 ? arguments[2] : undefined;
 
   if (callback) {
-    cancelAnimationFrame(request);
-    request = requestAnimationFrame(function () {
+    return requestAnimationFrame(function () {
       callback(getFocusables(el, keyboardOnly));
     });
-  } else {
-    return getFocusables(el, keyboardOnly);
   }
-};
 
-module.exports.cancelRequest = function () {
-  cancelAnimationFrame(request);
+  return getFocusables(el, keyboardOnly);
 };
 
 function getFocusables(el) {

@@ -18,9 +18,12 @@ const focusableElSelector = focusableElList.join();
 
 module.exports = function(el, keyboardOnly = false, callback) {
     if (callback) {
-        return requestAnimationFrame(() => {
+        const request = requestAnimationFrame(() => {
             callback(getFocusables(el, keyboardOnly));
         });
+        return () => {
+            cancelAnimationFrame(request);
+        };
     }
     return getFocusables(el, keyboardOnly);
 };

@@ -8,9 +8,12 @@ module.exports = function (el) {
   var callback = arguments.length > 2 ? arguments[2] : undefined;
 
   if (callback) {
-    return requestAnimationFrame(function () {
+    var request = requestAnimationFrame(function () {
       callback(getFocusables(el, keyboardOnly));
     });
+    return function () {
+      cancelAnimationFrame(request);
+    };
   }
 
   return getFocusables(el, keyboardOnly);

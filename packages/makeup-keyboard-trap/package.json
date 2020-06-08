@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "custom-event": "^1",
-    "makeup-focusables": "~0.0.5"
+    "makeup-focusables": "~0.1.0"
   },
   "files": [
     "browser.json",

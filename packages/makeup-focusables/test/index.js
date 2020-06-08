@@ -113,4 +113,17 @@ describe('makeup-focusables', function() {
             expect(focusableEls.length).toBe(0);
         });
     });
+
+    describe('when it has a callback, should request animation frame and trigger callback', function() {
+        beforeAll(function() {
+            body.innerHTML = '<div tabindex="1"></div><div></div><div tabindex="2"></div>';
+        });
+
+        it('should return all elements in callback', function(done) {
+            focusable(body, false, (focusableEl) => {
+                expect(focusableEl.length).toBe(2);
+                done();
+            });
+        });
+    });
 });

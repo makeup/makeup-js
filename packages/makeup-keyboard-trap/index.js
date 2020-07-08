@@ -23,6 +23,7 @@ var lastFocusableElement;
 
 function createTrapBoundary() {
   var trapBoundary = document.createElement('div');
+  trapBoundary.setAttribute('aria-hidden', 'true');
   trapBoundary.setAttribute('tabindex', '0');
   trapBoundary.className = 'keyboard-trap-boundary';
   return trapBoundary;

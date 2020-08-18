@@ -12,33 +12,69 @@ let mainEl;
 // the element that will be trapped
 let trappedEl;
 
-// collection of elements that get 'dirtied' with aria-hidden attr
+// collection of elements that get 'dirtied' with aria-hidden attr or hidden prop
 let dirtyObjects;
 
-function prepareAttribute(el, dirtyValue) {
+function showElementPrep(el, useHiddenProperty) {
+    let preparedElement;
+
+    if (useHiddenProperty === false) {
+        preparedElement = prepareElement(el, 'aria-hidden', 'false');
+    } else {
+        preparedElement = prepareElement(el, 'hidden', false);
+    }
+
+    return preparedElement;
+}
+
+function hideElementPrep(el, useHiddenProperty) {
+    let preparedElement;
+
+    if (useHiddenProperty === false) {
+        preparedElement = prepareElement(el, 'aria-hidden', 'true');
+    } else {
+        preparedElement = prepareElement(el, 'hidden', true);
+    }
+
+    return preparedElement;
+}
+
+function prepareElement(el, attributeName, dirtyValue) {
+    const isProperty = typeof dirtyValue === 'boolean';
+
     return {
         el,
-        cleanValue: el.getAttribute('aria-hidden'),
-        dirtyValue
+        attributeName,
+        cleanValue: isProperty ? el[attributeName] : el.getAttribute(attributeName),
+        dirtyValue,
+        isProperty
     };
 }
 
-function dirtyAttribute(preparedObj) {
-    preparedObj.el.setAttribute('aria-hidden', preparedObj.dirtyValue);
+function dirtyElement(preparedObj) {
+    if (preparedObj.isProperty === true) {
+        preparedObj.el[preparedObj.attributeName] = preparedObj.dirtyValue;
+    } else {
+        preparedObj.el.setAttribute(preparedObj.attributeName, preparedObj.dirtyValue);
+    }
 }
 
-function cleanAttribute(preparedObj) {
+function cleanElement(preparedObj) {
     if (preparedObj.cleanValue) {
-        preparedObj.el.setAttribute('aria-hidden', preparedObj.cleanValue);
+        if (preparedObj.isProperty === true) {
+            preparedObj.el[preparedObj.attributeName] = preparedObj.cleanValue;
+        } else {
+            preparedObj.el.setAttribute(preparedObj.attributeName, preparedObj.cleanValue);
+        }
     } else {
-        preparedObj.el.removeAttribute('aria-hidden');
+        preparedObj.el.removeAttribute(preparedObj.attributeName);
     }
 }
 
 function untrap() {
     if (trappedEl) {
-    // restore 'dirtied' elements to their original state
-        dirtyObjects.forEach(item => cleanAttribute(item));
+        // restore 'dirtied' elements to their original state
+        dirtyObjects.forEach(item => cleanElement(item));
 
         dirtyObjects = [];
 
@@ -54,9 +90,15 @@ function untrap() {
     }
 }
 
-function trap(el) {
+const defaultOptions = {
+    useHiddenProperty: false
+};
+
+function trap(el, selectedOptions) {
     // ensure current trap is deactivated
     untrap();
+
+    const options = Object.assign({}, defaultOptions, selectedOptions);
 
     // update the trapped el reference
     trappedEl = el;
@@ -75,13 +117,13 @@ function trap(el) {
     const siblingsOfAncestors = util.getSiblingsOfAncestors(trappedEl);
 
     // prepare elements
-    dirtyObjects = [prepareAttribute(trappedEl, 'false')]
-        .concat(ancestors.map(item => prepareAttribute(item, 'false')))
-        .concat(siblings.map(item => prepareAttribute(item, 'true')))
-        .concat(siblingsOfAncestors.map(item => prepareAttribute(item, 'true')));
+    dirtyObjects = [showElementPrep(trappedEl, options.useHiddenProperty)]
+        .concat(ancestors.map(item => showElementPrep(item, options.useHiddenProperty)))
+        .concat(siblings.map(item => hideElementPrep(item, options.useHiddenProperty)))
+        .concat(siblingsOfAncestors.map(item => hideElementPrep(item, options.useHiddenProperty)));
 
     // update DOM
-    dirtyObjects.forEach(item => dirtyAttribute(item));
+    dirtyObjects.forEach(item => dirtyElement(item));
 
     // let observers know the screenreader is now trapped
     trappedEl.dispatchEvent(new CustomEvent('screenreaderTrap', { bubbles: true }));

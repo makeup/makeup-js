@@ -1,6 +1,8 @@
 'use strict'; // requires CustomEvent polyfill for IE
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 var CustomEvent = require('custom-event');
 
 var util = require('./util.js'); // the main landmark
@@ -8,27 +10,62 @@ var util = require('./util.js'); // the main landmark
 
 var mainEl; // the element that will be trapped
 
-var trappedEl; // collection of elements that get 'dirtied' with aria-hidden attr
+var trappedEl; // collection of elements that get 'dirtied' with aria-hidden attr or hidden prop
 
 var dirtyObjects;
 
-function prepareAttribute(el, dirtyValue) {
+function showElementPrep(el, useHiddenProperty) {
+  var preparedElement;
+
+  if (useHiddenProperty === false) {
+    preparedElement = prepareElement(el, 'aria-hidden', 'false');
+  } else {
+    preparedElement = prepareElement(el, 'hidden', false);
+  }
+
+  return preparedElement;
+}
+
+function hideElementPrep(el, useHiddenProperty) {
+  var preparedElement;
+
+  if (useHiddenProperty === false) {
+    preparedElement = prepareElement(el, 'aria-hidden', 'true');
+  } else {
+    preparedElement = prepareElement(el, 'hidden', true);
+  }
+
+  return preparedElement;
+}
+
+function prepareElement(el, attributeName, dirtyValue) {
+  var isProperty = typeof dirtyValue === 'boolean';
   return {
     el: el,
-    cleanValue: el.getAttribute('aria-hidden'),
-    dirtyValue: dirtyValue
+    attributeName: attributeName,
+    cleanValue: isProperty ? el[attributeName] : el.getAttribute(attributeName),
+    dirtyValue: dirtyValue,
+    isProperty: isProperty
   };
 }
 
-function dirtyAttribute(preparedObj) {
-  preparedObj.el.setAttribute('aria-hidden', preparedObj.dirtyValue);
+function dirtyElement(preparedObj) {
+  if (preparedObj.isProperty === true) {
+    preparedObj.el[preparedObj.attributeName] = preparedObj.dirtyValue;
+  } else {
+    preparedObj.el.setAttribute(preparedObj.attributeName, preparedObj.dirtyValue);
+  }
 }
 
-function cleanAttribute(preparedObj) {
+function cleanElement(preparedObj) {
   if (preparedObj.cleanValue) {
-    preparedObj.el.setAttribute('aria-hidden', preparedObj.cleanValue);
+    if (preparedObj.isProperty === true) {
+      preparedObj.el[preparedObj.attributeName] = preparedObj.cleanValue;
+    } else {
+      preparedObj.el.setAttribute(preparedObj.attributeName, preparedObj.cleanValue);
+    }
   } else {
-    preparedObj.el.removeAttribute('aria-hidden');
+    preparedObj.el.removeAttribute(preparedObj.attributeName);
   }
 }
 
@@ -36,7 +73,7 @@ function untrap() {
   if (trappedEl) {
     // restore 'dirtied' elements to their original state
     dirtyObjects.forEach(function (item) {
-      return cleanAttribute(item);
+      return cleanElement(item);
     });
     dirtyObjects = []; // 're-enable' the main landmark
 
@@ -52,9 +89,16 @@ function untrap() {
   }
 }
 
-function trap(el) {
+var defaultOptions = {
+  useHiddenProperty: false
+};
+
+function trap(el, selectedOptions) {
   // ensure current trap is deactivated
-  untrap(); // update the trapped el reference
+  untrap();
+
+  var options = _extends({}, defaultOptions, selectedOptions); // update the trapped el reference
+
 
   trappedEl = el; // update the main landmark reference
 
@@ -69,16 +113,16 @@ function trap(el) {
   var siblings = util.getSiblings(trappedEl);
   var siblingsOfAncestors = util.getSiblingsOfAncestors(trappedEl); // prepare elements
 
-  dirtyObjects = [prepareAttribute(trappedEl, 'false')].concat(ancestors.map(function (item) {
-    return prepareAttribute(item, 'false');
+  dirtyObjects = [showElementPrep(trappedEl, options.useHiddenProperty)].concat(ancestors.map(function (item) {
+    return showElementPrep(item, options.useHiddenProperty);
   })).concat(siblings.map(function (item) {
-    return prepareAttribute(item, 'true');
+    return hideElementPrep(item, options.useHiddenProperty);
   })).concat(siblingsOfAncestors.map(function (item) {
-    return prepareAttribute(item, 'true');
+    return hideElementPrep(item, options.useHiddenProperty);
   })); // update DOM
 
   dirtyObjects.forEach(function (item) {
-    return dirtyAttribute(item);
+    return dirtyElement(item);
   }); // let observers know the screenreader is now trapped
 
   trappedEl.dispatchEvent(new CustomEvent('screenreaderTrap', {

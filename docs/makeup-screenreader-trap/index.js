@@ -8,7 +8,7 @@ document.querySelectorAll('.trap').forEach(function(item) {
         if (this.getAttribute('aria-pressed') === 'true') {
             screenreaderTrap.untrap(this);
         } else {
-            screenreaderTrap.trap(this);
+            screenreaderTrap.trap(this, { useHiddenProperty: false });
         }
     });
 

@@ -26,6 +26,10 @@ npm install makeup-screenreader-trap
 yarn add makeup-screenreader-trap
 ```
 
+## Options
+
+* `useHiddenProperty`: use `hidden` property instead of `aria-hidden` (default: false)
+
 ## Events
 
 * screenreaderTrap : fired by trapped element when screenreader trap is activated

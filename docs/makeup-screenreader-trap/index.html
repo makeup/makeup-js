@@ -39,9 +39,9 @@
             </div>
 
             <div>
-                <div aria-hidden="true">hidden sibling before trap</div>
+                <div aria-hidden="true">aria-hidden sibling before trap</div>
                 <button class="trap" aria-pressed="false">Trap</button>
-                <div aria-hidden="true">hidden sibling after trap</div>
+                <div aria-hidden="true">aria-hidden sibling after trap</div>
             </div>
 
             <div>
@@ -116,6 +116,14 @@
                     <div>great uncle after trap</div>
                 </div>
                 <div>great uncle after trap</div>
+            </div>
+
+            <p>Has two visibly hidden elements (using hidden property) before and after button:</p>
+
+            <div>
+                <div hidden>hidden sibling before trap</div>
+                <button class="trap" aria-pressed="false">Trap</button>
+                <div hidden>hidden sibling after trap</div>
             </div>
 
         </main>

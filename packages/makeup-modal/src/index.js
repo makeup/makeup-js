@@ -20,10 +20,10 @@ function unmodal() {
     return modalEl;
 }
 
-function modal(el) {
+function modal(el, options) {
     unmodal();
     modalEl = el;
-    screenreaderTrap.trap(modalEl);
+    screenreaderTrap.trap(modalEl, options);
     keyboardTrap.trap(modalEl);
 
     // let observers know the element is now modal

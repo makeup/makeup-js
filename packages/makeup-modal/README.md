@@ -26,6 +26,10 @@ npm install makeup-modal
 yarn add makeup-modal
 ```
 
+## Options
+
+* `useHiddenProperty`: screenreader-trap uses `hidden` property instead of `aria-hidden` (default: false)
+
 ## Events
 
 * modal

@@ -126,6 +126,22 @@
                 <div hidden>hidden sibling after trap</div>
             </div>
 
+            <p>Has two visible SVG elements before and after button:</p>
+
+            <div>
+                <svg>hidden svg sibling before trap</svg>
+                <button class="trap" aria-pressed="false">Trap</button>
+                <svg>hidden svg sibling after trap</svg>
+            </div>
+
+            <p>Has two visibly hidden SVG elements (using hidden property) before and after button:</p>
+
+            <div>
+                <svg hidden>hidden svg sibling before trap</svg>
+                <button class="trap" aria-pressed="false">Trap</button>
+                <svg hidden>hidden svg sibling after trap</svg>
+            </div>
+
         </main>
         <script src="index.min.js"></script>
     </body>

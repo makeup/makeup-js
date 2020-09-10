@@ -12,7 +12,11 @@ var mainEl; // the element that will be trapped
 
 var trappedEl; // collection of elements that get 'dirtied' with aria-hidden attr or hidden prop
 
-var dirtyObjects;
+var dirtyObjects; // filter function for svg elements
+
+var filterSvg = function filterSvg(item) {
+  return item.tagName.toLowerCase() !== 'svg';
+};
 
 function showElementPrep(el, useHiddenProperty) {
   var preparedElement;
@@ -111,7 +115,13 @@ function trap(el, selectedOptions) {
 
   var ancestors = util.getAncestors(trappedEl);
   var siblings = util.getSiblings(trappedEl);
-  var siblingsOfAncestors = util.getSiblingsOfAncestors(trappedEl); // prepare elements
+  var siblingsOfAncestors = util.getSiblingsOfAncestors(trappedEl); // if using hidden property, filter out SVG elements as they do not support this property
+
+  if (options.useHiddenProperty === true) {
+    siblings = siblings.filter(filterSvg);
+    siblingsOfAncestors = siblingsOfAncestors.filter(filterSvg);
+  } // prepare elements
+
 
   dirtyObjects = [showElementPrep(trappedEl, options.useHiddenProperty)].concat(ancestors.map(function (item) {
     return showElementPrep(item, options.useHiddenProperty);

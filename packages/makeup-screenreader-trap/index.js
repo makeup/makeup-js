@@ -115,15 +115,18 @@ function trap(el, selectedOptions) {
 
   var ancestors = util.getAncestors(trappedEl);
   var siblings = util.getSiblings(trappedEl);
-  var siblingsOfAncestors = util.getSiblingsOfAncestors(trappedEl); // if using hidden property, filter out SVG elements as they do not support this property
+  var siblingsOfAncestors = util.getSiblingsOfAncestors(trappedEl);
+  var trappedElPrep = []; // if using hidden property, filter out SVG elements as they do not support this property
 
   if (options.useHiddenProperty === true) {
     siblings = siblings.filter(filterSvg);
     siblingsOfAncestors = siblingsOfAncestors.filter(filterSvg);
+  } else {
+    trappedElPrep.push(showElementPrep(trappedEl, options.useHiddenProperty));
   } // prepare elements
 
 
-  dirtyObjects = [showElementPrep(trappedEl, options.useHiddenProperty)].concat(ancestors.map(function (item) {
+  dirtyObjects = trappedElPrep.concat(ancestors.map(function (item) {
     return showElementPrep(item, options.useHiddenProperty);
   })).concat(siblings.map(function (item) {
     return hideElementPrep(item, options.useHiddenProperty);

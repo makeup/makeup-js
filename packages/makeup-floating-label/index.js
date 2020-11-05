@@ -72,7 +72,7 @@ module.exports = /*#__PURE__*/function () {
     this._observer = new MutationObserver(onMutation.bind(this));
     this.rootEl = el;
     this.labelEl = this.rootEl.querySelector('label');
-    this.textboxEl = this.rootEl.querySelector('input');
+    this.textboxEl = this.rootEl.querySelector('input,textarea');
     this._onBlurListener = _onBlur.bind(this);
     this._onFocusListener = _onFocus.bind(this);
     this.textboxEl.addEventListener('blur', this._onBlurListener);

@@ -67,7 +67,7 @@ module.exports = class {
 
         this.rootEl = el;
         this.labelEl = this.rootEl.querySelector('label');
-        this.textboxEl = this.rootEl.querySelector('input');
+        this.textboxEl = this.rootEl.querySelector('input,textarea');
 
         this._onBlurListener = _onBlur.bind(this);
         this._onFocusListener = _onFocus.bind(this);

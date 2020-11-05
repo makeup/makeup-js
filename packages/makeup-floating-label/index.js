@@ -13,7 +13,7 @@ var defaultOptions = {
   labelElementInlineModifier: 'floating-label__label--inline',
   labelElementFocusModifier: 'floating-label__label--focus',
   labelElementInvalidModifier: 'floating-label__label--invalid',
-  textboxElementBackgroundRGB: 'rgb(255, 255, 255)'
+  textboxElementBackgroundRGB: 'rgb(245, 245, 245)'
 };
 
 function hasValue(input) {

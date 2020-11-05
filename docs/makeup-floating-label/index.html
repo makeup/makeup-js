@@ -27,6 +27,15 @@
             .floating-label__label--animate {
                 transition: transform 0.3s;
             }
+            .floating-label__label--focus {
+                color: blue;
+            }
+            .floating-label__label--invalid {
+                color: red;
+            }
+            .floating-label__label--disabled {
+                color: #767676;
+            }
             .floating-label input {
                 border: none;
                 border-bottom: 1px solid #767676;
@@ -79,7 +88,16 @@
                 </span>
 
                 <div>
-                    <p><input type="submit" /><input type="reset" /><button id="autofill" type="button">Autofill</button><button id="refresh" type="button">Refresh</button></p>
+                    <p>
+                        <input type="submit" />
+                        <input type="reset" />
+                        <button id="autofill" type="button">Autofill</button>
+                        <button id="refresh" type="button">Refresh</button>
+                        <button id="invalidate" type="button">Invalidate</button>
+                        <button id="validate" type="button">Validate</button>
+                        <button id="disable" type="button">Disable</button>
+                        <button id="enable" type="button">Enable</button>
+                    </p>
                 </div>
             </form>
 

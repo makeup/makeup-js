@@ -13,11 +13,30 @@ var defaultOptions = {
   labelElementInlineModifier: 'floating-label__label--inline',
   labelElementFocusModifier: 'floating-label__label--focus',
   labelElementInvalidModifier: 'floating-label__label--invalid',
-  textboxElementBackgroundRGB: 'rgb(245, 245, 245)'
+  labelElementDisabledModifier: 'floating-label__label--disabled',
+  textboxElementBackgroundRGB: ['rgb(255, 255, 255)', 'rgb(245, 245, 245)', 'rgb(230, 32, 72)', 'rgb(254, 245, 246)']
 };
+
+function onMutation() {
+  if (isInvalid(this.textboxEl)) {
+    this.labelEl.classList.add(this.options.labelElementInvalidModifier);
+  } else {
+    this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
+  }
+
+  if (isDisabled(this.textboxEl)) {
+    this.labelEl.classList.add(this.options.labelElementDisabledModifier);
+  } else {
+    this.labelEl.classList.remove(this.options.labelElementDisabledModifier);
+  }
+}
 
 function hasValue(input) {
   return input.value.length > 0;
+}
+
+function isDisabled(input) {
+  return input.hasAttribute('disabled');
 }
 
 function isInvalid(input) {
@@ -27,7 +46,8 @@ function isInvalid(input) {
 function isAutofilled(input, color) {
   // check for computed background color because of Chrome autofill bug
   // https://stackoverflow.com/questions/35049555/chrome-autofill-autocomplete-no-value-for-password/35783761#35783761
-  return getComputedStyle(input).backgroundColor !== color;
+  var bgColor = getComputedStyle(input).backgroundColor;
+  return Array.isArray(color) ? !color.includes(bgColor) : bgColor !== color;
 }
 
 function _onBlur() {
@@ -49,6 +69,7 @@ module.exports = /*#__PURE__*/function () {
     _classCallCheck(this, _class);
 
     this.options = _extends({}, defaultOptions, userOptions);
+    this._observer = new MutationObserver(onMutation.bind(this));
     this.rootEl = el;
     this.labelEl = this.rootEl.querySelector('label');
     this.textboxEl = this.rootEl.querySelector('input');
@@ -65,23 +86,17 @@ module.exports = /*#__PURE__*/function () {
       this.labelEl.classList.add(this.options.labelElementFocusModifier);
     }
 
-    if (isInvalid(this.textboxEl)) {
-      this.labelEl.classList.add(this.options.labelElementInlineModifier);
-    }
+    onMutation.call(this);
+
+    this._observer.observe(this.textboxEl, {
+      childList: false,
+      subtree: true,
+      attributeFilter: ['disabled', 'aria-invalid'],
+      attributes: true
+    });
   }
 
   _createClass(_class, [{
-    key: "setInvalid",
-    value: function setInvalid(hasError) {
-      if (hasError) {
-        this.textboxEl.setAttribute('aria-invalid', 'true');
-        this.labelEl.classList.add(this.options.labelElementInlineModifier);
-      } else {
-        this.textboxEl.setAttribute('aria-invalid', 'false');
-        this.labelEl.classList.remove(this.options.labelElementInlineModifier);
-      }
-    }
-  }, {
     key: "refresh",
     value: function refresh() {
       if (hasValue(this.textboxEl) || isAutofilled(this.textboxEl, this.options.textboxElementBackgroundRGB)) {
@@ -92,10 +107,6 @@ module.exports = /*#__PURE__*/function () {
 
       if (document.activeElement === this.textboxEl) {
         this.labelEl.classList.add(this.options.labelElementFocusModifier);
-      }
-
-      if (isInvalid(this.textboxEl)) {
-        this.labelEl.classList.add(this.options.labelElementInlineModifier);
       }
     }
   }]);

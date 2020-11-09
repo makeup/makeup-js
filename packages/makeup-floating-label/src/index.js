@@ -51,12 +51,17 @@ function _onBlur() {
         this.labelEl.classList.add(this.options.labelElementInlineModifier);
     }
     this.labelEl.classList.remove(this.options.labelElementFocusModifier);
+
+    if (isInvalid(this.textboxEl)) {
+        this.labelEl.classList.add(this.options.labelElementInvalidModifier);
+    }
 }
 
 function _onFocus() {
     this.labelEl.classList.add(this.options.labelElementAnimateModifier);
     this.labelEl.classList.add(this.options.labelElementFocusModifier);
     this.labelEl.classList.remove(this.options.labelElementInlineModifier);
+    this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
 }
 
 module.exports = class {

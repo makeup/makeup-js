@@ -16,6 +16,9 @@
       "accessibility",
       "a11y"
     ],
+    "dependencies": {
+        "core-js-pure/features/array/find-index": "*",
+    },
     "files": [
       "index.js",
       "package-lock.json"

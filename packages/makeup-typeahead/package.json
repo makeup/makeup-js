@@ -1,0 +1,27 @@
+{
+    "name": "makeup-typeahead",
+    "description": "Captures letter keys pressed and returns a list of relevant strings",
+    "version": "0.1.0",
+    "main": "index.js",
+    "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-typeahead",
+    "author": "Austin Gardner <gardneraustin@protonmail.com>",
+    "license": "MIT",
+    "scripts": {
+      "compile": "babel src/index.js --out-file index.js",
+      "clean": "rimraf *.log .DS_Store"
+    },
+    "keywords": [
+      "makeup",
+      "ebay",
+      "accessibility",
+      "a11y"
+    ],
+    "files": [
+      "index.js",
+      "package-lock.json"
+    ],
+    "browserslist": [
+      "extends @ebay/browserslist-config"
+    ]
+}
+  

@@ -25,6 +25,12 @@ function onMutation() {
     } else {
         this.labelEl.classList.remove(this.options.labelElementDisabledModifier);
     }
+    if (this.textboxEl.hasAttribute('placeholder')) {
+        this.placeholder = this.textboxEl.getAttribute('placeholder');
+        if (document.activeElement !== this.textboxEl) {
+            this.textboxEl.removeAttribute('placeholder');
+        }
+    }
 }
 
 function hasValue(input) {
@@ -55,6 +61,7 @@ function _onBlur() {
     if (isInvalid(this.textboxEl)) {
         this.labelEl.classList.add(this.options.labelElementInvalidModifier);
     }
+    this.textboxEl.removeAttribute('placeholder');
 }
 
 function _onFocus() {
@@ -62,6 +69,8 @@ function _onFocus() {
     this.labelEl.classList.add(this.options.labelElementFocusModifier);
     this.labelEl.classList.remove(this.options.labelElementInlineModifier);
     this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
+
+    this.textboxEl.setAttribute('placeholder', this.placeholder);
 }
 
 module.exports = class {

@@ -18,6 +18,19 @@ var defaultOptions = {
 };
 
 function onMutation() {
+  var textboxFocus = isFocused(this.textboxEl);
+
+  if (this.textboxEl.hasAttribute('placeholder')) {
+    this.placeholder = this.textboxEl.getAttribute('placeholder');
+  }
+
+  if (!!this.placeholder && textboxFocus && !this.textboxEl.hasAttribute('placeholder')) {
+    // Input has focus, make sure it has placeholder
+    this.textboxEl.setAttribute('placeholder', this.placeholder);
+  } else if (!textboxFocus && this.textboxEl.hasAttribute('placeholder')) {
+    this.textboxEl.removeAttribute('placeholder');
+  }
+
   if (isInvalid(this.textboxEl)) {
     this.labelEl.classList.add(this.options.labelElementInvalidModifier);
   } else {
@@ -29,6 +42,10 @@ function onMutation() {
   } else {
     this.labelEl.classList.remove(this.options.labelElementDisabledModifier);
   }
+}
+
+function isFocused(textboxEl) {
+  return document.activeElement === textboxEl;
 }
 
 function hasValue(input) {
@@ -56,12 +73,23 @@ function _onBlur() {
   }
 
   this.labelEl.classList.remove(this.options.labelElementFocusModifier);
+
+  if (isInvalid(this.textboxEl)) {
+    this.labelEl.classList.add(this.options.labelElementInvalidModifier);
+  }
+
+  this.textboxEl.removeAttribute('placeholder');
 }
 
 function _onFocus() {
   this.labelEl.classList.add(this.options.labelElementAnimateModifier);
   this.labelEl.classList.add(this.options.labelElementFocusModifier);
   this.labelEl.classList.remove(this.options.labelElementInlineModifier);
+  this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
+
+  if (this.placeholder) {
+    this.textboxEl.setAttribute('placeholder', this.placeholder);
+  }
 }
 
 module.exports = /*#__PURE__*/function () {
@@ -82,7 +110,7 @@ module.exports = /*#__PURE__*/function () {
       this.labelEl.classList.add(this.options.labelElementInlineModifier);
     }
 
-    if (document.activeElement === this.textboxEl) {
+    if (isFocused(this.textboxEl)) {
       this.labelEl.classList.add(this.options.labelElementFocusModifier);
     }
 
@@ -90,13 +118,18 @@ module.exports = /*#__PURE__*/function () {
 
     this._observer.observe(this.textboxEl, {
       childList: false,
-      subtree: true,
-      attributeFilter: ['disabled', 'aria-invalid'],
+      subtree: false,
+      attributeFilter: ['disabled', 'aria-invalid', 'placeholder', 'value'],
       attributes: true
     });
   }
 
   _createClass(_class, [{
+    key: "destroy",
+    value: function destroy() {
+      this._observer.disconnect();
+    }
+  }, {
     key: "refresh",
     value: function refresh() {
       if (hasValue(this.textboxEl) || isAutofilled(this.textboxEl, this.options.textboxElementBackgroundRGB)) {
@@ -105,7 +138,7 @@ module.exports = /*#__PURE__*/function () {
         this.labelEl.classList.add(this.options.labelElementInlineModifier);
       }
 
-      if (document.activeElement === this.textboxEl) {
+      if (isFocused(this.textboxEl)) {
         this.labelEl.classList.add(this.options.labelElementFocusModifier);
       }
     }

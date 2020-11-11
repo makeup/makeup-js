@@ -20,7 +20,7 @@ function onMutation() {
     if (this.textboxEl.hasAttribute('placeholder')) {
         this.placeholder = this.textboxEl.getAttribute('placeholder');
     }
-    if (textboxFocus && !this.textboxEl.hasAttribute('placeholder')) {
+    if (!!this.placeholder && textboxFocus && !this.textboxEl.hasAttribute('placeholder')) {
         // Input has focus, make sure it has placeholder
         this.textboxEl.setAttribute('placeholder', this.placeholder);
     } else if (!textboxFocus && this.textboxEl.hasAttribute('placeholder')) {
@@ -80,7 +80,9 @@ function _onFocus() {
     this.labelEl.classList.remove(this.options.labelElementInlineModifier);
     this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
 
-    this.textboxEl.setAttribute('placeholder', this.placeholder);
+    if (this.placeholder) {
+        this.textboxEl.setAttribute('placeholder', this.placeholder);
+    }
 }
 
 module.exports = class {

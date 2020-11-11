@@ -107,7 +107,7 @@ module.exports = /*#__PURE__*/function () {
       this.labelEl.classList.add(this.options.labelElementInlineModifier);
     }
 
-    if (document.activeElement === this.textboxEl) {
+    if (isFocused(this.textboxEl)) {
       this.labelEl.classList.add(this.options.labelElementFocusModifier);
     }
 
@@ -135,7 +135,7 @@ module.exports = /*#__PURE__*/function () {
         this.labelEl.classList.add(this.options.labelElementInlineModifier);
       }
 
-      if (document.activeElement === this.textboxEl) {
+      if (isFocused(this.textboxEl)) {
         this.labelEl.classList.add(this.options.labelElementFocusModifier);
       }
     }

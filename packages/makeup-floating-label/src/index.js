@@ -102,7 +102,7 @@ module.exports = class {
         if (!hasValue(this.textboxEl) && !isAutofilled(this.textboxEl, this.options.textboxElementBackgroundRGB)) {
             this.labelEl.classList.add(this.options.labelElementInlineModifier);
         }
-        if (document.activeElement === this.textboxEl) {
+        if (isFocused(this.textboxEl)) {
             this.labelEl.classList.add(this.options.labelElementFocusModifier);
         }
 
@@ -126,7 +126,7 @@ module.exports = class {
         } else {
             this.labelEl.classList.add(this.options.labelElementInlineModifier);
         }
-        if (document.activeElement === this.textboxEl) {
+        if (isFocused(this.textboxEl)) {
             this.labelEl.classList.add(this.options.labelElementFocusModifier);
         }
     }

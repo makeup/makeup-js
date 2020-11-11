@@ -13,7 +13,7 @@
                 display: inline-block;
             }
             .floating-label__label {
-                color: #444;
+                color: #414141;
                 display: block;
                 left: 12px;
                 position: absolute;
@@ -39,12 +39,21 @@
                 color: #767676;
             }
             .floating-label input {
-                border: 1px solid #767676;
+                background-color: #F5F5F5;
+                border: 1px solid #E5E5E5;
                 border-radius: 8px;
                 padding: 24px 12px 2px;
                 font-size: inherit;
             }
-            .floating-label input::placeholder {
+           .floating-label__label--invalid + input {
+               background-color: #FEF5F6;
+               border: 1px solid red;
+            }
+            .floating-label__label--focus + input {
+                background-color: white;
+                border: 1px solid blue;
+            }
+           .floating-label input::placeholder {
                 color: transparent;
             }
 

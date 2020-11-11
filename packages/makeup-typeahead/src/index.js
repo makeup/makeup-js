@@ -2,14 +2,13 @@
 
 const findIndex = require('core-js-pure/features/array/find-index');
 
-
 let timeout;
-let typeStr = "";
+let typeStr = '';
 
 function typeahead(nodeList, char, timeoutLength) {
     typeStr = typeStr.concat(char);
     let index;
-    index = findIndex(nodeList, (el) => el.innerText.startsWith(typeStr));
+    index = findIndex(nodeList, (el) => el.innerText.toLowerCase().startsWith(typeStr.toLowerCase()));
     if (index === -1) {
         index = findIndex(nodeList, (el) => el.innerText.includes(typeStr));
     }
@@ -20,21 +19,10 @@ function typeahead(nodeList, char, timeoutLength) {
 
     setTimeout(() => {
         clearTimeout(timeout);
-        typeStr = "";
+        typeStr = '';
     }, timeoutLength);
 
+    return index;
 }
 
-module.exports = {
-    typeahead
-};
-
-// const findIndex = require('core-js-pure/features/array/find-index');
-// // returns index of first node in NodeList with matching first character (case-insenstive)
-// function findNodeWithFirstChar(nodeList, char) {
-//     return findIndex(nodeList, (el) => el.innerText.charAt(0).toLowerCase() === char.toLowerCase());
-// }
-
-// module.exports = {
-//     findNodeWithFirstChar
-// };
+module.exports = typeahead;

@@ -15,6 +15,18 @@ const defaultOptions = {
 };
 
 function onMutation() {
+    const textboxFocus = isFocused(this.textboxEl);
+
+    if (this.textboxEl.hasAttribute('placeholder')) {
+        this.placeholder = this.textboxEl.getAttribute('placeholder');
+    }
+    if (textboxFocus && !this.textboxEl.hasAttribute('placeholder')) {
+        // Input has focus, make sure it has placeholder
+        this.textboxEl.setAttribute('placeholder', this.placeholder);
+    } else if (!textboxFocus && this.textboxEl.hasAttribute('placeholder')) {
+        this.textboxEl.removeAttribute('placeholder');
+    }
+
     if (isInvalid(this.textboxEl)) {
         this.labelEl.classList.add(this.options.labelElementInvalidModifier);
     } else {
@@ -25,12 +37,10 @@ function onMutation() {
     } else {
         this.labelEl.classList.remove(this.options.labelElementDisabledModifier);
     }
-    if (this.textboxEl.hasAttribute('placeholder')) {
-        this.placeholder = this.textboxEl.getAttribute('placeholder');
-        if (document.activeElement !== this.textboxEl) {
-            this.textboxEl.removeAttribute('placeholder');
-        }
-    }
+}
+
+function isFocused(textboxEl) {
+    return document.activeElement === textboxEl;
 }
 
 function hasValue(input) {
@@ -100,10 +110,14 @@ module.exports = class {
 
         this._observer.observe(this.textboxEl, {
             childList: false,
-            subtree: true,
-            attributeFilter: ['disabled', 'aria-invalid'],
+            subtree: false,
+            attributeFilter: ['disabled', 'aria-invalid', 'placeholder', 'value'],
             attributes: true
         });
+    }
+
+    destroy() {
+        this._observer.disconnect();
     }
 
     refresh() {

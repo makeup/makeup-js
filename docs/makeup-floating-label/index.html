@@ -6,6 +6,7 @@
             .floating-label {
                 font-size: 2rem;
                 margin-top: 1em;
+                margin-left: 12px;
                 position: relative;
             }
             span.floating-label {
@@ -14,31 +15,33 @@
             .floating-label__label {
                 color: #444;
                 display: block;
+                left: 12px;
                 position: absolute;
-                transform: scale(0.75, 0.75) translate(0, -1.25em);
+                transform: scale(0.75, 0.75) translate(0, 0);
                 transform-origin: left;
                 z-index: 1;
             }
             .floating-label__label--inline {
                 font-size: inherit;
-                transform: none;
+                transform: translate(0, 12px);
                 top: 10%;
             }
             .floating-label__label--animate {
                 transition: transform 0.3s;
             }
+           .floating-label__label--invalid {
+                color: red;
+            }
             .floating-label__label--focus {
                 color: blue;
-            }
-            .floating-label__label--invalid {
-                color: red;
             }
             .floating-label__label--disabled {
                 color: #767676;
             }
             .floating-label input {
-                border: none;
-                border-bottom: 1px solid #767676;
+                border: 1px solid #767676;
+                border-radius: 8px;
+                padding: 24px 12px 2px;
                 font-size: inherit;
             }
             .floating-label input::placeholder {

@@ -6,33 +6,54 @@
             .floating-label {
                 font-size: 2rem;
                 margin-top: 1em;
+                margin-left: 12px;
                 position: relative;
             }
             span.floating-label {
                 display: inline-block;
             }
             .floating-label__label {
-                color: #444;
+                color: #414141;
                 display: block;
+                left: 12px;
                 position: absolute;
-                transform: scale(0.75, 0.75) translate(0, -1.25em);
+                transform: scale(0.75, 0.75) translate(0, 0);
                 transform-origin: left;
                 z-index: 1;
             }
             .floating-label__label--inline {
                 font-size: inherit;
-                transform: none;
+                transform: translate(0, 12px);
                 top: 10%;
             }
             .floating-label__label--animate {
                 transition: transform 0.3s;
             }
+           .floating-label__label--invalid {
+                color: red;
+            }
+            .floating-label__label--focus {
+                color: blue;
+            }
+            .floating-label__label--disabled {
+                color: #767676;
+            }
             .floating-label input {
-                border: none;
-                border-bottom: 1px solid #767676;
+                background-color: #F5F5F5;
+                border: 1px solid #E5E5E5;
+                border-radius: 8px;
+                padding: 24px 12px 2px;
                 font-size: inherit;
             }
-            .floating-label input::placeholder {
+           .floating-label__label--invalid + input {
+               background-color: #FEF5F6;
+               border: 1px solid red;
+            }
+            .floating-label__label--focus + input {
+                background-color: white;
+                border: 1px solid blue;
+            }
+           .floating-label input::placeholder {
                 color: transparent;
             }
 
@@ -70,7 +91,7 @@
 
                 <span class="floating-label">
                     <label class="floating-label__label" for="firstname">First name</label>
-                    <input id="firstname" name="firstname" placeholder="placeholder text" />
+                    <input id="firstname" name="firstname" />
                 </span>
 
                 <span class="floating-label">
@@ -79,7 +100,16 @@
                 </span>
 
                 <div>
-                    <p><input type="submit" /><input type="reset" /><button id="autofill" type="button">Autofill</button><button id="refresh" type="button">Refresh</button></p>
+                    <p>
+                        <input type="submit" />
+                        <input type="reset" />
+                        <button id="autofill" type="button">Autofill</button>
+                        <button id="refresh" type="button">Refresh</button>
+                        <button id="invalidate" type="button">Invalidate</button>
+                        <button id="validate" type="button">Validate</button>
+                        <button id="disable" type="button">Disable</button>
+                        <button id="enable" type="button">Enable</button>
+                    </p>
                 </div>
             </form>
 

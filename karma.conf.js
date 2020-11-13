@@ -27,7 +27,8 @@ module.exports = function (config) {
             'packages/makeup-next-id/test/index.js',
             'packages/makeup-prevent-scroll-keys/test/index.js',
             'packages/makeup-roving-tabindex/test/index.js',
-            'packages/makeup-screenreader-trap/test/index.js'
+            'packages/makeup-screenreader-trap/test/index.js',
+            'packages/makeup-typeahead/test/index.js'
         ],
 
         preprocessors: {
@@ -44,6 +45,7 @@ module.exports = function (config) {
             'packages/makeup-prevent-scroll-keys/test/index.js': 'webpack',
             'packages/makeup-roving-tabindex/test/index.js': 'webpack',
             'packages/makeup-screenreader-trap/test/index.js': 'webpack',
+            'packages/makeup-typeahead/test/index.js': 'webpack'
         },
 
         webpack: {

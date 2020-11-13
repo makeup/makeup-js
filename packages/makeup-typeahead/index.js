@@ -8,13 +8,14 @@ var typeStr = '';
 function typeahead(nodeList, _char, timeoutLength) {
   typeStr = typeStr.concat(_char);
   var index;
+  var lowerTypeStr = typeStr.toLocaleLowerCase();
   index = findIndex(nodeList, function (el) {
-    return el.innerText.toLowerCase().startsWith(typeStr.toLowerCase());
+    return el.innerText.toLocaleLowerCase().startsWith(lowerTypeStr);
   });
 
   if (index === -1) {
     index = findIndex(nodeList, function (el) {
-      return el.innerText.includes(typeStr);
+      return el.innerText.toLocaleLowerCase().includes(lowerTypeStr);
     });
   }
 

@@ -8,9 +8,10 @@ let typeStr = '';
 function typeahead(nodeList, char, timeoutLength) {
     typeStr = typeStr.concat(char);
     let index;
-    index = findIndex(nodeList, (el) => el.innerText.toLowerCase().startsWith(typeStr.toLowerCase()));
+    const lowerTypeStr = typeStr.toLocaleLowerCase();
+    index = findIndex(nodeList, (el) => el.innerText.toLocaleLowerCase().startsWith(lowerTypeStr));
     if (index === -1) {
-        index = findIndex(nodeList, (el) => el.innerText.includes(typeStr));
+        index = findIndex(nodeList, (el) => el.innerText.toLocaleLowerCase().includes(lowerTypeStr));
     }
 
     if (timeout) {

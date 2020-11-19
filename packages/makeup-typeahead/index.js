@@ -2,6 +2,10 @@
 
 var findIndex = require('core-js-pure/features/array/find-index');
 
+var startsWith = require('core-js-pure/features/string/starts-with');
+
+var includes = require('core-js-pure/features/string/includes');
+
 function typeahead() {
   var timeout;
   var typeStr = '';
@@ -12,12 +16,12 @@ function typeahead() {
     if (nodeList == null) return -1;
     var lowerTypeStr = typeStr.toLocaleLowerCase();
     index = findIndex(nodeList, function (el) {
-      return el.innerText.toLocaleLowerCase().startsWith(lowerTypeStr);
+      return startsWith(el.innerText.toLocaleLowerCase(), lowerTypeStr);
     });
 
     if (index === -1) {
       index = findIndex(nodeList, function (el) {
-        return el.innerText.toLocaleLowerCase().includes(lowerTypeStr);
+        return includes(el.innerText.toLocaleLowerCase(), lowerTypeStr);
       });
     }
 

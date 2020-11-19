@@ -2,32 +2,35 @@
 
 var findIndex = require('core-js-pure/features/array/find-index');
 
-var timeout;
-var typeStr = '';
+function typeahead() {
+  var timeout;
+  var typeStr = '';
+  return function (nodeList, _char, timeoutLength) {
+    typeStr = typeStr.concat(_char);
+    var index; // eslint-disable-next-line eqeqeq
 
-function typeahead(nodeList, _char, timeoutLength) {
-  typeStr = typeStr.concat(_char);
-  var index;
-  var lowerTypeStr = typeStr.toLocaleLowerCase();
-  index = findIndex(nodeList, function (el) {
-    return el.innerText.toLocaleLowerCase().startsWith(lowerTypeStr);
-  });
-
-  if (index === -1) {
+    if (nodeList == null) return -1;
+    var lowerTypeStr = typeStr.toLocaleLowerCase();
     index = findIndex(nodeList, function (el) {
-      return el.innerText.toLocaleLowerCase().includes(lowerTypeStr);
+      return el.innerText.toLocaleLowerCase().startsWith(lowerTypeStr);
     });
-  }
 
-  if (timeout) {
-    clearTimeout(timeout);
-  }
+    if (index === -1) {
+      index = findIndex(nodeList, function (el) {
+        return el.innerText.toLocaleLowerCase().includes(lowerTypeStr);
+      });
+    }
 
-  setTimeout(function () {
-    clearTimeout(timeout);
-    typeStr = '';
-  }, timeoutLength);
-  return index;
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    setTimeout(function () {
+      clearTimeout(timeout);
+      typeStr = '';
+    }, timeoutLength);
+    return index;
+  };
 }
 
 module.exports = typeahead;

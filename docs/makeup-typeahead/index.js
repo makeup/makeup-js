@@ -4,7 +4,7 @@ const list = document.querySelector('ul');
 const selected = document.querySelector('.selected');
 const TIMEOUT_LENGTH = 2000;
 
-const getIndex = typeahead();
+const { getIndex } = typeahead();
 
 function handleKeyDown(e) {
     if (e.key.length === 1) {

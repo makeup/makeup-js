@@ -1,10 +1,12 @@
 'use strict';
 
+require("core-js/modules/es7.array.includes");
+
+require("core-js/modules/es6.string.includes");
+
+require("core-js/modules/es6.string.starts-with");
+
 var findIndex = require('core-js-pure/features/array/find-index');
-
-var startsWith = require('core-js-pure/features/string/starts-with');
-
-var includes = require('core-js-pure/features/string/includes');
 
 function typeahead() {
   var timeout;
@@ -16,12 +18,12 @@ function typeahead() {
     if (nodeList == null) return -1;
     var lowerTypeStr = typeStr.toLocaleLowerCase();
     index = findIndex(nodeList, function (el) {
-      return startsWith(el.innerText.toLocaleLowerCase(), lowerTypeStr);
+      return el.innerText.toLocaleLowerCase().startsWith(lowerTypeStr);
     });
 
     if (index === -1) {
       index = findIndex(nodeList, function (el) {
-        return includes(el.innerText.toLocaleLowerCase(), lowerTypeStr);
+        return el.innerText.toLocaleLowerCase().includes(lowerTypeStr);
       });
     }
 

@@ -8,7 +8,7 @@ var testDataEmpty = '<ol></ol>';
 describe('typeahead', function() {
     it('should generate proper answer based on chars given', function() {
         document.querySelector('body').innerHTML = testData;
-        const getIndex = typeahead();
+        const { getIndex } = typeahead();
         getIndex(document.querySelector('ul').children, 'a', TIMEOUT_LENGTH);
         var result1 = getIndex(document.querySelector('ul').children, 'l', TIMEOUT_LENGTH);
 
@@ -23,13 +23,13 @@ describe('typeahead', function() {
 
     it('should not error when empty list given', function() {
         document.querySelector('body').innerHTML = testDataEmpty;
-        const getIndex = typeahead();
+        const { getIndex } = typeahead();
         var result = getIndex(document.querySelector('ol').children, 'a', TIMEOUT_LENGTH);
         expect(result).toEqual(-1);
     });
 
     it('should not error when null given for list', function() {
-        const getIndex = typeahead();
+        const { getIndex } = typeahead();
         var result = getIndex(null, 'a', TIMEOUT_LENGTH);
         expect(result).toEqual(-1);
     });

@@ -7,24 +7,31 @@ const includes = require('core-js-pure/features/string/includes');
 function typeahead() {
     let timeout;
     let typeStr = '';
-    return function(nodeList, char, timeoutLength) {
-        typeStr = typeStr.concat(char);
-        let index;
-        // eslint-disable-next-line eqeqeq
-        if (nodeList == null) return -1;
-        const lowerTypeStr = typeStr.toLocaleLowerCase();
-        index = findIndex(nodeList, (el) => startsWith(el.innerText.toLocaleLowerCase(), lowerTypeStr));
-        if (index === -1) {
-            index = findIndex(nodeList, (el) => includes(el.innerText.toLocaleLowerCase(), lowerTypeStr));
+    return {
+        getIndex: function(nodeList, char, timeoutLength) {
+            typeStr = typeStr.concat(char);
+            let index;
+            // eslint-disable-next-line eqeqeq
+            if (nodeList == null) return -1;
+            const lowerTypeStr = typeStr.toLocaleLowerCase();
+            index = findIndex(nodeList, (el) => startsWith(el.textContent.toLocaleLowerCase(), lowerTypeStr));
+            if (index === -1) {
+                index = findIndex(nodeList, (el) => includes(el.textContent.toLocaleLowerCase(), lowerTypeStr));
+            }
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+            setTimeout(() => {
+                clearTimeout(timeout);
+                typeStr = '';
+            }, timeoutLength);
+            return index;
+        },
+        destroy: function() {
+            if (timeout) {
+                clearTimeout(timeout);
+            }
         }
-        if (timeout) {
-            clearTimeout(timeout);
-        }
-        setTimeout(() => {
-            clearTimeout(timeout);
-            typeStr = '';
-        }, timeoutLength);
-        return index;
     };
 }
 

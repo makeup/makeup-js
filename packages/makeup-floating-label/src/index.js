@@ -1,5 +1,7 @@
 'use strict';
 
+const includes = require('core-js-pure/features/string/includes');
+
 const defaultOptions = {
     labelElementAnimateModifier: 'floating-label__label--animate',
     labelElementInlineModifier: 'floating-label__label--inline',
@@ -59,7 +61,7 @@ function isAutofilled(input, color) {
     // check for computed background color because of Chrome autofill bug
     // https://stackoverflow.com/questions/35049555/chrome-autofill-autocomplete-no-value-for-password/35783761#35783761
     const bgColor = getComputedStyle(input).backgroundColor;
-    return Array.isArray(color) ? !color.includes(bgColor) : bgColor !== color;
+    return Array.isArray(color) ? !includes(color, bgColor) : bgColor !== color;
 }
 
 function _onBlur() {

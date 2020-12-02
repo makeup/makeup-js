@@ -6,10 +6,6 @@ const CustomEvent = require('custom-event');
 
 const focusables = require('makeup-focusables');
 
-// when bundled up with isomorphic components on the server, this code is run,
-// so we must check if 'document' is defined.
-const body = typeof document === 'undefined' ? null : document.body;
-
 // for the element that will be trapped
 let trappedEl;
 
@@ -93,6 +89,9 @@ function trap(el) {
 
     trappedEl = el;
 
+    // when bundled up with isomorphic components on the server, this code is run,
+    // so we must check if 'document' is defined.
+    const body = typeof document === 'undefined' ? null : document.body;
     const focusableElements = focusables(trappedEl, true);
     firstFocusableElement = focusableElements[0];
     lastFocusableElement = focusableElements[focusableElements.length - 1];

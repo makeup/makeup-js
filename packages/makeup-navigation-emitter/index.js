@@ -17,7 +17,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -163,30 +163,6 @@ var LinearNavigationModel = /*#__PURE__*/function (_NavigationModel) {
   }
 
   _createClass(LinearNavigationModel, [{
-    key: "reset",
-    value: function reset() {
-      if (this.options.autoReset !== null) {
-        this._index = this.options.autoReset; // do not use index setter, it will trigger change event
-
-        this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
-          detail: {
-            toIndex: this.options.autoReset
-          },
-          bubbles: false
-        }));
-      }
-    }
-  }, {
-    key: "atEnd",
-    value: function atEnd() {
-      return this.index === this.filteredItems.length - 1;
-    }
-  }, {
-    key: "atStart",
-    value: function atStart() {
-      return this.index <= 0;
-    }
-  }, {
     key: "items",
     get: function get() {
       return this._el.querySelectorAll(this._itemSelector);
@@ -213,6 +189,30 @@ var LinearNavigationModel = /*#__PURE__*/function (_NavigationModel) {
 
         this._index = newIndex;
       }
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      if (this.options.autoReset !== null) {
+        this._index = this.options.autoReset; // do not use index setter, it will trigger change event
+
+        this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
+          detail: {
+            toIndex: this.options.autoReset
+          },
+          bubbles: false
+        }));
+      }
+    }
+  }, {
+    key: "atEnd",
+    value: function atEnd() {
+      return this.index === this.filteredItems.length - 1;
+    }
+  }, {
+    key: "atStart",
+    value: function atStart() {
+      return this.index <= 0;
     }
   }]);
 

@@ -166,65 +166,6 @@ module.exports = /*#__PURE__*/function () {
   }
 
   _createClass(_class, [{
-    key: "sleep",
-    value: function sleep() {
-      if (this._destroyed !== true) {
-        this.expandOnClick = false;
-        this.expandOnFocus = false;
-        this.expandOnHover = false;
-        this.collapseOnClickOut = false;
-        this.collapseOnFocusOut = false;
-        this.collapseOnMouseOut = false;
-      }
-    }
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      this.sleep();
-      this._destroyed = true;
-      this._hostKeyDownListener = null;
-      this._hostMouseDownListener = null;
-      this._documentClickListener = null;
-      this._documentTouchStartListener = null;
-      this._documentTouchMoveListener = null;
-      this._documentTouchEndListener = null;
-      this._hostClickListener = null;
-      this._hostFocusListener = null;
-      this._hostHoverListener = null;
-      this._focusExitListener = null;
-      this._mouseLeaveListener = null;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "isExpanded",
-    value: function isExpanded() {
-      return this.expanded;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "expand",
-    value: function expand() {
-      this.expanded = true;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "collapse",
-    value: function collapse() {
-      this.expanded = false;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "toggle",
-    value: function toggle() {
-      this.expanded = !this.expanded;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "cancelAsync",
-    value: function cancelAsync() {
-      this.sleep();
-    }
-  }, {
     key: "expandOnClick",
     set: function set(bool) {
       if (bool === true) {
@@ -348,6 +289,65 @@ module.exports = /*#__PURE__*/function () {
       this._expandWasHoverActivated = false;
       this._keyboardClickFlag = false;
       this._mouseClickFlag = false;
+    }
+  }, {
+    key: "sleep",
+    value: function sleep() {
+      if (this._destroyed !== true) {
+        this.expandOnClick = false;
+        this.expandOnFocus = false;
+        this.expandOnHover = false;
+        this.collapseOnClickOut = false;
+        this.collapseOnFocusOut = false;
+        this.collapseOnMouseOut = false;
+      }
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.sleep();
+      this._destroyed = true;
+      this._hostKeyDownListener = null;
+      this._hostMouseDownListener = null;
+      this._documentClickListener = null;
+      this._documentTouchStartListener = null;
+      this._documentTouchMoveListener = null;
+      this._documentTouchEndListener = null;
+      this._hostClickListener = null;
+      this._hostFocusListener = null;
+      this._hostHoverListener = null;
+      this._focusExitListener = null;
+      this._mouseLeaveListener = null;
+    } // DEPRECATED (remove in v1.0.0)
+
+  }, {
+    key: "isExpanded",
+    value: function isExpanded() {
+      return this.expanded;
+    } // DEPRECATED (remove in v1.0.0)
+
+  }, {
+    key: "expand",
+    value: function expand() {
+      this.expanded = true;
+    } // DEPRECATED (remove in v1.0.0)
+
+  }, {
+    key: "collapse",
+    value: function collapse() {
+      this.expanded = false;
+    } // DEPRECATED (remove in v1.0.0)
+
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      this.expanded = !this.expanded;
+    } // DEPRECATED (remove in v1.0.0)
+
+  }, {
+    key: "cancelAsync",
+    value: function cancelAsync() {
+      this.sleep();
     }
   }]);
 

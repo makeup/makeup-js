@@ -15,7 +15,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -158,16 +158,6 @@ var LinearRovingTabindex = /*#__PURE__*/function (_RovingTabindex) {
   }
 
   _createClass(LinearRovingTabindex, [{
-    key: "reset",
-    value: function reset() {
-      this._navigationEmitter.model.reset();
-    }
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      this._navigationEmitter.destroy();
-    }
-  }, {
     key: "index",
     get: function get() {
       return this._navigationEmitter.model.index;
@@ -195,6 +185,16 @@ var LinearRovingTabindex = /*#__PURE__*/function (_RovingTabindex) {
     key: "_items",
     get: function get() {
       return this.items;
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this._navigationEmitter.model.reset();
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this._navigationEmitter.destroy();
     }
   }]);
 

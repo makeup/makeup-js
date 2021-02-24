@@ -19,7 +19,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -182,24 +182,17 @@ var LinearActiveDescendant = /*#__PURE__*/function (_ActiveDescendant) {
   }
 
   _createClass(LinearActiveDescendant, [{
-    key: "reset",
-    value: function reset() {
-      this._navigationEmitter.model.reset();
-    }
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      _get(_getPrototypeOf(LinearActiveDescendant.prototype), "destroy", this).call(this);
-
-      this._navigationEmitter.destroy();
-    }
-  }, {
     key: "index",
     get: function get() {
       return this._navigationEmitter.model.index;
     },
     set: function set(newIndex) {
       this._navigationEmitter.model.index = newIndex;
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this._navigationEmitter.model.reset();
     }
   }, {
     key: "filteredItems",
@@ -221,6 +214,13 @@ var LinearActiveDescendant = /*#__PURE__*/function (_ActiveDescendant) {
     key: "wrap",
     set: function set(newWrap) {
       this._navigationEmitter.model.options.wrap = newWrap;
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      _get(_getPrototypeOf(LinearActiveDescendant.prototype), "destroy", this).call(this);
+
+      this._navigationEmitter.destroy();
     }
   }]);
 

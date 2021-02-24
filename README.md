@@ -1,8 +1,6 @@
 # makeup-js
 
-<a href="https://travis-ci.org/makeup/makeup-js.svg?branch=master"><img src="https://travis-ci.org/makeup/makeup-js.svg?branch=master" /></a> <a href='https://coveralls.io/github/makeup/makeup-js?branch=master'><img src='https://coveralls.io/repos/github/makeup/makeup-js/badge.svg?branch=master' alt='Coverage Status' /></a>
-
-All makeup modules have now been moved over from their individual repos to this mono-repo. Please update any references from the old locations, to this new location.
+<a href="https://travis-ci.com/makeup/makeup-js.svg?branch=master"><img src="https://travis-ci.com/makeup/makeup-js.svg?branch=master" /></a> <a href='https://coveralls.io/github/makeup/makeup-js?branch=master'><img src='https://coveralls.io/repos/github/makeup/makeup-js/badge.svg?branch=master' alt='Coverage Status' /></a>
 
 Packages:
 
@@ -19,3 +17,4 @@ Packages:
 * [makeup-prevent-scroll-keys](packages/makeup-prevent-scroll-keys)
 * [makeup-roving-tabindex](packages/makeup-roving-tabindex)
 * [makeup-screenreader-trap](packages/makeup-screenreader-trap)
+* [makeup-typeahead](packages/makeup-typeahead)

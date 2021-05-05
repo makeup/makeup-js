@@ -19,7 +19,7 @@
         "@babel/cli": "^7.13.16",
         "@babel/core": "^7.14.0",
         "@babel/preset-env": "^7.14.1",
-        "@ebay/browserslist-config": "^1.2.0",
+        "@ebay/browserslist-config": "1.2.0",
         "babel-plugin-transform-object-assign": "^6",
         "browser-sync": "^2.26.14",
         "core-js-pure": "^3.11.3",

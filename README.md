@@ -2,7 +2,18 @@
 
 <a href="https://travis-ci.com/makeup/makeup-js.svg?branch=master"><img src="https://travis-ci.com/makeup/makeup-js.svg?branch=master" /></a> <a href='https://coveralls.io/github/makeup/makeup-js?branch=master'><img src='https://coveralls.io/repos/github/makeup/makeup-js/badge.svg?branch=master' alt='Coverage Status' /></a>
 
-Packages:
+A suite of vanilla JavaScript modules for building accessible user interfaces.
+
+## UI Modules
+
+The following modules create the model and behaviour for "headless" user interface components (i.e. they come with no styles or branding out of the box). They are fully compatible with [Skin CSS](https://github.com/eBay/skin).
+
+* [makeup-switch](packages/makeup-switch)
+* More to come...
+
+## Core Modules
+
+The following modules assist with common accessibility logic (e.g. maintaining a roving tabindex).
 
 * [makeup-active-descendant](packages/makeup-active-descendant)
 * [makeup-exit-emitter](packages/makeup-exit-emitter)

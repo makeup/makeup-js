@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>makeup-switch</title>
+        <link href="switch.css" rel="stylesheet" />
+        <link rel="icon" href="../favicon.ico" type="image/x-icon">
+        <style>
+            header,
+            main {
+                text-align: center;
+            }
+            ul {
+                list-style-type: none;
+                margin: 0 auto;
+                max-width: 320px;
+                padding: 0;
+            }
+            li {
+                align-items: center;
+                border: 1px solid #eee;
+                box-sizing: border-box;
+                display: flex;
+                margin: 4px 0;
+                padding: 4px 8px;
+            }
+            span.switch {
+                margin-left: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>makeup-switch</h1>
+        </header>
+        <main>
+            <ul>
+                <li>
+                    <span id="label1">switch 1</span>
+                    <span class="switch">
+                      <span class="switch__control" role="switch" tabindex="0" aria-checked="false" aria-labelledby="label1"></span>
+                      <span class="switch__button"></span>
+                    </span>
+                </li>
+                <li>
+                    <span id="label2">switch 2</span>
+                    <span class="switch">
+                      <span class="switch__control" role="switch" tabindex="0" aria-checked="true" aria-labelledby="label2"></span>
+                      <span class="switch__button"></span>
+                    </span>
+                </li>
+                <li>
+                    <span id="label3">switch 3</span>
+                    <span class="switch">
+                      <span class="switch__control" role="switch" tabindex="0" aria-checked="false" aria-disabled="true" aria-labelledby="label3"></span>
+                      <span class="switch__button"></span>
+                    </span>
+                </li>
+                <li>
+                    <span id="label4">switch 4</span>
+                    <span class="switch">
+                      <span class="switch__control" role="switch" tabindex="0" aria-checked="true" aria-disabled="true" aria-labelledby="label4"></span>
+                      <span class="switch__button"></span>
+                    </span>
+                </li>
+            </ul>
+        </main>
+        <script src="index.min.js"></script>
+    </body>
+</html>

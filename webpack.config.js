@@ -16,6 +16,7 @@ module.exports = {
         'makeup-prevent-scroll-keys': './docs/makeup-prevent-scroll-keys/index.compiled.js',
         'makeup-roving-tabindex': './docs/makeup-roving-tabindex/index.compiled.js',
         'makeup-screenreader-trap': './docs/makeup-screenreader-trap/index.compiled.js',
+        'makeup-switch': './docs/makeup-switch/index.compiled.js',
         'makeup-typeahead': './docs/makeup-typeahead/index.compiled.js'
     },
     mode: 'production',

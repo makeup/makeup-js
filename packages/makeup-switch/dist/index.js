@@ -28,13 +28,19 @@ module.exports = /*#__PURE__*/function () {
   function _class(el, selectedOptions) {
     _classCallCheck(this, _class);
 
-    this.options = _extends({}, defaultOptions, selectedOptions);
+    this._options = _extends({}, defaultOptions, selectedOptions);
     this.el = el;
-    this._onClickListener = this._onClick.bind(this);
-    this._onKeyDownListener = this._onKeyDown.bind(this);
-    this._onMutationListener = this._onMutation.bind(this);
+    this._onClickListener = _onClick.bind(this);
+    this._onKeyDownListener = _onKeyDown.bind(this);
+    this._onMutationListener = _onMutation.bind(this);
 
-    if (!this.options.customElementMode) {
+    if (this.disabled) {
+      this._focusableElement.setAttribute('tabindex', '-1');
+    }
+
+    this.el.classList.add('switch--js');
+
+    if (!this._options.customElementMode) {
       this._mutationObserver = new MutationObserver(this._onMutationListener);
 
       this._observeMutations();
@@ -46,7 +52,7 @@ module.exports = /*#__PURE__*/function () {
   _createClass(_class, [{
     key: "_observeMutations",
     value: function _observeMutations() {
-      if (!this.options.customElementMode) {
+      if (!this._options.customElementMode) {
         this._mutationObserver.observe(this._focusableElement, {
           attributes: true,
           childList: false,
@@ -57,7 +63,7 @@ module.exports = /*#__PURE__*/function () {
   }, {
     key: "_unobserveMutations",
     value: function _unobserveMutations() {
-      if (!this.options.customElementMode) {
+      if (!this._options.customElementMode) {
         this._mutationObserver.disconnect();
       }
     }
@@ -76,72 +82,9 @@ module.exports = /*#__PURE__*/function () {
       this._focusableElement.removeEventListener('keydown', this._onKeyDownListener);
     }
   }, {
-    key: "_onKeyDown",
-    value: function _onKeyDown(e) {
-      switch (e.keyCode) {
-        case 32:
-          e.preventDefault();
-          this.toggle();
-          break;
-
-        case 37:
-          this.checked = false;
-          break;
-
-        case 39:
-          this.checked = true;
-          break;
-
-        default:
-          break;
-      }
-    }
-  }, {
-    key: "_onClick",
-    value: function _onClick() {
-      if (!this.disabled) {
-        this.toggle();
-      }
-    }
-  }, {
-    key: "_onMutation",
-    value: function _onMutation(mutationsList) {
-      var _iterator = _createForOfIteratorHelper(mutationsList),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var mutation = _step.value;
-
-          if (mutation.type === 'attributes') {
-            this.el.dispatchEvent(new CustomEvent('makeup-switch-mutation', {
-              detail: {
-                attributeName: mutation.attributeName
-              }
-            }));
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-    }
-  }, {
-    key: "_destroy",
-    value: function _destroy() {
-      this._unobserveMutations();
-
-      this._unobserveEvents();
-
-      this._onClickListener = null;
-      this._onKeyDownListener = null;
-      this._onMutationListener = null;
-    }
-  }, {
     key: "_focusableElement",
     get: function get() {
-      return this.el.querySelector(".".concat(this.options.bem.control));
+      return this.el.querySelector(".".concat(this._options.bem.control));
     }
   }, {
     key: "checked",
@@ -189,7 +132,7 @@ module.exports = /*#__PURE__*/function () {
       // as a workaround we can use aria-label
 
 
-      if (this.options.customElementMode) {
+      if (this._options.customElementMode) {
         var labellingEl = document.getElementById(this.labelledby);
 
         if (labellingEl && labellingEl.innerText !== '') {
@@ -216,7 +159,69 @@ module.exports = /*#__PURE__*/function () {
     value: function toggle() {
       this.checked = !this.checked;
     }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this._unobserveMutations();
+
+      this._unobserveEvents();
+
+      this._onClickListener = null;
+      this._onKeyDownListener = null;
+      this._onMutationListener = null;
+    }
   }]);
 
   return _class;
 }();
+
+function _onKeyDown(e) {
+  if (!this.disabled) {
+    switch (e.keyCode) {
+      case 32:
+        e.preventDefault();
+        this.toggle();
+        break;
+
+      case 37:
+        this.checked = false;
+        break;
+
+      case 39:
+        this.checked = true;
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+
+function _onClick() {
+  if (!this.disabled) {
+    this.toggle();
+  }
+}
+
+function _onMutation(mutationsList) {
+  var _iterator = _createForOfIteratorHelper(mutationsList),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var mutation = _step.value;
+
+      if (mutation.type === 'attributes') {
+        this.el.dispatchEvent(new CustomEvent('makeup-switch-mutation', {
+          detail: {
+            attributeName: mutation.attributeName
+          }
+        }));
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+}

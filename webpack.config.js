@@ -10,6 +10,7 @@ module.exports = {
         'makeup-focusables': './docs/makeup-focusables/index.compiled.js',
         'makeup-key-emitter': './docs/makeup-key-emitter/index.compiled.js',
         'makeup-keyboard-trap': './docs/makeup-keyboard-trap/index.compiled.js',
+        'makeup-listbox': './docs/makeup-listbox/index.compiled.js',
         'makeup-modal': './docs/makeup-modal/index.compiled.js',
         'makeup-navigation-emitter': './docs/makeup-navigation-emitter/index.compiled.js',
         'makeup-next-id': './docs/makeup-next-id/index.compiled.js',

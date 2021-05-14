@@ -40,7 +40,7 @@ The constructor takes a configuration object as its second parameter.
 
 Set to true if using the class as the model for a custom element (aka Web Component)
 
-### bem
+### BEM
 
 Use this object to specify your custom classnames (i.e. if you don't wish to use the default `switch` prefixes).
 

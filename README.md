@@ -10,6 +10,7 @@ STATUS: We are currently in the process of converting all [eBay MIND Patterns](h
 
 The following modules create the model and behaviour for "headless" user interface components (i.e. they come with no styles or branding out of the box). They are fully compatible with [Skin CSS](https://github.com/eBay/skin).
 
+* [makeup-listbox](packages/makeup-listbox)
 * [makeup-switch](packages/makeup-switch)
 * More to come...
 

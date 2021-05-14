@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>makeup-listbox</title>
+        <link href="icon.css" rel="stylesheet" />
+        <link href="../style/listbox.css" rel="stylesheet" />
+        <link rel="icon" href="../favicon.ico" type="image/x-icon">
+        <style>
+            #page {
+                margin: 0 auto;
+                max-width: 960px;
+                width: 100%;
+            }
+            .listbox {
+                border: 1px solid black;
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="page">
+            <header>
+                <h1>makeup-listbox</h1>
+                <p>Listbox is headless UI widget and does not come bundled with any CSS. This example is receiving its styles from <a href="https://ebay.github.io/skin/#listbox">eBay Skin</a>.</p>
+                <p>Listbox widget is consumed by the following widgets: listbox-button, combobox.</p>
+            </header>
+            <hr/ >
+            <main>
+                <h2 id="listbox-1">Automatic Selection (default)</h2>
+                <p>For keyboard users, the selected option automatically matches the active descendant (controlled via ARROW keys).</p>
+
+                <div class="listbox">
+                    <div aria-labelledby="listbox-1" class="listbox__options" role="listbox" tabindex="0">
+                        <div class="listbox__option" role="option" aria-selected="false">
+                            <span class="listbox__value">Option 1</span>
+                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                                <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                            </svg>
+                        </div>
+                        <div class="listbox__option" role="option" aria-selected="false">
+                            <span class="listbox__value">Option 2</span>
+                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                                <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                            </svg>
+                        </div>
+                        <div class="listbox__option" role="option" aria-selected="false">
+                            <span class="listbox__value">Option 3</span>
+                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                                <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <hr/ >
+
+                <h2 id="listbox-2">Manual Selection</h2>
+                <p>The automatic selection can be disabled, so that SPACEBAR is required to manually change the selection.</p>
+
+                <div class="listbox" data-makeup-auto-select="false">
+                    <div aria-labelledby="listbox-2" class="listbox__options" role="listbox" tabindex="0">
+                        <div class="listbox__option" role="option" aria-selected="false">
+                            <span class="listbox__value">Option 1</span>
+                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                                <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                            </svg>
+                        </div>
+                        <div class="listbox__option" role="option" aria-selected="false">
+                            <span class="listbox__value">Option 2</span>
+                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                                <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                            </svg>
+                        </div>
+                        <div class="listbox__option" role="option" aria-selected="false">
+                            <span class="listbox__value">Option 3</span>
+                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                                <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <script src="index.min.js"></script>
+    </body>
+</html>

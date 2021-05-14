@@ -34,6 +34,7 @@ module.exports = class {
         // in cases such as combobox, the active-descendant logic is controlled by a parent widget
         this._activeDescendantRootEl = this._options.listboxOwnerElement || this.el;
 
+        // todo: not sure this check is needed any more
         if (widgetEl.getAttribute('role') === 'listbox') {
             this._listboxEl = widgetEl;
         } else {
@@ -71,17 +72,18 @@ module.exports = class {
 
         if (!this._options.customElementMode) {
             this._mutationObserver = new MutationObserver(this._onMutationListener);
-            // this._observeMutations();
+            this._observeMutations();
             this._observeEvents();
         }
     }
 
     _observeMutations() {
         if (!this._options.customElementMode) {
-            this._mutationObserver.observe(document.querySelector('[role=listbox]'), {
+            this._mutationObserver.observe(this._listboxEl, {
+                attributeFilter: ['aria-selected'],
                 attributes: true,
-                childList: false,
-                subtree: false
+                childList: true,
+                subtree: true
             });
         }
     }
@@ -127,7 +129,7 @@ module.exports = class {
     select(index) {
         this._unobserveMutations();
 
-        if (index > -1 && index < this.items.length) {
+        if (_indexInBounds(index, this.items.length)) {
             this.items[index].setAttribute('aria-selected', 'true');
 
             if (this._options.useAriaChecked === true) {
@@ -148,8 +150,9 @@ module.exports = class {
     unselect(index) {
         this._unobserveMutations();
 
-        if (index > -1 && index < this.items.length) {
+        if (_indexInBounds(index, this.items.length)) {
             this.items[index].setAttribute('aria-selected', 'false');
+
             if (this._options.useAriaChecked === true) {
                 this.items[index].setAttribute('aria-checked', 'false');
             }
@@ -176,6 +179,8 @@ module.exports = class {
 *   For listbox with auto select, the first keyboard focus should set selection to first option
 */
 function _onFocus() {
+    this._unobserveMutations();
+
     if (this._mouseDownFlag !== true && this._options.autoSelect === true && this.index === -1) {
         this._activeDescendant.index = 0;
         this.items[0].setAttribute('aria-selected', 'true');
@@ -185,6 +190,8 @@ function _onFocus() {
         }
     }
     this._mouseDownFlag = false;
+
+    this._observeMutations();
 }
 
 /*
@@ -247,4 +254,8 @@ function _onMutation(mutationsList) {
             }));
         }
     }
+}
+
+function _indexInBounds(index, size) {
+    return index > -1 && index < size;
 }

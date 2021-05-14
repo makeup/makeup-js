@@ -56,7 +56,7 @@ module.exports = /*#__PURE__*/function () {
     this._options = _extends({}, defaultOptions, selectedOptions);
     this.el = widgetEl; // in cases such as combobox, the active-descendant logic is controlled by a parent widget
 
-    this._activeDescendantRootEl = this._options.listboxOwnerElement || this.el;
+    this._activeDescendantRootEl = this._options.listboxOwnerElement || this.el; // todo: not sure this check is needed any more
 
     if (widgetEl.getAttribute('role') === 'listbox') {
       this._listboxEl = widgetEl;
@@ -85,7 +85,9 @@ module.exports = /*#__PURE__*/function () {
     this.el.classList.add('listbox--js');
 
     if (!this._options.customElementMode) {
-      this._mutationObserver = new MutationObserver(this._onMutationListener); // this._observeMutations();
+      this._mutationObserver = new MutationObserver(this._onMutationListener);
+
+      this._observeMutations();
 
       this._observeEvents();
     }
@@ -95,10 +97,11 @@ module.exports = /*#__PURE__*/function () {
     key: "_observeMutations",
     value: function _observeMutations() {
       if (!this._options.customElementMode) {
-        this._mutationObserver.observe(document.querySelector('[role=listbox]'), {
+        this._mutationObserver.observe(this._listboxEl, {
+          attributeFilter: ['aria-selected'],
           attributes: true,
-          childList: false,
-          subtree: false
+          childList: true,
+          subtree: true
         });
       }
     }
@@ -154,7 +157,7 @@ module.exports = /*#__PURE__*/function () {
     value: function select(index) {
       this._unobserveMutations();
 
-      if (index > -1 && index < this.items.length) {
+      if (_indexInBounds(index, this.items.length)) {
         this.items[index].setAttribute('aria-selected', 'true');
 
         if (this._options.useAriaChecked === true) {
@@ -176,7 +179,7 @@ module.exports = /*#__PURE__*/function () {
     value: function unselect(index) {
       this._unobserveMutations();
 
-      if (index > -1 && index < this.items.length) {
+      if (_indexInBounds(index, this.items.length)) {
         this.items[index].setAttribute('aria-selected', 'false');
 
         if (this._options.useAriaChecked === true) {
@@ -212,6 +215,8 @@ module.exports = /*#__PURE__*/function () {
 
 
 function _onFocus() {
+  this._unobserveMutations();
+
   if (this._mouseDownFlag !== true && this._options.autoSelect === true && this.index === -1) {
     this._activeDescendant.index = 0;
     this.items[0].setAttribute('aria-selected', 'true');
@@ -222,6 +227,8 @@ function _onFocus() {
   }
 
   this._mouseDownFlag = false;
+
+  this._observeMutations();
 }
 /*
 *   This flag is used to help us detect if first focus comes from keyboard or as a result of mouse _onClick
@@ -297,4 +304,8 @@ function _onMutation(mutationsList) {
   } finally {
     _iterator.f();
   }
+}
+
+function _indexInBounds(index, size) {
+  return index > -1 && index < size;
 }

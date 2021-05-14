@@ -1,10 +1,10 @@
 # makeup-listbox
 
-A JavaScript class that represents an ARIA listbox. No CSS provided.
+A JavaScript class that represents an ARIA [listbox](https://ebay.github.io/mindpatterns/input/listbox/index.html). No CSS provided.
 
 ## Example
 
-The following markup is required. Classnames are configurable (see config section below).
+The following markup structure and classnames are required. Any SVG icons can be used.
 
 ```html
 <div class="listbox" data-auto-select="true">
@@ -54,17 +54,13 @@ The constructor takes a configuration object as its second parameter.
 
 ### customElementMode
 
-Set to true if using the class as the model for a custom element (aka Web Component)
-
-### BEM
-
-Use this object to specify your custom classnames (i.e. if you don't wish to use the default `listbox` prefixes).
-
+Set to true if using the class as the model for a custom element (aka Web Component).
 
 ## Events
 
 ### makeup-listbox-change
 
-Fired when the switch is toggled.
+Fired when the selected option changes.
 
-* `detail.on`: true or false
+* `optionIndex`: the index position of the selected option
+* `optionValue`: the value of the selected option

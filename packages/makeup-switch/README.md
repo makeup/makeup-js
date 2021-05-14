@@ -1,6 +1,6 @@
 # makeup-switch
 
-A JavaScript class that represents an ARIA switch. No CSS provided.
+A JavaScript class that represents an ARIA [switch](https://ebay.github.io/mindpatterns/input/switch/index.html). No CSS provided.
 
 ## Example
 

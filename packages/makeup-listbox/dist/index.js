@@ -246,7 +246,7 @@ function _onKeyDown(e) {
     var toEl = this.items[toElIndex];
     var isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
-    if (isTolElSelected === false) {
+    if (this._options.autoSelect === false && isTolElSelected === false) {
       this.unselect(this.index);
       this.select(toElIndex);
     }
@@ -258,7 +258,7 @@ function _onClick(e) {
   var toElIndex = toEl.dataset.makeupIndex;
   var isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
-  if (isTolElSelected === false) {
+  if (this._options.autoSelect === false && isTolElSelected === false) {
     this.unselect(this.index);
     this.select(toElIndex);
   }

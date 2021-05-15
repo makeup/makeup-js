@@ -2,7 +2,7 @@
 
 A JavaScript class that represents an ARIA [listbox](https://ebay.github.io/mindpatterns/input/listbox/index.html). No CSS provided.
 
-## Example
+## HTML
 
 The following markup structure and classnames are required. Any SVG icons can be used.
 
@@ -37,14 +37,21 @@ The following markup structure and classnames are required. Any SVG icons can be
 </div>
 ```
 
-Style:
+## CSS
 
 No CSS is provided. However, the class is fully compatible with [eBay Skin](https://ebay.github.io/skin/#listbox).
 
-Script:
+## JavaScript
 
 ```js
 const Listbox = require('makeup-listbox');
+
+document.querySelectorAll('.listbox').forEach(function(el, i) {
+    const widget = new Listbox(el, config);
+
+    el.addEventListener('makeup-listbox-change', function(e) {
+        console.log(e.type, e.detail);
+    });
 });
 ```
 
@@ -52,9 +59,7 @@ const Listbox = require('makeup-listbox');
 
 The constructor takes a configuration object as its second parameter.
 
-### customElementMode
-
-Set to true if using the class as the model for a custom element (aka Web Component).
+todo
 
 ## Events
 

@@ -2,7 +2,7 @@
 
 A JavaScript class that represents an ARIA [switch](https://ebay.github.io/mindpatterns/input/switch/index.html). No CSS provided.
 
-## Example
+## HTML
 
 The following markup is required. Classnames are configurable (see config section below).
 
@@ -14,11 +14,11 @@ The following markup is required. Classnames are configurable (see config sectio
 </span>
 ```
 
-Style:
+## CSS
 
 No CSS is provided. However, the class is fully compatible with [eBay Skin](https://ebay.github.io/skin/#switch).
 
-Script:
+## JavaScript
 
 ```js
 const MakeupSwitch = require('makeup-switch');

@@ -1,9 +1,9 @@
 {
-  "name": "makeup-listbox-button",
-  "description": "A JavaScript class representing an ARIA listbox button",
+  "name": "makeup-combobox",
+  "description": "A JavaScript class representing an ARIA combobox",
   "version": "0.0.1",
   "main": "dist/index.js",
-  "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-listbox-button",
+  "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-combobox",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {

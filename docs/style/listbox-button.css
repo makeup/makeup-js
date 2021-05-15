@@ -136,7 +136,7 @@ span.listbox-button__value {
   outline: none;
 }
 @media (prefers-color-scheme: dark) {
-  .skin-experiment-dark-mode .listbox-button {
+  .listbox-button {
     --dropdown-items-background-color: #171717;
     --dropdown-items-border-color: #171717;
     --dropdown-item-background-color: #171717;

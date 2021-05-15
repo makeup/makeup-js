@@ -102,7 +102,7 @@ div.listbox__option[role="option"]:active svg.icon {
   outline: none;
 }
 @media (prefers-color-scheme: dark) {
-  .skin-experiment-dark-mode .listbox {
+  .listbox {
     --dropdown-items-background-color: #171717;
     --dropdown-items-border-color: #171717;
     --dropdown-item-background-color: #171717;

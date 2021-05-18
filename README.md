@@ -6,6 +6,8 @@ A suite of vanilla JavaScript modules for building accessible user interfaces.
 
 STATUS: We are currently in the process of converting all [eBay MIND Patterns](https://ebay.github.io/mindpatterns/index.html) "example quality" code to "reference level" vanilla JavaScript.
 
+UPDATE: Internet Explorer is no longer supported.
+
 ## UI Modules
 
 The following modules create the model and behaviour for "headless" user interface components (i.e. they come with no styles or branding out of the box). They are fully compatible with [Skin CSS](https://github.com/eBay/skin).
@@ -13,6 +15,7 @@ The following modules create the model and behaviour for "headless" user interfa
 * [makeup-combobox](packages/makeup-combobox)
 * [makeup-listbox](packages/makeup-listbox)
 * [makeup-listbox-button](packages/makeup-listbox-button)
+* [makeup-menu](packages/makeup-menu)
 * [makeup-switch](packages/makeup-switch)
 * More to come...
 

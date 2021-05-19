@@ -1,0 +1,24 @@
+{
+  "name": "makeup-menu-button",
+  "description": "A JavaScript class representing an ARIA menu button",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-menu-button",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "babel src/index.js --out-file dist/index.js"
+  },
+  "dependencies": {
+    "custom-event": "^1",
+    "makeup-expander": "~0.8.7",
+    "makeup-menu": "~0.0.1"
+  },
+  "files": [
+    "dist/index.js",
+    "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

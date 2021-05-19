@@ -149,6 +149,8 @@ module.exports = /*#__PURE__*/function () {
     value: function destroy() {
       this._destroyed = true;
 
+      this._unobserveMutations();
+
       this._unobserveEvents();
 
       this._onKeyDownListener = null;

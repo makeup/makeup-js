@@ -103,6 +103,8 @@ module.exports = class {
 
     destroy() {
         this._destroyed = true;
+
+        this._unobserveMutations();
         this._unobserveEvents();
 
         this._onKeyDownListener = null;

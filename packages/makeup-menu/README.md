@@ -4,7 +4,7 @@ A JavaScript class that represents an ARIA [menu](https://ebay.github.io/mindpat
 
 ## HTML
 
-The following markup structure and classnames are required.
+The following markup structure and classnames are required. Any SVG icons can be used.
 
 ### Stateless Menu
 
@@ -162,4 +162,4 @@ Fired when a stateless menu item is activated.
 
 ### makeup-menu-change
 
-Fired when a radio or checkbox items is toggled.
+Fired when a radio or checkbox item is toggled.

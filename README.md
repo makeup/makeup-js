@@ -16,6 +16,7 @@ The following modules create the model and behaviour for "headless" user interfa
 * [makeup-listbox](packages/makeup-listbox)
 * [makeup-listbox-button](packages/makeup-listbox-button)
 * [makeup-menu](packages/makeup-menu)
+* [makeup-menu-button](packages/makeup-menu-button)
 * [makeup-switch](packages/makeup-switch)
 * More to come...
 

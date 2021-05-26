@@ -7,13 +7,13 @@
         "compile": "npm run compile:modules && npm run compile:docs",
         "compile:docs": "babel docs --out-dir docs --out-file-extension .compiled.js --ignore 'docs/**/*.compiled.js','docs/**/*.min.js'",
         "compile:modules": "lerna run compile",
-        "fix": "eslint packages/**/src/index.js --fix",
-        "lint": "eslint packages/**/src/index.js > lint.log",
+        "fix": "eslint packages/**/src/*.js --fix",
+        "lint": "eslint packages/**/src/*.js > lint.log",
         "postinstall": "lerna bootstrap",
         "server": "browser-sync start -s --ss docs --index docs/index.html --files docs/**/index.html docs/**/index.min.js",
         "start": "npm run build && run-p server watch",
         "test": "karma start --autoWatch false --singleRun true",
-        "watch": "onchange packages/**/src/index.js docs/**/index.js -- npm run build"
+        "watch": "onchange packages/**/src/*.js docs/**/index.js -- npm run build"
     },
     "devDependencies": {
         "@babel/cli": "^7.13.16",

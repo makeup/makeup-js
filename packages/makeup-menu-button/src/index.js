@@ -3,7 +3,7 @@ const Menu = require('makeup-menu');
 
 const defaultOptions = {
     customElementMode: false,
-    expandedClass: 'expand-btn--expanded',
+    expandedClass: 'menu-button--expanded',
     menuSelector: '.menu-button__menu',
     buttonTextSelector: `.expand-btn__text`
 };

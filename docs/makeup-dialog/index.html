@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>makeup-dialog</title>
+        <link href="../style/docs.css" rel="stylesheet" />
+        <link href="../style/icon-button.css" rel="stylesheet" />
+        <link href="../style/lightbox-dialog.css" rel="stylesheet" />
+        <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div id="page">
+            <header>
+                <h1>makeup-dialog</h1>
+                <p>Dialog is headless UI widget and does not come bundled with any CSS. This example is receiving its styles from <a href="https://ebay.github.io/skin/#lightbox-dialog">eBay Skin</a>.</p>
+                <p>This page was loaded with a lightbox-dialog in an "open" state. To see examples of dialogs opened by button click, visit the  <a href="../makeup-dialog-button">makeup-dialog-button</a> page.</p>
+            </header>
+            <main>
+                <div class="lightbox-dialog lightbox-dialog--mask-fade" role="dialog" aria-labelledby="dialog-title" aria-modal="true">
+                    <div class="lightbox-dialog__window lightbox-dialog__window--fade">
+                        <div class="lightbox-dialog__header">
+                            <h2 id="dialog-title" class="large-text-1 bold-text">makeup-dialog</h2>
+                            <button aria-label="Close dialog" class="icon-btn lightbox-dialog__close" type="button">
+                                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
+                                    <use xlink:href="../style/icon.svg#icon-close"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="lightbox-dialog__main">
+                            <p>This page was loaded with a lightbox-dialog in an "open" state. To see examples of dialogs opened by button click, visit the  <a href="../makeup-dialog-button">makeup-dialog-button</a> page.</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="index.min.js"></script>
+    </body>
+</html>

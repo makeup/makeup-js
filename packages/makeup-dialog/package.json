@@ -1,0 +1,23 @@
+{
+  "name": "makeup-dialog",
+  "description": "A JavaScript class representing an ARIA dialog",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-dialog",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "babel src --out-dir dist"
+  },
+  "dependencies": {
+    "makeup-focusables": "^0.1.0",
+    "makeup-modal": "^0.2.1"
+  },
+  "files": [
+    "dist/index.js",
+    "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

@@ -14,45 +14,55 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Expander = require('makeup-expander');
-
-var Menu = require('makeup-menu');
+var Dialog = require('makeup-dialog');
 
 var defaultOptions = {
   customElementMode: false,
-  expandedClass: 'menu-button--expanded',
-  menuSelector: '.menu-button__menu',
-  buttonTextSelector: ".expand-btn__text"
+  selectors: {
+    alert: 'lightbox-dialog--alert',
+    confirm: 'lightbox-dialog--confirmation',
+    filter: 'panel-dialog--filter',
+    lightbox: 'lightbox-dialog',
+    panel: 'panel-dialog',
+    snackbar: 'snackbar-dialog',
+    sort: 'panel-dialog--sort',
+    toast: 'toast-dialog'
+  }
 };
 
 module.exports = /*#__PURE__*/function () {
   function _class(widgetEl, selectedOptions) {
-    var _this$_buttonEl$datas;
-
     _classCallCheck(this, _class);
 
     this._options = _extends({}, defaultOptions, selectedOptions);
-    this.el = widgetEl;
-    this._buttonEl = widgetEl.querySelector('button');
-    this.menu = new Menu(widgetEl.querySelector(this._options.menuSelector));
-    this._buttonPrefix = (_this$_buttonEl$datas = this._buttonEl.dataset) === null || _this$_buttonEl$datas === void 0 ? void 0 : _this$_buttonEl$datas.makeupMenuButtonPrefix;
-    this._buttonTextEl = this._buttonEl.querySelector(defaultOptions.buttonTextSelector);
-    this._expander = new Expander(widgetEl, {
-      alwaysDoFocusManagement: true,
-      collapseOnClick: true,
-      collapseOnClickOut: true,
-      collapseOnFocusOut: true,
-      contentSelector: this._options.menuSelector,
-      expandedClass: this._options.expandedClass,
-      expandOnClick: true,
-      focusManagement: 'focusable',
-      hostSelector: 'button'
-    });
-    this._onButtonFirstClickListener = _onButtonFirstClick.bind(this);
-    this._onMenuKeyDownListener = _onMenuKeyDown.bind(this);
-    this._onMenuItemSelectListener = _onMenuItemSelect.bind(this);
+    this._el = widgetEl;
+    var dialogId = this._el.dataset.makeupFor;
+    var dialogEl = document.getElementById(dialogId);
+    var dialogClassList = dialogEl.classList; // todo: refactor this block
+
+    if (dialogClassList.contains(this._options.selectors.confirm)) {
+      this._dialog = new Dialog.Confirm(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.alert)) {
+      this._dialog = new Dialog.Alert(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.sort)) {
+      this._dialog = new Dialog.Sort(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.filter)) {
+      this._dialog = new Dialog.Filter(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.snackbar)) {
+      this._dialog = new Dialog.Snackbar(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.toast)) {
+      this._dialog = new Dialog.Toast(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.panel)) {
+      this._dialog = new Dialog.Panel(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.lightbox)) {
+      this._dialog = new Dialog.Lightbox(dialogEl);
+    }
+
+    this._onClickListener = _onClick.bind(this);
+    this._onDialogCloseListener = _onDialogClose.bind(this);
     this._onMutationListener = _onMutation.bind(this);
-    this.el.classList.add('menu-button--js');
+
+    this._el.classList.add('dialog-button--js');
 
     if (!this._options.customElementMode) {
       this._mutationObserver = new MutationObserver(this._onMutationListener);
@@ -64,11 +74,15 @@ module.exports = /*#__PURE__*/function () {
   }
 
   _createClass(_class, [{
+    key: "dialog",
+    get: function get() {
+      return this._dialog;
+    }
+  }, {
     key: "_observeMutations",
     value: function _observeMutations() {
       if (!this._options.customElementMode) {
-        this._mutationObserver.observe(this.el, {
-          attributeFilter: ['aria-expanded', 'disabled'],
+        this._mutationObserver.observe(this._el, {
           attributes: true,
           childList: false,
           subtree: false
@@ -86,23 +100,17 @@ module.exports = /*#__PURE__*/function () {
     key: "_observeEvents",
     value: function _observeEvents() {
       if (this._destroyed !== true) {
-        this._buttonEl.addEventListener('click', this._onButtonFirstClickListener, {
-          once: true
-        });
+        this._el.addEventListener('click', this._onClickListener);
 
-        this.menu.el.addEventListener('keydown', this._onMenuKeyDownListener);
-        this.menu.el.addEventListener('makeup-menu-select', this._onMenuItemSelectListener);
-        this.menu.el.addEventListener('makeup-menu-change', this._onMenuItemSelectListener);
+        this.dialog._el.addEventListener('dialog-close', this._onDialogCloseListener);
       }
     }
   }, {
     key: "_unobserveEvents",
     value: function _unobserveEvents() {
-      this._buttonEl.removeEventListener('click', this._onButtonFirstClickListener);
+      this._el.removeEventListener('click');
 
-      this.menu.el.removeEventListener('keydown', this._onMenuKeyDownListener);
-      this.menu.el.removeEventListener('makeup-menu-select', this._onMenuItemSelectListener);
-      this.menu.el.removeEventListener('makeup-menu-change', this._onMenuItemSelectListener);
+      this.dialog._el.removeEventListener('dialog-close', this._onDialogCloseListener);
     }
   }, {
     key: "destroy",
@@ -113,9 +121,8 @@ module.exports = /*#__PURE__*/function () {
 
       this._unobserveEvents();
 
-      this._onButtonFirstClickListener = null;
-      this._onMenuKeyDownListener = null;
-      this._onMenuItemSelectListener = null;
+      this._onClickListener = null;
+      this._onDialogCloseListener = null;
       this._onMutationListener = null;
     }
   }]);
@@ -132,7 +139,7 @@ function _onMutation(mutationsList) {
       var mutation = _step.value;
 
       if (mutation.type === 'attributes') {
-        this.el.dispatchEvent(new CustomEvent('makeup-menu-button-mutation', {
+        this._el.dispatchEvent(new CustomEvent('makeup-dialog-button-mutation', {
           detail: {
             attributeName: mutation.attributeName
           }
@@ -146,27 +153,12 @@ function _onMutation(mutationsList) {
   }
 }
 
-function _onButtonFirstClick() {
-  this.menu.el.hidden = false;
+function _onClick() {
+  this.dialog.open();
 }
 
-function _onMenuKeyDown(e) {
-  if (e.keyCode === 27) {
-    this._expander.collapse();
-
-    this._buttonEl.focus();
+function _onDialogClose() {
+  if (this.dialog.modal) {
+    this._el.focus();
   }
-}
-
-function _onMenuItemSelect(e) {
-  if (this._buttonPrefix && e.detail.el.getAttribute('role') === 'menuitemradio') {
-    this._buttonTextEl.innerText = "".concat(this._buttonPrefix, " ").concat(e.detail.el.innerText);
-  }
-
-  var widget = this;
-  setTimeout(function () {
-    widget._expander.collapse();
-
-    widget._buttonEl.focus();
-  }, 150);
 }

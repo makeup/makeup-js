@@ -24,6 +24,8 @@ module.exports = class {
         const dialogEl = document.getElementById(dialogId);
         const dialogClassList = dialogEl.classList;
 
+        this._el.setAttribute('aria-haspopup', 'dialog');
+
         // todo: refactor this block
         if (dialogClassList.contains(this._options.selectors.confirm)) {
             this._dialog = new Dialog.Confirm(dialogEl);

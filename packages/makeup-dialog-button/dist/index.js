@@ -38,7 +38,10 @@ module.exports = /*#__PURE__*/function () {
     this._el = widgetEl;
     var dialogId = this._el.dataset.makeupFor;
     var dialogEl = document.getElementById(dialogId);
-    var dialogClassList = dialogEl.classList; // todo: refactor this block
+    var dialogClassList = dialogEl.classList;
+
+    this._el.setAttribute('aria-haspopup', 'dialog'); // todo: refactor this block
+
 
     if (dialogClassList.contains(this._options.selectors.confirm)) {
       this._dialog = new Dialog.Confirm(dialogEl);

@@ -1,6 +1,6 @@
 # makeup-dialog
 
-A JavaScript class that represents an ARIA [dialog](https://ebay.github.io/mindpatterns/disclosure/dialog/index.html). No CSS provided.
+A collection of JavaScript classes representing various forms of an ARIA [dialog](https://ebay.github.io/mindpatterns/disclosure/dialog/index.html). No CSS provided.
 
 The dialog class is consumed by the following modules: [dialog-button](../makeup-dialog-button).
 
@@ -162,6 +162,10 @@ Fired when any dialog is opened.
 ### makeup-dialog-close
 
 Fired when any dialog is closed.
+
+### makeup-dialog-acknowledge
+
+Fired when the alert dialog is acknowledged.
 
 ### makeup-dialog-confirm
 

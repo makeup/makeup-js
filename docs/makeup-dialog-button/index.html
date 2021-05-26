@@ -15,12 +15,12 @@
         <div id="page">
             <header>
                 <h1>makeup-dialog-button</h1>
-                <p>Dialog-Button is headless UI widget and does not come bundled with any CSS. This example is receiving its styles from <a href="https://ebay.github.io/skin/#lightbox-dialog">eBay Skin</a>.</p>
+                <p>Dialog-Button is headless UI widget and does not come bundled with any CSS. The dialogs in this example are receiving their styles from <a href="https://ebay.github.io/skin/#lightbox-dialog">eBay Skin</a>.</p>
                 <p>This page was loaded with all dialogs in a non-open state. To see an example of a dialog open on page load, visit the  <a href="../makeup-dialog">makeup-dialog</a> page.</p>
             </header>
             <hr/ >
             <main>
-                <button data-makeup-for="dialog-lightbox" class="dialog-button" type="button">Lightbox</button>
+                <button data-makeup-for="dialog-lightbox" class="dialog-button" type="button" aria-haspopup="dialog">Lightbox</button>
 
                 <div aria-labelledby="dialog-1-title" aria-modal="true" class="lightbox-dialog lightbox-dialog--mask-fade" hidden id="dialog-lightbox" role="dialog">
                     <div class="lightbox-dialog__window lightbox-dialog__window--fade">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-alert">Alert</button>
+                <button class="dialog-button" type="button" data-makeup-for="dialog-alert" aria-haspopup="dialog">Alert</button>
 
                 <div aria-labelledby="dialog-alert-title" aria-modal="true" class="lightbox-dialog lightbox-dialog--alert lightbox-dialog--mask-fade" hidden id="dialog-alert" role="alertdialog">
                     <div class="lightbox-dialog__compact-window lightbox-dialog__compact-window--fade">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-confirm">Confirm</button>
+                <button class="dialog-button" type="button" data-makeup-for="dialog-confirm" aria-haspopup="dialog">Confirm</button>
 
                 <div aria-labelledby="dialog-confirm-title" aria-modal="true" class="lightbox-dialog lightbox-dialog--confirmation lightbox-dialog--mask-fade" hidden id="dialog-confirm" role="dialog">
                     <div class="lightbox-dialog__compact-window lightbox-dialog__compact-window--fade">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-panel">Panel</button>
+                <button class="dialog-button" type="button" data-makeup-for="dialog-panel" aria-haspopup="dialog">Panel</button>
 
                 <div aria-labelledby="dialog-panel-title" aria-modal="true" class="panel-dialog panel-dialog--mask-fade-slow" hidden id="dialog-panel" role="dialog">
                     <div class="panel-dialog__window panel-dialog__window--slide">
@@ -97,7 +97,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-filter">Filter</button>
+                <button class="dialog-button" type="button" data-makeup-for="dialog-filter" aria-haspopup="dialog">Filter</button>
 
                 <div aria-labelledby="dialog-filter-title" aria-modal="true" class="panel-dialog panel-dialog--filter panel-dialog--mask-fade-slow" id="dialog-filter" role="dialog" hidden>
                     <div class="panel-dialog__window panel-dialog__window--end panel-dialog__window--slide">
@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-sort">Sort</button>
+                <button class="dialog-button" type="button" data-makeup-for="dialog-sort" aria-haspopup="dialog">Sort</button>
 
                 <div aria-labelledby="dialog-title-filter" aria-modal="true" class="panel-dialog panel-dialog--sort panel-dialog--mask-fade-slow" id="dialog-sort" role="dialog" hidden>
                     <div class="panel-dialog__window panel-dialog__window--end panel-dialog__window--slide">
@@ -143,7 +143,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-snackbar">Snackbar</button>
+                <button class="dialog-button" type="button" data-makeup-for="dialog-snackbar" aria-haspopup="dialog">Snackbar</button>
 
                 <aside aria-label="Notification" aria-live="polite" aria-modal="false" class="snackbar-dialog snackbar-dialog--transition" id="dialog-snackbar" role="dialog" hidden>
                     <div class="snackbar-dialog__window">
@@ -156,7 +156,7 @@
                     </div>
                 </aside>
 
-                <button class="button dialog-button" type="button" data-makeup-for="dialog-toast">Toast</button>
+                <button class="button dialog-button" type="button" data-makeup-for="dialog-toast" aria-haspopup="dialog">Toast</button>
 
                 <aside id="dialog-toast" aria-label="Notification" aria-live="polite" aria-modal="false" class="toast-dialog toast-dialog--transition" role="dialog" hidden>
                     <div class="toast-dialog__window">

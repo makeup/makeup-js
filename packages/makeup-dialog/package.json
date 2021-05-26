@@ -14,7 +14,17 @@
     "makeup-modal": "^0.2.1"
   },
   "files": [
+    "dist/alert.js",
+    "dist/confirm.js",
+    "dist/dialog.js",
+    "dist/filter.js",
     "dist/index.js",
+    "dist/lightbox.js",
+    "dist/panel.js",
+    "dist/snackbar.js",
+    "dist/sort.js",
+    "dist/toast.js",
+    "dist/transition.js",
     "package-lock.json"
   ],
   "browserslist": [

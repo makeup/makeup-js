@@ -135,7 +135,6 @@ class ModalDialog extends Dialog {
 
     _show() {
         super._show();
-        console.log(this._hasTransitions);
         if (!this._hasTransitions) {
             _doModalFocusManagement(this);
         }

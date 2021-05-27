@@ -19,6 +19,7 @@
     "dist/dialog.js",
     "dist/filter.js",
     "dist/index.js",
+    "dist/input.js",
     "dist/lightbox.js",
     "dist/panel.js",
     "dist/snackbar.js",

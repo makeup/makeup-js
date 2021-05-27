@@ -30,10 +30,10 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 var Lightbox = require('./lightbox.js');
 
-var defaultConfirmationOptions = {
+var defaultConfirmOptions = {
   baseClass: 'lightbox-dialog',
-  baseClassModifier: 'confirmation',
-  quickDismiss: false,
+  baseClassModifier: 'confrim',
+  quickDismiss: true,
   confirmButtonSelector: '.lightbox-dialog__confirm',
   focusManagementIndex: 1,
   rejectButtonSelector: '.lightbox-dialog__reject',
@@ -50,7 +50,7 @@ module.exports = /*#__PURE__*/function (_Lightbox) {
 
     _classCallCheck(this, _class);
 
-    return _super.call(this, el, _extends({}, defaultConfirmationOptions, selectedOptions));
+    return _super.call(this, el, _extends({}, defaultConfirmOptions, selectedOptions));
   }
 
   _createClass(_class, [{

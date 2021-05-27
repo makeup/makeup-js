@@ -4,8 +4,9 @@ const defaultOptions = {
     customElementMode: false,
     selectors: {
         alert: 'lightbox-dialog--alert',
-        confirm: 'lightbox-dialog--confirmation',
+        confirm: 'lightbox-dialog--confirm',
         filter: 'panel-dialog--filter',
+        input: 'lightbox-dialog--input',
         lightbox: 'lightbox-dialog',
         panel: 'panel-dialog',
         snackbar: 'snackbar-dialog',
@@ -31,6 +32,8 @@ module.exports = class {
             this._dialog = new Dialog.Confirm(dialogEl);
         } else if (dialogClassList.contains(this._options.selectors.alert)) {
             this._dialog = new Dialog.Alert(dialogEl);
+        } else if (dialogClassList.contains(this._options.selectors.input)) {
+            this._dialog = new Dialog.Input(dialogEl);
         } else if (dialogClassList.contains(this._options.selectors.sort)) {
             this._dialog = new Dialog.Sort(dialogEl);
         } else if (dialogClassList.contains(this._options.selectors.filter)) {
@@ -82,12 +85,24 @@ module.exports = class {
         if (this._destroyed !== true) {
             this._el.addEventListener('click', this._onClickListener);
             this.dialog._el.addEventListener('dialog-close', this._onDialogCloseListener);
+            this.dialog._el.addEventListener('dialog-done', this._onDialogCloseListener);
+            this.dialog._el.addEventListener('dialog-submit', this._onDialogCloseListener);
+            this.dialog._el.addEventListener('dialog-cancel', this._onDialogCloseListener);
+            this.dialog._el.addEventListener('dialog-confirm', this._onDialogCloseListener);
+            this.dialog._el.addEventListener('dialog-reject', this._onDialogCloseListener);
+            this.dialog._el.addEventListener('dialog-acknowledge', this._onDialogCloseListener);
         }
     }
 
     _unobserveEvents() {
         this._el.removeEventListener('click');
         this.dialog._el.removeEventListener('dialog-close', this._onDialogCloseListener);
+        this.dialog._el.removeEventListener('dialog-done', this._onDialogCloseListener);
+        this.dialog._el.removeEventListener('dialog-submit', this._onDialogCloseListener);
+        this.dialog._el.removeEventListener('dialog-cancel', this._onDialogCloseListener);
+        this.dialog._el.removeEventListener('dialog-confirm', this._onDialogCloseListener);
+        this.dialog._el.removeEventListener('dialog-reject', this._onDialogCloseListener);
+        this.dialog._el.removeEventListener('dialog-acknowledge', this._onDialogCloseListener);
     }
 
     destroy() {

@@ -6,6 +6,8 @@ var Alert = require('./alert.js');
 
 var Confirm = require('./confirm.js');
 
+var Input = require('./input.js');
+
 var Filter = require('./filter.js');
 
 var Panel = require('./panel.js');
@@ -21,6 +23,7 @@ module.exports = {
   Alert: Alert,
   Confirm: Confirm,
   Filter: Filter,
+  Input: Input,
   Panel: Panel,
   Snackbar: Snackbar,
   Sort: Sort,

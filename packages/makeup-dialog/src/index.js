@@ -1,6 +1,7 @@
 const Lightbox = require('./lightbox.js');
 const Alert = require('./alert.js');
 const Confirm = require('./confirm.js');
+const Input = require('./input.js');
 const Filter = require('./filter.js');
 const Panel = require('./panel.js');
 const Snackbar = require('./snackbar.js');
@@ -12,6 +13,7 @@ module.exports = {
     Alert,
     Confirm,
     Filter,
+    Input,
     Panel,
     Snackbar,
     Sort,

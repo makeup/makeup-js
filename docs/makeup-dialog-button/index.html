@@ -60,7 +60,7 @@
 
                 <button class="dialog-button" type="button" data-makeup-for="dialog-confirm" aria-haspopup="dialog">Confirm</button>
 
-                <div aria-labelledby="dialog-confirm-title" aria-modal="true" class="lightbox-dialog lightbox-dialog--confirmation lightbox-dialog--mask-fade" hidden id="dialog-confirm" role="dialog">
+                <div aria-labelledby="dialog-confirm-title" aria-modal="true" class="lightbox-dialog lightbox-dialog--confirm lightbox-dialog--mask-fade" hidden id="dialog-confirm" role="dialog">
                     <div class="lightbox-dialog__compact-window lightbox-dialog__compact-window--fade">
                         <div class="lightbox-dialog__header">
                             <h2 id="dialog-confirm-title" class="large-text-1 bold-text">Delete Address?</h2>
@@ -72,6 +72,28 @@
                             <button class="btn lightbox-dialog__reject">Cancel</button>
                             <button class="btn btn--primary lightbox-dialog__confirm" aria-describedby="dialog-description-0">Delete</button>
                         </div>
+                    </div>
+                </div>
+
+                <button class="dialog-button" type="button" data-makeup-for="dialog-input" aria-haspopup="dialog">Input</button>
+
+                <div class="lightbox-dialog lightbox-dialog--input lightbox-dialog--mask-fade" id="dialog-input" role="dialog" aria-labelledby="input-dialog-title" aria-modal="true" hidden>
+                    <div class="lightbox-dialog__window lightbox-dialog__window--fade">
+                        <div class="lightbox-dialog__header">
+                            <h2 class="lightbox-dialog__title" id="input-dialog-title">Enter Your Bid</h2>
+                        </div>
+                        <form action="index.html" method="get">
+                            <div class="lightbox-dialog__main">
+                                <p>
+                                    <label>Bid Amount:<label>
+                                    <input autofocus class="lightbox-dialog__input" type="text" name="bid" />
+                                </p>
+                            </div>
+                            <div class="lightbox-dialog__footer">
+                                <button class="button lightbox-dialog__cancel" type="button">Cancel</button>
+                                <button class="button lightbox-dialog__submit" type="submit">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 

@@ -28,15 +28,18 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var Panel = require('./panel.js');
+var Lightbox = require('./lightbox.js');
 
-var defaultFilterPanelOptions = {
-  baseClassModifier: 'filter',
-  resetButtonSelector: '.panel-dialog__reset'
+var defaultInputOptions = {
+  baseClass: 'lightbox-dialog',
+  baseClassModifier: 'input',
+  submitButtonSelector: '.lightbox-dialog__submit',
+  cancelButtonSelector: '.lightbox-dialog__cancel',
+  windowSelector: '.lightbox-dialog__compact-window'
 };
 
-module.exports = /*#__PURE__*/function (_Panel) {
-  _inherits(_class, _Panel);
+module.exports = /*#__PURE__*/function (_Lightbox) {
+  _inherits(_class, _Lightbox);
 
   var _super = _createSuper(_class);
 
@@ -45,7 +48,7 @@ module.exports = /*#__PURE__*/function (_Panel) {
 
     _classCallCheck(this, _class);
 
-    return _super.call(this, el, _extends({}, defaultFilterPanelOptions, selectedOptions));
+    return _super.call(this, el, _extends({}, defaultInputOptions, selectedOptions));
   }
 
   _createClass(_class, [{
@@ -53,35 +56,55 @@ module.exports = /*#__PURE__*/function (_Panel) {
     value: function _observeEvents() {
       _get(_getPrototypeOf(_class.prototype), "_observeEvents", this).call(this);
 
-      this._resetButtonEl = this._el.querySelector(this._options.resetButtonSelector);
-      this._onResetButtonClickListener = _onResetButtonClick.bind(this);
+      this._submitButtonEl = this._el.querySelector(this._options.submitButtonSelector);
+      this._cancelButtonEl = this._el.querySelector(this._options.cancelButtonSelector);
+      this._onSubmitButtonClickListener = _onSubmitButtonClick.bind(this);
+      this._onCancelButtonClickListener = _onCancelButtonClick.bind(this);
 
-      this._resetButtonEl.addEventListener('click', this._onResetButtonClickListener);
+      this._submitButtonEl.addEventListener('click', this._onSubmitButtonClickListener);
+
+      this._cancelButtonEl.addEventListener('click', this._onCancelButtonClickListener);
     }
   }, {
     key: "_unobserveEvents",
     value: function _unobserveEvents() {
       _get(_getPrototypeOf(_class.prototype), "_unobserveEvents", this).call(this);
 
-      this._resetButtonEl.removeEventListener('click', this._onResetButtonClickListener);
+      this._submitButtonEl.removeEventListener('click', this._onSubmitButtonClickListener);
+
+      this._cancelButtonEl.removeEventListener('click', this._onCancelButtonClickListener);
     }
   }, {
-    key: "reset",
-    value: function reset() {
-      this._el.dispatchEvent(new CustomEvent('dialog-reset'));
+    key: "submit",
+    value: function submit() {
+      this._hide();
+
+      this._el.dispatchEvent(new CustomEvent('dialog-submit'));
+    }
+  }, {
+    key: "cancel",
+    value: function cancel() {
+      this._hide();
+
+      this._el.dispatchEvent(new CustomEvent('dialog-cancel'));
     }
   }, {
     key: "destroy",
     value: function destroy() {
       _get(_getPrototypeOf(_class.prototype), "destroy", this).call(this);
 
-      this._onResetButtonClickListener = null;
+      this._onSubmitButtonClickListener = null;
+      this._onCancelButtonClickListener = null;
     }
   }]);
 
   return _class;
-}(Panel);
+}(Lightbox);
 
-function _onResetButtonClick() {
-  this.reset();
+function _onSubmitButtonClick() {
+  this.submit();
+}
+
+function _onCancelButtonClick() {
+  this.cancel();
 }

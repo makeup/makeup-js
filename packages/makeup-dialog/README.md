@@ -53,7 +53,7 @@ The following markup structure and classnames are required. Any SVG icons can be
 ### Confirm
 
 ```html
-<div class="lightbox-dialog lightbox-dialog--confirmation lightbox-dialog--mask-fade" role="dialog" aria-labelledby="dialog-confirm-title" aria-modal="true">
+<div class="lightbox-dialog lightbox-dialog--confirm lightbox-dialog--mask-fade" role="dialog" aria-labelledby="dialog-confirm-title" aria-modal="true">
     <div class="lightbox-dialog__compact-window lightbox-dialog__compact-window--fade">
         <div class="lightbox-dialog__header">
             <h2 id="dialog-confirm-title">

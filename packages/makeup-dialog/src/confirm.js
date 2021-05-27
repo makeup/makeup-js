@@ -1,9 +1,9 @@
 const Lightbox = require('./lightbox.js');
 
-const defaultConfirmationOptions = {
+const defaultConfirmOptions = {
     baseClass: 'lightbox-dialog',
-    baseClassModifier: 'confirmation',
-    quickDismiss: false,
+    baseClassModifier: 'confrim',
+    quickDismiss: true,
     confirmButtonSelector: '.lightbox-dialog__confirm',
     focusManagementIndex: 1,
     rejectButtonSelector: '.lightbox-dialog__reject',
@@ -12,7 +12,7 @@ const defaultConfirmationOptions = {
 
 module.exports = class extends Lightbox {
     constructor(el, selectedOptions = {}) {
-        super(el, Object.assign({}, defaultConfirmationOptions, selectedOptions));
+        super(el, Object.assign({}, defaultConfirmOptions, selectedOptions));
     }
 
     _observeEvents() {

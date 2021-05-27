@@ -1,7 +1,7 @@
 {
   "name": "makeup-dialog",
   "description": "Collection of JavaScript classes representing various forms of an ARIA dialog",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-dialog",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",

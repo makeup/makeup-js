@@ -2,6 +2,8 @@
 
 A JavaScript class that represents an ARIA [menu button](https://ebay.github.io/mindpatterns/input/menu-button/index.html). No CSS provided.
 
+[View Demo](https://makeup.github.io/makeup-js/makeup-menu-button/index.html).
+
 ## HTML
 
 The following markup structure and classnames are required. Any SVG icons can be used.

@@ -2,6 +2,8 @@
 
 A JavaScript class representing a popup button for any kind of [dialog](https://ebay.github.io/mindpatterns/disclosure/dialog/index.html). No CSS provided.
 
+[View Demo](https://makeup.github.io/makeup-js/makeup-dialog-button/index.html).
+
 ## HTML
 
 The following markup structure and classnames are required. Any SVG icons can be used.

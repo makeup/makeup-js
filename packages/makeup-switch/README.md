@@ -2,6 +2,8 @@
 
 A JavaScript class that represents an ARIA [switch](https://ebay.github.io/mindpatterns/input/switch/index.html). No CSS provided.
 
+[View Demo](https://makeup.github.io/makeup-js/makeup-switch/index.html).
+
 ## HTML
 
 The following markup is required. Classnames are configurable (see config section below).

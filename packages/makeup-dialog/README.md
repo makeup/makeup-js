@@ -4,6 +4,8 @@ A collection of JavaScript classes representing various forms of an ARIA [dialog
 
 The dialog class is consumed by the following modules: [dialog-button](../makeup-dialog-button).
 
+[View Demo](https://makeup.github.io/makeup-js/makeup-dialog/index.html).
+
 ## HTML
 
 The following markup structure and classnames are required. Any SVG icons can be used.

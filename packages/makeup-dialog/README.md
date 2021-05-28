@@ -157,8 +157,8 @@ The following markup structure and classnames are required. Any SVG icons can be
 ### Fullscreen
 
 ```html
-<div class="fullscreen-dialog fullscreen-dialog--mask-fade" id="dialog-fullscreen" role="dialog" aria-labelledby="fullscreen-dialog-title" aria-modal="true">
-    <div class="fullscreen-dialog__window fullscreen-dialog__window--fade">
+<div class="fullscreen-dialog fullscreen-dialog--transition" id="dialog-fullscreen" role="dialog" aria-labelledby="fullscreen-dialog-title" aria-modal="true">
+    <div class="fullscreen-dialog__window fullscreen-dialog__window--slide">
         <div class="fullscreen-dialog__header">
             <button aria-label="Close dialog" class="icon-btn fullscreen-dialog__close" type="button">
                 <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">

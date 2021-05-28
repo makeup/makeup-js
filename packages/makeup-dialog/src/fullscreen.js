@@ -4,6 +4,7 @@ const defaultFullscreenOptions = {
     baseClass: 'fullscreen-dialog',
     quickDismiss: false,
     closeButtonSelector: '.fullscreen-dialog__close',
+    transitionsModifier: 'transition',
     windowSelector: '.fullscreen-dialog__window'
 };
 

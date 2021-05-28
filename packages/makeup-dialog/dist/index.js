@@ -6,9 +6,13 @@ var Alert = require('./alert.js');
 
 var Confirm = require('./confirm.js');
 
+var Drawer = require('./drawer.js');
+
 var Input = require('./input.js');
 
 var Filter = require('./filter.js');
+
+var Fullscreen = require('./fullscreen.js');
 
 var Panel = require('./panel.js');
 
@@ -22,7 +26,9 @@ module.exports = {
   Lightbox: Lightbox,
   Alert: Alert,
   Confirm: Confirm,
+  Drawer: Drawer,
   Filter: Filter,
+  Fullscreen: Fullscreen,
   Input: Input,
   Panel: Panel,
   Snackbar: Snackbar,

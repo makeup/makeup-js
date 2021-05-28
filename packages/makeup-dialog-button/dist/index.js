@@ -21,7 +21,9 @@ var defaultOptions = {
   selectors: {
     alert: 'lightbox-dialog--alert',
     confirm: 'lightbox-dialog--confirm',
+    drawer: 'drawer-dialog',
     filter: 'panel-dialog--filter',
+    fullscreen: 'fullscreen-dialog',
     input: 'lightbox-dialog--input',
     lightbox: 'lightbox-dialog',
     panel: 'panel-dialog',
@@ -54,10 +56,14 @@ module.exports = /*#__PURE__*/function () {
       this._dialog = new Dialog.Sort(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.filter)) {
       this._dialog = new Dialog.Filter(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.fullscreen)) {
+      this._dialog = new Dialog.Fullscreen(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.snackbar)) {
       this._dialog = new Dialog.Snackbar(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.toast)) {
       this._dialog = new Dialog.Toast(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.drawer)) {
+      this._dialog = new Dialog.Drawer(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.panel)) {
       this._dialog = new Dialog.Panel(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.lightbox)) {

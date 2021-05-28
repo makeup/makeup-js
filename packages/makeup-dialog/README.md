@@ -133,6 +133,47 @@ The following markup structure and classnames are required. Any SVG icons can be
 </aside>
 ```
 
+### Drawer
+
+```html
+<div class="drawer-dialog drawer-dialog--mask-fade-slow" id="drawer-dialog" role="dialog" aria-labelledby="drawer-dialog-title" aria-modal="true">
+    <div class="drawer-dialog__window drawer-dialog__window--slide">
+        <button class="drawer-dialog__handle" type="button"></button>
+        <div class="drawer-dialog__header">
+            <h2 id="drawer-dialog-title">Heading</h2>
+            <button aria-label="Close dialog" class="icon-btn drawer-dialog__close" type="button">
+                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
+                    <use xlink:href="icon.svg#icon-close"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="drawer-dialog__main">
+            <!-- dialog content -->
+        </div>
+    </div>
+</div>
+```
+
+### Fullscreen
+
+```html
+<div class="fullscreen-dialog fullscreen-dialog--mask-fade" id="dialog-fullscreen" role="dialog" aria-labelledby="fullscreen-dialog-title" aria-modal="true">
+    <div class="fullscreen-dialog__window fullscreen-dialog__window--fade">
+        <div class="fullscreen-dialog__header">
+            <button aria-label="Close dialog" class="icon-btn fullscreen-dialog__close" type="button">
+                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
+                    <use xlink:href="icon.svg#icon-close"></use>
+                </svg>
+            </button>
+            <h2 id="fullscreen-dialog-title">Fullscreen Dialog</h2>
+        </div>
+        <div class="fullscreen-dialog__main">
+            <!-- dialog content -->
+        </div>
+    </div>
+</div>
+```
+
 ## CSS
 
 No CSS is provided. However, the class is fully compatible with [eBay Skin](https://ebay.github.io/skin/#dialog).

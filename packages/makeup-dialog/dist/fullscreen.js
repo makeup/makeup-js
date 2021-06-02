@@ -6,14 +6,6 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -28,15 +20,18 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var Panel = require('./panel.js');
+var ModalDialog = require('./dialog.js').ModalDialog;
 
-var defaultFilterPanelOptions = {
-  baseClassModifier: 'filter',
-  resetButtonSelector: '.panel-dialog__reset'
+var defaultFullscreenOptions = {
+  baseClass: 'fullscreen-dialog',
+  quickDismiss: false,
+  closeButtonSelector: '.fullscreen-dialog__close',
+  transitionsModifier: 'transition',
+  windowSelector: '.fullscreen-dialog__window'
 };
 
-module.exports = /*#__PURE__*/function (_Panel) {
-  _inherits(_class, _Panel);
+module.exports = /*#__PURE__*/function (_ModalDialog) {
+  _inherits(_class, _ModalDialog);
 
   var _super = _createSuper(_class);
 
@@ -45,43 +40,8 @@ module.exports = /*#__PURE__*/function (_Panel) {
 
     _classCallCheck(this, _class);
 
-    return _super.call(this, el, _extends({}, defaultFilterPanelOptions, selectedOptions));
+    return _super.call(this, el, _extends({}, defaultFullscreenOptions, selectedOptions));
   }
 
-  _createClass(_class, [{
-    key: "_observeEvents",
-    value: function _observeEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_observeEvents", this).call(this);
-
-      this._resetButtonEl = this._el.querySelector(this._options.resetButtonSelector);
-      this._onResetButtonClickListener = _onResetButtonClick.bind(this);
-
-      this._resetButtonEl.addEventListener('click', this._onResetButtonClickListener);
-    }
-  }, {
-    key: "_unobserveEvents",
-    value: function _unobserveEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_unobserveEvents", this).call(this);
-
-      this._resetButtonEl.removeEventListener('click', this._onResetButtonClickListener);
-    }
-  }, {
-    key: "reset",
-    value: function reset() {
-      this._el.dispatchEvent(new CustomEvent('dialog-reset'));
-    }
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      _get(_getPrototypeOf(_class.prototype), "destroy", this).call(this);
-
-      this._onResetButtonClickListener = null;
-    }
-  }]);
-
   return _class;
-}(Panel);
-
-function _onResetButtonClick() {
-  this.reset();
-}
+}(ModalDialog);

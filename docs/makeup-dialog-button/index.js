@@ -15,5 +15,7 @@ window.onload = function() {
         widget.dialog._el.addEventListener('dialog-reset', log);
         widget.dialog._el.addEventListener('dialog-done', log);
         widget.dialog._el.addEventListener('dialog-cta', log);
+        widget.dialog._el.addEventListener('dialog-submit', log);
+        widget.dialog._el.addEventListener('dialog-cancel', log);
     });
 };

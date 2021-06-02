@@ -2,7 +2,9 @@
 
 A JavaScript class that represents an ARIA [listbox](https://ebay.github.io/mindpatterns/input/listbox/index.html). No CSS provided.
 
-The listbox class is consumed by the following modules: [listbox-button](../makeup-listbox-button)</a>, [combobox](../makeup-combobox).</p>
+The listbox class is consumed by the following modules: [listbox-button](../makeup-listbox-button)</a>, [combobox](../makeup-combobox).
+
+[View Demo](https://makeup.github.io/makeup-js/makeup-listbox/index.html).
 
 ## HTML
 

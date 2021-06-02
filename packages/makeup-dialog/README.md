@@ -4,6 +4,8 @@ A collection of JavaScript classes representing various forms of an ARIA [dialog
 
 The dialog class is consumed by the following modules: [dialog-button](../makeup-dialog-button).
 
+[View Demo](https://makeup.github.io/makeup-js/makeup-dialog/index.html).
+
 ## HTML
 
 The following markup structure and classnames are required. Any SVG icons can be used.
@@ -53,7 +55,7 @@ The following markup structure and classnames are required. Any SVG icons can be
 ### Confirm
 
 ```html
-<div class="lightbox-dialog lightbox-dialog--confirmation lightbox-dialog--mask-fade" role="dialog" aria-labelledby="dialog-confirm-title" aria-modal="true">
+<div class="lightbox-dialog lightbox-dialog--confirm lightbox-dialog--mask-fade" role="dialog" aria-labelledby="dialog-confirm-title" aria-modal="true">
     <div class="lightbox-dialog__compact-window lightbox-dialog__compact-window--fade">
         <div class="lightbox-dialog__header">
             <h2 id="dialog-confirm-title">
@@ -131,6 +133,47 @@ The following markup structure and classnames are required. Any SVG icons can be
         </div>
     </div>
 </aside>
+```
+
+### Drawer
+
+```html
+<div class="drawer-dialog drawer-dialog--mask-fade-slow" id="drawer-dialog" role="dialog" aria-labelledby="drawer-dialog-title" aria-modal="true">
+    <div class="drawer-dialog__window drawer-dialog__window--slide">
+        <button class="drawer-dialog__handle" type="button"></button>
+        <div class="drawer-dialog__header">
+            <h2 id="drawer-dialog-title">Heading</h2>
+            <button aria-label="Close dialog" class="icon-btn drawer-dialog__close" type="button">
+                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
+                    <use xlink:href="icon.svg#icon-close"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="drawer-dialog__main">
+            <!-- dialog content -->
+        </div>
+    </div>
+</div>
+```
+
+### Fullscreen
+
+```html
+<div class="fullscreen-dialog fullscreen-dialog--transition" id="dialog-fullscreen" role="dialog" aria-labelledby="fullscreen-dialog-title" aria-modal="true">
+    <div class="fullscreen-dialog__window fullscreen-dialog__window--slide">
+        <div class="fullscreen-dialog__header">
+            <button aria-label="Close dialog" class="icon-btn fullscreen-dialog__close" type="button">
+                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
+                    <use xlink:href="icon.svg#icon-close"></use>
+                </svg>
+            </button>
+            <h2 id="fullscreen-dialog-title">Fullscreen Dialog</h2>
+        </div>
+        <div class="fullscreen-dialog__main">
+            <!-- dialog content -->
+        </div>
+    </div>
+</div>
 ```
 
 ## CSS

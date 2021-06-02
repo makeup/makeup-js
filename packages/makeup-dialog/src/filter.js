@@ -25,8 +25,6 @@ module.exports = class extends Panel {
     }
 
     reset() {
-        this._hide();
-
         this._el.dispatchEvent(new CustomEvent('dialog-reset'));
     }
 

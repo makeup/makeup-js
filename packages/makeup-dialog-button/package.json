@@ -1,7 +1,7 @@
 {
   "name": "makeup-dialog-button",
   "description": "A JavaScript class representing an ARIA popup button for dialogs",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-dialog-button",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
@@ -10,7 +10,7 @@
     "compile": "babel src/index.js --out-file dist/index.js"
   },
   "dependencies": {
-    "makeup-dialog": "~0.0.1"
+    "makeup-dialog": "~0.0.4"
   },
   "files": [
     "dist/index.js",

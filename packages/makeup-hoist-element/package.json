@@ -1,0 +1,24 @@
+{
+    "name": "makeup-hoist-element",
+    "description": "Hoists element below body so that traps are more performant, then returns element to original place when closing",
+    "version": "0.1.0",
+    "main": "index.js",
+    "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-hoist",
+    "author": "Austin Gardner <gardneraustin@protonmail.com>",
+    "license": "MIT",
+    "scripts": {
+      "compile": "babel src/index.js --out-file index.js",
+      "clean": "rimraf *.log .DS_Store"
+    },
+    "keywords": [
+      "makeup",
+      "ebay",
+      "accessibility",
+      "a11y"
+    ],
+    "dependencies": {},
+    "files": [
+      "browser.json",
+      "index.js"
+    ]
+}

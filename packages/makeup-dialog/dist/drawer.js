@@ -28,15 +28,19 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var Panel = require('./panel.js');
+var Lightbox = require('./lightbox.js');
 
-var defaultFilterPanelOptions = {
-  baseClassModifier: 'filter',
-  resetButtonSelector: '.panel-dialog__reset'
+var defaultDrawerOptions = {
+  baseClass: 'drawer-dialog',
+  quickDismiss: true,
+  closeButtonSelector: '.drawer-dialog__close',
+  focusManagementIndex: 1,
+  resizeButtonSelector: '.drawer-dialog__handle',
+  windowSelector: '.drawer-dialog__window'
 };
 
-module.exports = /*#__PURE__*/function (_Panel) {
-  _inherits(_class, _Panel);
+module.exports = /*#__PURE__*/function (_Lightbox) {
+  _inherits(_class, _Lightbox);
 
   var _super = _createSuper(_class);
 
@@ -45,7 +49,7 @@ module.exports = /*#__PURE__*/function (_Panel) {
 
     _classCallCheck(this, _class);
 
-    return _super.call(this, el, _extends({}, defaultFilterPanelOptions, selectedOptions));
+    return _super.call(this, el, _extends({}, defaultDrawerOptions, selectedOptions));
   }
 
   _createClass(_class, [{
@@ -53,35 +57,37 @@ module.exports = /*#__PURE__*/function (_Panel) {
     value: function _observeEvents() {
       _get(_getPrototypeOf(_class.prototype), "_observeEvents", this).call(this);
 
-      this._resetButtonEl = this._el.querySelector(this._options.resetButtonSelector);
-      this._onResetButtonClickListener = _onResetButtonClick.bind(this);
+      this._resizeButtonEl = this._el.querySelector(this._options.resizeButtonSelector);
+      this._onResizeButtonClickListener = _onResizeButtonClick.bind(this);
 
-      this._resetButtonEl.addEventListener('click', this._onResetButtonClickListener);
+      this._resizeButtonEl.addEventListener('click', this._onResizeButtonClickListener);
     }
   }, {
     key: "_unobserveEvents",
     value: function _unobserveEvents() {
       _get(_getPrototypeOf(_class.prototype), "_unobserveEvents", this).call(this);
 
-      this._resetButtonEl.removeEventListener('click', this._onResetButtonClickListener);
+      this._resizeButtonEl.removeEventListener('click', this._onResizeButtonClickListener);
     }
   }, {
-    key: "reset",
-    value: function reset() {
-      this._el.dispatchEvent(new CustomEvent('dialog-reset'));
+    key: "resize",
+    value: function resize() {
+      this._el.querySelector('.drawer-dialog__window').classList.toggle('drawer-dialog__window--expanded');
+
+      this._el.dispatchEvent(new CustomEvent('dialog-resize'));
     }
   }, {
     key: "destroy",
     value: function destroy() {
       _get(_getPrototypeOf(_class.prototype), "destroy", this).call(this);
 
-      this._onResetButtonClickListener = null;
+      this._onResizeButtonClickListener = null;
     }
   }]);
 
   return _class;
-}(Panel);
+}(Lightbox);
 
-function _onResetButtonClick() {
-  this.reset();
+function _onResizeButtonClick() {
+  this.resize();
 }

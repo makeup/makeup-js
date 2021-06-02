@@ -190,8 +190,6 @@ var ModalDialog = /*#__PURE__*/function (_Dialog) {
     value: function _show() {
       _get(_getPrototypeOf(ModalDialog.prototype), "_show", this).call(this);
 
-      console.log(this._hasTransitions);
-
       if (!this._hasTransitions) {
         _doModalFocusManagement(this);
       }

@@ -4,12 +4,15 @@ var keyboardTrap = require('makeup-keyboard-trap');
 
 var screenreaderTrap = require('makeup-screenreader-trap');
 
+var makeupHoist = require('makeup-hoist-element');
+
 var modalEl;
 
 function unmodal() {
   if (modalEl) {
     screenreaderTrap.untrap(modalEl);
-    keyboardTrap.untrap(modalEl); // let observers know the keyboard is now trapped
+    keyboardTrap.untrap(modalEl);
+    makeupHoist.unhoist(modalEl); // let observers know the keyboard is now trapped
 
     var event = document.createEvent('Event');
     event.initEvent('unmodal', false, true);
@@ -23,6 +26,7 @@ function unmodal() {
 function modal(el, options) {
   unmodal();
   modalEl = el;
+  makeupHoist.hoist(modalEl);
   screenreaderTrap.trap(modalEl, options);
   keyboardTrap.trap(modalEl); // let observers know the element is now modal
 

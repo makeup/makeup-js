@@ -20,8 +20,11 @@ var defaultOptions = {
   customElementMode: false,
   selectors: {
     alert: 'lightbox-dialog--alert',
-    confirm: 'lightbox-dialog--confirmation',
+    confirm: 'lightbox-dialog--confirm',
+    drawer: 'drawer-dialog',
     filter: 'panel-dialog--filter',
+    fullscreen: 'fullscreen-dialog',
+    input: 'lightbox-dialog--input',
     lightbox: 'lightbox-dialog',
     panel: 'panel-dialog',
     snackbar: 'snackbar-dialog',
@@ -47,14 +50,20 @@ module.exports = /*#__PURE__*/function () {
       this._dialog = new Dialog.Confirm(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.alert)) {
       this._dialog = new Dialog.Alert(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.input)) {
+      this._dialog = new Dialog.Input(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.sort)) {
       this._dialog = new Dialog.Sort(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.filter)) {
       this._dialog = new Dialog.Filter(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.fullscreen)) {
+      this._dialog = new Dialog.Fullscreen(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.snackbar)) {
       this._dialog = new Dialog.Snackbar(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.toast)) {
       this._dialog = new Dialog.Toast(dialogEl);
+    } else if (dialogClassList.contains(this._options.selectors.drawer)) {
+      this._dialog = new Dialog.Drawer(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.panel)) {
       this._dialog = new Dialog.Panel(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.lightbox)) {
@@ -106,6 +115,18 @@ module.exports = /*#__PURE__*/function () {
         this._el.addEventListener('click', this._onClickListener);
 
         this.dialog._el.addEventListener('dialog-close', this._onDialogCloseListener);
+
+        this.dialog._el.addEventListener('dialog-done', this._onDialogCloseListener);
+
+        this.dialog._el.addEventListener('dialog-submit', this._onDialogCloseListener);
+
+        this.dialog._el.addEventListener('dialog-cancel', this._onDialogCloseListener);
+
+        this.dialog._el.addEventListener('dialog-confirm', this._onDialogCloseListener);
+
+        this.dialog._el.addEventListener('dialog-reject', this._onDialogCloseListener);
+
+        this.dialog._el.addEventListener('dialog-acknowledge', this._onDialogCloseListener);
       }
     }
   }, {
@@ -114,6 +135,18 @@ module.exports = /*#__PURE__*/function () {
       this._el.removeEventListener('click');
 
       this.dialog._el.removeEventListener('dialog-close', this._onDialogCloseListener);
+
+      this.dialog._el.removeEventListener('dialog-done', this._onDialogCloseListener);
+
+      this.dialog._el.removeEventListener('dialog-submit', this._onDialogCloseListener);
+
+      this.dialog._el.removeEventListener('dialog-cancel', this._onDialogCloseListener);
+
+      this.dialog._el.removeEventListener('dialog-confirm', this._onDialogCloseListener);
+
+      this.dialog._el.removeEventListener('dialog-reject', this._onDialogCloseListener);
+
+      this.dialog._el.removeEventListener('dialog-acknowledge', this._onDialogCloseListener);
     }
   }, {
     key: "destroy",

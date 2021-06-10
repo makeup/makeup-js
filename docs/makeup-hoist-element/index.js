@@ -1,15 +1,11 @@
 const Hoist = require('../../packages/makeup-hoist-element');
-// const { hoist } = require('../../packages/makeup-modal/node_modules/makeup-hoist-element/src');
 
-let hoisted = false;
 const elementToHoist = document.querySelector('#hoist-this');
 
 elementToHoist.addEventListener('click', function() {
-    if (hoisted) {
+    if (Hoist.isHoisted(elementToHoist)) {
         Hoist.unhoist(elementToHoist);
-        hoisted = false;
-        return;
+    } else {
+        Hoist.hoist(elementToHoist);
     }
-    Hoist.hoist(elementToHoist);
-    hoisted = true;
 });

@@ -14,9 +14,8 @@ function isHoisted(element) {
 function unhoist() {
     if (hoistEl) {
         if (containerDiv) {
-            const childList = Array.from(containerDiv.childNodes);
-            childList.forEach((child) => {
-                if (child.src === undefined) {
+            [...containerDiv.childNodes].forEach((child) => {
+                if (!child.src) {
                     const index = bodyChildIndexes.shift();
                     if (index > document.body.childNodes.length) {
                         document.body.appendChild(child);

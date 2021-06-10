@@ -29,9 +29,8 @@ function isHoisted(element) {
 function unhoist() {
   if (hoistEl) {
     if (containerDiv) {
-      var childList = Array.from(containerDiv.childNodes);
-      childList.forEach(function (child) {
-        if (child.src === undefined) {
+      _toConsumableArray(containerDiv.childNodes).forEach(function (child) {
+        if (!child.src) {
           var index = bodyChildIndexes.shift();
 
           if (index > document.body.childNodes.length) {
@@ -41,6 +40,7 @@ function unhoist() {
           }
         }
       });
+
       containerDiv.remove();
       containerDiv = null;
       bodyChildIndexes = [];

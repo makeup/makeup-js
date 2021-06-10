@@ -1,16 +1,23 @@
-let modalEl;
-let modalPlaceholder;
+let hoistEl;
+let hoistedElementPlaceholder;
 let containerDiv;
-let prevAriaHiddenSetting;
-let bodyIndexes = [];
+let bodyChildIndexes = [];
+const BODY_TAG_NAME = 'BODY';
+
+function isHoisted(element) {
+    if (element.parentElement.tagName === BODY_TAG_NAME) {
+        return true;
+    }
+    return false;
+}
 
 function unhoist() {
-    if (modalEl) {
+    if (hoistEl) {
         if (containerDiv) {
             const childList = Array.from(containerDiv.childNodes);
             childList.forEach((child) => {
                 if (child.src === undefined) {
-                    const index = bodyIndexes.shift();
+                    const index = bodyChildIndexes.shift();
                     if (index > document.body.childNodes.length) {
                         document.body.appendChild(child);
                     } else {
@@ -20,60 +27,45 @@ function unhoist() {
             });
             containerDiv.remove();
             containerDiv = null;
-            bodyIndexes = [];
+            bodyChildIndexes = [];
         }
 
-        if (modalPlaceholder) {
-            modalEl.removeAttribute('aria-hidden');
-            // eslint-disable-next-line eqeqeq
-            if (prevAriaHiddenSetting != null) {
-                modalEl.setAttribute('aria-hidden', prevAriaHiddenSetting);
-            }
-            prevAriaHiddenSetting = null;
-            modalPlaceholder.replaceWith(modalEl);
+        if (hoistedElementPlaceholder) {
+            hoistedElementPlaceholder.replaceWith(hoistEl);
             // let observers know the element is unhoisted
-            const event = document.createEvent('Event');
-            event.initEvent('unhoist', true, true);
-            modalEl.dispatchEvent(event);
-            modalPlaceholder = null;
+            hoistedElementPlaceholder = null;
         }
-        modalEl = null;
+        hoistEl = null;
     }
-    return modalEl;
+    return hoistEl;
 }
 
 function hoist(el) {
-    unhoist();
-    modalEl = el;
+    if (isHoisted(el)) {
+        unhoist();
+    }
+    hoistEl = el;
 
-    modalPlaceholder = document.createElement('div');
-    modalEl.insertAdjacentElement('beforebegin', modalPlaceholder);
+    hoistedElementPlaceholder = document.createElement('div');
+    hoistEl.parentElement.insertBefore(hoistedElementPlaceholder, hoistEl);
 
     containerDiv = document.createElement('div');
-    const childList = Array.from(document.body.childNodes);
-    childList.forEach((child, index) => {
-        if (child.src === undefined) {
+    [...document.body.childNodes].forEach((child, index) => {
+        if (!child.src) {
             containerDiv.appendChild(child);
-            bodyIndexes.push(index);
+            bodyChildIndexes.push(index);
         }
     });
-    containerDiv.setAttribute('aria-hidden', 'true');
 
     document.body.prepend(containerDiv);
 
-    prevAriaHiddenSetting = modalEl.getAttribute('aria-hidden');
-    modalEl.setAttribute('aria-hidden', 'false');
-    document.body.appendChild(modalEl);
+    document.body.appendChild(hoistEl);
 
-    // let observers know the element is hoisted
-    const event = document.createEvent('Event');
-    event.initEvent('hoist', true, true);
-    modalEl.dispatchEvent(event);
-
-    return modalEl;
+    return hoistEl;
 }
 
 module.exports = {
     hoist,
-    unhoist
+    unhoist,
+    isHoisted
 };

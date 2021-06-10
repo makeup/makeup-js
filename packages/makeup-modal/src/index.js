@@ -5,27 +5,34 @@ const screenreaderTrap = require('makeup-screenreader-trap');
 const makeupHoist = require('makeup-hoist-element');
 
 let modalEl;
+let options;
 
 function unmodal() {
     if (modalEl) {
         screenreaderTrap.untrap(modalEl);
         keyboardTrap.untrap(modalEl);
-        makeupHoist.unhoist(modalEl);
+        if (options.hoist) {
+            makeupHoist.unhoist(modalEl);
+        }
 
         // let observers know the keyboard is now trapped
         const event = document.createEvent('Event');
         event.initEvent('unmodal', false, true);
         modalEl.dispatchEvent(event);
 
+        options = null;
         modalEl = null;
     }
     return modalEl;
 }
 
-function modal(el, options) {
+function modal(el, optionsParam = {}) {
     unmodal();
     modalEl = el;
-    makeupHoist.hoist(modalEl);
+    options = optionsParam;
+    if (options.hoist) {
+        makeupHoist.hoist(modalEl);
+    }
     screenreaderTrap.trap(modalEl, options);
     keyboardTrap.trap(modalEl);
 

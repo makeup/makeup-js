@@ -7,26 +7,38 @@ var screenreaderTrap = require('makeup-screenreader-trap');
 var makeupHoist = require('makeup-hoist-element');
 
 var modalEl;
+var options;
 
 function unmodal() {
   if (modalEl) {
     screenreaderTrap.untrap(modalEl);
     keyboardTrap.untrap(modalEl);
-    makeupHoist.unhoist(modalEl); // let observers know the keyboard is now trapped
+
+    if (options.hoist) {
+      makeupHoist.unhoist(modalEl);
+    } // let observers know the keyboard is now trapped
+
 
     var event = document.createEvent('Event');
     event.initEvent('unmodal', false, true);
     modalEl.dispatchEvent(event);
+    options = null;
     modalEl = null;
   }
 
   return modalEl;
 }
 
-function modal(el, options) {
+function modal(el) {
+  var optionsParam = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   unmodal();
   modalEl = el;
-  makeupHoist.hoist(modalEl);
+  options = optionsParam;
+
+  if (options.hoist) {
+    makeupHoist.hoist(modalEl);
+  }
+
   screenreaderTrap.trap(modalEl, options);
   keyboardTrap.trap(modalEl); // let observers know the element is now modal
 

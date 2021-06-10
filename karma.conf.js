@@ -20,6 +20,7 @@ module.exports = function (config) {
             'packages/makeup-expander/test/index.js',
             'packages/makeup-floating-label/test/index.js',
             'packages/makeup-focusables/test/index.js',
+            'packages/makeup-hoist-element/test/index.js',
             'packages/makeup-key-emitter/test/index.js',
             'packages/makeup-keyboard-trap/test/index.js',
             'packages/makeup-modal/test/index.js',
@@ -38,6 +39,7 @@ module.exports = function (config) {
             'packages/makeup-expander/test/index.js': 'webpack',
             'packages/makeup-floating-label/test/index.js': 'webpack',
             'packages/makeup-focusables/test/index.js': 'webpack',
+            'packages/makeup-hoist-element/test/index.js': 'webpack',
             'packages/makeup-key-emitter/test/index.js': 'webpack',
             'packages/makeup-keyboard-trap/test/index.js': 'webpack',
             'packages/makeup-modal/test/index.js': 'webpack',
@@ -79,6 +81,11 @@ module.exports = function (config) {
                         test: /\.js$/,
                         use: { loader: 'istanbul-instrumenter-loader' },
                         include: path.resolve('packages/makeup-focusables/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader' },
+                        include: path.resolve('packages/makeup-hoist-element/src')
                     },
                     {
                         test: /\.js$/,

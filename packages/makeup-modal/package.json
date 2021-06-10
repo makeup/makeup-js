@@ -17,7 +17,7 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-hoist-element": "^0.1.0",
+    "makeup-hoist-element": "~0.0.1",
     "makeup-keyboard-trap": "~0.2.3",
     "makeup-screenreader-trap": "~0.2.1"
   },

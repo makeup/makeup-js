@@ -20,8 +20,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -46,7 +44,7 @@ var Dialog = /*#__PURE__*/function () {
   function Dialog(widgetEl, selectedOptions) {
     _classCallCheck(this, Dialog);
 
-    this._options = _extends({}, defaultDialogOptions, selectedOptions);
+    this._options = Object.assign({}, defaultDialogOptions, selectedOptions);
     this._el = widgetEl;
     this._windowEl = this._el.querySelector(this._options.windowSelector);
     this._closeButtonEl = this._el.querySelector(this._options.closeButtonSelector);
@@ -174,7 +172,7 @@ var ModalDialog = /*#__PURE__*/function (_Dialog) {
 
     _classCallCheck(this, ModalDialog);
 
-    _this = _super.call(this, el, _extends({}, defaultDialogOptions, selectedOptions));
+    _this = _super.call(this, el, Object.assign({}, defaultDialogOptions, selectedOptions));
 
     _this._el.setAttribute('aria-modal', 'true');
 

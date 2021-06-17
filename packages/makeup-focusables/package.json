@@ -2,12 +2,12 @@
   "name": "makeup-focusables",
   "description": "Returns an array of all focusable descendants of the given element",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-focusables",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src/index.js --out-file index.js",
+    "compile": "babel src --out-dir dist",
     "clean": "rimraf *.log .DS_Store"
   },
   "keywords": [
@@ -18,7 +18,7 @@
   ],
   "files": [
     "browser.json",
-    "index.js",
+    "dist/index.js",
     "package-lock.json"
   ],
   "browserslist": [

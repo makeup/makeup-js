@@ -2,12 +2,12 @@
   "name": "makeup-roving-tabindex",
   "description": "Implements a roving tab index on given collection of elements",
   "version": "0.3.7",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-roving-tabindex",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src/index.js --out-file index.js",
+    "compile": "babel src --out-dir dist",
     "clean": "rimraf *.log .DS_Store"
   },
   "keywords": [
@@ -17,13 +17,11 @@
     "a11y"
   ],
   "dependencies": {
-    "custom-event": "^1",
-    "makeup-navigation-emitter": "~0.3.7",
-    "nodelist-foreach-polyfill": "^1"
+    "makeup-navigation-emitter": "~0.3.7"
   },
   "files": [
     "browser.json",
-    "index.js",
+    "dist/index.js",
     "package-lock.json"
   ]
 }

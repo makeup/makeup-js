@@ -40,7 +40,3 @@ None
 ## Custom Events        
 
 None
-
-## Dependencies
-
-None

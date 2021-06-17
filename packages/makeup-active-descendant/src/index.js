@@ -1,15 +1,5 @@
 'use strict';
 
-// requires NodeList.forEach polyfill for IE
-// conditional check due to https://github.com/imagitama/nodelist-foreach-polyfill/issues/7
-if (typeof Element !== 'undefined') {
-    require('nodelist-foreach-polyfill');
-}
-
-// requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-const CustomEvent = require('custom-event');
-
 const NavigationEmitter = require('makeup-navigation-emitter');
 const nextID = require('makeup-next-id');
 

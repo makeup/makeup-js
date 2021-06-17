@@ -1,9 +1,5 @@
 'use strict';
 
-// requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-const CustomEvent = require('custom-event');
-
 const nextID = require('makeup-next-id');
 const ExitEmitter = require('makeup-exit-emitter');
 const focusables = require('makeup-focusables');
@@ -285,30 +281,5 @@ module.exports = class {
         this._hostHoverListener = null;
         this._focusExitListener = null;
         this._mouseLeaveListener = null;
-    }
-
-    // DEPRECATED (remove in v1.0.0)
-    isExpanded() {
-        return this.expanded;
-    }
-
-    // DEPRECATED (remove in v1.0.0)
-    expand() {
-        this.expanded = true;
-    }
-
-    // DEPRECATED (remove in v1.0.0)
-    collapse() {
-        this.expanded = false;
-    }
-
-    // DEPRECATED (remove in v1.0.0)
-    toggle() {
-        this.expanded = !this.expanded;
-    }
-
-    // DEPRECATED (remove in v1.0.0)
-    cancelAsync() {
-        this.sleep();
     }
 };

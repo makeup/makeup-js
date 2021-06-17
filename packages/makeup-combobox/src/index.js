@@ -160,7 +160,7 @@ function _onTextboxKeyDown(e) {
         this._listboxWidget._activeDescendant.reset();
 
         setTimeout(function() {
-            widget._expander.collapse();
+            widget._expander.expanded = false;
             if (widget._autocompleteType === 'list') {
                 if (widget._inputEl.value.length === 0) {
                     widget.resetFilter();
@@ -208,7 +208,7 @@ function _onListboxClick(e) {
         }
 
         setTimeout(function() {
-            widget._expander.collapse();
+            widget._expander.expanded = false;
         }, this._options.collapseTimeout);
     }
 }

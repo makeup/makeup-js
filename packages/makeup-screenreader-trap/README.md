@@ -34,7 +34,3 @@ yarn add makeup-screenreader-trap
 
 * screenreaderTrap : fired by trapped element when screenreader trap is activated
 * screenreaderUntrap : fired by trapped element when screenreader trap is deactivated
-
-## Dependencies
-
-* [custom-event](https://github.com/webmodules/custom-event) (for IE)

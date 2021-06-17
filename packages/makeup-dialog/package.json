@@ -14,6 +14,7 @@
     "makeup-modal": "^0.2.1"
   },
   "files": [
+    "browser.json",
     "dist/alert.js",
     "dist/confirm.js",
     "dist/dialog.js",

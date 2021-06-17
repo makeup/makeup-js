@@ -1,6 +1,3 @@
-// requires NodeList.forEach polyfill for IE
-require('nodelist-foreach-polyfill');
-
 const ActiveDescendant = require('../../packages/makeup-active-descendant');
 
 const navs = [];

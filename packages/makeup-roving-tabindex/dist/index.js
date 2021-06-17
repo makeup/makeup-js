@@ -1,13 +1,6 @@
-'use strict'; // requires NodeList.forEach polyfill for IE
-// conditional check due to https://github.com/imagitama/nodelist-foreach-polyfill/issues/7
+'use strict';
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -29,60 +22,66 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-if (typeof Element !== 'undefined') {
-  require('nodelist-foreach-polyfill');
-} // requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-
-
-var CustomEvent = require('custom-event');
-
 var NavigationEmitter = require('makeup-navigation-emitter');
 
-var nextID = require('makeup-next-id');
-
 var defaultOptions = {
-  activeDescendantClassName: 'active-descendant',
-  autoInit: -1,
-  autoReset: -1,
-  autoScroll: false,
-  axis: 'both',
-  ignoreButtons: false
+  autoReset: null,
+  index: 0,
+  wrap: false,
+  axis: 'both'
+};
+
+var nodeListToArray = function nodeListToArray(nodeList) {
+  return Array.prototype.slice.call(nodeList);
 };
 
 function onModelMutation() {
-  var options = this._options;
   var modelIndex = this._navigationEmitter.model.index;
-  this.filteredItems.forEach(function (item, index) {
-    nextID(item);
-
-    if (index !== modelIndex) {
-      item.classList.remove(options.activeDescendantClassName);
-    } else {
-      item.classList.add(options.activeDescendantClassName);
-    }
+  this.filteredItems.forEach(function (el, index) {
+    return el.setAttribute('tabindex', index !== modelIndex ? '-1' : '0');
   });
 }
 
+function onModelInit(e) {
+  var items = e.detail.items;
+  nodeListToArray(items).filter(function (el, i) {
+    return i !== e.detail.toIndex;
+  }).forEach(function (el) {
+    return el.setAttribute('tabindex', '-1');
+  });
+
+  if (items[e.detail.toIndex]) {
+    items[e.detail.toIndex].setAttribute('tabindex', '0');
+  }
+}
+
+function onModelReset(e) {
+  this._index = e.detail.toIndex; // seems unused internally. scheduled for deletion.
+
+  var items = this.filteredItems;
+  nodeListToArray(items).filter(function (el, i) {
+    return i !== e.detail.toIndex;
+  }).forEach(function (el) {
+    return el.setAttribute('tabindex', '-1');
+  });
+  items[e.detail.toIndex].setAttribute('tabindex', '0');
+}
+
 function onModelChange(e) {
-  var fromItem = this.filteredItems[e.detail.fromIndex];
-  var toItem = this.filteredItems[e.detail.toIndex];
+  var items = this.filteredItems;
+  var fromItem = items[e.detail.fromIndex];
+  var toItem = items[e.detail.toIndex];
 
   if (fromItem) {
-    fromItem.classList.remove(this._options.activeDescendantClassName);
+    fromItem.setAttribute('tabindex', '-1');
   }
 
   if (toItem) {
-    toItem.classList.add(this._options.activeDescendantClassName);
-
-    this._focusEl.setAttribute('aria-activedescendant', toItem.id);
-
-    if (this._options.autoScroll && this._containerEl) {
-      this._containerEl.scrollTop = toItem.offsetTop - this._containerEl.offsetHeight / 2;
-    }
+    toItem.setAttribute('tabindex', '0');
+    toItem.focus();
   }
 
-  this._el.dispatchEvent(new CustomEvent('activeDescendantChange', {
+  this._el.dispatchEvent(new CustomEvent('rovingTabindexChange', {
     detail: {
       fromIndex: e.detail.fromIndex,
       toIndex: e.detail.toIndex
@@ -90,98 +89,64 @@ function onModelChange(e) {
   }));
 }
 
-function onModelReset(e) {
-  var toIndex = e.detail.toIndex;
-  var activeClassName = this._options.activeDescendantClassName;
-  this.filteredItems.forEach(function (el) {
-    el.classList.remove(activeClassName);
-  });
-
-  if (toIndex > -1) {
-    var itemEl = this.filteredItems[toIndex];
-    itemEl.classList.add(activeClassName);
-
-    this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
-  } else {
-    this._focusEl.removeAttribute('aria-activedescendant');
-  }
-}
-
-var ActiveDescendant = /*#__PURE__*/function () {
-  function ActiveDescendant(el) {
-    _classCallCheck(this, ActiveDescendant);
+var RovingTabindex = /*#__PURE__*/function () {
+  function RovingTabindex(el) {
+    _classCallCheck(this, RovingTabindex);
 
     this._el = el;
     this._onMutationListener = onModelMutation.bind(this);
     this._onChangeListener = onModelChange.bind(this);
+    this._onInitListener = onModelInit.bind(this);
     this._onResetListener = onModelReset.bind(this);
 
     this._el.addEventListener('navigationModelMutation', this._onMutationListener);
 
     this._el.addEventListener('navigationModelChange', this._onChangeListener);
 
+    this._el.addEventListener('navigationModelInit', this._onInitListener);
+
     this._el.addEventListener('navigationModelReset', this._onResetListener);
   }
 
-  _createClass(ActiveDescendant, [{
+  _createClass(RovingTabindex, [{
     key: "destroy",
     value: function destroy() {
       this._el.removeEventListener('navigationModelMutation', this._onMutationListener);
 
       this._el.removeEventListener('navigationModelChange', this._onChangeListener);
 
+      this._el.removeEventListener('navigationModelInit', this._onInitListener);
+
       this._el.removeEventListener('navigationModelReset', this._onResetListener);
     }
   }]);
 
-  return ActiveDescendant;
+  return RovingTabindex;
 }();
 
-var LinearActiveDescendant = /*#__PURE__*/function (_ActiveDescendant) {
-  _inherits(LinearActiveDescendant, _ActiveDescendant);
+var LinearRovingTabindex = /*#__PURE__*/function (_RovingTabindex) {
+  _inherits(LinearRovingTabindex, _RovingTabindex);
 
-  var _super = _createSuper(LinearActiveDescendant);
+  var _super = _createSuper(LinearRovingTabindex);
 
-  function LinearActiveDescendant(el, focusEl, containerEl, itemSelector, selectedOptions) {
+  function LinearRovingTabindex(el, itemSelector, selectedOptions) {
     var _this;
 
-    _classCallCheck(this, LinearActiveDescendant);
+    _classCallCheck(this, LinearRovingTabindex);
 
     _this = _super.call(this, el);
-    _this._options = _extends({}, defaultOptions, selectedOptions);
+    _this._options = Object.assign({}, defaultOptions, selectedOptions);
+    _this._itemSelector = itemSelector;
     _this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
-      autoInit: _this._options.autoInit,
+      autoInit: _this._options.index,
       autoReset: _this._options.autoReset,
-      axis: _this._options.axis,
-      ignoreButtons: _this._options.ignoreButtons
+      wrap: _this._options.wrap,
+      axis: _this._options.axis
     });
-    _this._focusEl = focusEl;
-    _this._containerEl = containerEl;
-    _this._itemSelector = itemSelector; // ensure container has an id
-
-    nextID(containerEl); // if DOM hierarchy cannot be determined,
-    // focus element must programatically 'own' the container of descendant items
-
-    if (containerEl !== focusEl) {
-      focusEl.setAttribute('aria-owns', containerEl.id);
-    } // ensure each item has an id
-
-
-    _this.items.forEach(function (itemEl) {
-      nextID(itemEl);
-    });
-
-    if (_this._options.autoInit > -1) {
-      var itemEl = _this.filteredItems[_this._options.autoInit];
-      itemEl.classList.add(_this._options.activeDescendantClassName);
-
-      _this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
-    }
-
     return _this;
   }
 
-  _createClass(LinearActiveDescendant, [{
+  _createClass(LinearRovingTabindex, [{
     key: "index",
     get: function get() {
       return this._navigationEmitter.model.index;
@@ -190,9 +155,9 @@ var LinearActiveDescendant = /*#__PURE__*/function (_ActiveDescendant) {
       this._navigationEmitter.model.index = newIndex;
     }
   }, {
-    key: "reset",
-    value: function reset() {
-      this._navigationEmitter.model.reset();
+    key: "wrap",
+    set: function set(newWrap) {
+      this._navigationEmitter.model.options.wrap = newWrap;
     }
   }, {
     key: "filteredItems",
@@ -211,32 +176,30 @@ var LinearActiveDescendant = /*#__PURE__*/function (_ActiveDescendant) {
       return this.items;
     }
   }, {
-    key: "wrap",
-    set: function set(newWrap) {
-      this._navigationEmitter.model.options.wrap = newWrap;
+    key: "reset",
+    value: function reset() {
+      this._navigationEmitter.model.reset();
     }
   }, {
     key: "destroy",
     value: function destroy() {
-      _get(_getPrototypeOf(LinearActiveDescendant.prototype), "destroy", this).call(this);
-
       this._navigationEmitter.destroy();
     }
   }]);
 
-  return LinearActiveDescendant;
-}(ActiveDescendant);
+  return LinearRovingTabindex;
+}(RovingTabindex);
 /*
-class GridActiveDescendant extends ActiveDescendant {
-    constructor(el, focusEl, containerEl, rowSelector, cellSelector) {
+class GridRovingTabindex extends RovingTabindex {
+    constructor(el, rowSelector, cellSelector, selectedOptions) {
         super(el);
     }
 }
 */
 
 
-function createLinear(el, focusEl, containerEl, itemSelector, selectedOptions) {
-  return new LinearActiveDescendant(el, focusEl, containerEl, itemSelector, selectedOptions);
+function createLinear(el, itemSelector, selectedOptions) {
+  return new LinearRovingTabindex(el, itemSelector, selectedOptions);
 }
 
 module.exports = {

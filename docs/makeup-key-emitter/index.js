@@ -32,7 +32,7 @@ events.forEach(function(eventName) {
 
 // on widget2 buttons
 
-Array.prototype.slice.call(widget2ButtonEls).forEach(function(el) {
+[...widget2ButtonEls].forEach(function(el) {
     KeyEmitter.add(el);
 
     events.forEach(function(eventName) {

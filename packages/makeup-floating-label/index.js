@@ -1,14 +1,10 @@
 'use strict';
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var includes = require('core-js-pure/features/string/includes');
 
 var defaultOptions = {
   labelElementAnimateModifier: 'floating-label__label--animate',
@@ -66,7 +62,7 @@ function isAutofilled(input, color) {
   // check for computed background color because of Chrome autofill bug
   // https://stackoverflow.com/questions/35049555/chrome-autofill-autocomplete-no-value-for-password/35783761#35783761
   var bgColor = getComputedStyle(input).backgroundColor;
-  return Array.isArray(color) ? !includes(color, bgColor) : bgColor !== color;
+  return Array.isArray(color) ? !color.includes(bgColor) : bgColor !== color;
 }
 
 function _onBlur() {
@@ -98,7 +94,7 @@ module.exports = /*#__PURE__*/function () {
   function _class(el, userOptions) {
     _classCallCheck(this, _class);
 
-    this.options = _extends({}, defaultOptions, userOptions);
+    this.options = Object.assign({}, defaultOptions, userOptions);
     this._observer = new MutationObserver(onMutation.bind(this));
     this.rootEl = el;
     this.labelEl = this.rootEl.querySelector('label');

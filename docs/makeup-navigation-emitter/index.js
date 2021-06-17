@@ -1,6 +1,3 @@
-// requires NodeList.forEach polyfill for IE
-require('nodelist-foreach-polyfill');
-
 const NavigationEmitter = require('../../packages/makeup-navigation-emitter');
 const emitters = [];
 const appender = document.getElementById('appender');

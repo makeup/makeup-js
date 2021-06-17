@@ -1,5 +1,4 @@
-'use strict'; // requires NodeList.forEach polyfill for IE
-// conditional check due to https://github.com/imagitama/nodelist-foreach-polyfill/issues/7
+'use strict';
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -21,17 +20,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-if (typeof Element !== 'undefined') {
-  require('nodelist-foreach-polyfill');
-} // requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-
-
-var CustomEvent = require('custom-event');
 
 var KeyEmitter = require('makeup-key-emitter');
 
@@ -130,7 +119,7 @@ function onMutation() {
 var NavigationModel = function NavigationModel(el, itemSelector, selectedOptions) {
   _classCallCheck(this, NavigationModel);
 
-  this.options = _extends({}, defaultOptions, selectedOptions);
+  this.options = Object.assign({}, defaultOptions, selectedOptions);
   this._el = el;
   this._itemSelector = itemSelector;
 };

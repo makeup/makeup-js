@@ -18,6 +18,7 @@ module.exports = {
         'makeup-menu-button': './docs/makeup-menu-button/index.compiled.js',
         'makeup-listbox-button': './docs/makeup-listbox-button/index.compiled.js',
         'makeup-modal': './docs/makeup-modal/index.compiled.js',
+        'makeup-modal-hoist': './docs/makeup-modal-hoist/index.compiled.js',
         'makeup-navigation-emitter': './docs/makeup-navigation-emitter/index.compiled.js',
         'makeup-next-id': './docs/makeup-next-id/index.compiled.js',
         'makeup-prevent-scroll-keys': './docs/makeup-prevent-scroll-keys/index.compiled.js',

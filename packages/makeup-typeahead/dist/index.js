@@ -16,8 +16,8 @@ function typeahead() {
   var timeout;
   var typeStr = '';
   return {
-    getIndex: function getIndex(nodeList, _char, timeoutLength) {
-      typeStr = typeStr.concat(_char);
+    getIndex: function getIndex(nodeList, char, timeoutLength) {
+      typeStr = typeStr.concat(char);
       var index; // eslint-disable-next-line eqeqeq
 
       if (nodeList == null) return -1;

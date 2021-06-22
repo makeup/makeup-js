@@ -13,8 +13,8 @@ var focusExitEmitters = {};
 function doFocusExit(el, fromElement, toElement) {
   el.dispatchEvent(new CustomEvent('focusExit', {
     detail: {
-      fromElement: fromElement,
-      toElement: toElement
+      fromElement,
+      toElement
     },
     bubbles: false // mirror the native mouseleave event
 
@@ -95,6 +95,6 @@ function removeFocusExit(el) {
 }
 
 module.exports = {
-  addFocusExit: addFocusExit,
-  removeFocusExit: removeFocusExit
+  addFocusExit,
+  removeFocusExit
 };

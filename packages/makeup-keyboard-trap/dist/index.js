@@ -110,7 +110,7 @@ function refresh() {
 }
 
 module.exports = {
-  refresh: refresh,
-  trap: trap,
-  untrap: untrap
+  refresh,
+  trap,
+  untrap
 };

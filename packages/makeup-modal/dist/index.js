@@ -33,6 +33,6 @@ function modal(el, options) {
 }
 
 module.exports = {
-  modal: modal,
-  unmodal: unmodal
+  modal,
+  unmodal
 };

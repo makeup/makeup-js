@@ -40,11 +40,11 @@ function hideElementPrep(el, useHiddenProperty) {
 function prepareElement(el, attributeName, dirtyValue) {
   var isProperty = typeof dirtyValue === 'boolean';
   return {
-    el: el,
-    attributeName: attributeName,
+    el,
+    attributeName,
     cleanValue: isProperty ? el[attributeName] : el.getAttribute(attributeName),
-    dirtyValue: dirtyValue,
-    isProperty: isProperty
+    dirtyValue,
+    isProperty
   };
 }
 
@@ -134,6 +134,6 @@ function trap(el, selectedOptions) {
 }
 
 module.exports = {
-  trap: trap,
-  untrap: untrap
+  trap,
+  untrap
 };

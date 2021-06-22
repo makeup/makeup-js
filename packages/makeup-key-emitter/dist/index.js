@@ -65,10 +65,10 @@ function remove(el) {
 }
 
 module.exports = {
-  addKeyDown: addKeyDown,
-  addKeyUp: addKeyUp,
-  removeKeyDown: removeKeyDown,
-  removeKeyUp: removeKeyUp,
-  add: add,
-  remove: remove
+  addKeyDown,
+  addKeyUp,
+  removeKeyDown,
+  removeKeyUp,
+  add,
+  remove
 };

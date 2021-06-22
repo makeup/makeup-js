@@ -23,6 +23,6 @@ function uncapitalizeFirstLetter(str) {
 }
 
 module.exports = {
-  keyCodeToKeyMap: keyCodeToKeyMap,
-  uncapitalizeFirstLetter: uncapitalizeFirstLetter
+  keyCodeToKeyMap,
+  uncapitalizeFirstLetter
 };

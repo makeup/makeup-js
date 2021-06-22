@@ -304,7 +304,7 @@ function _filterSuggestions(value, items) {
 function _dispatchChangeEvent(el, value) {
   el.dispatchEvent(new CustomEvent('makeup-combobox-change', {
     detail: {
-      value: value
+      value
     }
   }));
 }

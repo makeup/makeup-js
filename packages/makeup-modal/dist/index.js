@@ -75,9 +75,9 @@ var modalEl;
 
 function unmodal() {
   if (modalEl) {
-    screenreaderTrap.untrap(modalEl);
+    unhoist(modalEl);
     keyboardTrap.untrap(modalEl);
-    unhoist(modalEl); // let observers know the keyboard is now trapped
+    screenreaderTrap.untrap(modalEl); // let observers know the keyboard is now trapped
 
     var event = document.createEvent('Event');
     event.initEvent('unmodal', false, true);
@@ -92,13 +92,14 @@ function modal(el) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   unmodal();
   modalEl = el;
-  screenreaderTrap.trap(modalEl, options);
-  keyboardTrap.trap(modalEl);
+  debugger;
 
   if (options.hoist) {
     hoist(modalEl);
-  } // let observers know the element is now modal
+  }
 
+  screenreaderTrap.trap(modalEl, options);
+  keyboardTrap.trap(modalEl); // let observers know the element is now modal
 
   var event = document.createEvent('Event');
   event.initEvent('modal', false, true);

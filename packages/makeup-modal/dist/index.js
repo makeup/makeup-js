@@ -88,7 +88,8 @@ function unmodal() {
   return modalEl;
 }
 
-function modal(el, options) {
+function modal(el) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   unmodal();
   modalEl = el;
   screenreaderTrap.trap(modalEl, options);

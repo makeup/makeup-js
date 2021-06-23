@@ -15,6 +15,6 @@ function remove(el) {
 }
 
 module.exports = {
-  add: add,
-  remove: remove
+  add,
+  remove
 };

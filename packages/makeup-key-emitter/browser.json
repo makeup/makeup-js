@@ -1,6 +1,5 @@
 {
   "dependencies":[
-    "require-run: custom-event",
-    "require: ./index.js"
+    "require: ./dist/index.js"
   ]
 }

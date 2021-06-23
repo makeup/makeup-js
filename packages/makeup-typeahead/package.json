@@ -1,13 +1,13 @@
 {
   "name": "makeup-typeahead",
-  "description": "Captures letter keys pressed and returns a list of relevant strings",
+  "description": "Captures character keys pressed and returns a list of relevant strings",
   "version": "0.0.2",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-typeahead",
   "author": "Austin Gardner <gardneraustin@protonmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src/index.js --out-file index.js",
+    "compile": "babel src --out-dir dist",
     "clean": "rimraf *.log .DS_Store"
   },
   "keywords": [
@@ -16,11 +16,9 @@
     "accessibility",
     "a11y"
   ],
-  "dependencies": {
-    "core-js-pure": "~3.7.0"
-  },
   "files": [
-    "index.js",
+    "browser.json",
+    "dist/index.js",
     "package-lock.json"
   ],
   "browserslist": [

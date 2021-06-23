@@ -82,9 +82,3 @@ Markup after:
     * detail
         * fromIndex
         * toIndex
-
-## Dependencies
-
-* [makeup-navigation-emitter](https://github.com/makeup/makeup-js/tree/master/packages/makeup-navigation-emitter)
-* [custom-event-polyfill](https://github.com/krambuhl/custom-event-polyfill) (for IE11)
-* [nodelist-foreach-polyfill](https://github.com/imagitama/nodelist-foreach-polyfill) (for IE11)

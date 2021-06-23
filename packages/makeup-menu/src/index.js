@@ -1,7 +1,3 @@
-// requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-const CustomEvent = require('custom-event');
-
 const RovingTabIndex = require('makeup-roving-tabindex');
 const PreventScrollKeys = require('makeup-prevent-scroll-keys');
 

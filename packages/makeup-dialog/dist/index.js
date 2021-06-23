@@ -23,15 +23,15 @@ var Sort = require('./sort.js');
 var Toast = require('./toast.js');
 
 module.exports = {
-  Lightbox: Lightbox,
-  Alert: Alert,
-  Confirm: Confirm,
-  Drawer: Drawer,
-  Filter: Filter,
-  Fullscreen: Fullscreen,
-  Input: Input,
-  Panel: Panel,
-  Snackbar: Snackbar,
-  Sort: Sort,
-  Toast: Toast
+  Lightbox,
+  Alert,
+  Confirm,
+  Drawer,
+  Filter,
+  Fullscreen,
+  Input,
+  Panel,
+  Snackbar,
+  Sort,
+  Toast
 };

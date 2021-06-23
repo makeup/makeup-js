@@ -7,14 +7,14 @@
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src/index.js --out-file dist/index.js"
+    "compile": "babel src --out-dir dist"
   },
   "dependencies": {
-    "custom-event": "^1",
     "makeup-expander": "~0.8.7",
     "makeup-listbox": "~0.0.2"
   },
   "files": [
+    "browser.json",
     "dist/index.js",
     "package-lock.json"
   ],

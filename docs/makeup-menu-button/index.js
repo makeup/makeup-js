@@ -1,6 +1,3 @@
-// requires NodeList.forEach polyfill for IE
-require('nodelist-foreach-polyfill');
-
 const MenuButton = require('../../packages/makeup-menu-button');
 
 window.onload = function() {

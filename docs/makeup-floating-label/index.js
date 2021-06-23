@@ -1,5 +1,3 @@
-require('nodelist-foreach-polyfill');
-
 document.addEventListener('DOMContentLoaded', function() {
     const FloatingLabel = require('../../packages/makeup-floating-label');
 

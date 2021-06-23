@@ -1,9 +1,4 @@
-'use strict'; // requires NodeList.forEach polyfill for IE
-// conditional check due to https://github.com/imagitama/nodelist-foreach-polyfill/issues/7
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+'use strict';
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -11,7 +6,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -24,14 +19,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-if (typeof Element !== 'undefined') {
-  require('nodelist-foreach-polyfill');
-} // requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-
-
-var CustomEvent = require('custom-event');
 
 var NavigationEmitter = require('makeup-navigation-emitter');
 
@@ -146,7 +133,7 @@ var LinearRovingTabindex = /*#__PURE__*/function (_RovingTabindex) {
     _classCallCheck(this, LinearRovingTabindex);
 
     _this = _super.call(this, el);
-    _this._options = _extends({}, defaultOptions, selectedOptions);
+    _this._options = Object.assign({}, defaultOptions, selectedOptions);
     _this._itemSelector = itemSelector;
     _this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
       autoInit: _this._options.index,
@@ -214,5 +201,5 @@ function createLinear(el, itemSelector, selectedOptions) {
 }
 
 module.exports = {
-  createLinear: createLinear
+  createLinear
 };

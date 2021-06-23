@@ -1,9 +1,4 @@
-'use strict'; // requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-var CustomEvent = require('custom-event');
+'use strict';
 
 var util = require('./util.js'); // the main landmark
 
@@ -45,11 +40,11 @@ function hideElementPrep(el, useHiddenProperty) {
 function prepareElement(el, attributeName, dirtyValue) {
   var isProperty = typeof dirtyValue === 'boolean';
   return {
-    el: el,
-    attributeName: attributeName,
+    el,
+    attributeName,
     cleanValue: isProperty ? el[attributeName] : el.getAttribute(attributeName),
-    dirtyValue: dirtyValue,
-    isProperty: isProperty
+    dirtyValue,
+    isProperty
   };
 }
 
@@ -100,9 +95,7 @@ var defaultOptions = {
 function trap(el, selectedOptions) {
   // ensure current trap is deactivated
   untrap();
-
-  var options = _extends({}, defaultOptions, selectedOptions); // update the trapped el reference
-
+  var options = Object.assign({}, defaultOptions, selectedOptions); // update the trapped el reference
 
   trappedEl = el; // update the main landmark reference
 
@@ -141,6 +134,6 @@ function trap(el, selectedOptions) {
 }
 
 module.exports = {
-  trap: trap,
-  untrap: untrap
+  trap,
+  untrap
 };

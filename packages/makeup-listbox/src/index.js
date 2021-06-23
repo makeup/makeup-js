@@ -6,11 +6,6 @@
 * This code has been copied from Skin & MIND Patterns and has not yet been cleaned up.
 */
 
-// requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-const CustomEvent = require('custom-event');
-
-const findIndex = require('core-js-pure/features/array/find-index');
 const ActiveDescendant = require('makeup-active-descendant');
 const PreventScrollKeys = require('makeup-prevent-scroll-keys');
 
@@ -119,7 +114,7 @@ module.exports = class {
     }
 
     get index() {
-        return findIndex(Array.prototype.slice.call(this.items), (el) => el.getAttribute('aria-selected') === 'true');
+        return [...this.items].findIndex((el) => el.getAttribute('aria-selected') === 'true');
     }
 
     get items() {

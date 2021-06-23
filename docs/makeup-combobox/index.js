@@ -1,6 +1,3 @@
-// requires NodeList.forEach polyfill for IE
-require('nodelist-foreach-polyfill');
-
 const Combobox = require('../../packages/makeup-combobox');
 
 window.onload = function() {

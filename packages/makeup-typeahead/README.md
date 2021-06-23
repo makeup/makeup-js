@@ -1,8 +1,8 @@
 # makeup-typeahead
 
-This module produces a function generator. The generated function produces the index of the suggested menu item to highlight / focus. It keeps track of the characters entered, adding them onto a string. 
+This module produces a function generator. The generated function produces the index of the suggested menu item to highlight / focus. It keeps track of the characters entered, adding them onto a string.
 
-Its parameters are a list of dom nodes, a char, and the length of a timeout. The timeout is restarted when a new char is given the function. 
+Its parameters are a list of DOM nodes, a char, and the length of a timeout. The timeout is restarted when a new char is given the function.
 
 When the timeout executes the callback, it will re-start the suggestions with an empty string.
 
@@ -39,7 +39,3 @@ npm install makeup-typeahead
 // via yarn
 yarn add makeup-typeahead
 ```
-
-## Dependencies
-
-* [core-js-pure](https://github.com/zloirock/core-js)

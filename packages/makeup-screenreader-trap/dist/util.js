@@ -72,7 +72,7 @@ function getSiblingsOfAncestors(el) {
 }
 
 module.exports = {
-  getSiblings: getSiblings,
-  getAncestors: getAncestors,
-  getSiblingsOfAncestors: getSiblingsOfAncestors
+  getSiblings,
+  getAncestors,
+  getSiblingsOfAncestors
 };

@@ -1,6 +1,3 @@
-// NodeList.forEach polyfill for IE
-require('nodelist-foreach-polyfill');
-
 const screenreaderTrap = require('../../packages/makeup-screenreader-trap');
 
 document.querySelectorAll('.trap').forEach(function(item) {

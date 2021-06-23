@@ -1,15 +1,10 @@
-'use strict'; // requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var CustomEvent = require('custom-event');
 
 var nextID = require('makeup-next-id');
 
@@ -125,7 +120,7 @@ module.exports = /*#__PURE__*/function () {
   function _class(el, selectedOptions) {
     _classCallCheck(this, _class);
 
-    this.options = _extends({}, defaultOptions, selectedOptions);
+    this.options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = el;
     this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
 
@@ -318,36 +313,6 @@ module.exports = /*#__PURE__*/function () {
       this._hostHoverListener = null;
       this._focusExitListener = null;
       this._mouseLeaveListener = null;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "isExpanded",
-    value: function isExpanded() {
-      return this.expanded;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "expand",
-    value: function expand() {
-      this.expanded = true;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "collapse",
-    value: function collapse() {
-      this.expanded = false;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "toggle",
-    value: function toggle() {
-      this.expanded = !this.expanded;
-    } // DEPRECATED (remove in v1.0.0)
-
-  }, {
-    key: "cancelAsync",
-    value: function cancelAsync() {
-      this.sleep();
     }
   }]);
 

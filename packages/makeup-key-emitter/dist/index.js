@@ -1,7 +1,4 @@
-'use strict'; // requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-
-var CustomEvent = require('custom-event');
+'use strict';
 
 var util = require('./util.js');
 
@@ -68,10 +65,10 @@ function remove(el) {
 }
 
 module.exports = {
-  addKeyDown: addKeyDown,
-  addKeyUp: addKeyUp,
-  removeKeyDown: removeKeyDown,
-  removeKeyUp: removeKeyUp,
-  add: add,
-  remove: remove
+  addKeyDown,
+  addKeyUp,
+  removeKeyDown,
+  removeKeyUp,
+  add,
+  remove
 };

@@ -1,6 +1,3 @@
-// requires NodeList.forEach polyfill for IE
-require('nodelist-foreach-polyfill');
-
 const DialogButton = require('../../packages/makeup-dialog-button');
 const log = (e) => console.log(e); // eslint-disable-line no-console
 

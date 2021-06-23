@@ -1,6 +1,3 @@
-// requires NodeList.forEach polyfill for IE
-require('nodelist-foreach-polyfill');
-
 const Listbox = require('../../packages/makeup-listbox');
 
 window.onload = function() {

@@ -2,12 +2,12 @@
   "name": "makeup-modal",
   "description": "Applies modal accessibility requirements to any element",
   "version": "0.2.1",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-modal",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src/index.js --out-file index.js",
+    "compile": "babel src --out-dir dist",
     "clean": "rimraf *.log .DS_Store"
   },
   "keywords": [
@@ -22,7 +22,7 @@
   },
   "files": [
     "browser.json",
-    "index.js",
+    "dist/index.js",
     "package-lock.json"
   ]
 }

@@ -2,11 +2,17 @@
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -21,12 +27,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 * This listbox code currently supports single-selct only!
 * This code has been copied from Skin & MIND Patterns and has not yet been cleaned up.
 */
-// requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-var CustomEvent = require('custom-event');
-
-var findIndex = require('core-js-pure/features/array/find-index');
-
 var ActiveDescendant = require('makeup-active-descendant');
 
 var PreventScrollKeys = require('makeup-prevent-scroll-keys');
@@ -53,7 +53,7 @@ module.exports = /*#__PURE__*/function () {
   function _class(widgetEl, selectedOptions) {
     _classCallCheck(this, _class);
 
-    this._options = _extends({}, defaultOptions, selectedOptions);
+    this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl; // in cases such as combobox, the active-descendant logic is controlled by a parent widget
 
     this._activeDescendantRootEl = this._options.listboxOwnerElement || this.el; // todo: not sure this check is needed any more
@@ -143,7 +143,7 @@ module.exports = /*#__PURE__*/function () {
   }, {
     key: "index",
     get: function get() {
-      return findIndex(Array.prototype.slice.call(this.items), function (el) {
+      return _toConsumableArray(this.items).findIndex(function (el) {
         return el.getAttribute('aria-selected') === 'true';
       });
     }

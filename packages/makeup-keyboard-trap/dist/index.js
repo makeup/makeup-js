@@ -1,7 +1,4 @@
-'use strict'; // requires CustomEvent polyfill for IE
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-
-var CustomEvent = require('custom-event');
+'use strict';
 
 var focusables = require('makeup-focusables'); // for the element that will be trapped
 
@@ -113,7 +110,7 @@ function refresh() {
 }
 
 module.exports = {
-  refresh: refresh,
-  trap: trap,
-  untrap: untrap
+  refresh,
+  trap,
+  untrap
 };

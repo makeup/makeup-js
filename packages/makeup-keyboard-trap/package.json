@@ -2,12 +2,12 @@
   "name": "makeup-keyboard-trap",
   "description": "Restricts keyboard tabindex to a single subtree in the DOM",
   "version": "0.2.6",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-keyboard-trap",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src/index.js --out-file index.js",
+    "compile": "babel src --out-dir dist",
     "clean": "rimraf *.log .DS_Store"
   },
   "keywords": [
@@ -17,12 +17,14 @@
     "a11y"
   ],
   "dependencies": {
-    "custom-event": "^1",
     "makeup-focusables": "~0.1.0"
   },
   "files": [
     "browser.json",
-    "index.js",
+    "dist/index.js",
     "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
   ]
 }

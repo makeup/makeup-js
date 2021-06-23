@@ -1,5 +1,3 @@
-require('nodelist-foreach-polyfill');
-
 const Expander = require('../../packages/makeup-expander');
 const clickExpanderEls = document.querySelectorAll('.expander--click-only');
 const focusExpanderEls = document.querySelectorAll('.expander--focus-only');

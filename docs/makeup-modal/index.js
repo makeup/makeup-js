@@ -8,23 +8,16 @@ const modalElThree = document.querySelector('#modal-3');
 const unmodalButton = document.querySelectorAll('button')[3];
 const hoistCheckbox = document.querySelector('#hoist-checkbox');
 
-let doHoist = false;
-
-hoistCheckbox.addEventListener('change', () => {
-    doHoist = hoistCheckbox.checked;
-    console.log(doHoist);
-});
-
 button.addEventListener('click', () => {
-    modal.modal(modalEl, { useHiddenProperty: false, hoist: doHoist });
+    modal.modal(modalEl, { useHiddenProperty: false, hoist: hoistCheckbox.checked });
 });
 
 buttonTwo.addEventListener('click', () => {
-    modal.modal(modalElTwo, { useHiddenProperty: false, hoist: doHoist });
+    modal.modal(modalElTwo, { useHiddenProperty: false, hoist: hoistCheckbox.checked });
 });
 
 buttonThree.addEventListener('click', () => {
-    modal.modal(modalElThree, { useHiddenProperty: false, hoist: doHoist });
+    modal.modal(modalElThree, { useHiddenProperty: false, hoist: hoistCheckbox.checked });
 });
 
 unmodalButton.addEventListener('click', () => {

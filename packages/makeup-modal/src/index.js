@@ -2,29 +2,28 @@
 
 const keyboardTrap = require('makeup-keyboard-trap');
 const screenreaderTrap = require('makeup-screenreader-trap');
+const defaultOptions = { hoist: false };
 
 let hoistEl;
 let hoistedElementPlaceholder;
-let containerDiv;
+let inertContentEl;
 let bodyChildIndexes = [];
 
 function unhoist() {
     if (hoistEl) {
-        if (containerDiv) {
-            [...containerDiv.childNodes].forEach((child) => {
-                if (!child.src) {
-                    const index = bodyChildIndexes.shift();
-                    if (index > document.body.childNodes.length) {
-                        document.body.appendChild(child);
-                    } else {
-                        document.body.insertBefore(child, document.body.childNodes[index + 1]);
-                    }
+        [...inertContentEl.childNodes].forEach((child) => {
+            if (!child.src) {
+                const index = bodyChildIndexes.shift();
+                if (index > document.body.childNodes.length) {
+                    document.body.appendChild(child);
+                } else {
+                    document.body.insertBefore(child, document.body.childNodes[index + 1]);
                 }
-            });
-            containerDiv.remove();
-            containerDiv = null;
-            bodyChildIndexes = [];
-        }
+            }
+        });
+        inertContentEl.remove();
+        inertContentEl = null;
+        bodyChildIndexes = [];
 
         if (hoistedElementPlaceholder) {
             hoistedElementPlaceholder.replaceWith(hoistEl);
@@ -42,15 +41,15 @@ function hoist(el) {
     hoistedElementPlaceholder = document.createElement('div');
     hoistEl.parentElement.insertBefore(hoistedElementPlaceholder, hoistEl);
 
-    containerDiv = document.createElement('div');
+    inertContentEl = document.createElement('div');
     [...document.body.childNodes].forEach((child, index) => {
         if (!child.src) {
-            containerDiv.appendChild(child);
+            inertContentEl.appendChild(child);
             bodyChildIndexes.push(index);
         }
     });
 
-    document.body.prepend(containerDiv);
+    document.body.prepend(inertContentEl);
 
     document.body.appendChild(hoistEl);
 
@@ -75,11 +74,11 @@ function unmodal() {
     return modalEl;
 }
 
-function modal(el, options = {}) {
+function modal(el, options) {
+    const _options = Object.assign({}, defaultOptions, options);
     unmodal();
     modalEl = el;
-    debugger;
-    if (options.hoist) {
+    if (_options.hoist) {
         hoist(modalEl);
     }
     screenreaderTrap.trap(modalEl, options);

@@ -16,30 +16,31 @@ var keyboardTrap = require('makeup-keyboard-trap');
 
 var screenreaderTrap = require('makeup-screenreader-trap');
 
+var defaultOptions = {
+  hoist: false
+};
 var hoistEl;
 var hoistedElementPlaceholder;
-var containerDiv;
+var inertContentEl;
 var bodyChildIndexes = [];
 
 function unhoist() {
   if (hoistEl) {
-    if (containerDiv) {
-      _toConsumableArray(containerDiv.childNodes).forEach(function (child) {
-        if (!child.src) {
-          var index = bodyChildIndexes.shift();
+    _toConsumableArray(inertContentEl.childNodes).forEach(function (child) {
+      if (!child.src) {
+        var index = bodyChildIndexes.shift();
 
-          if (index > document.body.childNodes.length) {
-            document.body.appendChild(child);
-          } else {
-            document.body.insertBefore(child, document.body.childNodes[index + 1]);
-          }
+        if (index > document.body.childNodes.length) {
+          document.body.appendChild(child);
+        } else {
+          document.body.insertBefore(child, document.body.childNodes[index + 1]);
         }
-      });
+      }
+    });
 
-      containerDiv.remove();
-      containerDiv = null;
-      bodyChildIndexes = [];
-    }
+    inertContentEl.remove();
+    inertContentEl = null;
+    bodyChildIndexes = [];
 
     if (hoistedElementPlaceholder) {
       hoistedElementPlaceholder.replaceWith(hoistEl);
@@ -57,16 +58,16 @@ function hoist(el) {
   hoistEl = el;
   hoistedElementPlaceholder = document.createElement('div');
   hoistEl.parentElement.insertBefore(hoistedElementPlaceholder, hoistEl);
-  containerDiv = document.createElement('div');
+  inertContentEl = document.createElement('div');
 
   _toConsumableArray(document.body.childNodes).forEach(function (child, index) {
     if (!child.src) {
-      containerDiv.appendChild(child);
+      inertContentEl.appendChild(child);
       bodyChildIndexes.push(index);
     }
   });
 
-  document.body.prepend(containerDiv);
+  document.body.prepend(inertContentEl);
   document.body.appendChild(hoistEl);
   return hoistEl;
 }
@@ -88,13 +89,13 @@ function unmodal() {
   return modalEl;
 }
 
-function modal(el) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+function modal(el, options) {
+  var _options = Object.assign({}, defaultOptions, options);
+
   unmodal();
   modalEl = el;
-  debugger;
 
-  if (options.hoist) {
+  if (_options.hoist) {
     hoist(modalEl);
   }
 

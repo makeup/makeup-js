@@ -76,9 +76,9 @@ var modalEl;
 
 function unmodal() {
   if (modalEl) {
-    unhoist(modalEl);
     keyboardTrap.untrap(modalEl);
-    screenreaderTrap.untrap(modalEl); // let observers know the keyboard is now trapped
+    screenreaderTrap.untrap(modalEl);
+    unhoist(modalEl); // let observers know the keyboard is now trapped
 
     var event = document.createEvent('Event');
     event.initEvent('unmodal', false, true);

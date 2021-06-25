@@ -19,28 +19,48 @@ var screenreaderTrap = require('makeup-screenreader-trap');
 var defaultOptions = {
   hoist: false
 };
+var SCRIPT = 'script';
+var LINK = 'link';
 var hoistEl;
 var hoistedElementPlaceholder;
 var inertContentEl;
-var bodyChildIndexes = [];
+var originalPositionIndexes = [];
+
+function wrapBodyChildrenExceptModal() {
+  hoistedElementPlaceholder = document.createElement('div');
+  hoistEl.parentElement.insertBefore(hoistedElementPlaceholder, hoistEl);
+  inertContentEl = document.createElement('div');
+
+  _toConsumableArray(document.body.children).forEach(function (child, index) {
+    // checking for the script and link tags is necessary because moving them could cause issues.
+    // for example, moving a script to the top of the body could freeze the page while the script loads.
+    if (!(child.tagName.toLowerCase() === SCRIPT || child.tagName === LINK)) {
+      inertContentEl.appendChild(child);
+      originalPositionIndexes.push(index);
+    }
+  });
+}
+
+function unwrapBodyChildrenExceptModal() {
+  _toConsumableArray(inertContentEl.children).forEach(function (child) {
+    if (!(child.tagName.toLowerCase() === SCRIPT || child.tagName === LINK)) {
+      var index = originalPositionIndexes.shift();
+
+      if (index > document.body.children.length) {
+        document.body.appendChild(child);
+      } else {
+        document.body.insertBefore(child, document.body.children[index + 1]);
+      }
+    }
+  });
+}
 
 function unhoist() {
   if (hoistEl) {
-    _toConsumableArray(inertContentEl.childNodes).forEach(function (child) {
-      if (!child.src) {
-        var index = bodyChildIndexes.shift();
-
-        if (index > document.body.childNodes.length) {
-          document.body.appendChild(child);
-        } else {
-          document.body.insertBefore(child, document.body.childNodes[index + 1]);
-        }
-      }
-    });
-
+    unwrapBodyChildrenExceptModal();
     inertContentEl.remove();
     inertContentEl = null;
-    bodyChildIndexes = [];
+    originalPositionIndexes = [];
 
     if (hoistedElementPlaceholder) {
       hoistedElementPlaceholder.replaceWith(hoistEl);
@@ -56,17 +76,7 @@ function unhoist() {
 function hoist(el) {
   unhoist();
   hoistEl = el;
-  hoistedElementPlaceholder = document.createElement('div');
-  hoistEl.parentElement.insertBefore(hoistedElementPlaceholder, hoistEl);
-  inertContentEl = document.createElement('div');
-
-  _toConsumableArray(document.body.childNodes).forEach(function (child, index) {
-    if (!child.src) {
-      inertContentEl.appendChild(child);
-      bodyChildIndexes.push(index);
-    }
-  });
-
+  wrapBodyChildrenExceptModal();
   document.body.prepend(inertContentEl);
   document.body.appendChild(hoistEl);
   return hoistEl;

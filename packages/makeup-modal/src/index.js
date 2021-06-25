@@ -3,27 +3,48 @@
 const keyboardTrap = require('makeup-keyboard-trap');
 const screenreaderTrap = require('makeup-screenreader-trap');
 const defaultOptions = { hoist: false };
+const SCRIPT = 'script';
+const LINK = 'link';
 
 let hoistEl;
 let hoistedElementPlaceholder;
 let inertContentEl;
-let bodyChildIndexes = [];
+let originalPositionIndexes = [];
+
+function wrapBodyChildrenExceptModal() {
+    hoistedElementPlaceholder = document.createElement('div');
+    hoistEl.parentElement.insertBefore(hoistedElementPlaceholder, hoistEl);
+
+    inertContentEl = document.createElement('div');
+    [...document.body.children].forEach((child, index) => {
+        // checking for the script and link tags is necessary because moving them could cause issues.
+        // for example, moving a script to the top of the body could freeze the page while the script loads.
+        if (!(child.tagName.toLowerCase() === SCRIPT || child.tagName === LINK)) {
+            inertContentEl.appendChild(child);
+            originalPositionIndexes.push(index);
+        }
+    });
+}
+
+function unwrapBodyChildrenExceptModal() {
+    [...inertContentEl.children].forEach((child) => {
+        if (!(child.tagName.toLowerCase() === SCRIPT || child.tagName === LINK)) {
+            const index = originalPositionIndexes.shift();
+            if (index > document.body.children.length) {
+                document.body.appendChild(child);
+            } else {
+                document.body.insertBefore(child, document.body.children[index + 1]);
+            }
+        }
+    });
+}
 
 function unhoist() {
     if (hoistEl) {
-        [...inertContentEl.childNodes].forEach((child) => {
-            if (!child.src) {
-                const index = bodyChildIndexes.shift();
-                if (index > document.body.childNodes.length) {
-                    document.body.appendChild(child);
-                } else {
-                    document.body.insertBefore(child, document.body.childNodes[index + 1]);
-                }
-            }
-        });
+        unwrapBodyChildrenExceptModal();
         inertContentEl.remove();
         inertContentEl = null;
-        bodyChildIndexes = [];
+        originalPositionIndexes = [];
 
         if (hoistedElementPlaceholder) {
             hoistedElementPlaceholder.replaceWith(hoistEl);
@@ -38,16 +59,7 @@ function hoist(el) {
     unhoist();
     hoistEl = el;
 
-    hoistedElementPlaceholder = document.createElement('div');
-    hoistEl.parentElement.insertBefore(hoistedElementPlaceholder, hoistEl);
-
-    inertContentEl = document.createElement('div');
-    [...document.body.childNodes].forEach((child, index) => {
-        if (!child.src) {
-            inertContentEl.appendChild(child);
-            bodyChildIndexes.push(index);
-        }
-    });
+    wrapBodyChildrenExceptModal();
 
     document.body.prepend(inertContentEl);
 

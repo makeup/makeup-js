@@ -1,26 +1,50 @@
 const modal = require('../../packages/makeup-modal');
-const modalEl = document.querySelectorAll('.modal')[0];
-const button = document.querySelectorAll('button')[0];
-const modalElTwo = document.querySelectorAll('.modal')[1];
-const buttonTwo = document.querySelectorAll('button')[1];
-const buttonThree = document.querySelectorAll('button')[2];
-const modalElThree = document.querySelector('#modal-3');
-const unmodalButton = document.querySelectorAll('button')[3];
-const hoistCheckbox = document.querySelector('#hoist-checkbox');
 
-button.addEventListener('click', () => {
-    modal.modal(modalEl, { useHiddenProperty: false, hoist: hoistCheckbox.checked });
+const modal1 = document.getElementById('modal-1');
+const modal2 = document.getElementById('modal-2');
+const modal3 = document.getElementById('modal-3');
+
+const button1 = document.getElementById('button-1');
+const button2 = document.getElementById('button-2');
+const button3 = document.getElementById('button-3');
+
+const unmodalButton = document.getElementById('button-unmodal');
+
+const hoistCheckbox = document.getElementById('hoist-checkbox');
+const wrapCheckbox = document.getElementById('wrap-checkbox');
+const hiddenCheckbox = document.getElementById('hidden-checkbox');
+
+modal1.addEventListener('makeup-modal', (e) => console.log(e));
+modal2.addEventListener('makeup-modal', (e) => console.log(e));
+modal3.addEventListener('makeup-modal', (e) => console.log(e));
+modal1.addEventListener('makeup-unmodal', (e) => console.log(e));
+modal2.addEventListener('makeup-unmodal', (e) => console.log(e));
+modal3.addEventListener('makeup-unmodal', (e) => console.log(e));
+
+button1.addEventListener('click', () => {
+    modal.modal(modal1, {
+        hoist: hoistCheckbox.checked,
+        useHiddenProperty: hiddenCheckbox.checked,
+        wrap: wrapCheckbox.checked
+    });
 });
 
-buttonTwo.addEventListener('click', () => {
-    modal.modal(modalElTwo, { useHiddenProperty: false, hoist: hoistCheckbox.checked });
+button2.addEventListener('click', () => {
+    modal.modal(modal2, {
+        hoist: hoistCheckbox.checked,
+        useHiddenProperty: hiddenCheckbox.checked,
+        wrap: wrapCheckbox.checked
+    });
 });
 
-buttonThree.addEventListener('click', () => {
-    modal.modal(modalElThree, { useHiddenProperty: false, hoist: hoistCheckbox.checked });
+button3.addEventListener('click', () => {
+    modal.modal(modal3, {
+        hoist: hoistCheckbox.checked,
+        useHiddenProperty: hiddenCheckbox.checked,
+        wrap: wrapCheckbox.checked
+    });
 });
 
 unmodalButton.addEventListener('click', () => {
     modal.unmodal();
 });
-

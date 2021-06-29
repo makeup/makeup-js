@@ -1,6 +1,6 @@
 # makeup-modal
 
-Sets an element to a modal state, using [makeup-keyboard-trap](https://github.com/makeup/makeup-js/tree/master/packages/makeup-keyboard-trap) and [makeup-screenreader-trap](https://github.com/makeup/makeup-js/tree/master/packages/makeup-screenreader-trap).
+Sets an element to a modal state using [makeup-keyboard-trap](https://github.com/makeup/makeup-js/tree/master/packages/makeup-keyboard-trap) and [makeup-screenreader-trap](https://github.com/makeup/makeup-js/tree/master/packages/makeup-screenreader-trap). All other elements become "inert".
 
 ## Experimental
 
@@ -19,23 +19,16 @@ modal.unmodal();
 ## Install
 
 ```js
-// via npm
 npm install makeup-modal
-
-// via yarn
-yarn add makeup-modal
 ```
 
 ## Options
 
-* `useHiddenProperty`: screenreader-trap uses `hidden` property instead of `aria-hidden` (default: false)
+* `useHiddenProperty`: use `hidden` property for inert content instead of `aria-hidden` (useful for fullscreen modals) (default: false)
+* `hoist`: moves the element to the document root (default: false)
+* `wrap`: if element is at document root, wraps all "inert" sibling elements into a single container (default: false)
 
 ## Events
 
-* modal
-* unmodal
-
-## Dependencies
-
-* [makeup-keyboard-trap](https://github.com/makeup/makeup-js/tree/master/packages/makeup-keyboard-trap)
-* [makeup-screenreader-trap](https://github.com/makeup/makeup-js/tree/master/packages/makeup-screenreader-trap)
+* makeup-modal
+* makeup-unmodal

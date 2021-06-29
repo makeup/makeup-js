@@ -17,82 +17,88 @@ var keyboardTrap = require('makeup-keyboard-trap');
 var screenreaderTrap = require('makeup-screenreader-trap');
 
 var defaultOptions = {
-  hoist: false
+  hoist: false,
+  useHiddenProperty: false,
+  wrap: false
 };
-var SCRIPT = 'script';
-var LINK = 'link';
-var hoistEl;
-var hoistedElementPlaceholder;
+var tags = {
+  SCRIPT: 'script',
+  LINK: 'link'
+};
+var modalEl;
+var hoistedPlaceholderEl;
 var inertContentEl;
 var originalPositionIndexes = [];
 
-function wrapBodyChildrenExceptModal() {
-  hoistedElementPlaceholder = document.createElement('div');
-  hoistEl.parentElement.insertBefore(hoistedElementPlaceholder, hoistEl);
-  inertContentEl = document.createElement('div');
-
-  _toConsumableArray(document.body.children).forEach(function (child, index) {
-    // checking for the script and link tags is necessary because moving them could cause issues.
-    // for example, moving a script to the top of the body could freeze the page while the script loads.
-    if (!(child.tagName.toLowerCase() === SCRIPT || child.tagName === LINK)) {
-      inertContentEl.appendChild(child);
-      originalPositionIndexes.push(index);
-    }
-  });
-}
-
-function unwrapBodyChildrenExceptModal() {
-  _toConsumableArray(inertContentEl.children).forEach(function (child) {
-    if (!(child.tagName.toLowerCase() === SCRIPT || child.tagName === LINK)) {
-      var index = originalPositionIndexes.shift();
-
-      if (index > document.body.children.length) {
-        document.body.appendChild(child);
-      } else {
-        document.body.insertBefore(child, document.body.children[index + 1]);
-      }
-    }
-  });
+function isRootLevel(el) {
+  return el.parentNode.tagName.toLowerCase() === 'body';
 }
 
 function unhoist() {
-  if (hoistEl) {
-    unwrapBodyChildrenExceptModal();
+  if (hoistedPlaceholderEl) {
+    hoistedPlaceholderEl.replaceWith(modalEl);
+    hoistedPlaceholderEl = null;
+  }
+}
+
+function hoist() {
+  if (!hoistedPlaceholderEl && !isRootLevel(modalEl)) {
+    hoistedPlaceholderEl = document.createElement('div');
+    hoistedPlaceholderEl.setAttribute('data-makeup-modal', 'placeholder');
+    modalEl.parentElement.insertBefore(hoistedPlaceholderEl, modalEl);
+    document.body.appendChild(modalEl);
+  }
+}
+
+function wrap() {
+  if (!inertContentEl && isRootLevel(modalEl)) {
+    inertContentEl = document.createElement('div');
+    inertContentEl.setAttribute('data-makeup-modal', 'inert');
+
+    _toConsumableArray(document.body.children).forEach(function (child, index) {
+      // checking for the script and link tags is necessary because moving them could cause issues.
+      // for example, moving a script to the top of the body could freeze the page while the script loads.
+      if (!(child === modalEl || child.tagName.toLowerCase() === tags.SCRIPT || child.tagName === tags.LINK)) {
+        inertContentEl.appendChild(child);
+        originalPositionIndexes.push(index);
+      }
+    });
+
+    document.body.prepend(inertContentEl);
+  }
+}
+
+function unwrap() {
+  if (inertContentEl) {
+    _toConsumableArray(inertContentEl.children).forEach(function (child) {
+      if (!(child.tagName.toLowerCase() === tags.SCRIPT || child.tagName === tags.LINK)) {
+        var index = originalPositionIndexes.shift();
+
+        if (index > document.body.children.length) {
+          document.body.appendChild(child);
+        } else {
+          document.body.insertBefore(child, document.body.children[index + 1]);
+        }
+      }
+    });
+
     inertContentEl.remove();
     inertContentEl = null;
     originalPositionIndexes = [];
-
-    if (hoistedElementPlaceholder) {
-      hoistedElementPlaceholder.replaceWith(hoistEl);
-      hoistedElementPlaceholder = null;
-    }
-
-    hoistEl = null;
   }
-
-  return hoistEl;
 }
-
-function hoist(el) {
-  unhoist();
-  hoistEl = el;
-  wrapBodyChildrenExceptModal();
-  document.body.prepend(inertContentEl);
-  document.body.appendChild(hoistEl);
-  return hoistEl;
-}
-
-var modalEl;
 
 function unmodal() {
   if (modalEl) {
     keyboardTrap.untrap(modalEl);
     screenreaderTrap.untrap(modalEl);
-    unhoist(modalEl); // let observers know the keyboard is now trapped
-
-    var event = document.createEvent('Event');
-    event.initEvent('unmodal', false, true);
-    modalEl.dispatchEvent(event);
+    unwrap();
+    unhoist();
+    document.body.removeAttribute('data-makeup-modal');
+    modalEl.removeAttribute('data-makeup-modal');
+    modalEl.dispatchEvent(new CustomEvent('makeup-unmodal', {
+      bubbles: false
+    }));
     modalEl = null;
   }
 
@@ -106,15 +112,24 @@ function modal(el, options) {
   modalEl = el;
 
   if (_options.hoist) {
-    hoist(modalEl);
+    hoist();
   }
 
-  screenreaderTrap.trap(modalEl, options);
-  keyboardTrap.trap(modalEl); // let observers know the element is now modal
+  if (_options.wrap) {
+    wrap();
+  }
 
-  var event = document.createEvent('Event');
-  event.initEvent('modal', false, true);
-  modalEl.dispatchEvent(event);
+  screenreaderTrap.trap(modalEl, options); // no need to create keyboard traps when inert content is using hidden property
+
+  if (!_options.useHiddenProperty) {
+    keyboardTrap.trap(modalEl);
+  }
+
+  document.body.setAttribute('data-makeup-modal', 'true');
+  modalEl.setAttribute('data-makeup-modal', 'widget');
+  modalEl.dispatchEvent(new CustomEvent('makeup-modal', {
+    bubbles: false
+  }));
   return modalEl;
 }
 

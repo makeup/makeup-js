@@ -1,7 +1,7 @@
 {
   "name": "makeup-roving-tabindex",
   "description": "Implements a roving tab index on given collection of elements",
-  "version": "0.3.7",
+  "version": "0.4.0",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-roving-tabindex",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
@@ -17,7 +17,7 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-navigation-emitter": "~0.3.7"
+    "makeup-navigation-emitter": "~0.4.0"
   },
   "files": [
     "browser.json",

@@ -32,8 +32,3 @@ yarn add makeup-keyboard-trap
 
 * keyboardTrap : fired by trapped element when keyboard trap is activated
 * keyboardUntrap : fired by trapped element when keyboard trap is deactivated
-
-## Dependencies
-
-* [makeup-focusables](https://github.com/makeup/makeup-js/tree/master/packages/makeup-focusables)
-* [custom-event](https://github.com/webmodules/custom-event) (for IE)

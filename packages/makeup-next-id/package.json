@@ -1,7 +1,7 @@
 {
   "name": "makeup-next-id",
   "description": "Assign the next id in sequence to an element, if an id property does not already exist.",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-next-id",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",

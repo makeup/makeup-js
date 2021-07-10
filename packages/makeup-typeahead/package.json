@@ -1,7 +1,7 @@
 {
   "name": "makeup-typeahead",
   "description": "Captures character keys pressed and returns a list of relevant strings",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-typeahead",
   "author": "Austin Gardner <gardneraustin@protonmail.com>",

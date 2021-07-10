@@ -1,7 +1,7 @@
 {
   "name": "makeup-modal",
   "description": "Applies modal accessibility requirements to any element",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-modal",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
@@ -17,8 +17,8 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-keyboard-trap": "~0.2.3",
-    "makeup-screenreader-trap": "~0.2.1"
+    "makeup-keyboard-trap": "~0.3.0",
+    "makeup-screenreader-trap": "~0.3.0"
   },
   "files": [
     "browser.json",

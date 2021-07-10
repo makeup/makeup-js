@@ -59,11 +59,3 @@ Markup:
 ## Custom Events        
 
 None
-
-## Dependencies
-
-None
-
-## Polyfills
-
-None

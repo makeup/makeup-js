@@ -38,7 +38,3 @@ el.addEventListener('arrowRightKeyDown', function(e) {
 * removeKeyUp(el)
 * add(el)
 * remove(el)
-
-## Dependencies
-
-* [custom-event](https://github.com/webmodules/custom-event) (for IE)

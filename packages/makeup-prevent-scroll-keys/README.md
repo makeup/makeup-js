@@ -32,11 +32,3 @@ scrollKeyPreventer.add(el);
 scrollKeyPreventer.remove(el);
 
 ```
-
-## Parameters
-
-None
-
-## Custom Events        
-
-None

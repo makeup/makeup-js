@@ -8,6 +8,7 @@ const defaultOptions = {
     labelElementDisabledModifier: 'floating-label__label--disabled',
     textboxElementBackgroundRGB: [
         'rgb(255, 255, 255)',
+        'rgb(247, 247, 247)',
         'rgb(245, 245, 245)',
         'rgb(230, 32, 72)',
         'rgb(254, 245, 246)'

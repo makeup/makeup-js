@@ -127,10 +127,3 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 * `navigationModelReset` - fired when the model is auto reset
 
 For all 3 events, the event detail object contains the `fromIndex` and `toIndex`.
-
-## Dependencies
-
-* [makeup-exit-emitter](https://github.com/makeup/makeup-js/tree/master/packages/makeup-exit-emitter)
-* [makeup-key-emitter](https://github.com/makeup/makeup-js/tree/master/packages/makeup-key-emitter)
-* [custom-event](https://github.com/webmodules/custom-event) (for IE11)
-* [nodelist-foreach-polyfill](https://github.com/imagitama/nodelist-foreach-polyfill) (for IE11)

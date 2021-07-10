@@ -1,7 +1,7 @@
 {
   "name": "makeup-menu",
   "description": "A JavaScript class representing an ARIA menu",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-menu",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
@@ -10,8 +10,8 @@
     "compile": "babel src --out-dir dist"
   },
   "dependencies": {
-    "makeup-prevent-scroll-keys": "~0.0.4",
-    "makeup-roving-tabindex": "~0.3.7"
+    "makeup-prevent-scroll-keys": "~0.1.0",
+    "makeup-roving-tabindex": "~0.4.0"
   },
   "files": [
     "browser.json",

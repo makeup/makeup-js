@@ -171,8 +171,11 @@ function _selectMenuItemRadio(widgetEl, menuItemEl) {
     const groupName = menuItemEl.dataset.makeupGroup;
     const checkedEl = widgetEl.querySelector(`[data-makeup-group=${groupName}][aria-checked=true]`);
 
-    if (checkedEl !== menuItemEl) {
+    if (checkedEl) {
         checkedEl.setAttribute('aria-checked', 'false');
+    }
+
+    if (checkedEl !== menuItemEl) {
         menuItemEl.setAttribute('aria-checked', 'true');
 
         widgetEl.dispatchEvent(new CustomEvent('makeup-menu-change', {

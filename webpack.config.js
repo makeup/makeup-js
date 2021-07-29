@@ -15,6 +15,7 @@ module.exports = {
         'makeup-keyboard-trap': './docs/makeup-keyboard-trap/index.compiled.js',
         'makeup-listbox': './docs/makeup-listbox/index.compiled.js',
         'makeup-listbox-button': './docs/makeup-listbox-button/index.compiled.js',
+        'makeup-menu': './docs/makeup-menu/index.compiled.js',
         'makeup-menu-button': './docs/makeup-menu-button/index.compiled.js',
         'makeup-listbox-button': './docs/makeup-listbox-button/index.compiled.js',
         'makeup-modal': './docs/makeup-modal/index.compiled.js',

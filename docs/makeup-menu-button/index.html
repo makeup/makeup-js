@@ -47,7 +47,43 @@
 
                 <hr />
 
-                <h2 id="menu-button-2A">Single-Select Menu Button</h2>
+                <h2 id="menu-button-2A">Single-Select Menu Button (no default)</h2>
+                <span class="menu-button">
+                    <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
+                        <span class="expand-btn__cell">
+                            <span class="expand-btn__text">Button</span>
+                            <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
+                                <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="menu-button__menu">
+                        <div class="menu-button__items" role="menu">
+                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
+                                <span>Menu Item 1</span>
+                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                </svg>
+                            </div>
+                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
+                                <span>Menu Item 2</span>
+                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                </svg>
+                            </div>
+                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
+                                <span>Menu Item 3</span>
+                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+
+                <hr />
+
+                <h2 id="menu-button-2B">Single-Select Menu Button</h2>
                 <span class="menu-button">
                     <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
                         <span class="expand-btn__cell">
@@ -83,7 +119,7 @@
 
                 <hr />
 
-                <h2 id="menu-button-2B">Single-Select Menu Button with Stateful Label</h2>
+                <h2 id="menu-button-2C">Single-Select Menu Button with Stateful Label</h2>
 
                 <span class="menu-button">
                     <button class="expand-btn stateful-label" type="button" data-makeup-menu-button-prefix="Sort:">

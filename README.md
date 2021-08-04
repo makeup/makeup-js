@@ -13,6 +13,7 @@ UPDATE: Internet Explorer is no longer supported.
 The following modules create the model and behaviour for "headless" user interface components (i.e. they come with no styles or branding out of the box). They are fully compatible with [Skin CSS](https://github.com/eBay/skin).
 
 * [makeup-combobox](packages/makeup-combobox)
+* [makeup-confirm-dialog](packages/makeup-confirm-dialog)
 * [makeup-dialog](packages/makeup-dialog)
 * [makeup-dialog-button](packages/makeup-dialog-button)
 * [makeup-listbox](packages/makeup-listbox)

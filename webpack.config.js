@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         'makeup-active-descendant': './docs/makeup-active-descendant/index.compiled.js',
         'makeup-combobox': './docs/makeup-combobox/index.compiled.js',
+        'makeup-confirm-dialog': './docs/makeup-confirm-dialog/index.compiled.js',
         'makeup-dialog': './docs/makeup-dialog/index.compiled.js',
         'makeup-dialog-button': './docs/makeup-dialog-button/index.compiled.js',
         'makeup-exit-emitter': './docs/makeup-exit-emitter/index.compiled.js',

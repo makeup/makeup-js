@@ -1,10 +1,12 @@
+const AlertDialog = require('makeup-alert-dialog');
+const ConfirmDialog = require('makeup-confirm-dialog');
 const Dialog = require('makeup-dialog');
 
 const defaultOptions = {
     customElementMode: false,
     selectors: {
-        alert: 'lightbox-dialog--alert',
-        confirm: 'lightbox-dialog--confirm',
+        alert: 'alert-dialog',
+        confirm: 'confirm-dialog',
         drawer: 'drawer-dialog',
         filter: 'panel-dialog--filter',
         fullscreen: 'fullscreen-dialog',
@@ -31,9 +33,9 @@ module.exports = class {
 
         // todo: refactor this block
         if (dialogClassList.contains(this._options.selectors.confirm)) {
-            this._dialog = new Dialog.Confirm(dialogEl);
+            this._dialog = new ConfirmDialog(dialogEl);
         } else if (dialogClassList.contains(this._options.selectors.alert)) {
-            this._dialog = new Dialog.Alert(dialogEl);
+            this._dialog = new AlertDialog(dialogEl);
         } else if (dialogClassList.contains(this._options.selectors.input)) {
             this._dialog = new Dialog.Input(dialogEl);
         } else if (dialogClassList.contains(this._options.selectors.sort)) {

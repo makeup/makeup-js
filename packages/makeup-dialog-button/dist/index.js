@@ -12,13 +12,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var AlertDialog = require('makeup-alert-dialog');
+
+var ConfirmDialog = require('makeup-confirm-dialog');
+
 var Dialog = require('makeup-dialog');
 
 var defaultOptions = {
   customElementMode: false,
   selectors: {
-    alert: 'lightbox-dialog--alert',
-    confirm: 'lightbox-dialog--confirm',
+    alert: 'alert-dialog',
+    confirm: 'confirm-dialog',
     drawer: 'drawer-dialog',
     filter: 'panel-dialog--filter',
     fullscreen: 'fullscreen-dialog',
@@ -45,9 +49,9 @@ module.exports = /*#__PURE__*/function () {
 
 
     if (dialogClassList.contains(this._options.selectors.confirm)) {
-      this._dialog = new Dialog.Confirm(dialogEl);
+      this._dialog = new ConfirmDialog(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.alert)) {
-      this._dialog = new Dialog.Alert(dialogEl);
+      this._dialog = new AlertDialog(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.input)) {
       this._dialog = new Dialog.Input(dialogEl);
     } else if (dialogClassList.contains(this._options.selectors.sort)) {

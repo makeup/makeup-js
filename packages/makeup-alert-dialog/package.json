@@ -1,0 +1,24 @@
+{
+  "name": "makeup-alert-dialog",
+  "description": "JavaScript class representing an ARIA alert dialog",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-alert-dialog",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "babel src --out-dir dist"
+  },
+  "dependencies": {
+    "makeup-dialog": "^0.1.0",
+    "makeup-focusables": "^0.2.0",
+    "makeup-modal": "^0.3.0"
+  },
+  "files": [
+    "browser.json",
+    "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

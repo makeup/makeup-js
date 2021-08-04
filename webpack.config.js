@@ -4,6 +4,7 @@ module.exports = {
     devtool: 'source-map',
     entry: {
         'makeup-active-descendant': './docs/makeup-active-descendant/index.compiled.js',
+        'makeup-alert-dialog': './docs/makeup-alert-dialog/index.compiled.js',
         'makeup-combobox': './docs/makeup-combobox/index.compiled.js',
         'makeup-confirm-dialog': './docs/makeup-confirm-dialog/index.compiled.js',
         'makeup-dialog': './docs/makeup-dialog/index.compiled.js',

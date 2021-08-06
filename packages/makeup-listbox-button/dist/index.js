@@ -114,7 +114,7 @@ module.exports = /*#__PURE__*/function () {
       setTimeout(function () {
         widget._unobserveMutations();
 
-        widget._expander.collapse();
+        widget._expander.expanded = false;
 
         widget._observeMutations();
 

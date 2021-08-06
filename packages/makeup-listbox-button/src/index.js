@@ -87,7 +87,7 @@ module.exports = class {
 
         setTimeout(function() {
             widget._unobserveMutations();
-            widget._expander.collapse();
+            widget._expander.expanded = false;
             widget._observeMutations();
             widget._buttonEl.focus();
         }, this._options.collapseTimeout);

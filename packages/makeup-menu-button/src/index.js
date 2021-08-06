@@ -107,7 +107,7 @@ function _onButtonFirstClick() {
 
 function _onMenuKeyDown(e) {
     if (e.keyCode === 27) {
-        this._expander.collapse();
+        this._expander.expanded = false;
         this._buttonEl.focus();
     }
 }
@@ -120,7 +120,7 @@ function _onMenuItemSelect(e) {
     const widget = this;
 
     setTimeout(function() {
-        widget._expander.collapse();
+        widget._expander.expanded = false;
         widget._buttonEl.focus();
     }, 150);
 }

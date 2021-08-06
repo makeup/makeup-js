@@ -32,47 +32,6 @@ The following markup structure and classnames are required. Any SVG icons can be
 </div>
 ```
 
-### Alert
-
-```html
-<div class="lightbox-dialog lightbox-dialog--alert lightbox-dialog--mask-fade" role="alertdialog" aria-labelledby="dialog-title" aria-modal="true">
-    <div class="lightbox-dialog__compact-window lightbox-dialog__compact-window--fade">
-        <div class="lightbox-dialog__header">
-            <h2 id="dialog-title">
-                <!-- dialog title -->
-            </h2>
-        </div>
-        <div class="lightbox-dialog__main">
-            <!-- dialog content -->
-        </div>
-        <div class="lightbox-dialog__footer">
-            <button class="btn btn--primary lightbox-dialog__acknowledge" aria-describedby="alert-description">OK</button>
-        </div>
-    </div>
-</div>
-```
-
-### Confirm
-
-```html
-<div class="lightbox-dialog lightbox-dialog--confirm lightbox-dialog--mask-fade" role="dialog" aria-labelledby="dialog-confirm-title" aria-modal="true">
-    <div class="lightbox-dialog__compact-window lightbox-dialog__compact-window--fade">
-        <div class="lightbox-dialog__header">
-            <h2 id="dialog-confirm-title">
-                <!-- dialog title -->
-            </h2>
-        </div>
-        <div class="lightbox-dialog__main">
-            <!-- dialog content -->
-        </div>
-        <div class="lightbox-dialog__footer">
-            <button class="btn lightbox-dialog__reject">No</button>
-            <button class="btn btn--primary lightbox-dialog__confirm" aria-describedby="dialog-description-0">Yes</button>
-        </div>
-    </div>
-</div>
-```
-
 ### Panel
 
 ```html
@@ -209,14 +168,6 @@ Fired when any dialog is closed.
 ### makeup-dialog-acknowledge
 
 Fired when the alert dialog is acknowledged.
-
-### makeup-dialog-confirm
-
-Fired when the confirm dialog is confirmed.
-
-### makeup-dialog-reject
-
-Fired when the confirm dialog is rejected.
 
 ### makeup-dialog-done
 

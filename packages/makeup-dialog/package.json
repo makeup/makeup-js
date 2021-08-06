@@ -15,8 +15,6 @@
   },
   "files": [
     "browser.json",
-    "dist/alert.js",
-    "dist/confirm.js",
     "dist/dialog.js",
     "dist/drawer.js",
     "dist/filter.js",

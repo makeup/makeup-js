@@ -2,10 +2,6 @@
 
 var Lightbox = require('./lightbox.js');
 
-var Alert = require('./alert.js');
-
-var Confirm = require('./confirm.js');
-
 var Drawer = require('./drawer.js');
 
 var Input = require('./input.js');
@@ -24,8 +20,6 @@ var Toast = require('./toast.js');
 
 module.exports = {
   Lightbox,
-  Alert,
-  Confirm,
   Drawer,
   Filter,
   Fullscreen,

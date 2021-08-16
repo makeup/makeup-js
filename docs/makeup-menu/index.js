@@ -1,3 +1,6 @@
+import "../docs.css";
+import "@ebay/skin/menu";
+
 const Menu = require('../../packages/makeup-menu');
 
 window.onload = function() {

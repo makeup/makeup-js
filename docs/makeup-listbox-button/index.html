@@ -2,16 +2,23 @@
 <html lang="en">
     <head>
         <title>makeup-listbox-button</title>
-        <link href="../style/docs.css" rel="stylesheet" />
-        <link href="../style/expand-button.css" rel="stylesheet" />
-        <link href="../style/listbox-button.css" rel="stylesheet" />
+        <link href="index.css" rel="stylesheet" />
         <link rel="icon" href="../favicon.ico" type="image/x-icon">
+        <style>
+            .listbox-button {
+                --dropdown-background-color: LightYellow;
+                --listbox-option-border-color: LightYellow;
+                --listbox-option-hover-background-color: black;
+                --listbox-option-hover-foreground-color: white;
+            }
+        </style>
     </head>
     <body>
         <div id="page">
             <header>
                 <h1>makeup-listbox-button</h1>
                 <p>Listbox-Button is headless UI widget and does not come bundled with any CSS. This example is receiving its styles from <a href="https://ebay.github.io/skin/#listbox-button">eBay Skin</a>.</p>
+                <p>This example is receiving its base markup and styles from <a href="https://ebay.github.io/skin/#listbox-button">eBay Skin</a>. A subset of style properties are being customized/themed via Skin's CSS Custom Properties.</p>
                 <p>Listbox-Button uses <a href="../makeup-listbox">makeup-listbox</a>.</p>
             </header>
             <hr/ >
@@ -28,7 +35,7 @@
                         <span class="expand-btn__cell">
                             <span class="expand-btn__text">Color: -</span>
                             <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+                                <use xlink:href="../icon.svg#icon-dropdown"></use>
                             </svg>
                         </span>
                     </button>
@@ -37,25 +44,25 @@
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Red</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Blue</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Yellow</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Green</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                         </div>
@@ -69,7 +76,7 @@
                         <span class="expand-btn__cell">
                             <span class="expand-btn__text">Color: Blue</span>
                             <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+                                <use xlink:href="../icon.svg#icon-dropdown"></use>
                             </svg>
                         </span>
                     </button>
@@ -78,25 +85,25 @@
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Red</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option" aria-selected="true">
                                 <span class="listbox-button__value">Blue</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Yellow</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Green</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                         </div>
@@ -113,7 +120,7 @@
                         <span class="expand-btn__cell">
                             <span class="expand-btn__text">Color: -</span>
                             <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+                                <use xlink:href="../icon.svg#icon-dropdown"></use>
                             </svg>
                         </span>
                     </button>
@@ -122,25 +129,25 @@
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Red</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Blue</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Yellow</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Green</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                         </div>
@@ -154,7 +161,7 @@
                         <span class="expand-btn__cell">
                             <span class="expand-btn__text">Color: Blue</span>
                             <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+                                <use xlink:href="../icon.svg#icon-dropdown"></use>
                             </svg>
                         </span>
                     </button>
@@ -163,25 +170,25 @@
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Red</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option" aria-selected="true">
                                 <span class="listbox-button__value">Blue</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Yellow</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                             <div class="listbox-button__option" role="option">
                                 <span class="listbox-button__value">Green</span>
                                 <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                    <use xlink:href="../style/icon.svg#icon-tick-small"></use>
+                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
                                 </svg>
                             </div>
                         </div>

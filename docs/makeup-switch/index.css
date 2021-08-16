@@ -1,8 +1,9 @@
-@media (prefers-color-scheme: dark) {
-  .switch {
-    --switch-checked-background-color: #5192ff;
-  }
+#page {
+    margin: 0 auto;
+    max-width: 960px;
+    width: 100%;
 }
+
 .switch {
   box-sizing: border-box;
   height: 40px;
@@ -10,29 +11,24 @@
   vertical-align: middle;
 }
 div.switch {
-  display: -webkit-box;
   display: flex;
 }
 span.switch {
-  display: -webkit-inline-box;
   display: inline-flex;
 }
 span.switch__button {
-  background-color: #767676;
-  background-color: var(--switch-unchecked-background-color, #767676);
   align-self: center;
+  background-color: var(--switch-unchecked-background-color, #707070);
   border-radius: 400px;
   color: transparent;
   display: inline-block;
   height: 24px;
   position: relative;
   text-indent: 100%;
-  -webkit-transition: left 0.15s ease-out 0s;
   transition: left 0.15s ease-out 0s;
   width: 40px;
 }
 span.switch__button::after {
-  background-color: #fff;
   background-color: var(--switch-foreground-color, #fff);
   border-radius: 50%;
   content: "";
@@ -41,9 +37,7 @@ span.switch__button::after {
   left: 3px;
   position: absolute;
   top: 3px;
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-  -webkit-transition: left 0.15s ease-out 0s;
+  transform: translate3d(0, 0, 0);
   transition: left 0.15s ease-out 0s;
   width: 18px;
 }
@@ -59,21 +53,19 @@ span.switch__control {
   z-index: 1;
 }
 input.switch__control[disabled] + span.switch__button {
-  background-color: #c7c7c7;
   background-color: var(--switch-disabled-background-color, #c7c7c7);
 }
 input.switch__control:checked + span.switch__button::after {
   left: 19px;
 }
 span.switch__control[aria-disabled="true"] + span.switch__button {
-  background-color: #c7c7c7;
   background-color: var(--switch-disabled-background-color, #c7c7c7);
 }
 input.switch__control {
   opacity: 0;
 }
 input.switch__control:focus + span.switch__button {
-  outline: 1px auto #767676;
+  outline: 1px auto #707070;
 }
 input.switch__control:focus:not(:focus-visible) + span.switch__button {
   outline: none;
@@ -83,7 +75,6 @@ span.switch__control[aria-checked="true"] + span.switch__button::after {
 }
 input.switch__control:not([disabled]):checked + span.switch__button,
 span.switch__control:not([aria-disabled="true"])[aria-checked="true"] + span.switch__button {
-  background-color: #3665f3;
   background-color: var(--switch-checked-background-color, #3665f3);
 }
 span.switch__control:focus:not(:focus-visible) {
@@ -94,3 +85,13 @@ span.switch__control:focus:not(:focus-visible) {
     opacity: 1;
   }
 }
+@media (prefers-color-scheme: dark) {
+  .switch {
+    --switch-checked-background-color: #5192ff;
+  }
+}
+
+
+
+
+/*# sourceMappingURL=index.css.map*/

@@ -1,0 +1,301 @@
+#page {
+    margin: 0 auto;
+    max-width: 960px;
+    width: 100%;
+}
+
+button.expand-btn {
+  box-sizing: border-box;
+  font-family: inherit;
+  margin: 0;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: bottom;
+  background-color: transparent;
+  border: 1px solid;
+  border-color: inherit;
+  border-radius: var(--expand-button-border-radius, 8px);
+  color: inherit;
+  display: inline-block;
+  font-size: 1em;
+  max-width: 100%;
+  padding: var(--expand-button-padding-vertical, 11px) var(--expand-button-padding-horizontal, 16px);
+}
+button.expand-btn--fixed-height {
+  height: 40px;
+}
+button.expand-btn--truncated {
+  height: 40px;
+}
+button.expand-btn--truncated,
+button.expand-btn--truncated span {
+  line-height: 1.4em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+button.expand-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+button.expand-btn:hover,
+button.expand-btn:focus {
+  border-color: var(--expand-button-hover-foreground-color, #2b0eaf);
+  color: var(--expand-button-hover-foreground-color, #2b0eaf);
+}
+button.expand-btn svg.icon {
+  align-self: center;
+  flex-shrink: 0;
+}
+button.expand-btn svg.icon:first-child {
+  margin-right: 8px;
+}
+button.expand-btn svg.icon:last-child {
+  margin-left: 8px;
+}
+button.expand-button--wide {
+  padding-left: 48px;
+  padding-right: 48px;
+}
+button.expand-btn--fluid {
+  width: 100%;
+}
+span.expand-btn__cell {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+span.expand-btn__cell--fixed-height {
+  display: inline-flex;
+}
+span.expand-btn__cell--fixed-height > svg {
+  align-self: baseline;
+  max-width: calc(100% - 32px);
+}
+span.expand-btn__cell--truncated {
+  display: inline-flex;
+}
+span.expand-btn__cell--truncated > svg {
+  align-self: baseline;
+  max-width: calc(100% - 32px);
+}
+span.expand-btn__cell--fixed-height svg.icon {
+  align-self: center;
+  overflow: visible;
+}
+span.expand-btn__cell--center span {
+  flex: 0 1 auto;
+  left: 50%;
+  padding: 0 20px;
+  position: relative;
+  transform: translateX(-50%);
+}
+span.expand-btn__cell--center svg.icon:last-child {
+  flex: 0 1 auto;
+  margin-left: auto;
+}
+button.expand-btn[disabled],
+button.expand-btn[aria-disabled="true"] {
+  border-color: #c7c7c7;
+  color: #c7c7c7;
+  opacity: 1;
+}
+button.expand-btn svg.icon:only-child {
+  display: flex;
+  margin: 0;
+}
+button.expand-btn[aria-expanded="true"] svg.icon--dropdown {
+  transform: rotate(180deg);
+}
+[dir="rtl"] button.expand-btn svg.icon:first-child {
+  margin-left: 8px;
+  margin-right: 0;
+}
+[dir="rtl"] button.expand-btn svg.icon:last-child {
+  margin-left: 0;
+  margin-right: 8px;
+}
+[dir="rtl"] button.expand-btn span.expand-btn__cell--center span {
+  left: auto;
+  right: 50%;
+  transform: translateX(50%);
+}
+[dir="rtl"] button.expand-btn span.expand-btn__cell--center svg.icon:last-child {
+  margin-left: 0;
+  margin-right: auto;
+}
+button.expand-btn--large {
+  min-height: 48px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+button.expand-btn--large-fixed-height {
+  height: 48px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+button.expand-btn--large-truncated {
+  height: 48px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+button.expand-btn--large-truncated,
+button.expand-btn--large-truncated span {
+  line-height: 1.4em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+button.expand-btn.expand-btn--no-text,
+button.expand-btn.expand-btn--icon-only {
+  height: 40px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+button.expand-btn--no-text.expand-btn--large,
+button.expand-btn--icon-only.expand-btn--large {
+  height: 48px;
+}
+@media (prefers-color-scheme: dark) {
+  button.expand-btn {
+    --expand-button-hover-foreground-color: #94bcff;
+  }
+}
+
+
+
+.listbox-button {
+  line-height: normal;
+  position: relative;
+  vertical-align: bottom;
+}
+span.listbox-button {
+  display: inline-block;
+}
+span.listbox-button--fluid,
+span.listbox-button--fluid .expand-btn {
+  width: 100%;
+}
+div.listbox-button__listbox {
+  background-color: var(--dropdown-background-color, #fff);
+  border-color: var(--dropdown-border-color, #f7f7f7);
+  border-radius: var(--dropdown-border-radius, 8px);
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: var(--dropdown-box-shadow, 0 5px 15px rgba(0, 0, 0, 0.07));
+  box-sizing: border-box;
+  display: none;
+  max-height: 400px;
+  min-width: 100%;
+  overflow-y: auto;
+  position: absolute;
+  top: calc(100% + 4px);
+  width: auto;
+  z-index: 2;
+}
+button.expand-btn[aria-expanded="true"] ~ div.listbox-button__listbox {
+  display: block;
+}
+.listbox-button button[aria-invalid="true"] {
+  border-color: var(--listbox-button-invalid-border-color, #e0103a);
+}
+.listbox-button button.expand-btn--borderless {
+  background-color: transparent;
+  border-color: transparent;
+  padding-left: 0;
+  vertical-align: initial;
+}
+.listbox-button button.expand-btn--borderless:focus {
+  outline: none;
+  text-decoration: underline;
+}
+.listbox-button button.expand-btn--borderless[aria-expanded="true"] ~ .listbox-button__listbox {
+  top: 41px;
+}
+.listbox-button__options[role="listbox"]:focus .listbox-button__option--active[role="option"] {
+  background-color: var(--listbox-option-hover-background-color, #e5e5e5);
+  color: var(--listbox-option-hover-foreground-color, #111820);
+}
+.listbox-button__option svg.icon {
+  align-self: center;
+  fill: currentColor;
+  height: 8px;
+  margin: 0 auto;
+  opacity: 0;
+  stroke: currentColor;
+  stroke-width: 0;
+  width: 8px;
+  margin-left: 8px;
+}
+div.listbox-button__option[role="option"][aria-selected="true"] svg.icon {
+  opacity: 1;
+}
+div.listbox-button__option[role="option"]:active svg.icon {
+  color: var(--listbox-option-active-status-color, #fff);
+}
+div.listbox-button__option[role="option"] {
+  background-color: transparent;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  display: inline-flex;
+  font-family: inherit;
+  justify-content: space-between;
+  padding: 8px 15px;
+  width: 100%;
+  border-color: var(--listbox-option-border-color, #fff);
+  color: var(--listbox-option-foreground-color, #111820);
+  cursor: default;
+}
+div.listbox-button__option[role="option"]:not(:last-child) {
+  margin-bottom: 1px;
+}
+div.listbox-button__option[role="option"]:focus {
+  outline-offset: -4px;
+}
+div.listbox-button__option[role="option"]:hover {
+  background-color: var(--listbox-option-hover-background-color, #e5e5e5);
+  color: var(--listbox-option-hover-foreground-color, #111820);
+}
+div.listbox-button__option[role="option"]:active {
+  font-weight: bold;
+}
+div.listbox-button__option[role="option"]:first-child {
+  border-top-left-radius: var(--dropdown-border-radius, 8px);
+  border-top-right-radius: var(--dropdown-border-radius, 8px);
+}
+div.listbox-button__option[role="option"]:last-child {
+  border-bottom-left-radius: var(--dropdown-border-radius, 8px);
+  border-bottom-right-radius: var(--dropdown-border-radius, 8px);
+}
+div.listbox-button__option--active[role="option"] {
+  font-weight: bold;
+}
+span.listbox-button__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 0 auto;
+}
+.listbox-button__options:focus:not(:focus-visible) {
+  outline: none;
+}
+[dir="rtl"] .listbox-button__option svg.icon {
+  margin-left: 0;
+  margin-right: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  .listbox-button {
+    --dropdown-background-color: #171717;
+    --dropdown-border-color: #171717;
+    --listbox-option-background-color: #171717;
+    --listbox-option-foreground-color: #dcdcdc;
+    --listbox-option-border-color: #171717;
+    --listbox-option-hover-foreground-color: #111820;
+  }
+}
+
+
+
+
+/*# sourceMappingURL=index.css.map*/

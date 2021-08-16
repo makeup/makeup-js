@@ -1,3 +1,6 @@
+import "../docs.css";
+import "@ebay/skin/listbox";
+
 const Listbox = require('../../packages/makeup-listbox');
 
 window.onload = function() {

@@ -1,3 +1,8 @@
+import "../docs.css";
+import "@ebay/skin/global";
+import "@ebay/skin/button";
+import "@ebay/skin/confirm-dialog";
+
 const ConfirmDialog = require('../../packages/makeup-confirm-dialog');
 
 window.onload = function() {

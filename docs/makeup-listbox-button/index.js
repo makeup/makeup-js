@@ -1,3 +1,7 @@
+import "../docs.css";
+import "@ebay/skin/expand-button";
+import "@ebay/skin/listbox-button";
+
 const ListboxButton = require('../../packages/makeup-listbox-button');
 
 window.onload = function() {

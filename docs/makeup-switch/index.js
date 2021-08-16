@@ -1,3 +1,6 @@
+import "../docs.css";
+import "@ebay/skin/switch";
+
 const MakeupSwitch = require('../../packages/makeup-switch');
 
 window.onload = function() {

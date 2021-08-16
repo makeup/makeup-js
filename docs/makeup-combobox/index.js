@@ -1,3 +1,6 @@
+import "../docs.css";
+import "@ebay/skin/combobox";
+
 const Combobox = require('../../packages/makeup-combobox');
 
 window.onload = function() {

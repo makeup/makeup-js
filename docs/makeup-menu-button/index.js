@@ -1,3 +1,7 @@
+import "../docs.css";
+import "@ebay/skin/expand-button";
+import "@ebay/skin/menu-button";
+
 const MenuButton = require('../../packages/makeup-menu-button');
 
 window.onload = function() {

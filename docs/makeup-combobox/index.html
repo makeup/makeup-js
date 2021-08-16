@@ -2,15 +2,23 @@
 <html lang="en">
     <head>
         <title>makeup-combobox</title>
-        <link href="../style/docs.css" rel="stylesheet" />
-        <link href="../style/combobox.css" rel="stylesheet" />
+        <link href="index.css" rel="stylesheet" />
         <link rel="icon" href="../favicon.ico" type="image/x-icon">
+        <style>
+            .combobox {
+                --combobox-background-color: white;
+                --dropdown-background-color: LightYellow;
+                --listbox-option-hover-background-color: black;
+                --listbox-option-hover-foreground-color: white;
+            }
+        </style>
     </head>
     <body>
         <div id="page">
             <header>
                 <h1>makeup-combobox</h1>
-                <p>Combobox is a headless UI widget and does not come bundled with any CSS. This example is receiving its styles from <a href="https://ebay.github.io/skin/#combobox">eBay Skin</a>.</p>
+                <p>Combobox is a headless UI widget and does not come bundled with any CSS.</p>
+                <p>This example is receiving its base markup and styles from <a href="https://ebay.github.io/skin/#combobox">eBay Skin</a>. A subset of style properties are being customized/themed via Skin's CSS Custom Properties.</p>
                 <p>Combobox uses <a href="../makeup-listbox">makeup-listbox</a>.</p>
             </header>
             <hr/ >
@@ -23,7 +31,7 @@
                         <span class="combobox__control">
                             <input name="console" role="combobox" type="text" autocomplete="off" aria-haspopup="listbox" aria-label="Manual Selection Demo" aria-owns="listbox-1" />
                             <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+                                <use xlink:href="../icon.svg#icon-dropdown"></use>
                             </svg>
                         </span>
                         <div class="combobox__listbox" hidden>
@@ -65,7 +73,7 @@
                         <span class="combobox__control">
                             <input name="console" role="combobox" type="text" autocomplete="off" aria-haspopup="listbox" aria-label="Automatic Selection Demo" aria-owns="listbox-2" />
                             <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+                                <use xlink:href="../icon.svg#icon-dropdown"></use>
                             </svg>
                         </span>
                         <div class="combobox__listbox" hidden>
@@ -107,7 +115,7 @@
                         <span class="combobox__control">
                             <input name="console" role="combobox" type="text" autocomplete="off" aria-autocomplete="list" aria-haspopup="listbox" aria-label="Autocomplete demo" aria-owns="listbox-3" />
                             <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+                                <use xlink:href="../icon.svg#icon-dropdown"></use>
                             </svg>
                         </span>
                         <div class="combobox__listbox" hidden>
@@ -149,7 +157,7 @@
                         <span class="combobox__control">
                             <input name="console" role="combobox" type="text" autocomplete="off" aria-autocomplete="list" aria-haspopup="listbox" aria-label="Autocomplete demo" aria-owns="listbox-4" />
                             <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+                                <use xlink:href="../icon.svg#icon-dropdown"></use>
                             </svg>
                         </span>
                         <div class="combobox__listbox" hidden>

@@ -1,6 +1,6 @@
 # makeup-input-dialog
 
-JavaScript class representing a [confirm dialog](https://ebay.gitbook.io/mindpatterns/messaging/input-dialog). No CSS provided.
+JavaScript class representing an [input dialog](https://ebay.gitbook.io/mindpatterns/messaging/input-dialog). No CSS provided.
 
 [View Demo](https://makeup.github.io/makeup-js/makeup-input-dialog/index.html).
 

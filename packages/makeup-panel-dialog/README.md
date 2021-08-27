@@ -32,7 +32,7 @@ The following markup structure and classnames are required. Any SVG icons can be
 
 ## CSS
 
-No CSS is provided. However, the class is fully compatible with [eBay Skin](https://ebay.github.io/skin/#input-dialog).
+No CSS is provided. However, the class is fully compatible with [eBay Skin](https://ebay.github.io/skin/#panel-dialog).
 
 ## JavaScript
 
@@ -54,16 +54,8 @@ todo
 
 ### makeup-dialog-open
 
-Fired when any dialog is opened.
+Fired when dialog is opened.
 
 ### makeup-dialog-close
 
-Fired when any dialog is closed.
-
-### makeup-dialog-submit
-
-Fired when the input dialog is submitted.
-
-### makeup-dialog-cancel
-
-Fired when the input dialog is cancelled.
+Fired when dialog is closed.

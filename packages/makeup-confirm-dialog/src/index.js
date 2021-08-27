@@ -1,4 +1,4 @@
-const Lightbox = require('makeup-dialog').Lightbox;
+const Lightbox = require('makeup-lightbox-dialog');
 
 const defaultOptions = {
     baseClass: 'confirm-dialog',

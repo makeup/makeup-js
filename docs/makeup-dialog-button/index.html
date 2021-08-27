@@ -9,13 +9,13 @@
         <div id="page">
             <header>
                 <h1>makeup-dialog-button</h1>
-                <p>Dialog-Button is headless UI widget and does not come bundled with any CSS. The dialogs in this example are receiving their styles from <a href="https://ebay.github.io/skin/#lightbox-dialog">eBay Skin</a>.</p>
+                <p>Dialog-Button is headless UI widget and does not come bundled with any CSS.</p>
                 <p>This example is receiving its base styles from <a href="https://ebay.github.io/skin">eBay Skin</a>. A subset of style properties are being customized/themed via Skin's CSS Custom Properties.</p>
-                <p>This page was loaded with all dialogs in a non-open state. To see an example of a dialog open on page load, visit the  <a href="../makeup-dialog">makeup-dialog</a> page.</p>
+                <p>This page was loaded with all dialogs in a non-open state. To see an example of a dialog open on page load, visit the  <a href="../makeup-lightbox-dialog">makeup-lightbox-dialog</a> page.</p>
             </header>
             <hr/ >
             <main>
-                <button data-makeup-for="dialog-lightbox" class="dialog-button" type="button" aria-haspopup="dialog">Lightbox</button>
+                <button data-makeup-for="dialog-lightbox" class="btn dialog-button" type="button" aria-haspopup="dialog">Lightbox</button>
 
                 <div class="lightbox-dialog lightbox-dialog--mask-fade" id="dialog-lightbox" role="dialog" aria-labelledby="lightbox-dialog-title" aria-modal="true" hidden>
                     <div class="lightbox-dialog__window lightbox-dialog__window--fade">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-alert" aria-haspopup="dialog">Alert</button>
+                <button class="btn dialog-button" type="button" data-makeup-for="dialog-alert" aria-haspopup="dialog">Alert</button>
 
                 <div class="alert-dialog alert-dialog--mask-fade" id="dialog-alert" role="alertdialog" aria-labelledby="alert-dialog-title" aria-modal="true" hidden>
                     <div class="alert-dialog__window alert-dialog__window--fade">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-confirm" aria-haspopup="dialog">Confirm</button>
+                <button class="btn dialog-button" type="button" data-makeup-for="dialog-confirm" aria-haspopup="dialog">Confirm</button>
 
                 <div class="confirm-dialog confirm-dialog--mask-fade" id="dialog-confirm" role="dialog" aria-labelledby="confirm-dialog-title" aria-modal="true" hidden>
                     <div class="confirm-dialog__window confirm-dialog__window--fade">
@@ -70,29 +70,31 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-input" aria-haspopup="dialog">Input</button>
+                <button class="btn dialog-button" type="button" data-makeup-for="dialog-input" aria-haspopup="dialog">Input</button>
 
-                <div class="lightbox-dialog lightbox-dialog--input lightbox-dialog--mask-fade" id="dialog-input" role="dialog" aria-labelledby="input-dialog-title" aria-modal="true" hidden>
+                <div class="lightbox-dialog lightbox-dialog--input lightbox-dialog--mask-fade" id="dialog-input" role="dialog" hidden aria-labelledby="input-dialog-title" aria-modal="true">
                     <div class="lightbox-dialog__window lightbox-dialog__window--fade">
-                        <div class="lightbox-dialog__header">
-                            <h2 class="lightbox-dialog__title" id="input-dialog-title">Enter Your Bid</h2>
-                        </div>
                         <form action="index.html" method="get">
+                            <div class="lightbox-dialog__header">
+                                <h2 class="lightbox-dialog__title" id="input-dialog-title">Enter Your Bid</h2>
+                            </div>
                             <div class="lightbox-dialog__main">
                                 <p>
-                                    <label>Bid Amount:<label>
-                                    <input autofocus class="lightbox-dialog__input" type="text" name="bid" />
+                                    <label for="input-dialog-input">Bid Amount:</label>
+                                    <span class="textbox">
+                                        <input autofocus class="lightbox-dialog__input textbox__control" id="input-dialog-input" type="text" name="bid" />
+                                    </span>
                                 </p>
                             </div>
                             <div class="lightbox-dialog__footer">
-                                <button class="button lightbox-dialog__cancel" type="button">Cancel</button>
-                                <button class="button lightbox-dialog__submit" type="submit">Submit</button>
+                                <button class="btn lightbox-dialog__cancel" type="button">Cancel</button>
+                                <button class="btn btn--primary lightbox-dialog__submit" type="submit">Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-panel" aria-haspopup="dialog">Panel</button>
+                <button class="btn dialog-button" type="button" data-makeup-for="dialog-panel" aria-haspopup="dialog">Panel</button>
 
                 <div class="panel-dialog panel-dialog--mask-fade-slow" id="dialog-panel" role="dialog" aria-labelledby="panel-dialog-title" aria-modal="true" hidden>
                     <div class="panel-dialog__window panel-dialog__window--slide">
@@ -114,7 +116,8 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-filter" aria-haspopup="dialog">Filter</button>
+                <!--
+                <button class="btn dialog-button" type="button" data-makeup-for="dialog-filter" aria-haspopup="dialog">Filter</button>
 
                 <div class="panel-dialog panel-dialog--filter panel-dialog--mask-fade-slow" id="dialog-filter" role="dialog" aria-labelledby="filter-dialog-title" aria-modal="true" hidden>
                     <div class="panel-dialog__window panel-dialog__window--end panel-dialog__window--slide">
@@ -137,7 +140,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" type="button" data-makeup-for="dialog-sort" aria-haspopup="dialog">Sort</button>
+                <button class="btn dialog-button" type="button" data-makeup-for="dialog-sort" aria-haspopup="dialog">Sort</button>
 
                 <div class="panel-dialog panel-dialog--sort panel-dialog--mask-fade-slow" id="dialog-sort" role="dialog" aria-labelledby="sort-dialog-title" aria-modal="true" hidden>
                     <div class="panel-dialog__window panel-dialog__window--end panel-dialog__window--slide">
@@ -159,8 +162,8 @@
                         </div>
                     </div>
                 </div>
-
-                <button class="dialog-button" type="button" data-makeup-for="dialog-snackbar" aria-haspopup="dialog">Snackbar</button>
+                -->
+                <button class="btn dialog-button" type="button" data-makeup-for="dialog-snackbar" aria-haspopup="dialog">Snackbar</button>
 
                 <aside class="snackbar-dialog snackbar-dialog--transition" id="dialog-snackbar" role="dialog" aria-label="Notification" aria-live="polite" aria-modal="false" hidden>
                     <div class="snackbar-dialog__window">
@@ -173,7 +176,7 @@
                     </div>
                 </aside>
 
-                <button class="button dialog-button" type="button" data-makeup-for="dialog-toast" aria-haspopup="dialog">Toast</button>
+                <button class="btn dialog-button" type="button" data-makeup-for="dialog-toast" aria-haspopup="dialog">Toast</button>
 
                 <aside id="dialog-toast" class="toast-dialog toast-dialog--transition" role="dialog" aria-label="Notification" aria-live="polite" aria-modal="false" hidden>
                     <div class="toast-dialog__window">
@@ -194,13 +197,13 @@
                     </div>
                 </aside>
 
-                <button class="dialog-button" data-makeup-for="drawer-dialog" type="button">Drawer</button>
+                <button class="btn dialog-button" data-makeup-for="drawer-dialog" type="button">Drawer</button>
 
-                <div class="drawer-dialog drawer-dialog--mask-fade-slow" id="drawer-dialog" role="dialog" aria-labelledby="drawer-dialog-title" aria-modal="true" hidden>
+                <div class="drawer-dialog drawer-dialog--mask-fade" id="drawer-dialog" role="dialog" aria-labelledby="drawer-dialog-title" aria-modal="true" hidden>
                     <div class="drawer-dialog__window drawer-dialog__window--slide">
                         <button class="drawer-dialog__handle" type="button"></button>
                         <div class="drawer-dialog__header">
-                            <h2 id="drawer-dialog-title">Heading</h2>
+                            <h2 id="drawer-dialog-title" class="large-text-1 bold-text">Drawer Dialog</h2>
                             <button aria-label="Close dialog" class="icon-btn drawer-dialog__close" type="button">
                                 <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
                                     <use xlink:href="../icon.svg#icon-close"></use>
@@ -237,7 +240,7 @@
                     </div>
                 </div>
 
-                <button class="dialog-button" data-makeup-for="dialog-fullscreen" type="button">Fullscreen</button>
+                <button class="btn dialog-button" data-makeup-for="dialog-fullscreen" type="button">Fullscreen</button>
 
                 <div class="fullscreen-dialog fullscreen-dialog--transition" id="dialog-fullscreen" role="dialog" aria-labelledby="fullscreen-dialog-title" aria-modal="true" hidden>
                     <div class="fullscreen-dialog__window fullscreen-dialog__window--slide">

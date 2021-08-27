@@ -1,0 +1,23 @@
+{
+  "name": "makeup-drawer-dialog",
+  "description": "JavaScript class representing a modal drawer dialog",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-drawer-dialog",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "babel src --out-dir dist"
+  },
+  "dependencies": {
+    "makeup-lightbox-dialog": "^0.0.1"
+  },
+  "files": [
+    "browser.json",
+    "dist/index.js",
+    "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

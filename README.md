@@ -15,13 +15,19 @@ The following modules create the model and behaviour for "headless" user interfa
 * [makeup-alert-dialog](packages/makeup-alert-dialog)
 * [makeup-combobox](packages/makeup-combobox)
 * [makeup-confirm-dialog](packages/makeup-confirm-dialog)
-* [makeup-dialog](packages/makeup-dialog)
+* [makeup-dialog](packages/makeup-dialog) (abstract class)
 * [makeup-dialog-button](packages/makeup-dialog-button)
+* [makeup-fullscreen-dialog](packages/makeup-fullscreen-dialog)
+* [makeup-input-dialog](packages/makeup-input-dialog)
+* [makeup-lightbox-dialog](packages/makeup-lightbox-dialog)
 * [makeup-listbox](packages/makeup-listbox)
 * [makeup-listbox-button](packages/makeup-listbox-button)
 * [makeup-menu](packages/makeup-menu)
 * [makeup-menu-button](packages/makeup-menu-button)
+* [makeup-panel-dialog](packages/makeup-panel-dialog)
+* [makeup-snackbar-dialog](packages/makeup-snackbar-dialog)
 * [makeup-switch](packages/makeup-switch)
+* [makeup-toast-dialog](packages/makeup-toast-dialog)
 * More to come...
 
 ## Core Modules

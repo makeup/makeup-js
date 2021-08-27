@@ -10,12 +10,11 @@
     "compile": "babel src --out-dir dist"
   },
   "dependencies": {
-    "makeup-dialog": "^0.1.0",
-    "makeup-focusables": "^0.2.0",
-    "makeup-modal": "^0.3.0"
+    "makeup-lightbox-dialog": "^0.0.1"
   },
   "files": [
     "browser.json",
+    "dist/index.js",
     "package-lock.json"
   ],
   "browserslist": [

@@ -12,7 +12,14 @@
   "dependencies": {
     "makeup-alert-dialog": "~0.0.1",
     "makeup-confirm-dialog": "~0.0.1",
-    "makeup-dialog": "~0.1.0"
+    "makeup-dialog": "^0.2.0",
+    "makeup-drawer-dialog": "~0.0.1",
+    "makeup-fullscreen-dialog": "~0.0.1",
+    "makeup-input-dialog": "~0.0.1",
+    "makeup-lightbox-dialog": "~0.0.1",
+    "makeup-panel-dialog": "~0.0.1",
+    "makeup-snackbar-dialog": "~0.0.1",
+    "makeup-toast-dialog": "~0.0.1"
   },
   "files": [
     "browser.json",

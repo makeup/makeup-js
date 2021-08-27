@@ -24,7 +24,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var Lightbox = require('makeup-dialog').Lightbox;
+var Lightbox = require('makeup-lightbox-dialog');
 
 var defaultOptions = {
   baseClass: 'confirm-dialog',

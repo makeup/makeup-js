@@ -1,8 +1,8 @@
-# makeup-panel-dialog
+# makeup-drawer-dialog
 
-JavaScript class representing a [panel dialog](https://ebay.gitbook.io/mindpatterns/disclosure/panel-dialog). No CSS provided.
+JavaScript class representing a [drawer dialog](https://ebay.gitbook.io/mindpatterns/disclosure/drawer-dialog). No CSS provided.
 
-[View Demo](https://makeup.github.io/makeup-js/makeup-panel-dialog/index.html).
+[View Demo](https://makeup.github.io/makeup-js/makeup-drawer-dialog/index.html).
 
 ## HTML
 
@@ -53,15 +53,15 @@ The following markup structure and classnames are required. Any SVG icons can be
 
 ## CSS
 
-No CSS is provided. However, the class is fully compatible with [eBay Skin](https://ebay.github.io/skin/#input-dialog).
+No CSS is provided. However, the class is fully compatible with [eBay Skin](https://ebay.github.io/skin/#drawer-dialog).
 
 ## JavaScript
 
 ```js
-const PanelDialog = require('makeup-panel-dialog');
+const DrawerDialog = require('makeup-drawer-dialog');
 
-document.querySelectorAll('.panel-dialog').forEach(function(el, i) {
-    const widget = new PanelDialog(el, config);
+document.querySelectorAll('.drawer-dialog').forEach(function(el, i) {
+    const widget = new DrawerDialog(el, config);
 });
 ```
 
@@ -80,11 +80,3 @@ Fired when any dialog is opened.
 ### makeup-dialog-close
 
 Fired when any dialog is closed.
-
-### makeup-dialog-submit
-
-Fired when the input dialog is submitted.
-
-### makeup-dialog-cancel
-
-Fired when the input dialog is cancelled.

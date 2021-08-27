@@ -10,10 +10,11 @@
     "compile": "babel src --out-dir dist"
   },
   "dependencies": {
-    "makeup-dialog": "^0.2.0"
+    "makeup-dialog": "^0.3.0"
   },
   "files": [
     "browser.json",
+    "dist/index.js",
     "package-lock.json"
   ],
   "browserslist": [

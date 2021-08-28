@@ -10,7 +10,7 @@
     "compile": "babel src --out-dir dist"
   },
   "dependencies": {
-    "makeup-dialog": "^0.3.0"
+    "makeup-dialog": "^0.3.1"
   },
   "files": [
     "browser.json",

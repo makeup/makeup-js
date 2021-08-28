@@ -1,7 +1,7 @@
 {
   "name": "makeup-dialog",
   "description": "Abstract class representing the base behaviour for a modal or non-modal ARIA dialog",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-dialog",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",

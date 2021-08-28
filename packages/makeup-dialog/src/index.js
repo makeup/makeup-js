@@ -36,7 +36,9 @@ module.exports = class {
         this._el.classList.add(`${this._options.baseClass}--js`);
 
         if (!this.hidden) {
-            _doModalFocusManagement(this);
+            if (this.modal) {
+                _doModalFocusManagement(this);
+            }
             this._observeEvents();
         }
     }

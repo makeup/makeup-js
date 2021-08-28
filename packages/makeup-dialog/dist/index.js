@@ -43,7 +43,9 @@ module.exports = /*#__PURE__*/function () {
     this._el.classList.add("".concat(this._options.baseClass, "--js"));
 
     if (!this.hidden) {
-      _doModalFocusManagement(this);
+      if (this.modal) {
+        _doModalFocusManagement(this);
+      }
 
       this._observeEvents();
     }

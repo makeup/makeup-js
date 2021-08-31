@@ -1,7 +1,7 @@
 {
   "name": "makeup-toast-dialog",
   "description": "JavaScript class representing a toast dialog",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-toast-dialog",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
@@ -10,7 +10,7 @@
     "compile": "babel src --out-dir dist"
   },
   "dependencies": {
-    "makeup-dialog": "^0.3.1"
+    "makeup-dialog": "~0.3.1"
   },
   "files": [
     "browser.json",

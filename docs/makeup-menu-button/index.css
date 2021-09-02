@@ -162,8 +162,6 @@ button.expand-btn--icon-only.expand-btn--large {
   }
 }
 
-
-
 .menu-button,
 .fake-menu-button {
   line-height: normal;
@@ -413,8 +411,6 @@ div.menu-button__item[role^="menuitem"]:focus:not(:focus-visible) {
     --menu-menuitem-hover-foreground-color: #111820;
   }
 }
-
-
 
 
 /*# sourceMappingURL=index.css.map*/

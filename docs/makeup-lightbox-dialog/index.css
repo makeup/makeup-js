@@ -18,7 +18,7 @@
 body {
   background-color: var(--color-background-default, #fff);
   color: var(--color-text-default, #111820);
-  font-family: Arial, sans-serif;
+  font-family: "Market Sans", Arial, sans-serif;
   font-size: 0.875rem;
   -webkit-text-size-adjust: 100%;
 }
@@ -48,8 +48,6 @@ a:hover {
     --color-link-visited: #d2a4cf;
   }
 }
-
-
 
 button.btn,
 a.fake-btn {
@@ -390,8 +388,6 @@ a.fake-btn--icon-only {
   }
 }
 
-
-
 a.icon-link {
   align-items: center;
   display: inline-flex;
@@ -418,10 +414,6 @@ a.icon-link > svg {
   max-width: 100%;
   position: relative;
 }
-button.icon-btn:active > svg,
-a.icon-link:active > svg {
-  fill: var(--icon-button-icon-active-foreground-color, #111820);
-}
 button.icon-btn:focus,
 a.icon-link:focus,
 button.icon-btn:hover,
@@ -434,12 +426,28 @@ button.icon-btn:hover > svg,
 a.icon-link:hover > svg {
   fill: var(--icon-button-icon-hover-foreground-color, #111820);
 }
+button.icon-btn:active,
+a.icon-link:active {
+  background-color: var(--icon-button-active-background-color, #c7c7c7);
+}
+button.icon-btn:active > svg,
+a.icon-link:active > svg {
+  fill: var(--icon-button-icon-active-foreground-color, #111820);
+}
 button.icon-btn:not(:focus-visible),
 a.icon-link:not(:focus-visible) {
   outline: none;
 }
 button.icon-btn--transparent,
 a.icon-link--transparent {
+  background-color: transparent;
+}
+button.icon-btn--transparent:active,
+a.icon-link--transparent:active,
+button.icon-btn--transparent:focus,
+a.icon-link--transparent:focus,
+button.icon-btn--transparent:hover,
+a.icon-link--transparent:hover {
   background-color: transparent;
 }
 a.icon-link:visited > svg {
@@ -488,14 +496,13 @@ a.icon-link--badged .badge {
   button.icon-btn {
     --icon-button-background-color: #212121;
     --icon-button-hover-background-color: #393939;
+    --icon-button-active-background-color: #4d4d4d;
     --icon-button-badge-border-color: #171717;
     --icon-button-icon-foreground-color: #dcdcdc;
     --icon-button-icon-active-foreground-color: #dcdcdc;
     --icon-button-icon-hover-foreground-color: #dcdcdc;
   }
 }
-
-
 
 /* large screens */
 .lightbox-dialog[role="dialog"] {
@@ -669,8 +676,6 @@ button.lightbox-dialog__close {
     --dialog-window-background-color: #212121;
   }
 }
-
-
 
 
 /*# sourceMappingURL=index.css.map*/

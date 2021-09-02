@@ -162,8 +162,6 @@ button.expand-btn--icon-only.expand-btn--large {
   }
 }
 
-
-
 .listbox-button {
   line-height: normal;
   position: relative;
@@ -253,6 +251,9 @@ div.listbox-button__option[role="option"]:not(:last-child) {
 div.listbox-button__option[role="option"]:focus {
   outline-offset: -4px;
 }
+div.listbox-button__option[role="option"][hidden] {
+  display: none;
+}
 div.listbox-button__option[role="option"]:hover {
   background-color: var(--listbox-option-hover-background-color, #e5e5e5);
   color: var(--listbox-option-hover-foreground-color, #111820);
@@ -294,8 +295,6 @@ span.listbox-button__value {
     --listbox-option-hover-foreground-color: #111820;
   }
 }
-
-
 
 
 /*# sourceMappingURL=index.css.map*/

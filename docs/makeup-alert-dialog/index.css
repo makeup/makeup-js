@@ -18,7 +18,7 @@
 body {
   background-color: var(--color-background-default, #fff);
   color: var(--color-text-default, #111820);
-  font-family: Arial, sans-serif;
+  font-family: "Market Sans", Arial, sans-serif;
   font-size: 0.875rem;
   -webkit-text-size-adjust: 100%;
 }
@@ -48,8 +48,6 @@ a:hover {
     --color-link-visited: #d2a4cf;
   }
 }
-
-
 
 button.btn,
 a.fake-btn {
@@ -390,8 +388,6 @@ a.fake-btn--icon-only {
   }
 }
 
-
-
 /* large screens */
 .alert-dialog[role="alertdialog"] {
   background-color: rgba(17, 24, 32, 0.7);
@@ -501,8 +497,6 @@ a.fake-btn--icon-only {
     --dialog-window-background-color: #212121;
   }
 }
-
-
 
 
 /*# sourceMappingURL=index.css.map*/

@@ -20,7 +20,7 @@
         "@babel/core": "^7.15.0",
         "@babel/preset-env": "^7.15.0",
         "@ebay/browserslist-config": "^2.0.2",
-        "@ebay/skin": "^13.0.0-0",
+        "@ebay/skin": "^13.0.0-2",
         "browser-sync": "^2.27.5",
         "coveralls": "^3.1.1",
         "css-loader": "^6.2.0",

@@ -38,7 +38,8 @@
             .floating-label__label--disabled {
                 color: #767676;
             }
-            .floating-label input {
+            .floating-label input,
+            .floating-label select {
                 background-color: #F5F5F5;
                 border: 1px solid #E5E5E5;
                 border-radius: 8px;
@@ -97,6 +98,16 @@
                 <span class="floating-label">
                     <label class="floating-label__label" for="lastname">Last name</label>
                     <input id="lastname" name="lastname" placeholder="placeholder text" />
+                </span>
+
+                <span class="floating-label">
+                    <label class="floating-label__label" for="select">Option</label>
+                    <select id="select" name="select">
+                        <option value=""></option>
+                        <option value="Option 1">Option 1</option>
+                        <option value="Option 2">Option 2</option>
+                        <option value="Option 3">Option 3</option>
+                    </select>
                 </span>
 
                 <div>

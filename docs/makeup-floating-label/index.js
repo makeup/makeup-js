@@ -16,7 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     autofillBtn.addEventListener('click', function() {
         widgetEls.forEach(function(el) {
-            el.querySelector('input').value = 'Autofill Text';
+            const input = el.querySelector('input');
+            if (input) {
+                input.value = 'Autofill Text';
+            } else {
+                el.querySelector('select').value = 'Option 1';
+            }
         });
     });
 

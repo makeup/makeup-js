@@ -93,17 +93,6 @@ function _onFocus() {
     }
 }
 
-function _onChange() {
-    this.labelEl.classList.add(this.options.labelElementAnimateModifier);
-    if (!hasValue(this.textboxEl)) {
-        this.labelEl.classList.add(this.options.labelElementInlineModifier);
-    } else {
-        this.labelEl.classList.remove(this.options.labelElementInlineModifier);
-    }
-
-    this.labelEl.classList.remove(this.options.labelElementFocusModifier);
-}
-
 module.exports = class {
     constructor(el, userOptions) {
         this.options = Object.assign({}, defaultOptions, userOptions);
@@ -114,16 +103,11 @@ module.exports = class {
         this.labelEl = this.rootEl.querySelector('label');
         this.textboxEl = this.rootEl.querySelector('input,textarea,select');
 
-        if (isSelect(this.textboxEl)) {
-            this._onChangeListner = _onChange.bind(this);
-            this.textboxEl.addEventListener('change', this._onChangeListner);
-        } else {
-            this._onBlurListener = _onBlur.bind(this);
-            this._onFocusListener = _onFocus.bind(this);
+        this._onBlurListener = _onBlur.bind(this);
+        this._onFocusListener = _onFocus.bind(this);
 
-            this.textboxEl.addEventListener('blur', this._onBlurListener);
-            this.textboxEl.addEventListener('focus', this._onFocusListener);
-        }
+        this.textboxEl.addEventListener('blur', this._onBlurListener);
+        this.textboxEl.addEventListener('focus', this._onFocusListener);
 
         if (!hasValue(this.textboxEl) && !isAutofilled(this.textboxEl, this.options.textboxElementBackgroundRGB)) {
             this.labelEl.classList.add(this.options.labelElementInlineModifier);

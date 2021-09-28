@@ -46,11 +46,13 @@
                 padding: 24px 12px 2px;
                 font-size: inherit;
             }
-           .floating-label__label--invalid + input {
+           .floating-label__label--invalid + input,
+           .floating-label__label--invalid + select {
                background-color: #FEF5F6;
                border: 1px solid red;
             }
-            .floating-label__label--focus + input {
+            .floating-label__label--focus + input,
+            .floating-label__label--focus + select {
                 background-color: white;
                 border: 1px solid blue;
             }
@@ -82,6 +84,10 @@
                 color: #767676;
                 font-weight: 200;
             }
+
+            .select.floating-label .floating-label__label {
+                pointer-events: none;
+            }
         </style>
     </head>
     <body>
@@ -100,13 +106,13 @@
                     <input id="lastname" name="lastname" placeholder="placeholder text" />
                 </span>
 
-                <span class="floating-label">
-                    <label class="floating-label__label" for="select">Option</label>
-                    <select id="select" name="select">
-                        <option value=""></option>
-                        <option value="Option 1">Option 1</option>
-                        <option value="Option 2">Option 2</option>
-                        <option value="Option 3">Option 3</option>
+                <span class="select floating-label">
+                    <label class="floating-label__label" for="country">Country</label>
+                    <select id="country" name="country">
+                        <option value="" aria-label="Choose a country"></option>
+                        <option value="Option 1">United States</option>
+                        <option value="Option 2">Canada</option>
+                        <option value="Option 3">United Kingdom</option>
                     </select>
                 </span>
 

@@ -15,19 +15,66 @@ var defaultOptions = {
   textboxElementBackgroundRGB: ['rgb(255, 255, 255)', 'rgb(247, 247, 247)', 'rgb(245, 245, 245)', 'rgb(230, 32, 72)', 'rgb(254, 245, 246)']
 };
 
+function getPlaceHolder(textboxEl) {
+  if (isSelect(textboxEl)) {
+    var firstOption = textboxEl.querySelector('option');
+    return !firstOption.value ? firstOption.text : null;
+  } else if (textboxEl.hasAttribute('placeholder')) {
+    return textboxEl.getAttribute('placeholder');
+  }
+}
+
+function setPlaceholder(textboxEl, value) {
+  if (isSelect(textboxEl)) {
+    textboxEl.querySelector('option').text = value;
+  } else {
+    if (value) {
+      textboxEl.setAttribute('placeholder', value);
+    } else {
+      textboxEl.removeAttribute('placeholder');
+    }
+  }
+}
+
+function mutatePlaceholder(textboxEl, textboxFocus, placeholder) {
+  var placeholderCheck;
+
+  if (isSelect(textboxEl)) {
+    var firstOption = textboxEl.querySelector('option');
+
+    if (!!firstOption.value) {
+      // If first option has a value then it is not a placeholder
+      return;
+    }
+
+    placeholderCheck = !!firstOption.text;
+  } else {
+    placeholderCheck = textboxEl.hasAttribute('placeholder');
+  }
+
+  if (!!placeholder && textboxFocus && !placeholderCheck) {
+    // Input has focus, make sure it has "placeholder" option
+    setPlaceholder(textboxEl, placeholder);
+  } else if (!textboxFocus && placeholderCheck) {
+    setPlaceholder(textboxEl, '');
+  }
+}
+
+function modifyPlaceholder(textboxEl, textboxFocus, placeholder) {
+  if (textboxFocus) {
+    if (placeholder) {
+      setPlaceholder(textboxEl, placeholder);
+    }
+  } else {
+    setPlaceholder(textboxEl, '');
+    textboxEl.removeAttribute('placeholder');
+  }
+}
+
 function onMutation() {
   var textboxFocus = isFocused(this.textboxEl);
-
-  if (this.textboxEl.hasAttribute('placeholder')) {
-    this.placeholder = this.textboxEl.getAttribute('placeholder');
-  }
-
-  if (!!this.placeholder && textboxFocus && !this.textboxEl.hasAttribute('placeholder')) {
-    // Input has focus, make sure it has placeholder
-    this.textboxEl.setAttribute('placeholder', this.placeholder);
-  } else if (!textboxFocus && this.textboxEl.hasAttribute('placeholder')) {
-    this.textboxEl.removeAttribute('placeholder');
-  }
+  this.placeholder = getPlaceHolder(this.textboxEl) || this.placeholder;
+  mutatePlaceholder(this.textboxEl, textboxFocus, this.placeholder);
 
   if (isInvalid(this.textboxEl)) {
     this.labelEl.classList.add(this.options.labelElementInvalidModifier);
@@ -84,7 +131,7 @@ function _onBlur() {
     this.labelEl.classList.add(this.options.labelElementInvalidModifier);
   }
 
-  this.textboxEl.removeAttribute('placeholder');
+  modifyPlaceholder(this.textboxEl, false, this.placeholder);
 }
 
 function _onFocus() {
@@ -92,10 +139,7 @@ function _onFocus() {
   this.labelEl.classList.add(this.options.labelElementFocusModifier);
   this.labelEl.classList.remove(this.options.labelElementInlineModifier);
   this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
-
-  if (this.placeholder) {
-    this.textboxEl.setAttribute('placeholder', this.placeholder);
-  }
+  modifyPlaceholder(this.textboxEl, true, this.placeholder);
 }
 
 module.exports = /*#__PURE__*/function () {
@@ -123,8 +167,8 @@ module.exports = /*#__PURE__*/function () {
     onMutation.call(this);
 
     this._observer.observe(this.textboxEl, {
-      childList: false,
-      subtree: false,
+      childList: isSelect(this.textboxEl),
+      subtree: isSelect(this.textboxEl),
       attributeFilter: ['disabled', 'aria-invalid', 'placeholder', 'value'],
       attributes: true
     });

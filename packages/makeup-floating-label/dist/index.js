@@ -26,7 +26,13 @@ function getPlaceHolder(textboxEl) {
 
 function setPlaceholder(textboxEl, value) {
   if (isSelect(textboxEl)) {
+    textboxEl.style['min-width'] = '';
+    var beforeWidth = textboxEl.offsetWidth;
     textboxEl.querySelector('option').text = value;
+
+    if (!value && beforeWidth > textboxEl.offsetWidth) {
+      textboxEl.style['min-width'] = "".concat(beforeWidth, "px");
+    }
   } else {
     if (value) {
       textboxEl.setAttribute('placeholder', value);
@@ -67,7 +73,6 @@ function modifyPlaceholder(textboxEl, textboxFocus, placeholder) {
     }
   } else {
     setPlaceholder(textboxEl, '');
-    textboxEl.removeAttribute('placeholder');
   }
 }
 

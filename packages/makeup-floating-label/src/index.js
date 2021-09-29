@@ -26,7 +26,13 @@ function getPlaceHolder(textboxEl) {
 
 function setPlaceholder(textboxEl, value) {
     if (isSelect(textboxEl)) {
+        textboxEl.style['min-width'] = '';
+        const beforeWidth = textboxEl.offsetWidth;
+
         textboxEl.querySelector('option').text = value;
+        if (!value && beforeWidth > textboxEl.offsetWidth) {
+            textboxEl.style['min-width'] = `${beforeWidth}px`;
+        }
     } else {
         if (value) {
             textboxEl.setAttribute('placeholder', value);

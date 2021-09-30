@@ -33,25 +33,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     invalidateBtn.addEventListener('click', function() {
         widgets.forEach(function(el, index) {
-            widgets[index].textboxEl.setAttribute('aria-invalid', 'true');
+            widgets[index].formControlEl.setAttribute('aria-invalid', 'true');
         });
     });
 
     validateBtn.addEventListener('click', function() {
         widgets.forEach(function(el, index) {
-            widgets[index].textboxEl.setAttribute('aria-invalid', 'false');
+            widgets[index].formControlEl.setAttribute('aria-invalid', 'false');
         });
     });
 
     disableBtn.addEventListener('click', function() {
         widgets.forEach(function(el, index) {
-            widgets[index].textboxEl.disabled = true;
+            widgets[index].formControlEl.disabled = true;
         });
     });
 
     enableBtn.addEventListener('click', function() {
         widgets.forEach(function(el, index) {
-            widgets[index].textboxEl.disabled = false;
+            widgets[index].formControlEl.disabled = false;
         });
     });
 });

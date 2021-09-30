@@ -15,88 +15,84 @@ const defaultOptions = {
     ]
 };
 
-function getPlaceHolder(textboxEl) {
-    if (isSelect(textboxEl)) {
-        const firstOption = textboxEl.querySelector('option');
+function getPlaceHolder(formControlEl) {
+    if (isSelect(formControlEl)) {
+        const firstOption = formControlEl.querySelector('option');
         return !firstOption.value ? firstOption.text : null;
-    } else if (textboxEl.hasAttribute('placeholder')) {
-        return textboxEl.getAttribute('placeholder');
+    } else if (formControlEl.hasAttribute('placeholder')) {
+        return formControlEl.getAttribute('placeholder');
     }
 }
 
-function setPlaceholder(textboxEl, value) {
-    if (isSelect(textboxEl)) {
-        textboxEl.style['min-width'] = '';
-        const beforeWidth = textboxEl.offsetWidth;
+function setPlaceholder(formControlEl, value) {
+    if (isSelect(formControlEl)) {
+        formControlEl.style['min-width'] = '';
+        const beforeWidth = formControlEl.offsetWidth;
 
-        textboxEl.querySelector('option').text = value;
-        if (!value && beforeWidth > textboxEl.offsetWidth) {
-            textboxEl.style['min-width'] = `${beforeWidth}px`;
+        formControlEl.querySelector('option').text = value;
+        if (!value && beforeWidth > formControlEl.offsetWidth) {
+            formControlEl.style['min-width'] = `${beforeWidth}px`;
         }
+    } else if (value) {
+        formControlEl.setAttribute('placeholder', value);
     } else {
-        if (value) {
-            textboxEl.setAttribute('placeholder', value);
-        } else {
-            textboxEl.removeAttribute('placeholder');
-        }
+        formControlEl.removeAttribute('placeholder');
     }
 }
 
-function mutatePlaceholder(textboxEl, textboxFocus, placeholder) {
+function mutatePlaceholder(formControlEl, textboxFocus, placeholder) {
     let placeholderCheck;
-    if (isSelect(textboxEl)) {
-        const firstOption = textboxEl.querySelector('option');
+    if (isSelect(formControlEl)) {
+        const firstOption = formControlEl.querySelector('option');
         if (!!firstOption.value) {
             // If first option has a value then it is not a placeholder
             return;
         }
         placeholderCheck = !!firstOption.text;
     } else {
-        placeholderCheck = textboxEl.hasAttribute('placeholder');
+        placeholderCheck = formControlEl.hasAttribute('placeholder');
     }
     if (!!placeholder && textboxFocus && !placeholderCheck) {
         // Input has focus, make sure it has "placeholder" option
-        setPlaceholder(textboxEl, placeholder);
+        setPlaceholder(formControlEl, placeholder);
     } else if (!textboxFocus && placeholderCheck) {
-        setPlaceholder(textboxEl, '');
+        setPlaceholder(formControlEl, '');
     }
 }
 
-function modifyPlaceholder(textboxEl, textboxFocus, placeholder) {
-    if (textboxFocus) {
-        if (placeholder) {
-            setPlaceholder(textboxEl, placeholder);
-        }
-    } else {
-        setPlaceholder(textboxEl, '');
+function modifyPlaceholder(formControlEl, textboxFocus, placeholder) {
+    if (textboxFocus && placeholder) {
+        setPlaceholder(formControlEl, placeholder);
+    } else if (!textboxFocus) {
+        setPlaceholder(formControlEl, '');
     }
 }
 
 function onMutation() {
-    const textboxFocus = isFocused(this.textboxEl);
+    const textboxFocus = isFocused(this.formControlEl);
 
-    this.placeholder = getPlaceHolder(this.textboxEl) || this.placeholder;
+    this.placeholder = getPlaceHolder(this.formControlEl) || this.placeholder;
 
-    mutatePlaceholder(this.textboxEl, textboxFocus, this.placeholder);
+    mutatePlaceholder(this.formControlEl, textboxFocus, this.placeholder);
 
-    if (isInvalid(this.textboxEl)) {
+    if (isInvalid(this.formControlEl)) {
         this.labelEl.classList.add(this.options.labelElementInvalidModifier);
     } else {
         this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
     }
-    if (isDisabled(this.textboxEl)) {
+    if (isDisabled(this.formControlEl)) {
         this.labelEl.classList.add(this.options.labelElementDisabledModifier);
     } else {
         this.labelEl.classList.remove(this.options.labelElementDisabledModifier);
     }
 }
 
-function isFocused(textboxEl) {
-    return document.activeElement === textboxEl;
+function isFocused(formControlEl) {
+    return document.activeElement === formControlEl;
 }
 
-function isSelect(textboxEl) {
-    return textboxEl.tagName === 'SELECT';
+function isSelect(formControlEl) {
+    return formControlEl.tagName === 'SELECT';
 }
 
 function hasValue(input) {
@@ -122,16 +118,16 @@ function isAutofilled(input, color) {
 }
 
 function _onBlur() {
-    if (!hasValue(this.textboxEl)) {
+    if (!hasValue(this.formControlEl)) {
         this.labelEl.classList.add(this.options.labelElementInlineModifier);
     }
     this.labelEl.classList.remove(this.options.labelElementFocusModifier);
 
-    if (isInvalid(this.textboxEl)) {
+    if (isInvalid(this.formControlEl)) {
         this.labelEl.classList.add(this.options.labelElementInvalidModifier);
     }
 
-    modifyPlaceholder(this.textboxEl, false, this.placeholder);
+    modifyPlaceholder(this.formControlEl, false, this.placeholder);
 }
 
 function _onFocus() {
@@ -140,7 +136,7 @@ function _onFocus() {
     this.labelEl.classList.remove(this.options.labelElementInlineModifier);
     this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
 
-    modifyPlaceholder(this.textboxEl, true, this.placeholder);
+    modifyPlaceholder(this.formControlEl, true, this.placeholder);
 }
 
 module.exports = class {
@@ -151,26 +147,27 @@ module.exports = class {
 
         this.rootEl = el;
         this.labelEl = this.rootEl.querySelector('label');
-        this.textboxEl = this.rootEl.querySelector('input,textarea,select');
+        this.formControlEl = this.rootEl.querySelector('input,textarea,select');
 
         this._onBlurListener = _onBlur.bind(this);
         this._onFocusListener = _onFocus.bind(this);
 
-        this.textboxEl.addEventListener('blur', this._onBlurListener);
-        this.textboxEl.addEventListener('focus', this._onFocusListener);
+        this.formControlEl.addEventListener('blur', this._onBlurListener);
+        this.formControlEl.addEventListener('focus', this._onFocusListener);
 
-        if (!hasValue(this.textboxEl) && !isAutofilled(this.textboxEl, this.options.textboxElementBackgroundRGB)) {
+        if (!hasValue(this.formControlEl) &&
+            !isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)) {
             this.labelEl.classList.add(this.options.labelElementInlineModifier);
         }
-        if (isFocused(this.textboxEl)) {
+        if (isFocused(this.formControlEl)) {
             this.labelEl.classList.add(this.options.labelElementFocusModifier);
         }
 
         onMutation.call(this);
 
-        this._observer.observe(this.textboxEl, {
-            childList: isSelect(this.textboxEl),
-            subtree: isSelect(this.textboxEl),
+        this._observer.observe(this.formControlEl, {
+            childList: isSelect(this.formControlEl),
+            subtree: isSelect(this.formControlEl),
             attributeFilter: ['disabled', 'aria-invalid', 'placeholder', 'value'],
             attributes: true
         });
@@ -181,12 +178,13 @@ module.exports = class {
     }
 
     refresh() {
-        if (hasValue(this.textboxEl) || isAutofilled(this.textboxEl, this.options.textboxElementBackgroundRGB)) {
+        if (hasValue(this.formControlEl) ||
+            isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)) {
             this.labelEl.classList.remove(this.options.labelElementInlineModifier);
         } else {
             this.labelEl.classList.add(this.options.labelElementInlineModifier);
         }
-        if (isFocused(this.textboxEl)) {
+        if (isFocused(this.formControlEl)) {
             this.labelEl.classList.add(this.options.labelElementFocusModifier);
         }
     }

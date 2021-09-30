@@ -15,6 +15,8 @@ const defaultOptions = {
     ]
 };
 
+// Common getter. Will get either first option text (for select),
+// or placeholder for textbox
 function getPlaceHolder(formControlEl) {
     if (isSelect(formControlEl)) {
         const firstOption = formControlEl.querySelector('option');
@@ -24,6 +26,8 @@ function getPlaceHolder(formControlEl) {
     }
 }
 
+// Common setter. Will set either first option text (for select),
+// or placeholder for textbox
 function setPlaceholder(formControlEl, value) {
     if (isSelect(formControlEl)) {
         formControlEl.style['min-width'] = '';
@@ -40,32 +44,17 @@ function setPlaceholder(formControlEl, value) {
     }
 }
 
-function mutatePlaceholder(formControlEl, textboxFocus, placeholder) {
-    let placeholderCheck;
+// Called on mutatation. Sets placeholder for current state (focused or unfocused)
+function checkForPlaceholder(formControlEl) {
     if (isSelect(formControlEl)) {
         const firstOption = formControlEl.querySelector('option');
         if (!!firstOption.value) {
             // If first option has a value then it is not a placeholder
             return;
         }
-        placeholderCheck = !!firstOption.text;
-    } else {
-        placeholderCheck = formControlEl.hasAttribute('placeholder');
+        return !!firstOption.text;
     }
-    if (!!placeholder && textboxFocus && !placeholderCheck) {
-        // Input has focus, make sure it has "placeholder" option
-        setPlaceholder(formControlEl, placeholder);
-    } else if (!textboxFocus && placeholderCheck) {
-        setPlaceholder(formControlEl, '');
-    }
-}
-
-function modifyPlaceholder(formControlEl, textboxFocus, placeholder) {
-    if (textboxFocus && placeholder) {
-        setPlaceholder(formControlEl, placeholder);
-    } else if (!textboxFocus) {
-        setPlaceholder(formControlEl, '');
-    }
+    return formControlEl.hasAttribute('placeholder');
 }
 
 function onMutation() {
@@ -73,7 +62,14 @@ function onMutation() {
 
     this.placeholder = getPlaceHolder(this.formControlEl) || this.placeholder;
 
-    mutatePlaceholder(this.formControlEl, textboxFocus, this.placeholder);
+    const placeholderCheck = checkForPlaceholder(this.formControlEl, this.placeholder);
+
+    if (!!this.placeholder && textboxFocus && !placeholderCheck) {
+        // Input has focus, make sure it has "placeholder" option
+        setPlaceholder(this.formControlEl, this.placeholder);
+    } else if (!textboxFocus && placeholderCheck) {
+        setPlaceholder(this.formControlEl, '');
+    }
 
     if (isInvalid(this.formControlEl)) {
         this.labelEl.classList.add(this.options.labelElementInvalidModifier);
@@ -127,7 +123,7 @@ function _onBlur() {
         this.labelEl.classList.add(this.options.labelElementInvalidModifier);
     }
 
-    modifyPlaceholder(this.formControlEl, false, this.placeholder);
+    setPlaceholder(this.formControlEl, '');
 }
 
 function _onFocus() {
@@ -136,7 +132,9 @@ function _onFocus() {
     this.labelEl.classList.remove(this.options.labelElementInlineModifier);
     this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
 
-    modifyPlaceholder(this.formControlEl, true, this.placeholder);
+    if (this.placeholder) {
+        setPlaceholder(this.formControlEl, this.placeholder);
+    }
 }
 
 module.exports = class {

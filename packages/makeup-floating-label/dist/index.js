@@ -13,7 +13,8 @@ var defaultOptions = {
   labelElementInvalidModifier: 'floating-label__label--invalid',
   labelElementDisabledModifier: 'floating-label__label--disabled',
   textboxElementBackgroundRGB: ['rgb(255, 255, 255)', 'rgb(247, 247, 247)', 'rgb(245, 245, 245)', 'rgb(230, 32, 72)', 'rgb(254, 245, 246)']
-};
+}; // Common getter. Will get either first option text (for select),
+// or placeholder for textbox
 
 function getPlaceHolder(formControlEl) {
   if (isSelect(formControlEl)) {
@@ -22,7 +23,9 @@ function getPlaceHolder(formControlEl) {
   } else if (formControlEl.hasAttribute('placeholder')) {
     return formControlEl.getAttribute('placeholder');
   }
-}
+} // Common setter. Will set either first option text (for select),
+// or placeholder for textbox
+
 
 function setPlaceholder(formControlEl, value) {
   if (isSelect(formControlEl)) {
@@ -38,11 +41,10 @@ function setPlaceholder(formControlEl, value) {
   } else {
     formControlEl.removeAttribute('placeholder');
   }
-}
+} // Called on mutatation. Sets placeholder for current state (focused or unfocused)
 
-function mutatePlaceholder(formControlEl, textboxFocus, placeholder) {
-  var placeholderCheck;
 
+function checkForPlaceholder(formControlEl) {
   if (isSelect(formControlEl)) {
     var firstOption = formControlEl.querySelector('option');
 
@@ -51,31 +53,23 @@ function mutatePlaceholder(formControlEl, textboxFocus, placeholder) {
       return;
     }
 
-    placeholderCheck = !!firstOption.text;
-  } else {
-    placeholderCheck = formControlEl.hasAttribute('placeholder');
+    return !!firstOption.text;
   }
 
-  if (!!placeholder && textboxFocus && !placeholderCheck) {
-    // Input has focus, make sure it has "placeholder" option
-    setPlaceholder(formControlEl, placeholder);
-  } else if (!textboxFocus && placeholderCheck) {
-    setPlaceholder(formControlEl, '');
-  }
-}
-
-function modifyPlaceholder(formControlEl, textboxFocus, placeholder) {
-  if (textboxFocus && placeholder) {
-    setPlaceholder(formControlEl, placeholder);
-  } else if (!textboxFocus) {
-    setPlaceholder(formControlEl, '');
-  }
+  return formControlEl.hasAttribute('placeholder');
 }
 
 function onMutation() {
   var textboxFocus = isFocused(this.formControlEl);
   this.placeholder = getPlaceHolder(this.formControlEl) || this.placeholder;
-  mutatePlaceholder(this.formControlEl, textboxFocus, this.placeholder);
+  var placeholderCheck = checkForPlaceholder(this.formControlEl, this.placeholder);
+
+  if (!!this.placeholder && textboxFocus && !placeholderCheck) {
+    // Input has focus, make sure it has "placeholder" option
+    setPlaceholder(this.formControlEl, this.placeholder);
+  } else if (!textboxFocus && placeholderCheck) {
+    setPlaceholder(this.formControlEl, '');
+  }
 
   if (isInvalid(this.formControlEl)) {
     this.labelEl.classList.add(this.options.labelElementInvalidModifier);
@@ -132,7 +126,7 @@ function _onBlur() {
     this.labelEl.classList.add(this.options.labelElementInvalidModifier);
   }
 
-  modifyPlaceholder(this.formControlEl, false, this.placeholder);
+  setPlaceholder(this.formControlEl, '');
 }
 
 function _onFocus() {
@@ -140,7 +134,10 @@ function _onFocus() {
   this.labelEl.classList.add(this.options.labelElementFocusModifier);
   this.labelEl.classList.remove(this.options.labelElementInlineModifier);
   this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
-  modifyPlaceholder(this.formControlEl, true, this.placeholder);
+
+  if (this.placeholder) {
+    setPlaceholder(this.formControlEl, this.placeholder);
+  }
 }
 
 module.exports = /*#__PURE__*/function () {

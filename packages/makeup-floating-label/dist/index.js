@@ -180,7 +180,7 @@ module.exports = /*#__PURE__*/function () {
   }, {
     key: "refresh",
     value: function refresh() {
-      if (hasValue(this.formControlEl) || isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)) {
+      if (hasValue(this.formControlEl) || isSelect(this.formControlEl) || isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)) {
         this.labelEl.classList.remove(this.options.labelElementInlineModifier);
       } else {
         this.labelEl.classList.add(this.options.labelElementInlineModifier);

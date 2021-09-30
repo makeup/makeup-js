@@ -1,7 +1,7 @@
 {
   "name": "makeup-floating-label",
   "description": "Module for creating an accessible, progressively enhanced floating label",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-floating-label",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",

@@ -177,6 +177,7 @@ module.exports = class {
 
     refresh() {
         if (hasValue(this.formControlEl) ||
+            isSelect(this.formControlEl) ||
             isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)) {
             this.labelEl.classList.remove(this.options.labelElementInlineModifier);
         } else {

@@ -38,18 +38,25 @@
             .floating-label__label--disabled {
                 color: #767676;
             }
-            .floating-label input {
+            .floating-label input,
+            .floating-label select {
                 background-color: #F5F5F5;
                 border: 1px solid #E5E5E5;
                 border-radius: 8px;
                 padding: 24px 12px 2px;
                 font-size: inherit;
             }
-           .floating-label__label--invalid + input {
+
+            .floating-label select {
+                -webkit-appearance: none;
+           }
+           .floating-label__label--invalid + input,
+           .floating-label__label--invalid + select {
                background-color: #FEF5F6;
                border: 1px solid red;
             }
-            .floating-label__label--focus + input {
+            .floating-label__label--focus + input,
+            .floating-label__label--focus + select {
                 background-color: white;
                 border: 1px solid blue;
             }
@@ -81,6 +88,16 @@
                 color: #767676;
                 font-weight: 200;
             }
+
+            .select.floating-label .floating-label__label {
+                pointer-events: none;
+            }
+
+            .select .icon {
+                position: absolute;
+                right: 16px;
+                top: 20px;
+            }
         </style>
     </head>
     <body>
@@ -97,6 +114,19 @@
                 <span class="floating-label">
                     <label class="floating-label__label" for="lastname">Last name</label>
                     <input id="lastname" name="lastname" placeholder="placeholder text" />
+                </span>
+
+                <span class="select floating-label">
+                    <label class="floating-label__label" for="country">Country</label>
+                    <select id="country" name="country">
+                        <option value="">--Choose a country--</option>
+                        <option value="USA">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="UK">United Kingdom</option>
+                    </select>
+                    <svg class="icon icon--dropdown" focusable="false" height="24" width="24" aria-hidden="true">
+                        <path d="M12.186 18.285c-.451-.009-.809-.167-1.075-.441l-9.337-9.6a1.527 1.527 0 01-.424-.999v-.108c.015-.386.166-.741.424-1.008.56-.573 1.529-.57 2.082 0l8.294 8.53 8.292-8.532c.558-.57 1.526-.57 2.08 0 .265.27.416.629.428 1.01v.087c-.012.391-.165.75-.427 1.02l-9.333 9.6a1.443 1.443 0 01-1.004.441"></path>
+                    </svg>
                 </span>
 
                 <div>

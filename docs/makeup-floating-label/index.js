@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (input) {
                 input.value = 'Autofill Text';
             } else {
-                el.querySelector('select').value = 'Option 1';
+                el.querySelector('select').value = 'UK';
             }
         });
     });

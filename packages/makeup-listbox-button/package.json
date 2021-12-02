@@ -1,7 +1,7 @@
 {
   "name": "makeup-listbox-button",
   "description": "A JavaScript class representing an ARIA listbox button",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-listbox-button",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",

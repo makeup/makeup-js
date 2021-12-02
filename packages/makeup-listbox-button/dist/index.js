@@ -22,7 +22,7 @@ var defaultOptions = {
   collapseTimeout: 150,
   customElementMode: false,
   listboxSelector: '.listbox-button__listbox',
-  floatingLabel: '.expand-btn__floating-label',
+  floatingLabelSelector: '.expand-btn__floating-label',
   floatingLabelInline: 'expand-btn__floating-label--inline',
   floatingLabelAnimate: 'expand-btn__floating-label--animate'
 };
@@ -37,7 +37,7 @@ module.exports = /*#__PURE__*/function () {
     this.el = widgetEl;
     this._buttonEl = this.el.querySelector('button');
     this._buttonLabelEl = widgetEl.querySelector(this._options.buttonLabelSelector);
-    this._buttonFloatingLabel = widgetEl.querySelector(this._options.floatingLabel);
+    this._buttonFloatingLabelEl = widgetEl.querySelector(this._options.floatingLabelSelector);
     this._buttonPrefix = (_this$_buttonEl$datas = this._buttonEl.dataset) === null || _this$_buttonEl$datas === void 0 ? void 0 : _this$_buttonEl$datas.listboxButtonPrefix;
     this.listbox = new Listbox(this.el.querySelector(this._options.listboxSelector), {
       activeDescendantClassName: 'listbox-button__option--active',
@@ -69,9 +69,9 @@ module.exports = /*#__PURE__*/function () {
       this._observeEvents();
     }
 
-    if (this._buttonFloatingLabel) {
+    if (this._buttonFloatingLabelEl) {
       if (!this._buttonLabelEl.innerText) {
-        this._buttonFloatingLabel.classList.add(this._options.floatingLabelInline);
+        this._buttonFloatingLabelEl.classList.add(this._options.floatingLabelInline);
       }
     }
   }
@@ -176,13 +176,13 @@ function _onListboxChange(e) {
     this._buttonLabelEl.innerText = toValue;
   }
 
-  if (this._buttonFloatingLabel) {
+  if (this._buttonFloatingLabelEl) {
     if (toValue) {
-      this._buttonFloatingLabel.classList.add(this._options.floatingLabelAnimate);
+      this._buttonFloatingLabelEl.classList.add(this._options.floatingLabelAnimate);
 
-      this._buttonFloatingLabel.classList.remove(this._options.floatingLabelInline);
+      this._buttonFloatingLabelEl.classList.remove(this._options.floatingLabelInline);
     } else {
-      this._buttonFloatingLabel.classList.add(this._options.floatingLabelInline);
+      this._buttonFloatingLabelEl.classList.add(this._options.floatingLabelInline);
     }
   }
 

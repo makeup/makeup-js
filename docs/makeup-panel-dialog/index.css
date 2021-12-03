@@ -4,20 +4,9 @@
     width: 100%;
 }
 
-:root {
-  --color-background-default: #fff;
-  --color-text-default: #111820;
-  --color-text-secondary: #707070;
-  --color-link-default: #3665f3;
-  --color-link-visited: #82187c;
-  --page-grid-gutter-width-small: 8px;
-  --page-grid-gutter-width-large: 16px;
-  --page-grid-col-width-small: calc((100% / 8) - var(--page-grid-gutter-width-small) + 1px);
-  --page-grid-col-width-large: calc((100% / 16) - var(--page-grid-gutter-width-large) + 1px);
-}
 body {
   background-color: var(--color-background-default, #fff);
-  color: var(--color-text-default, #111820);
+  color: var(--color-text-primary, #111820);
   font-family: "Market Sans", Arial, sans-serif;
   font-size: 0.875rem;
   -webkit-text-size-adjust: 100%;
@@ -38,16 +27,6 @@ a:visited {
 a:hover {
   color: var(--color-link-hover, #2b0eaf);
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background-default: #171717;
-    --color-text-default: #dcdcdc;
-    --color-text-secondary: #9c9c9c;
-    --color-link-default: #5192ff;
-    --color-link-hover: #94bcff;
-    --color-link-visited: #d2a4cf;
-  }
-}
 
 a.icon-link {
   align-items: center;
@@ -58,7 +37,7 @@ a.icon-link > svg {
 }
 button.icon-btn,
 a.icon-link {
-  background-color: var(--icon-button-background-color, #f7f7f7);
+  background-color: var(--icon-button-background-color, var(--color-grey1, #f7f7f7));
   border: 2px solid transparent;
   border-radius: 50px;
   box-sizing: border-box;
@@ -71,7 +50,7 @@ a.icon-link {
 }
 button.icon-btn > svg,
 a.icon-link > svg {
-  fill: var(--icon-button-icon-foreground-color, #111820);
+  fill: var(--icon-button-icon-foreground-color, var(--color-text-primary, #111820));
   max-width: 100%;
   position: relative;
 }
@@ -79,21 +58,21 @@ button.icon-btn:focus,
 a.icon-link:focus,
 button.icon-btn:hover,
 a.icon-link:hover {
-  background-color: var(--icon-button-hover-background-color, #e5e5e5);
+  background-color: var(--icon-button-hover-background-color, var(--color-grey2, #e5e5e5));
 }
 button.icon-btn:focus > svg,
 a.icon-link:focus > svg,
 button.icon-btn:hover > svg,
 a.icon-link:hover > svg {
-  fill: var(--icon-button-icon-hover-foreground-color, #111820);
+  fill: var(--icon-button-icon-hover-foreground-color, var(--color-text-primary, #111820));
 }
 button.icon-btn:active,
 a.icon-link:active {
-  background-color: var(--icon-button-active-background-color, #c7c7c7);
+  background-color: var(--icon-button-active-background-color, var(--color-grey3, #c7c7c7));
 }
 button.icon-btn:active > svg,
 a.icon-link:active > svg {
-  fill: var(--icon-button-icon-active-foreground-color, #111820);
+  fill: var(--icon-button-icon-active-foreground-color, var(--color-text-primary, #111820));
 }
 button.icon-btn:not(:focus-visible),
 a.icon-link:not(:focus-visible) {
@@ -112,14 +91,14 @@ a.icon-link--transparent:hover {
   background-color: transparent;
 }
 a.icon-link:visited > svg {
-  fill: var(--icon-button-icon-foreground-color, #111820);
+  fill: var(--icon-button-icon-foreground-color, var(--color-text-primary, #111820));
 }
 button[disabled].icon-btn > svg,
 button[aria-disabled="true"].icon-btn > svg,
 a:not([href]).icon-link > svg,
 a[aria-disabled="true"].icon-link > svg {
   background-color: transparent;
-  fill: #c7c7c7;
+  fill: var(--color-action-disabled, #c7c7c7);
 }
 button[disabled].icon-btn:focus > svg,
 button[aria-disabled="true"].icon-btn:focus > svg,
@@ -129,11 +108,11 @@ button[disabled].icon-btn:hover > svg,
 button[aria-disabled="true"].icon-btn:hover > svg,
 a:not([href]).icon-link:hover > svg,
 a[aria-disabled="true"].icon-link:hover > svg {
-  fill: #c7c7c7;
+  fill: var(--color-action-disabled, #c7c7c7);
 }
 a.icon-link:visited:hover > svg,
 a.icon-link:visited:focus > svg {
-  fill: var(--icon-button-icon-hover-foreground-color, #111820);
+  fill: var(--icon-button-icon-hover-foreground-color, var(--color-text-primary, #111820));
 }
 button.icon-btn--badged,
 a.icon-link--badged {
@@ -142,32 +121,16 @@ a.icon-link--badged {
 }
 button.icon-btn--badged .badge,
 a.icon-link--badged .badge {
-  border: var(--icon-button-badge-border-width, 2px) var(--icon-button-badge-border-style, solid) var(--icon-button-badge-border-color, #fff);
   left: 24px;
-  line-height: 14px;
-  min-width: 14px;
-  padding: 0 3px;
   pointer-events: none;
   position: absolute;
-  top: -6px;
+  top: -12px;
   z-index: 1;
-}
-@media (prefers-color-scheme: dark) {
-  a.icon-link,
-  button.icon-btn {
-    --icon-button-background-color: #212121;
-    --icon-button-hover-background-color: #393939;
-    --icon-button-active-background-color: #4d4d4d;
-    --icon-button-badge-border-color: #171717;
-    --icon-button-icon-foreground-color: #dcdcdc;
-    --icon-button-icon-active-foreground-color: #dcdcdc;
-    --icon-button-icon-hover-foreground-color: #dcdcdc;
-  }
 }
 
 /* large screens */
 .panel-dialog[role="dialog"] {
-  background-color: rgba(17, 24, 32, 0.7);
+  background-color: var(--dialog-mask-background-color, var(--color-mask-faded, rgba(17, 24, 32, 0.7)));
   bottom: 0;
   left: 0;
   -webkit-overflow-scrolling: touch;
@@ -183,7 +146,7 @@ a.icon-link--badged .badge {
   display: flex;
 }
 .panel-dialog__window {
-  background-color: var(--dialog-window-background-color, #fff);
+  background-color: var(--dialog-window-background-color, var(--color-background-default, #fff));
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
@@ -312,11 +275,6 @@ button.panel-dialog__close {
   }
   .panel-dialog__main {
     margin: 16px 24px 24px;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .panel-dialog {
-    --dialog-window-background-color: #212121;
   }
 }
 

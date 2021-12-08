@@ -1,5 +1,3 @@
-'use strict';
-
 const defaultOptions = {
     bem: {
         control: 'switch__control'
@@ -7,7 +5,7 @@ const defaultOptions = {
     customElementMode: false
 };
 
-module.exports = class {
+export default class {
     constructor(el, selectedOptions) {
         this._options = Object.assign({}, defaultOptions, selectedOptions);
 
@@ -137,7 +135,7 @@ module.exports = class {
         this._onKeyDownListener = null;
         this._onMutationListener = null;
     }
-};
+}
 
 function _onKeyDown(e) {
     if (!this.disabled) {

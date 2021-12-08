@@ -1,17 +1,34 @@
 {
   "name": "makeup-switch",
+  "main": "./dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "type": "module",
   "description": "A JavaScript class representing an ARIA switch",
   "version": "0.1.0",
-  "main": "dist/index.js",
   "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-switch",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src --out-dir dist"
+    "compile": "npm run build && npm run transpile",
+    "build": "npm run build:mjs && npm run build:cjs && npm run transpile",
+    "build:mjs": "esbuild src/index.js --outfile=dist/mjs/index.js --format=esm",
+    "build:cjs": "esbuild src/index.js --outfile=dist/cjs/index.js --format=cjs",
+    "transpile": "npm run transpile:mjs && npm run transpile:cjs",
+    "transpile:mjs": "babel dist/mjs/index.js",
+    "transpile:cjs": "babel dist/cjs/index.js"
   },
   "files": [
     "browser.json",
-    "dist/index.js",
+    "dist/cjs/index.js",
+    "dist/cjs/package.json",
+    "dist/mjs/index.js",
+    "dist/mjs/package.json",
     "package-lock.json"
   ],
   "browserslist": [

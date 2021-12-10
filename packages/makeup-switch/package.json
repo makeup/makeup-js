@@ -26,9 +26,7 @@
   "files": [
     "browser.json",
     "dist/cjs/index.js",
-    "dist/cjs/package.json",
     "dist/mjs/index.js",
-    "dist/mjs/package.json",
     "package-lock.json"
   ],
   "browserslist": [

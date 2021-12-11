@@ -15,13 +15,9 @@
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "npm run build && npm run transpile",
-    "build": "npm run build:mjs && npm run build:cjs && npm run transpile",
-    "build:mjs": "esbuild src/index.js --outfile=dist/mjs/index.js --format=esm",
-    "build:cjs": "esbuild src/index.js --outfile=dist/cjs/index.js --format=cjs",
-    "transpile": "npm run transpile:mjs && npm run transpile:cjs",
-    "transpile:mjs": "babel dist/mjs/index.js",
-    "transpile:cjs": "babel dist/cjs/index.js"
+    "compile": "npm run compile:mjs && npm run compile:cjs",
+    "compile:mjs": "esbuild src/index.js --outfile=dist/mjs/index.js --format=esm",
+    "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js"
   },
   "files": [
     "browser.json",

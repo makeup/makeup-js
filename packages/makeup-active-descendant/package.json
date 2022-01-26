@@ -1,7 +1,7 @@
 {
   "name": "makeup-active-descendant",
   "description": "Implements ARIA active descendant keyboard navigation",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "dist/index.js",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-active-descendant",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",

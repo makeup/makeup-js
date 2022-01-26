@@ -1,17 +1,28 @@
 {
   "name": "makeup-switch",
+  "main": "./dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "type": "module",
   "description": "A JavaScript class representing an ARIA switch",
   "version": "0.1.0",
-  "main": "dist/index.js",
   "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-switch",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src --out-dir dist"
+    "compile": "npm run compile:mjs && npm run compile:cjs",
+    "compile:mjs": "esbuild src/index.js --outfile=dist/mjs/index.js --format=esm",
+    "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js"
   },
   "files": [
     "browser.json",
-    "dist/index.js",
+    "dist/cjs/index.js",
+    "dist/mjs/index.js",
     "package-lock.json"
   ],
   "browserslist": [

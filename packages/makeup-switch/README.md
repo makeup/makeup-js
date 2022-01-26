@@ -1,6 +1,8 @@
 # makeup-switch
 
-A JavaScript class that represents an ARIA [switch](https://ebay.github.io/mindpatterns/input/switch/index.html). No CSS provided.
+A JavaScript class that represents an ARIA [switch](https://ebay.github.io/mindpatterns/input/switch/index.html).
+
+Available in CommonJS and ES Module format.
 
 [View Demo](https://makeup.github.io/makeup-js/makeup-switch/index.html).
 
@@ -23,7 +25,11 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const MakeupSwitch = require('makeup-switch');
+// Consuming as CommonJS (note use of 'default()')
+// const MakeupSwitch = require('makeup-switch').default();
+
+// Consuming as ESM (recommended)
+import MakeupSwitch from 'makeup-switch';
 
 document.querySelectorAll('.switch').forEach(function(el, i) {
     const widget = new MakeupSwitch(el, config);
@@ -38,7 +44,7 @@ document.querySelectorAll('.switch').forEach(function(el, i) {
 
 The constructor takes a configuration object as its second parameter.
 
-### customElementMode
+### customElementMode (deprecated)
 
 Set to true if using the class as the model for a custom element (aka Web Component)
 

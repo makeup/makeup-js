@@ -17,7 +17,7 @@
     "a11y"
   ],
   "dependencies": {
-    "nanoid": "^2"
+    "nanoid": "^3"
   },
   "files": [
     "browser.json",

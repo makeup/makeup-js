@@ -53,7 +53,7 @@ Markup after:
 
 ## Dependencies
 
-* [nanoid](https://www.npmjs.com/package/nanoid)
+* None
 
 ## Polyfills
 

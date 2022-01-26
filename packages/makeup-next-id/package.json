@@ -16,9 +16,6 @@
     "accessibility",
     "a11y"
   ],
-  "dependencies": {
-    "nanoid": "^2"
-  },
   "files": [
     "browser.json",
     "dist/index.js",

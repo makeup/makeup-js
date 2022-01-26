@@ -17,7 +17,7 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-exit-emitter": "~0.3.0",
+    "makeup-exit-emitter": "~0.3.1",
     "makeup-key-emitter": "~0.2.0"
   },
   "files": [

@@ -17,9 +17,9 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-exit-emitter": "~0.3.0",
+    "makeup-exit-emitter": "~0.3.1",
     "makeup-focusables": "~0.2.0",
-    "makeup-next-id": "~0.2.0"
+    "makeup-next-id": "~0.3.0"
   },
   "files": [
     "browser.json",

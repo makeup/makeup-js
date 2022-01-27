@@ -4,22 +4,12 @@ Emits custom events for common accessibility keys (arrowRightKeyDown, escKeyDown
 
 ## Experimental
 
-This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
-
-## Install
-
-```js
-// via npm
-npm install makeup-key-emitter
-
-// via yarn
-yarn add makeup-key-emitter
-```
+This module is still in an experimental state; until it reaches v1, all minor releases must be considered as breaking changes.
 
 ## Example
 
 ```js
-const KeyEmitter = require('makeup-key-emitter');
+import KeyEmitter from 'makeup-key-emitter';
 
 let el = document.getElementById('#widget1');
 

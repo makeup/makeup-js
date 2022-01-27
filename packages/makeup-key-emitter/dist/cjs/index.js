@@ -1,15 +1,26 @@
-'use strict';
+"use strict";
 
-var util = require('./util.js');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.add = add;
+exports.addKeyDown = addKeyDown;
+exports.addKeyUp = addKeyUp;
+exports.remove = remove;
+exports.removeKeyDown = removeKeyDown;
+exports.removeKeyUp = removeKeyUp;
+
+function uncapitalizeFirstLetter(str) {
+  return str.charAt(0).toLowerCase() + str.slice(1);
+}
 
 function onKeyDownOrUp(evt, el, keyEventType) {
   if (!evt.shiftKey) {
-    var key = util.keyCodeToKeyMap[evt.keyCode];
+    var key = evt.key;
 
     switch (key) {
       case 'Enter':
       case 'Escape':
-      case 'Spacebar':
       case 'PageUp':
       case 'PageDown':
       case 'End':
@@ -18,7 +29,14 @@ function onKeyDownOrUp(evt, el, keyEventType) {
       case 'ArrowUp':
       case 'ArrowRight':
       case 'ArrowDown':
-        el.dispatchEvent(new CustomEvent(util.uncapitalizeFirstLetter("".concat(key, "Key").concat(keyEventType)), {
+        el.dispatchEvent(new CustomEvent(uncapitalizeFirstLetter("".concat(key, "Key").concat(keyEventType)), {
+          detail: evt,
+          bubbles: true
+        }));
+        break;
+
+      case ' ':
+        el.dispatchEvent(new CustomEvent("spacebarKey".concat(keyEventType), {
           detail: evt,
           bubbles: true
         }));
@@ -63,12 +81,3 @@ function remove(el) {
   removeKeyDown(el);
   removeKeyUp(el);
 }
-
-module.exports = {
-  addKeyDown,
-  addKeyUp,
-  removeKeyDown,
-  removeKeyUp,
-  add,
-  remove
-};

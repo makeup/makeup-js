@@ -1,4 +1,9 @@
-const NavigationEmitter = require('../../packages/makeup-navigation-emitter');
+// CJS
+//const NavigationEmitter = require('../../packages/makeup-navigation-emitter');
+
+// MJS
+import * as NavigationEmitter from '../../packages/makeup-navigation-emitter';
+
 const emitters = [];
 const appender = document.getElementById('appender');
 const widgetEls = document.querySelectorAll('.widget');

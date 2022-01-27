@@ -1,5 +1,9 @@
-'use strict';
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
 var sequenceMap = {};
 var defaultPrefix = 'nid';
 var randomPortion = createRandomPortion(3);
@@ -22,7 +26,7 @@ function createRandomPortion(size) {
   return portion;
 }
 
-module.exports = function (el) {
+function _default(el) {
   var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultPrefix;
   var separator = prefix === '' ? '' : '-'; // join first prefix with random portion to create key
 
@@ -35,4 +39,4 @@ module.exports = function (el) {
   }
 
   return el.id;
-};
+}

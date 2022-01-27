@@ -2,12 +2,22 @@
   "name": "makeup-exit-emitter",
   "description": "Emits custom 'focusExit' event when keyboard focus has exited an element and all of it's descendants",
   "version": "0.3.1",
-  "main": "dist/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "type": "module",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-exit-emitter",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src --out-dir dist",
+    "compile": "npm run compile:mjs && npm run compile:cjs",
+    "compile:mjs": "esbuild src/index.js --outfile=dist/mjs/index.js --format=esm",
+    "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js",
     "clean": "rimraf *.log .DS_Store"
   },
   "keywords": [
@@ -17,11 +27,12 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-next-id": "~0.3.0"
+    "makeup-next-id": "~0.2.0"
   },
   "files": [
     "browser.json",
-    "dist/index.js",
+    "dist/cjs/index.js",
+    "dist/mjs/index.js",
     "package-lock.json"
   ],
   "browserslist": [

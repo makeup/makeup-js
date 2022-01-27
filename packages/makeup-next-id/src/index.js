@@ -1,5 +1,3 @@
-'use strict';
-
 const sequenceMap = {};
 const defaultPrefix = 'nid';
 const randomPortion = createRandomPortion(3);
@@ -24,7 +22,7 @@ function createRandomPortion(size) {
     return portion;
 }
 
-module.exports = function(el, prefix = defaultPrefix) {
+export default function(el, prefix = defaultPrefix) {
     const separator = (prefix === '') ? '' : '-';
 
     // join first prefix with random portion to create key
@@ -38,4 +36,4 @@ module.exports = function(el, prefix = defaultPrefix) {
     }
 
     return el.id;
-};
+}

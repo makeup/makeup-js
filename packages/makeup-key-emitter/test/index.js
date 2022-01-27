@@ -1,5 +1,8 @@
+import * as KeyEmitter from '../src/index.js';
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
+
 describe("makeup-key-emitter", function() {
-    var KeyEmitter = require('../src/index.js');
     var dom = '<ul class="widget">'
             + '<li><button>Button 1</button></li>'
             + '<li><button>Button 2</button></li>'
@@ -27,6 +30,7 @@ describe("makeup-key-emitter", function() {
             // execute
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 37;
+            keyDownEvent.key = 'ArrowLeft';
             testEl.dispatchEvent(keyDownEvent);
         });
 
@@ -36,6 +40,7 @@ describe("makeup-key-emitter", function() {
             // execute
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 38;
+            keyDownEvent.key = 'ArrowUp';
             testEl.dispatchEvent(keyDownEvent);
         });
 
@@ -45,6 +50,7 @@ describe("makeup-key-emitter", function() {
             // execute
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 39;
+            keyDownEvent.key = 'ArrowRight';
             testEl.dispatchEvent(keyDownEvent);
         });
 
@@ -54,6 +60,7 @@ describe("makeup-key-emitter", function() {
             // execute
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 40;
+            keyDownEvent.key = 'ArrowDown';
             testEl.dispatchEvent(keyDownEvent);
         });
     });

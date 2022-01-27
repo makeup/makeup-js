@@ -1,4 +1,9 @@
-const nextId = require('../../packages/makeup-next-id');
+// CJS
+//const nextId = require('../../packages/makeup-next-id').default;
+
+// MJS
+import nextId from '../../packages/makeup-next-id';
+
 const listEl = document.getElementById('list');
 const testForm = document.getElementById('testForm');
 const inputEl = document.getElementById('prefix');

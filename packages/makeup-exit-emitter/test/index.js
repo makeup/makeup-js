@@ -1,7 +1,8 @@
+import * as ExitEmitter from '../src/index.js';
+
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
 
 describe('makeup-focus-exit-emitter', function() {
-    var ExitEmitter = require('../src/index.js');
     var timeoutInterval = 50;
     var dom = '<div id="test-element" tabindex="0"><button></button><button></button></div>'
             + '<div id="test-element-sibling" tabindex="0"><button></button><button></button></div>';

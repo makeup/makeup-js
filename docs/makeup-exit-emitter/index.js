@@ -1,4 +1,8 @@
-const ExitEmitter = require('../../packages/makeup-exit-emitter');
+// CJS
+//const ExitEmitter = require('../../packages/makeup-exit-emitter');
+
+// MJS
+import * as ExitEmitter from '../../packages/makeup-exit-emitter';
 
 document.querySelectorAll('.widget').forEach((el) => {
     ExitEmitter.addFocusExit(el);

@@ -1,16 +1,27 @@
-'use strict';
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _makeupNextId = _interopRequireDefault(require("makeup-next-id"));
+
+var ExitEmitter = _interopRequireWildcard(require("makeup-exit-emitter"));
+
+var _makeupFocusables = _interopRequireDefault(require("makeup-focusables"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-var nextID = require('makeup-next-id');
-
-var ExitEmitter = require('makeup-exit-emitter');
-
-var focusables = require('makeup-focusables');
 
 var defaultOptions = {
   alwaysDoFocusManagement: false,
@@ -104,9 +115,9 @@ function manageFocus(focusManagement, contentEl) {
     contentEl.setAttribute('tabindex', '-1');
     contentEl.focus();
   } else if (focusManagement === 'focusable') {
-    focusables(contentEl)[0].focus();
+    (0, _makeupFocusables.default)(contentEl)[0].focus();
   } else if (focusManagement === 'interactive') {
-    focusables(contentEl, true)[0].focus();
+    (0, _makeupFocusables.default)(contentEl, true)[0].focus();
   } else if (focusManagement !== null) {
     var el = contentEl.querySelector("#".concat(focusManagement));
 
@@ -116,9 +127,9 @@ function manageFocus(focusManagement, contentEl) {
   }
 }
 
-module.exports = /*#__PURE__*/function () {
-  function _class(el, selectedOptions) {
-    _classCallCheck(this, _class);
+var _default = /*#__PURE__*/function () {
+  function _default(el, selectedOptions) {
+    _classCallCheck(this, _default);
 
     this.options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = el;
@@ -144,7 +155,7 @@ module.exports = /*#__PURE__*/function () {
 
     if (this.options.ariaControls === true) {
       // ensure the widget has an id
-      nextID(this.el, 'expander');
+      (0, _makeupNextId.default)(this.el, 'expander');
       this.contentEl.id = this.contentEl.id || "".concat(this.el.id, "-content");
       this.hostEl.setAttribute('aria-controls', this.contentEl.id);
     }
@@ -160,7 +171,7 @@ module.exports = /*#__PURE__*/function () {
     }
   }
 
-  _createClass(_class, [{
+  _createClass(_default, [{
     key: "expandOnClick",
     set: function set(bool) {
       if (bool === true) {
@@ -316,5 +327,7 @@ module.exports = /*#__PURE__*/function () {
     }
   }]);
 
-  return _class;
+  return _default;
 }();
+
+exports.default = _default;

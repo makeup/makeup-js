@@ -1,4 +1,9 @@
-const Expander = require('../../packages/makeup-expander');
+// CJS
+//const Expander = require('../../packages/makeup-expander').default;
+
+// MJS
+import Expander from '../../packages/makeup-expander';
+
 const clickExpanderEls = document.querySelectorAll('.expander--click-only');
 const focusExpanderEls = document.querySelectorAll('.expander--focus-only');
 const hoverExpanderEls = document.querySelectorAll('.expander--hover-only');

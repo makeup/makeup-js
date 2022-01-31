@@ -1,9 +1,13 @@
-'use strict';
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
 var focusableElList = ['a[href]', 'area[href]', 'button:not([disabled])', 'embed', 'iframe', 'input:not([disabled])', 'object', 'select:not([disabled])', 'textarea:not([disabled])', '*[tabindex]', '*[contenteditable]'];
 var focusableElSelector = focusableElList.join();
 
-module.exports = function (el) {
+function _default(el) {
   var keyboardOnly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   var callback = arguments.length > 2 ? arguments[2] : undefined;
 
@@ -17,7 +21,7 @@ module.exports = function (el) {
   }
 
   return getFocusables(el, keyboardOnly);
-};
+}
 
 function getFocusables(el) {
   var keyboardOnly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;

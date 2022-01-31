@@ -1,5 +1,3 @@
-'use strict';
-
 const focusableElList = [
     'a[href]',
     'area[href]',
@@ -16,7 +14,7 @@ const focusableElList = [
 
 const focusableElSelector = focusableElList.join();
 
-module.exports = function(el, keyboardOnly = false, callback) {
+export default function(el, keyboardOnly = false, callback) {
     if (callback) {
         const request = requestAnimationFrame(() => {
             callback(getFocusables(el, keyboardOnly));
@@ -26,7 +24,7 @@ module.exports = function(el, keyboardOnly = false, callback) {
         };
     }
     return getFocusables(el, keyboardOnly);
-};
+}
 
 function getFocusables(el, keyboardOnly = false) {
     let focusableEls = Array.prototype.slice.call(el.querySelectorAll(focusableElSelector));

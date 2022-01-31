@@ -3,14 +3,13 @@
   "description": "Assign the next id in sequence to an element, if an id property does not already exist.",
   "version": "0.3.0",
   "main": "./dist/cjs/index.js",
-  "module": "dist/mjs/index.js",
+  "module": "./dist/mjs/index.js",
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
       "require": "./dist/cjs/index.js"
     }
   },
-  "type": "module",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-next-id",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
@@ -26,9 +25,6 @@
     "accessibility",
     "a11y"
   ],
-  "dependencies": {
-    "nanoid": "^3"
-  },
   "files": [
     "browser.json",
     "dist/cjs/index.js",

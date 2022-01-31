@@ -3,14 +3,13 @@
   "description": "Emits custom 'focusExit' event when keyboard focus has exited an element and all of it's descendants",
   "version": "0.3.1",
   "main": "./dist/cjs/index.js",
-  "module": "dist/mjs/index.js",
+  "module": "./dist/mjs/index.js",
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
       "require": "./dist/cjs/index.js"
     }
   },
-  "type": "module",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-exit-emitter",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",

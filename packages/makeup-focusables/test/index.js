@@ -1,5 +1,6 @@
+import focusable from '../src/index.js';
+
 describe('makeup-focusables', function() {
-    var focusable = require('../src/index.js');
     var body = document.body;
 
     describe('when module is imported', function() {

@@ -1,5 +1,20 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createLinear = createLinear;
+
+var NavigationEmitter = _interopRequireWildcard(require("makeup-navigation-emitter"));
+
+var _makeupNextId = _interopRequireDefault(require("makeup-next-id"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
 function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
@@ -24,10 +39,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-var NavigationEmitter = require('makeup-navigation-emitter');
-
-var nextID = require('makeup-next-id');
-
 var defaultOptions = {
   activeDescendantClassName: 'active-descendant',
   autoInit: -1,
@@ -41,7 +52,7 @@ function onModelMutation() {
   var options = this._options;
   var modelIndex = this._navigationEmitter.model.index;
   this.filteredItems.forEach(function (item, index) {
-    nextID(item);
+    (0, _makeupNextId.default)(item);
 
     if (index !== modelIndex) {
       item.classList.remove(options.activeDescendantClassName);
@@ -146,7 +157,7 @@ var LinearActiveDescendant = /*#__PURE__*/function (_ActiveDescendant) {
     _this._containerEl = containerEl;
     _this._itemSelector = itemSelector; // ensure container has an id
 
-    nextID(containerEl); // if DOM hierarchy cannot be determined,
+    (0, _makeupNextId.default)(containerEl); // if DOM hierarchy cannot be determined,
     // focus element must programatically 'own' the container of descendant items
 
     if (containerEl !== focusEl) {
@@ -155,7 +166,7 @@ var LinearActiveDescendant = /*#__PURE__*/function (_ActiveDescendant) {
 
 
     _this.items.forEach(function (itemEl) {
-      nextID(itemEl);
+      (0, _makeupNextId.default)(itemEl);
     });
 
     if (_this._options.autoInit > -1) {
@@ -225,7 +236,3 @@ class GridActiveDescendant extends ActiveDescendant {
 function createLinear(el, focusEl, containerEl, itemSelector, selectedOptions) {
   return new LinearActiveDescendant(el, focusEl, containerEl, itemSelector, selectedOptions);
 }
-
-module.exports = {
-  createLinear
-};

@@ -1,6 +1,6 @@
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
 
-var Expander = require('../src/index.js');
+import Expander from '../src/index.js';
 
 var containerEl = document.createElement('div');
 containerEl.innerHTML = '<span class="expander">'

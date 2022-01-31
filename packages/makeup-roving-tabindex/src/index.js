@@ -1,6 +1,6 @@
 'use strict';
 
-const NavigationEmitter = require('makeup-navigation-emitter');
+import * as NavigationEmitter from 'makeup-navigation-emitter';
 
 const defaultOptions = {
     autoReset: null,
@@ -143,6 +143,4 @@ function createLinear(el, itemSelector, selectedOptions) {
     return new LinearRovingTabindex(el, itemSelector, selectedOptions);
 }
 
-module.exports = {
-    createLinear
-};
+export { createLinear };

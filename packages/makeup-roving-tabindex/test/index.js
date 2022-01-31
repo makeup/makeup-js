@@ -1,5 +1,6 @@
+import * as RovingTabindex from '../src/index.js';
+
 describe("makeup-roving-tabindex", function() {
-    var RovingTabindex = require('../src/index.js');
     var dom = '<ul class="widget">'
                 + '<li>Button 1</li>'
                 + '<li>Button 2</li>'

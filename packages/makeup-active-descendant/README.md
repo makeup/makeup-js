@@ -4,17 +4,7 @@ Implements ARIA <a href="https://www.w3.org/WAI/GL/wiki/Using_aria-activedescend
 
 ## Experimental
 
-This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
-
-## Install
-
-```js
-// via npm
-npm install makeup-active-descendant
-
-// via yarn
-yarn add makeup-active-descendant
-```
+This module is still in an experimental state, until it reaches v1 you must consider all minor releases as breaking changes.
 
 ## Example 1: Programmatic Relationship
 
@@ -34,8 +24,7 @@ Starting markup:
 ```
 
 ```js
-// require the module
-const ActiveDescendant = require('makeup-active-descendant');
+import * as ActiveDescendant from 'makeup-active-descendant';
 
 // get the widget root element reference
 const widgetEl = document.querySelector('.widget');
@@ -109,8 +98,7 @@ Starting markup:
 ```
 
 ```js
-// require the module
-const ActiveDescendant = require('makeup-active-descendant');
+import * as ActiveDescendant from 'makeup-active-descendant';
 
 // get the widget root element reference
 const widgetEl = document.querySelector('.widget');
@@ -193,5 +181,3 @@ Use CSS to style the active descendant however you wish:
 
 * [makeup-navigation-emitter](https://github.com/makeup/makeup-js/tree/master/packages/makeup-navigation-emitter)
 * [makeup-next-id](https://github.com/makeup/makeup-js/tree/master/packages/makeup-next-id)
-* [custom-event](https://github.com/webmodules/custom-event) (for IE11)
-* [nodelist-foreach-polyfill](https://github.com/imagitama/nodelist-foreach-polyfill) (for IE11)

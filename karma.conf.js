@@ -15,19 +15,29 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
+            'packages/makeup-active-descendant/test/index.js',
             'packages/makeup-exit-emitter/test/index.js',
+            'packages/makeup-expander/test/index.js',
+            'packages/makeup-focusables/test/index.js',
             'packages/makeup-key-emitter/test/index.js',
             'packages/makeup-navigation-emitter/test/index.js',
             'packages/makeup-next-id/test/index.js',
+            'packages/makeup-prevent-scroll-keys/test/index.js',
+            'packages/makeup-roving-tabindex/test/index.js',
             'packages/makeup-switch/test/index.js'
 
         ],
 
         preprocessors: {
+            'packages/makeup-active-descendant/test/index.js': 'webpack',
             'packages/makeup-exit-emitter/test/index.js': 'webpack',
+            'packages/makeup-expander/test/index.js': 'webpack',
+            'packages/makeup-focusables/test/index.js': 'webpack',
             'packages/makeup-key-emitter/test/index.js': 'webpack',
             'packages/makeup-navigation-emitter/test/index.js': 'webpack',
             'packages/makeup-next-id/test/index.js': 'webpack',
+            'packages/makeup-prevent-scroll-keys/test/index.js': 'webpack',
+            'packages/makeup-roving-tabindex/test/index.js': 'webpack',
             'packages/makeup-switch/test/index.js': 'webpack'
         },
 
@@ -39,7 +49,22 @@ module.exports = function (config) {
                     {
                         test: /\.js$/,
                         use: { loader: 'istanbul-instrumenter-loader', options: { esModules: true } },
+                        include: path.resolve('packages/makeup-active-descendant/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader', options: { esModules: true } },
                         include: path.resolve('packages/makeup-exit-emitter/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader', options: { esModules: true } },
+                        include: path.resolve('packages/makeup-expander/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader', options: { esModules: true } },
+                        include: path.resolve('packages/makeup-focusables/src')
                     },
                     {
                         test: /\.js$/,
@@ -55,6 +80,16 @@ module.exports = function (config) {
                         test: /\.js$/,
                         use: { loader: 'istanbul-instrumenter-loader', options: { esModules: true } },
                         include: path.resolve('packages/makeup-next-id/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader', options: { esModules: true } },
+                        include: path.resolve('packages/makeup-prevent-scroll-keys/src')
+                    },
+                    {
+                        test: /\.js$/,
+                        use: { loader: 'istanbul-instrumenter-loader', options: { esModules: true } },
+                        include: path.resolve('packages/makeup-roving-tabindex/src')
                     },
                     {
                         test: /\.js$/,

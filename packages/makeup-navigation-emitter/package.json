@@ -10,7 +10,6 @@
       "require": "./dist/cjs/index.js"
     }
   },
-  "type": "module",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-navigation-emitter",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",

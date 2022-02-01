@@ -1,6 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const FloatingLabel = require('../../packages/makeup-floating-label');
+// REQUIRE
+// const FloatingLabel = require('../../packages/makeup-floating-label').default;
 
+// IMPORT
+import FloatingLabel from '../../packages/makeup-floating-label';
+
+document.addEventListener('DOMContentLoaded', function() {
     const widgetEls = document.querySelectorAll('.floating-label');
     const autofillBtn = document.getElementById('autofill');
     const refreshBtn = document.getElementById('refresh');

@@ -6,23 +6,12 @@ In a non-javascript state the label will **not** obscure the textbox; the label 
 
 ## Experimental
 
-This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
-
-## Install
-
-```js
-// via npm
-npm install makeup-floating-label
-
-// via yarn
-yarn add makeup-floating-label
-```
+This module is still in an experimental state, until it reaches v1 you must consider all minor releases as breaking changes.
 
 ## Example
 
 ```js
-// require the module
-const FloatingLabel = require('makeup-floating-label');
+import FloatingLabel from 'makeup-floating-label';
 
 // get NodeList
 const widgetEls = document.querySelectorAll('.floating-label');

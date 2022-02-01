@@ -1,4 +1,8 @@
-const typeahead = require('../../packages/makeup-typeahead');
+// REQUIRE
+//const typeahead = require('../../packages/makeup-typeahead').default;
+
+// IMPORT
+import typeahead from '../../packages/makeup-typeahead';
 
 const list = document.querySelector('ul');
 const selected = document.querySelector('.selected');

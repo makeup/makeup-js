@@ -1,4 +1,4 @@
-var typeahead = require('../src/index.js');
+import typeahead from '../src/index.js';
 
 var testData = '<ul><li>Albania</li><li>Alcania</li><li>Alcbnia</li></ul>';
 var TIMEOUT_LENGTH = 1000;

@@ -6,9 +6,14 @@ Its parameters are a list of DOM nodes, a char, and the length of a timeout. The
 
 When the timeout executes the callback, it will re-start the suggestions with an empty string.
 
+## Experimental
+
+This module is still in an experimental state, until it reaches v1 you must consider all minor releases as breaking changes.
+
 ### Example
+
 ```js
-const typeahead = require('makeup-typeahead');
+import typeahead from 'makeup-typeahead';
 
 const list = document.querySelector('ul');
 const selected = document.querySelector('.selected');
@@ -24,18 +29,4 @@ function handleKeyDown(e) {
         }
     }
 }
-```
-
-## Experimental
-
-This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
-
-## Install
-
-```js
-// via npm
-npm install makeup-typeahead
-
-// via yarn
-yarn add makeup-typeahead
 ```

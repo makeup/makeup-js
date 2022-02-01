@@ -1,4 +1,9 @@
-'use strict';
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -140,9 +145,9 @@ function _onFocus() {
   }
 }
 
-module.exports = /*#__PURE__*/function () {
-  function _class(el, userOptions) {
-    _classCallCheck(this, _class);
+var _default = /*#__PURE__*/function () {
+  function _default(el, userOptions) {
+    _classCallCheck(this, _default);
 
     this.options = Object.assign({}, defaultOptions, userOptions);
     this._observer = new MutationObserver(onMutation.bind(this));
@@ -172,7 +177,7 @@ module.exports = /*#__PURE__*/function () {
     });
   }
 
-  _createClass(_class, [{
+  _createClass(_default, [{
     key: "destroy",
     value: function destroy() {
       this._observer.disconnect();
@@ -192,5 +197,7 @@ module.exports = /*#__PURE__*/function () {
     }
   }]);
 
-  return _class;
+  return _default;
 }();
+
+exports.default = _default;

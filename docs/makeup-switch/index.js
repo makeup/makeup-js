@@ -1,10 +1,10 @@
+// REQUIRE
+//const MakeupSwitch = require('../../packages/makeup-switch').default;
+
+// IMPORT
+import MakeupSwitch from '../../packages/makeup-switch';
 import "../docs.css";
 import "@ebay/skin/switch";
-
-// CJS
-//const MakeupSwitch = require('../../packages/makeup-switch').default;
-// MJS
-import MakeupSwitch from '../../packages/makeup-switch';
 
 window.onload = function() {
     document.querySelectorAll('.switch').forEach(function(el, i) {

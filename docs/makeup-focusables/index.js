@@ -1,7 +1,7 @@
-// CJS
+// REQUIRE
 //const focusables = require('../../packages/makeup-focusables').default;
 
-// MJS
+// IMPORT
 import focusables from '../../packages/makeup-focusables';
 
 const listEl = document.getElementById('list');

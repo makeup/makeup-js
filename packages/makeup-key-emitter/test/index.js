@@ -26,7 +26,7 @@ describe("makeup-key-emitter", function() {
 
         it("should trigger arrowLeftKeyDown event", function(done) {
             // assert
-            testEl.addEventListener('arrowLeftKeyDown', done);
+            testEl.addEventListener('arrowLeftKeyDown', done());
             // execute
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 37;
@@ -36,7 +36,7 @@ describe("makeup-key-emitter", function() {
 
         it("should trigger arrowUpKeyDown event", function(done) {
             // assert
-            testEl.addEventListener('arrowUpKeyDown', done);
+            testEl.addEventListener('arrowUpKeyDown', done());
             // execute
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 38;
@@ -46,7 +46,7 @@ describe("makeup-key-emitter", function() {
 
         it("should trigger arrowRightKeyDown event", function(done) {
             // assert
-            testEl.addEventListener('arrowRightKeyDown', done);
+            testEl.addEventListener('arrowRightKeyDown', done());
             // execute
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 39;
@@ -56,7 +56,7 @@ describe("makeup-key-emitter", function() {
 
         it("should trigger arrowDownKeyDown event", function(done) {
             // assert
-            testEl.addEventListener('arrowDownKeyDown', done);
+            testEl.addEventListener('arrowDownKeyDown', done());
             // execute
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 40;

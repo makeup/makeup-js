@@ -1,7 +1,7 @@
-// CJS
+// REQUIRE
 //const ExitEmitter = require('../../packages/makeup-exit-emitter');
 
-// MJS
+// IMPORT
 import * as ExitEmitter from '../../packages/makeup-exit-emitter';
 
 document.querySelectorAll('.widget').forEach((el) => {

@@ -1,7 +1,7 @@
-// CJS
+// REQUIRE
 //const scrollKeyPreventer = require('../../packages/makeup-prevent-scroll-keys');
 
-// MJS
+// IMPORT
 import * as scrollKeyPreventer from '../../packages/makeup-prevent-scroll-keys';
 
 const widgetEl = document.querySelector('.widget');

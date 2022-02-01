@@ -1,7 +1,7 @@
-// CJS
+// REQUIRE
 //const KeyEmitter = require('../../packages/makeup-key-emitter');
 
-// MJS
+// IMPORT
 import * as KeyEmitter from '../../packages/makeup-key-emitter';
 
 const widgetEl1 = document.getElementById('widget-1');

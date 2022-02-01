@@ -20,36 +20,44 @@ describe('makeup-focus-exit-emitter', function() {
     });
 
     describe('when emitter is added', function() {
-        beforeAll(function() {
+        it('should trigger focusexit when focus moves from element root to sibling', function(done) {
             document.body.innerHTML = dom;
             testEl = document.querySelector('#test-element');
             testElSibling = document.querySelector('#test-element-sibling');
             ExitEmitter.addFocusExit(testEl);
-        });
 
-        afterAll(function() {
-            ExitEmitter.removeFocusExit(testEl);
-        });
-
-        it('should trigger focusexit when focus moves from element root to sibling', function(done) {
             // async assert
-            testEl.addEventListener('focusExit', done);
+            testEl.addEventListener('focusExit', done());
 
             // excecute
             testEl.focus();
             testElSibling.focus();
+
+            ExitEmitter.removeFocusExit(testEl);
         });
 
         it('should trigger when focus moves from element descendant to element sibling', function(done) {
+            document.body.innerHTML = dom;
+            testEl = document.querySelector('#test-element');
+            testElSibling = document.querySelector('#test-element-sibling');
+            ExitEmitter.addFocusExit(testEl);
+
             // async assert
-            testEl.addEventListener('focusExit', done);
+            testEl.addEventListener('focusExit', done());
 
             // excecute
             testEl.querySelector('button').focus();
             testElSibling.querySelector('button').focus();
+
+            ExitEmitter.removeFocusExit(testEl);
         });
 
         it('should NOT trigger when focus moves from element root to element descendant', function(done) {
+            document.body.innerHTML = dom;
+            testEl = document.querySelector('#test-element');
+            testElSibling = document.querySelector('#test-element-sibling');
+            ExitEmitter.addFocusExit(testEl);
+
             // spy
             spyOn(eventHandlers, 'onFocusExit');
 
@@ -62,10 +70,16 @@ describe('makeup-focus-exit-emitter', function() {
             setTimeout(function() {
                 expect(eventHandlers.onFocusExit).not.toHaveBeenCalled();
                 done();
+                ExitEmitter.removeFocusExit(testEl);
             }, timeoutInterval);
         });
 
         it('should NOT trigger when focus moves from element descendant to element descendant', function(done) {
+            document.body.innerHTML = dom;
+            testEl = document.querySelector('#test-element');
+            testElSibling = document.querySelector('#test-element-sibling');
+            ExitEmitter.addFocusExit(testEl);
+
             // spy
             spyOn(eventHandlers, 'onFocusExit');
 
@@ -77,10 +91,16 @@ describe('makeup-focus-exit-emitter', function() {
             setTimeout(function() {
                 expect(eventHandlers.onFocusExit).not.toHaveBeenCalled();
                 done();
+                ExitEmitter.removeFocusExit(testEl);
             }, timeoutInterval);
         });
 
         it('should NOT trigger when focus moves from element descendant to element root', function(done) {
+            document.body.innerHTML = dom;
+            testEl = document.querySelector('#test-element');
+            testElSibling = document.querySelector('#test-element-sibling');
+            ExitEmitter.addFocusExit(testEl);
+
             // spy
             spyOn(eventHandlers, 'onFocusExit');
 
@@ -92,6 +112,7 @@ describe('makeup-focus-exit-emitter', function() {
             setTimeout(function() {
                 expect(eventHandlers.onFocusExit).not.toHaveBeenCalled();
                 done();
+                ExitEmitter.removeFocusExit(testEl);
             }, timeoutInterval);
         });
     });

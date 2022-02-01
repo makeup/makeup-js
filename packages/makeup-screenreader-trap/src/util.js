@@ -1,5 +1,3 @@
-'use strict';
-
 // filter function for ancestor elements
 const filterAncestor = item => item.nodeType === 1
                                 && item.tagName.toLowerCase() !== 'body'
@@ -67,7 +65,7 @@ function getSiblingsOfAncestors(el) {
     return getAncestors(el).map(item => getSiblings(item)).reduce(flattenArrays, []);
 }
 
-module.exports = {
+export {
     getSiblings,
     getAncestors,
     getSiblingsOfAncestors

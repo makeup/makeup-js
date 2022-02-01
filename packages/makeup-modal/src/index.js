@@ -1,7 +1,5 @@
-'use strict';
-
-const keyboardTrap = require('makeup-keyboard-trap');
-const screenreaderTrap = require('makeup-screenreader-trap');
+import * as keyboardTrap from 'makeup-keyboard-trap';
+import * as screenreaderTrap from 'makeup-screenreader-trap';
 
 const defaultOptions = {
     hoist: false,
@@ -121,7 +119,7 @@ function modal(el, options) {
     return modalEl;
 }
 
-module.exports = {
+export {
     modal,
     unmodal
 };

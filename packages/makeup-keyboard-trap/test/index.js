@@ -1,5 +1,5 @@
-var keyboardTrap = require('../src/index.js');
-var testData = require('./data.js');
+import * as keyboardTrap from '../src/index.js';
+import testData from './data.js';
 
 testData.forEach(function(data) {
 
@@ -84,7 +84,7 @@ testData.forEach(function(data) {
 
             trapEl.addEventListener('keyboardTrap', onTrap);
             trapEl.addEventListener('keyboardUntrap', onUntrap);
-            
+
             keyboardTrap.trap(trapEl);
             onTrap.calls.reset();
             onUntrap.calls.reset();

@@ -1,7 +1,7 @@
-// CJS
+// REQUIRE
 //const Expander = require('../../packages/makeup-expander').default;
 
-// MJS
+// IMPORT
 import Expander from '../../packages/makeup-expander';
 
 const clickExpanderEls = document.querySelectorAll('.expander--click-only');

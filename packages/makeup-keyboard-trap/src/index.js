@@ -1,6 +1,4 @@
-'use strict';
-
-const focusables = require('makeup-focusables');
+import focusables from 'makeup-focusables';
 
 // for the element that will be trapped
 let trappedEl;
@@ -118,7 +116,7 @@ function refresh() {
     }
 }
 
-module.exports = {
+export {
     refresh,
     trap,
     untrap

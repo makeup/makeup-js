@@ -1,7 +1,7 @@
-// CJS
+// REQUIRE
 //const NavigationEmitter = require('../../packages/makeup-navigation-emitter');
 
-// MJS
+// IMPORT
 import * as NavigationEmitter from '../../packages/makeup-navigation-emitter';
 
 const emitters = [];

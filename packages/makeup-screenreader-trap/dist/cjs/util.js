@@ -1,5 +1,13 @@
-'use strict'; // filter function for ancestor elements
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getAncestors = getAncestors;
+exports.getSiblings = getSiblings;
+exports.getSiblingsOfAncestors = getSiblingsOfAncestors;
+
+// filter function for ancestor elements
 var filterAncestor = function filterAncestor(item) {
   return item.nodeType === 1 && item.tagName.toLowerCase() !== 'body' && item.tagName.toLowerCase() !== 'html';
 }; // filter function for sibling elements
@@ -70,9 +78,3 @@ function getSiblingsOfAncestors(el) {
     return getSiblings(item);
   }).reduce(flattenArrays, []);
 }
-
-module.exports = {
-  getSiblings,
-  getAncestors,
-  getSiblingsOfAncestors
-};

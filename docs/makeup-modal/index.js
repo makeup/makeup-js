@@ -1,4 +1,8 @@
-const modal = require('../../packages/makeup-modal');
+// REQUIRE
+// const modal = require('../../packages/makeup-modal');
+
+// IMPORT
+import * as modal from '../../packages/makeup-modal';
 
 const modal1 = document.getElementById('modal-1');
 const modal2 = document.getElementById('modal-2');

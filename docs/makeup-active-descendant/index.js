@@ -1,7 +1,7 @@
-// CJS
+// REQUIRE
 //const ActiveDescendant = require('../../packages/makeup-active-descendant');
 
-// MJS
+// IMPORT
 import * as ActiveDescendant from '../../packages/makeup-active-descendant';
 
 const navs = [];

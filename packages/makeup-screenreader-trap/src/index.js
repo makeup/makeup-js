@@ -1,6 +1,4 @@
-'use strict';
-
-const util = require('./util.js');
+import * as util from './util.js';
 
 // the main landmark
 let mainEl;
@@ -134,7 +132,7 @@ function trap(el, selectedOptions) {
     trappedEl.dispatchEvent(new CustomEvent('screenreaderTrap', { bubbles: true }));
 }
 
-module.exports = {
+export {
     trap,
     untrap
 };

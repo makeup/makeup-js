@@ -1,7 +1,7 @@
-// CJS
+// REQUIRE
 //const nextId = require('../../packages/makeup-next-id').default;
 
-// MJS
+// IMPORT
 import nextId from '../../packages/makeup-next-id';
 
 const listEl = document.getElementById('list');

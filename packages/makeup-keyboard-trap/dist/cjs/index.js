@@ -1,8 +1,17 @@
-'use strict';
+"use strict";
 
-var focusables = require('makeup-focusables'); // for the element that will be trapped
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.refresh = refresh;
+exports.trap = trap;
+exports.untrap = untrap;
 
+var _makeupFocusables = _interopRequireDefault(require("makeup-focusables"));
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// for the element that will be trapped
 var trappedEl; // for the trap boundary/bumper elements
 
 var topTrap;
@@ -81,7 +90,7 @@ function trap(el) {
   // so we must check if 'document' is defined.
 
   var body = typeof document === 'undefined' ? null : document.body;
-  var focusableElements = focusables(trappedEl, true);
+  var focusableElements = (0, _makeupFocusables.default)(trappedEl, true);
   firstFocusableElement = focusableElements[0];
   lastFocusableElement = focusableElements[focusableElements.length - 1];
   body.insertBefore(topTrap, body.childNodes[0]);
@@ -100,7 +109,7 @@ function trap(el) {
 
 function refresh() {
   if (topTrap && trappedEl) {
-    var focusableElements = focusables(trappedEl, true);
+    var focusableElements = (0, _makeupFocusables.default)(trappedEl, true);
     focusableElements = focusableElements.filter(function (el) {
       return !el.classList.contains('keyboard-trap-boundary');
     });
@@ -108,9 +117,3 @@ function refresh() {
     lastFocusableElement = focusableElements[focusableElements.length - 1];
   }
 }
-
-module.exports = {
-  refresh,
-  trap,
-  untrap
-};

@@ -1,7 +1,7 @@
-// CJS
+// REQUIRE
 //const RovingTabindex = require('../../packages/makeup-roving-tabindex');
 
-// MJS
+// IMPORT
 import * as RovingTabindex from '../../packages/makeup-roving-tabindex';
 
 const rovers = [];

@@ -1,7 +1,11 @@
 import "../docs.css";
 import "@ebay/skin/combobox";
 
-const Combobox = require('../../packages/makeup-combobox');
+// REQUIRE
+// const Combobox = require('../../packages/makeup-combobox').default;
+
+// IMPORT
+import Combobox from '../../packages/makeup-combobox';
 
 window.onload = function() {
     document.querySelectorAll('.combobox').forEach(function(el, i) {

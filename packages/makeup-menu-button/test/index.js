@@ -1,4 +1,4 @@
-const MenuButton = require('../src/index.js');
+import MenuButton from '../src/index.js';
 
 const defaultMarkup = `<span class="switch">
   <span class="switch__control" role="switch" tabindex="0"></span>

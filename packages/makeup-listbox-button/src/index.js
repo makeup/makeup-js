@@ -1,5 +1,5 @@
-const Expander = require('makeup-expander');
-const Listbox = require('makeup-listbox');
+import Expander from 'makeup-expander';
+import Listbox from 'makeup-listbox';
 
 const defaultOptions = {
     autoSelect: true,
@@ -12,7 +12,7 @@ const defaultOptions = {
     floatingLabelAnimate: 'expand-btn__floating-label--animate'
 };
 
-module.exports = class {
+export default class {
     constructor(widgetEl, selectedOptions) {
         this._options = Object.assign({}, defaultOptions, selectedOptions);
         this.el = widgetEl;
@@ -115,7 +115,7 @@ module.exports = class {
         this._onListboxChangeListener = null;
         this._onMutationListener = null;
     }
-};
+}
 
 // listbox element should be hidden in initial SSR markup (for progressive enhancement)
 function _onButtonFirstClick() {

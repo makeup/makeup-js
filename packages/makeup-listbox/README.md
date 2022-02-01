@@ -48,7 +48,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const Listbox = require('makeup-listbox');
+import Listbox from 'makeup-listbox';
 
 document.querySelectorAll('.listbox').forEach(function(el, i) {
     const widget = new Listbox(el, config);

@@ -1,5 +1,5 @@
-const Expander = require('makeup-expander');
-const Menu = require('makeup-menu');
+import Expander from 'makeup-expander';
+import Menu from 'makeup-menu';
 
 const defaultOptions = {
     customElementMode: false,
@@ -8,7 +8,7 @@ const defaultOptions = {
     buttonTextSelector: `.expand-btn__text`
 };
 
-module.exports = class {
+export default class {
     constructor(widgetEl, selectedOptions) {
         this._options = Object.assign({}, defaultOptions, selectedOptions);
         this.el = widgetEl;
@@ -87,7 +87,7 @@ module.exports = class {
         this._onMenuItemSelectListener = null;
         this._onMutationListener = null;
     }
-};
+}
 
 function _onMutation(mutationsList) {
     for (const mutation of mutationsList) {

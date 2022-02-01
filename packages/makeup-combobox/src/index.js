@@ -1,5 +1,5 @@
-const Expander = require('makeup-expander');
-const Listbox = require('makeup-listbox');
+import Expander from 'makeup-expander';
+import Listbox from 'makeup-listbox';
 
 const nodeListToArray = (nodeList) => Array.prototype.slice.call(nodeList);
 
@@ -9,7 +9,7 @@ const defaultOptions = {
     customElementMode: false
 };
 
-module.exports = class {
+export default class {
     constructor(widgetEl, selectedOptions) {
         this._options = Object.assign({}, defaultOptions, selectedOptions);
         this._el = widgetEl;
@@ -119,7 +119,7 @@ module.exports = class {
         this._onTextboxClickListener = null;
         this._onMutationListener = null;
     }
-};
+}
 
 function _onInputFocus() {
     this.resetFilter();

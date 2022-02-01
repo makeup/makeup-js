@@ -135,7 +135,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const Menu = require('makeup-menu');
+import Menu from 'makeup-menu';
 
 document.querySelectorAll('.menu').forEach(function(el, i) {
     const widget = new Menu(el, config);

@@ -1,5 +1,16 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _makeupExpander = _interopRequireDefault(require("makeup-expander"));
+
+var _makeupListbox = _interopRequireDefault(require("makeup-listbox"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -12,10 +23,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-var Expander = require('makeup-expander');
-
-var Listbox = require('makeup-listbox');
-
 var defaultOptions = {
   autoSelect: true,
   buttonLabelSelector: '.expand-btn__text',
@@ -27,11 +34,11 @@ var defaultOptions = {
   floatingLabelAnimate: 'expand-btn__floating-label--animate'
 };
 
-module.exports = /*#__PURE__*/function () {
-  function _class(widgetEl, selectedOptions) {
+var _default = /*#__PURE__*/function () {
+  function _default(widgetEl, selectedOptions) {
     var _this$_buttonEl$datas;
 
-    _classCallCheck(this, _class);
+    _classCallCheck(this, _default);
 
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
@@ -39,11 +46,11 @@ module.exports = /*#__PURE__*/function () {
     this._buttonLabelEl = widgetEl.querySelector(this._options.buttonLabelSelector);
     this._buttonFloatingLabelEl = widgetEl.querySelector(this._options.floatingLabelSelector);
     this._buttonPrefix = (_this$_buttonEl$datas = this._buttonEl.dataset) === null || _this$_buttonEl$datas === void 0 ? void 0 : _this$_buttonEl$datas.listboxButtonPrefix;
-    this.listbox = new Listbox(this.el.querySelector(this._options.listboxSelector), {
+    this.listbox = new _makeupListbox.default(this.el.querySelector(this._options.listboxSelector), {
       activeDescendantClassName: 'listbox-button__option--active',
       autoSelect: this._options.autoSelect
     });
-    this._expander = new Expander(this.el, {
+    this._expander = new _makeupExpander.default(this.el, {
       alwaysDoFocusManagement: true,
       collapseOnClick: true,
       collapseOnClickOut: true,
@@ -76,7 +83,7 @@ module.exports = /*#__PURE__*/function () {
     }
   }
 
-  _createClass(_class, [{
+  _createClass(_default, [{
     key: "_observeMutations",
     value: function _observeMutations() {
       if (!this._options.customElementMode) {
@@ -148,9 +155,11 @@ module.exports = /*#__PURE__*/function () {
     }
   }]);
 
-  return _class;
+  return _default;
 }(); // listbox element should be hidden in initial SSR markup (for progressive enhancement)
 
+
+exports.default = _default;
 
 function _onButtonFirstClick() {
   this.listbox.el.hidden = false;

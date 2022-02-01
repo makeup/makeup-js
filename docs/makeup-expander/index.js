@@ -1,5 +1,5 @@
 // REQUIRE
-//const Expander = require('../../packages/makeup-expander').default;
+// const Expander = require('../../packages/makeup-expander').default;
 
 // IMPORT
 import Expander from '../../packages/makeup-expander';

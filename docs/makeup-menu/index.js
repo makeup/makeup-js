@@ -1,7 +1,11 @@
 import "../docs.css";
 import "@ebay/skin/menu";
 
-const Menu = require('../../packages/makeup-menu');
+// REQUIRE
+// const Menu = require('../../packages/makeup-menu').default;
+
+// IMPORT
+import Menu from '../../packages/makeup-menu';
 
 window.onload = function() {
     document.querySelectorAll('.menu').forEach(function(el, i) {

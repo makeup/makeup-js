@@ -50,7 +50,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const ListboxButton = require('makeup-listbox-button');
+import ListboxButton from 'makeup-listbox-button';
 
 document.querySelectorAll('.listbox-button').forEach(function(el, i) {
     const widget = new ListboxButton(el, config);

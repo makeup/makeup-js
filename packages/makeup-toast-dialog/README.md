@@ -36,7 +36,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const ToastDialog = require('makeup-toast-dialog');
+import ToastDialog from 'makeup-toast-dialog';
 
 document.querySelectorAll('.toast-dialog').forEach(function(el, i) {
     const widget = new ToastDialog(el, config);

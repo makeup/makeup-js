@@ -37,7 +37,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const PanelDialog = require('makeup-panel-dialog');
+import PanelDialog from 'makeup-panel-dialog';
 
 document.querySelectorAll('.panel-dialog').forEach(function(el, i) {
     const widget = new PanelDialog(el, config);

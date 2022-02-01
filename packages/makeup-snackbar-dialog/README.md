@@ -28,7 +28,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const SnackbarDialog = require('makeup-snackbar-dialog');
+import SnackbarDialog from 'makeup-snackbar-dialog';
 
 document.querySelectorAll('.snackbar-dialog').forEach(function(el, i) {
     const widget = new SnackbarDialog(el, config);

@@ -1,4 +1,4 @@
-const Dialog = require('makeup-dialog');
+import Dialog from 'makeup-dialog';
 
 const defaultFullscreenOptions = {
     baseClass: 'fullscreen-dialog',
@@ -8,8 +8,8 @@ const defaultFullscreenOptions = {
     windowSelector: '.fullscreen-dialog__window'
 };
 
-module.exports = class extends Dialog {
+export default class extends Dialog {
     constructor(el, selectedOptions = {}) {
         super(el, Object.assign({}, defaultFullscreenOptions, selectedOptions, { modal: true }));
     }
-};
+}

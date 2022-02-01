@@ -34,7 +34,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const ConfirmDialog = require('makeup-confirm-dialog');
+import ConfirmDialog from 'makeup-confirm-dialog';
 
 document.querySelectorAll('.confirm-dialog').forEach(function(el, i) {
     const widget = new ConfirmDialog(el, config);

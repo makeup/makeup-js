@@ -37,7 +37,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const FullscreenDialog = require('makeup-fullscreen-dialog');
+import FullscreenDialog from 'makeup-fullscreen-dialog';
 
 document.querySelectorAll('.fullscreen-dialog').forEach(function(el, i) {
     const widget = new FullscreenDialog(el, config);

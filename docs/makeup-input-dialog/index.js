@@ -4,7 +4,11 @@ import "@ebay/skin/button";
 import "@ebay/skin/lightbox-dialog";
 import "@ebay/skin/textbox";
 
-const InputDialog = require('../../packages/makeup-input-dialog');
+// REQUIRE
+// const InputDialog = require('../../packages/makeup-input-dialog').default;
+
+// IMPORT
+import InputDialog from '../../packages/makeup-input-dialog';
 
 window.onload = function() {
     document.querySelectorAll('.lightbox-dialog--input').forEach(function(el, i) {

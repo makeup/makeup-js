@@ -1,4 +1,4 @@
-const Dialog = require('makeup-dialog');
+import Dialog from 'makeup-dialog';
 
 const defaultLightboxOptions = {
     baseClass: 'lightbox-dialog',
@@ -8,7 +8,7 @@ const defaultLightboxOptions = {
     windowSelector: '.lightbox-dialog__window'
 };
 
-module.exports = class extends Dialog {
+export default class extends Dialog {
     constructor(el, selectedOptions = {}) {
         super(el, Object.assign({}, defaultLightboxOptions, selectedOptions, { modal: true }));
     }
@@ -31,7 +31,7 @@ module.exports = class extends Dialog {
 
         this._onClickListener = null;
     }
-};
+}
 
 function _onClick(e) {
     if (this._options.quickDismiss === true && e.target === this._el) {

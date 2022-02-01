@@ -1,14 +1,19 @@
 "use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _makeupDialog = _interopRequireDefault(require("makeup-dialog"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -24,65 +29,30 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var Lightbox = require('makeup-lightbox-dialog');
-
-var defaultAlertOptions = {
-  baseClass: 'alert-dialog',
-  baseClassModifier: 'alert',
+var defaultFullscreenOptions = {
+  baseClass: 'fullscreen-dialog',
   quickDismiss: false,
-  acknowledgeButtonSelector: '.alert-dialog__acknowledge',
-  windowSelector: '.alert-dialog__window'
+  closeButtonSelector: '.fullscreen-dialog__close',
+  transitionsModifier: 'transition',
+  windowSelector: '.fullscreen-dialog__window'
 };
 
-module.exports = /*#__PURE__*/function (_Lightbox) {
-  _inherits(_class, _Lightbox);
+var _default = /*#__PURE__*/function (_Dialog) {
+  _inherits(_default, _Dialog);
 
-  var _super = _createSuper(_class);
+  var _super = _createSuper(_default);
 
-  function _class(el) {
+  function _default(el) {
     var selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    _classCallCheck(this, _class);
+    _classCallCheck(this, _default);
 
-    return _super.call(this, el, Object.assign({}, defaultAlertOptions, selectedOptions));
+    return _super.call(this, el, Object.assign({}, defaultFullscreenOptions, selectedOptions, {
+      modal: true
+    }));
   }
 
-  _createClass(_class, [{
-    key: "_observeEvents",
-    value: function _observeEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_observeEvents", this).call(this);
+  return _createClass(_default);
+}(_makeupDialog.default);
 
-      this._acknowledgeButtonEl = this._el.querySelector(this._options.acknowledgeButtonSelector);
-      this._onAcknowledgeButtonClickListener = _onAcknowledgeButtonClick.bind(this);
-
-      this._acknowledgeButtonEl.addEventListener('click', this._onAcknowledgeButtonClickListener);
-    }
-  }, {
-    key: "_unobserveEvents",
-    value: function _unobserveEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_unobserveEvents", this).call(this);
-
-      this._acknowledgeButtonEl.removeEventListener('click', this._onAcknowledgeButtonClickListener);
-    }
-  }, {
-    key: "acknowledge",
-    value: function acknowledge() {
-      this._hide();
-
-      this._el.dispatchEvent(new CustomEvent('dialog-acknowledge'));
-    }
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      _get(_getPrototypeOf(_class.prototype), "destroy", this).call(this);
-
-      this._onAcknowledgeButtonClickListener = null;
-    }
-  }]);
-
-  return _class;
-}(Lightbox);
-
-function _onAcknowledgeButtonClick() {
-  this.acknowledge();
-}
+exports.default = _default;

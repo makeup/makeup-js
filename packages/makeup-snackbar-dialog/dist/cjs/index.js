@@ -1,5 +1,14 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _makeupDialog = _interopRequireDefault(require("makeup-dialog"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -24,61 +33,85 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var Dialog = require('makeup-dialog');
-
-var defaultLightboxOptions = {
-  baseClass: 'lightbox-dialog',
-  baseClassModifier: '',
-  quickDismiss: true,
-  closeButtonSelector: '.lightbox-dialog__close',
-  windowSelector: '.lightbox-dialog__window'
+var defaultSnackbarOptions = {
+  autoDismissTimer: 6000,
+  baseClass: 'snackbar-dialog',
+  ctaButtonSelector: '.snackbar-dialog__cta',
+  transitionsModifier: 'transition'
 };
 
-module.exports = /*#__PURE__*/function (_Dialog) {
-  _inherits(_class, _Dialog);
+var _default = /*#__PURE__*/function (_Dialog) {
+  _inherits(_default, _Dialog);
 
-  var _super = _createSuper(_class);
+  var _super = _createSuper(_default);
 
-  function _class(el) {
+  function _default(el) {
+    var _this;
+
     var selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    _classCallCheck(this, _class);
+    _classCallCheck(this, _default);
 
-    return _super.call(this, el, Object.assign({}, defaultLightboxOptions, selectedOptions, {
-      modal: true
-    }));
+    _this = _super.call(this, el, Object.assign({}, defaultSnackbarOptions, selectedOptions));
+    _this._autoDismissTimeout = null;
+    return _this;
   }
 
-  _createClass(_class, [{
+  _createClass(_default, [{
+    key: "_show",
+    value: function _show() {
+      var _this2 = this;
+
+      _get(_getPrototypeOf(_default.prototype), "_show", this).call(this);
+
+      this._autoDismissTimeout = setTimeout(function () {
+        var widget = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this2;
+        return widget.close();
+      }, this._options.autoDismissTimer);
+    }
+  }, {
     key: "_observeEvents",
     value: function _observeEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_observeEvents", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "_observeEvents", this).call(this);
 
-      this._onClickListener = _onClick.bind(this);
+      this._ctaEl = this._el.querySelector(this._options.ctaButtonSelector);
 
-      this._el.addEventListener('click', this._onClickListener);
+      if (this._ctaEl) {
+        this._onCtaClickListener = _onCtaButtonClick.bind(this);
+
+        this._ctaEl.addEventListener('click', this._onCtaClickListener);
+      }
     }
   }, {
     key: "_unobserveEvents",
     value: function _unobserveEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_unobserveEvents", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "_unobserveEvents", this).call(this);
 
-      this._el.removeEventListener('click', this._onClickListener);
+      if (this._ctaEl) {
+        this._ctaEl.removeEventListener('click', this._onCtaClickListener);
+      }
+    }
+  }, {
+    key: "cta",
+    value: function cta() {
+      this._hide();
+
+      this._el.dispatchEvent(new CustomEvent('dialog-cta'));
     }
   }, {
     key: "destroy",
     value: function destroy() {
-      _get(_getPrototypeOf(_class.prototype), "destroy", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "destroy", this).call(this);
 
-      this._onClickListener = null;
+      this._onCtaClickListener = null;
     }
   }]);
 
-  return _class;
-}(Dialog);
+  return _default;
+}(_makeupDialog.default);
 
-function _onClick(e) {
-  if (this._options.quickDismiss === true && e.target === this._el) {
-    this.close();
-  }
+exports.default = _default;
+
+function _onCtaButtonClick() {
+  this.cta();
 }

@@ -1,5 +1,14 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _makeupLightboxDialog = _interopRequireDefault(require("makeup-lightbox-dialog"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -24,8 +33,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var Lightbox = require('makeup-lightbox-dialog');
-
 var defaultInputOptions = {
   baseClass: 'lightbox-dialog',
   baseClassModifier: 'input',
@@ -34,23 +41,23 @@ var defaultInputOptions = {
   windowSelector: '.lightbox-dialog__window'
 };
 
-module.exports = /*#__PURE__*/function (_Lightbox) {
-  _inherits(_class, _Lightbox);
+var _default = /*#__PURE__*/function (_Lightbox) {
+  _inherits(_default, _Lightbox);
 
-  var _super = _createSuper(_class);
+  var _super = _createSuper(_default);
 
-  function _class(el) {
+  function _default(el) {
     var selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    _classCallCheck(this, _class);
+    _classCallCheck(this, _default);
 
     return _super.call(this, el, Object.assign({}, defaultInputOptions, selectedOptions));
   }
 
-  _createClass(_class, [{
+  _createClass(_default, [{
     key: "_observeEvents",
     value: function _observeEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_observeEvents", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "_observeEvents", this).call(this);
 
       this._submitButtonEl = this._el.querySelector(this._options.submitButtonSelector);
       this._cancelButtonEl = this._el.querySelector(this._options.cancelButtonSelector);
@@ -64,7 +71,7 @@ module.exports = /*#__PURE__*/function (_Lightbox) {
   }, {
     key: "_unobserveEvents",
     value: function _unobserveEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_unobserveEvents", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "_unobserveEvents", this).call(this);
 
       this._submitButtonEl.removeEventListener('click', this._onSubmitButtonClickListener);
 
@@ -87,15 +94,17 @@ module.exports = /*#__PURE__*/function (_Lightbox) {
   }, {
     key: "destroy",
     value: function destroy() {
-      _get(_getPrototypeOf(_class.prototype), "destroy", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "destroy", this).call(this);
 
       this._onSubmitButtonClickListener = null;
       this._onCancelButtonClickListener = null;
     }
   }]);
 
-  return _class;
-}(Lightbox);
+  return _default;
+}(_makeupLightboxDialog.default);
+
+exports.default = _default;
 
 function _onSubmitButtonClick() {
   this.submit();

@@ -1,4 +1,4 @@
-const Lightbox = require('makeup-lightbox-dialog');
+import Lightbox from 'makeup-lightbox-dialog';
 
 const defaultOptions = {
     baseClass: 'confirm-dialog',
@@ -10,7 +10,7 @@ const defaultOptions = {
     windowSelector: '.confirm-dialog__window'
 };
 
-module.exports = class extends Lightbox {
+export default class extends Lightbox {
     constructor(el, selectedOptions = {}) {
         super(el, Object.assign({}, defaultOptions, selectedOptions));
     }
@@ -53,7 +53,7 @@ module.exports = class extends Lightbox {
         this._onConfirmButtonClickListener = null;
         this._onRejectButtonClickListener = null;
     }
-};
+}
 
 function _onConfirmButtonClick() {
     this.confirm();

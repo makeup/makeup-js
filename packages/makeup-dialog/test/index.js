@@ -1,4 +1,4 @@
-const Dialog = require('../src/index.js');
+import Dialog from '../src/index.js';
 
 const defaultMarkup = `<span class="switch">
   <span class="switch__control" role="switch" tabindex="0"></span>

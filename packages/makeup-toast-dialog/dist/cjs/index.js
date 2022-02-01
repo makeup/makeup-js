@@ -1,5 +1,14 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _makeupDialog = _interopRequireDefault(require("makeup-dialog"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -24,48 +33,35 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var Dialog = require('makeup-dialog');
-
-var defaultSnackbarOptions = {
-  autoDismissTimer: 6000,
-  baseClass: 'snackbar-dialog',
-  ctaButtonSelector: '.snackbar-dialog__cta',
+var defaultToastOptions = {
+  baseClass: 'toast-dialog',
+  closeButtonSelector: '.toast-dialog__close',
+  ctaButtonSelector: '.toast-dialog__cta',
   transitionsModifier: 'transition'
 };
 
-module.exports = /*#__PURE__*/function (_Dialog) {
-  _inherits(_class, _Dialog);
+var _default = /*#__PURE__*/function (_Dialog) {
+  _inherits(_default, _Dialog);
 
-  var _super = _createSuper(_class);
+  var _super = _createSuper(_default);
 
-  function _class(el) {
-    var _this;
-
+  function _default(el) {
     var selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    _classCallCheck(this, _class);
+    _classCallCheck(this, _default);
 
-    _this = _super.call(this, el, Object.assign({}, defaultSnackbarOptions, selectedOptions));
-    _this._autoDismissTimeout = null;
-    return _this;
+    return _super.call(this, el, Object.assign({}, defaultToastOptions, selectedOptions));
   }
 
-  _createClass(_class, [{
+  _createClass(_default, [{
     key: "_show",
     value: function _show() {
-      var _this2 = this;
-
-      _get(_getPrototypeOf(_class.prototype), "_show", this).call(this);
-
-      this._autoDismissTimeout = setTimeout(function () {
-        var widget = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this2;
-        return widget.close();
-      }, this._options.autoDismissTimer);
+      _get(_getPrototypeOf(_default.prototype), "_show", this).call(this);
     }
   }, {
     key: "_observeEvents",
     value: function _observeEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_observeEvents", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "_observeEvents", this).call(this);
 
       this._ctaEl = this._el.querySelector(this._options.ctaButtonSelector);
 
@@ -78,7 +74,7 @@ module.exports = /*#__PURE__*/function (_Dialog) {
   }, {
     key: "_unobserveEvents",
     value: function _unobserveEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_unobserveEvents", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "_unobserveEvents", this).call(this);
 
       if (this._ctaEl) {
         this._ctaEl.removeEventListener('click', this._onCtaClickListener);
@@ -94,14 +90,16 @@ module.exports = /*#__PURE__*/function (_Dialog) {
   }, {
     key: "destroy",
     value: function destroy() {
-      _get(_getPrototypeOf(_class.prototype), "destroy", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "destroy", this).call(this);
 
       this._onCtaClickListener = null;
     }
   }]);
 
-  return _class;
-}(Dialog);
+  return _default;
+}(_makeupDialog.default);
+
+exports.default = _default;
 
 function _onCtaButtonClick() {
   this.cta();

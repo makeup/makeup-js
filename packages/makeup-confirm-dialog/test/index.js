@@ -1,4 +1,4 @@
-const ConfirmDialog = require('../src/index.js');
+import ConfirmDialog from '../src/index.js';
 
 const defaultMarkup = `<span class="switch">
   <span class="switch__control" role="switch" tabindex="0"></span>

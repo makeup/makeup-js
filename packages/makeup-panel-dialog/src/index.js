@@ -1,4 +1,4 @@
-const Lightbox = require('makeup-lightbox-dialog');
+import Lightbox from 'makeup-lightbox-dialog';
 
 const defaultPanelOptions = {
     baseClass: 'panel-dialog',
@@ -9,8 +9,8 @@ const defaultPanelOptions = {
     transitionsModifier: 'mask-fade-slow'
 };
 
-module.exports = class extends Lightbox {
+export default class extends Lightbox {
     constructor(el, selectedOptions = {}) {
         super(el, Object.assign({}, defaultPanelOptions, selectedOptions));
     }
-};
+}

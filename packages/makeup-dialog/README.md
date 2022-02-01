@@ -9,7 +9,7 @@ No CSS is provided.
 ## JavaScript
 
 ```js
-const Dialog = require('makeup-dialog');
+import Dialog from 'makeup-dialog';
 
 // non-modal (default)
 document.querySelectorAll('.my-non-modal-dialog').forEach(function(el, i) {

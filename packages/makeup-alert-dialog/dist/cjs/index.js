@@ -1,5 +1,14 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _makeupLightboxDialog = _interopRequireDefault(require("makeup-lightbox-dialog"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -24,85 +33,65 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var Lightbox = require('makeup-lightbox-dialog');
-
-var defaultOptions = {
-  baseClass: 'confirm-dialog',
-  closeButtonSelector: '.confirm-dialog__close',
-  quickDismiss: true,
-  confirmButtonSelector: '.confirm-dialog__confirm',
-  focusManagementIndex: 1,
-  rejectButtonSelector: '.confirm-dialog__reject',
-  windowSelector: '.confirm-dialog__window'
+var defaultAlertOptions = {
+  baseClass: 'alert-dialog',
+  baseClassModifier: 'alert',
+  quickDismiss: false,
+  acknowledgeButtonSelector: '.alert-dialog__acknowledge',
+  windowSelector: '.alert-dialog__window'
 };
 
-module.exports = /*#__PURE__*/function (_Lightbox) {
-  _inherits(_class, _Lightbox);
+var _default = /*#__PURE__*/function (_Lightbox) {
+  _inherits(_default, _Lightbox);
 
-  var _super = _createSuper(_class);
+  var _super = _createSuper(_default);
 
-  function _class(el) {
+  function _default(el) {
     var selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    _classCallCheck(this, _class);
+    _classCallCheck(this, _default);
 
-    return _super.call(this, el, Object.assign({}, defaultOptions, selectedOptions));
+    return _super.call(this, el, Object.assign({}, defaultAlertOptions, selectedOptions));
   }
 
-  _createClass(_class, [{
+  _createClass(_default, [{
     key: "_observeEvents",
     value: function _observeEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_observeEvents", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "_observeEvents", this).call(this);
 
-      this._confirmButtonEl = this._el.querySelector(this._options.confirmButtonSelector);
-      this._rejectButtonEl = this._el.querySelector(this._options.rejectButtonSelector);
-      this._onConfirmButtonClickListener = _onConfirmButtonClick.bind(this);
-      this._onRejectButtonClickListener = _onRejectButtonClick.bind(this);
+      this._acknowledgeButtonEl = this._el.querySelector(this._options.acknowledgeButtonSelector);
+      this._onAcknowledgeButtonClickListener = _onAcknowledgeButtonClick.bind(this);
 
-      this._confirmButtonEl.addEventListener('click', this._onConfirmButtonClickListener);
-
-      this._rejectButtonEl.addEventListener('click', this._onRejectButtonClickListener);
+      this._acknowledgeButtonEl.addEventListener('click', this._onAcknowledgeButtonClickListener);
     }
   }, {
     key: "_unobserveEvents",
     value: function _unobserveEvents() {
-      _get(_getPrototypeOf(_class.prototype), "_unobserveEvents", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "_unobserveEvents", this).call(this);
 
-      this._confirmButtonEl.removeEventListener('click', this._onConfirmButtonClickListener);
-
-      this._rejectButtonEl.removeEventListener('click', this._onRejectButtonClickListener);
+      this._acknowledgeButtonEl.removeEventListener('click', this._onAcknowledgeButtonClickListener);
     }
   }, {
-    key: "confirm",
-    value: function confirm() {
+    key: "acknowledge",
+    value: function acknowledge() {
       this._hide();
 
-      this._el.dispatchEvent(new CustomEvent('dialog-confirm'));
-    }
-  }, {
-    key: "reject",
-    value: function reject() {
-      this._hide();
-
-      this._el.dispatchEvent(new CustomEvent('dialog-reject'));
+      this._el.dispatchEvent(new CustomEvent('dialog-acknowledge'));
     }
   }, {
     key: "destroy",
     value: function destroy() {
-      _get(_getPrototypeOf(_class.prototype), "destroy", this).call(this);
+      _get(_getPrototypeOf(_default.prototype), "destroy", this).call(this);
 
-      this._onConfirmButtonClickListener = null;
-      this._onRejectButtonClickListener = null;
+      this._onAcknowledgeButtonClickListener = null;
     }
   }]);
 
-  return _class;
-}(Lightbox);
+  return _default;
+}(_makeupLightboxDialog.default);
 
-function _onConfirmButtonClick() {
-  this.confirm();
-}
+exports.default = _default;
 
-function _onRejectButtonClick() {
-  this.reject();
+function _onAcknowledgeButtonClick() {
+  this.acknowledge();
 }

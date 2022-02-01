@@ -58,7 +58,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const DrawerDialog = require('makeup-drawer-dialog');
+import DrawerDialog from 'makeup-drawer-dialog';
 
 document.querySelectorAll('.drawer-dialog').forEach(function(el, i) {
     const widget = new DrawerDialog(el, config);

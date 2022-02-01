@@ -1,4 +1,4 @@
-const ConfirmDialog = require('../src/index.js');
+import DrawerDialog from '../src/index.js';
 
 const defaultMarkup = `<span class="switch">
   <span class="switch__control" role="switch" tabindex="0"></span>
@@ -8,5 +8,5 @@ const defaultMarkup = `<span class="switch">
 describe('given a confirm-dialog with default markup', function() {
     document.body.innerHTML = defaultMarkup;
 
-    const dialog1 = new ConfirmDialog(document.querySelector('.confirm-dialog'));
+    const dialog1 = new DrawerDialog(document.querySelector('.confirm-dialog'));
 });

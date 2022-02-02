@@ -1,7 +1,7 @@
 {
   "name": "makeup-next-id",
   "description": "Assign the next id in sequence to an element, if an id property does not already exist.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {

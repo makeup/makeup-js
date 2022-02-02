@@ -1,4 +1,4 @@
-const AlertDialog = require('../src/index.js');
+import FullscreenDialog from '../src/index.js';
 
 const defaultMarkup = `<span class="switch">
   <span class="switch__control" role="switch" tabindex="0"></span>
@@ -8,5 +8,5 @@ const defaultMarkup = `<span class="switch">
 describe('given a alert-dialog with default markup', function() {
     document.body.innerHTML = defaultMarkup;
 
-    const dialog1 = new AlertDialog(document.querySelector('.alert-dialog'));
+    const dialog1 = new FullscreenDialog(document.querySelector('.fullscreen-dialog'));
 });

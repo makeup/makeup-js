@@ -1,4 +1,4 @@
-const Dialog = require('makeup-dialog');
+import Dialog from 'makeup-dialog';
 
 const defaultSnackbarOptions = {
     autoDismissTimer: 6000,
@@ -7,7 +7,7 @@ const defaultSnackbarOptions = {
     transitionsModifier: 'transition'
 };
 
-module.exports = class extends Dialog {
+export default class extends Dialog {
     constructor(el, selectedOptions = {}) {
         super(el, Object.assign({}, defaultSnackbarOptions, selectedOptions));
         this._autoDismissTimeout = null;
@@ -47,7 +47,7 @@ module.exports = class extends Dialog {
         super.destroy();
         this._onCtaClickListener = null;
     }
-};
+}
 
 function _onCtaButtonClick() {
     this.cta();

@@ -1,6 +1,7 @@
-var screenreaderTrap = require('../src/index.js');
-var util = require('../src/util.js');
-var testData = require('./data.js');
+import * as screenreaderTrap from '../src/index.js';
+import * as util from '../src/util.js';
+import testData from './data.js';
+
 var trapEl;
 var onTrap;
 var onUntrap;

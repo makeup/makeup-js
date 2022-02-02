@@ -1,8 +1,6 @@
-'use strict';
-
-const nextID = require('makeup-next-id');
-const ExitEmitter = require('makeup-exit-emitter');
-const focusables = require('makeup-focusables');
+import nextID from 'makeup-next-id';
+import * as ExitEmitter from 'makeup-exit-emitter';
+import focusables from 'makeup-focusables';
 
 const defaultOptions = {
     alwaysDoFocusManagement: false,
@@ -103,7 +101,7 @@ function manageFocus(focusManagement, contentEl) {
     }
 }
 
-module.exports = class {
+export default class {
     constructor(el, selectedOptions) {
         this.options = Object.assign({}, defaultOptions, selectedOptions);
 
@@ -282,4 +280,4 @@ module.exports = class {
         this._focusExitListener = null;
         this._mouseLeaveListener = null;
     }
-};
+}

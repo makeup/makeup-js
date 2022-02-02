@@ -1,27 +1,20 @@
 # makeup-navigation-emitter
 
-Emits custom events based on keyboard navigation of one or two dimensional model.
+Emits custom `navigationModelChange` event when keyboard navigation keys (e.g ARROW-UP, ARROW-DOWN) occur on given array of elements, their container element or other associated owner.
+
+This module can be used as the underlying logic & state for both roving-tabindex and active-descendant behaviour.
 
 ## Experimental
 
-This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking
-changes. Patch releases may introduce new features, but will be backwards compatible.
-
-## Install
-
-```js
-// via npm
-npm install makeup-navigation-emitter
-
-// via yarn
-yarn add makeup-navigation-emitter
-```
+This module is still in an experimental state; until it reaches v1, all minor releases must be considered as breaking changes.
 
 ## Example 1
 
-Example support for a roving tabindex model of keyboard navigation.
+Example support for a roving tab-index model of keyboard navigation (typical of menu and tabs patterns). The list items form a one-dimensional model of navigation.
 
-Note that this module will not change focus, that is the job of an observer such as makeup-roving-tabindex.
+With keyboard focus on any list item element, arrow keys will update the underlying model.
+
+**NOTE:** this module will not actually modify the DOM or change any keyboard focus, that is the job of an observer such as makeup-roving-tabindex (which consumes this module).
 
 ```html
 <div class="widget">
@@ -34,12 +27,13 @@ Note that this module will not change focus, that is the job of an observer such
 ```
 
 ```js
-const NavigationEmitter = require('makeup-navigation-emitter');
+import NavigationEmitter from 'makeup-navigation-emitter';
 
 const widgetEl = document.querySelector('.widget');
 
 var emitter = NavigationEmitter.createLinear(widgetEl, 'li'));
 
+// the navigationModelChange event will trigger when using UP/DOWN arrow keys on any element in model
 widgetEl.addEventListener('navigationModelChange', function(e) {
     console.log(e.detail.fromIndex, e.detail.toIndex);
 });
@@ -47,9 +41,9 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 
 ## Example 2
 
-Example support for an active descendant model of navigation with focus on ancestor of items.
+Example support for an active descendant model of navigation with keyboard focus on ancestor of items (typical of listbox pattern). Again, the list items form a one-dimensional model of navigation.
 
-Note that this module will not highlight the active item, that is the job of an observer such as makeup-active-descendant.
+With keyboard focus on the widget, arrow keys will update the underlying model.
 
 ```html
 <div class="widget" tabindex="0">
@@ -62,7 +56,7 @@ Note that this module will not highlight the active item, that is the job of an 
 ```
 
 ```js
-const NavigationEmitter = require('makeup-navigation-emitter');
+import NavigationEmitter from 'makeup-navigation-emitter';
 
 const widgetEl = document.querySelector('.widget');
 
@@ -75,7 +69,9 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 
 ## Example 3
 
-Example support for an active descendant model of navigation with focus on non-ancestor of items.
+Example support for an active descendant model of navigation with focus on non-ancestor of items (typical of combobox pattern). Once more, the list elements form the one-dimensional model.
+
+With keyboard focus on the textbox, arrow keys will update the underlying model.
 
 Note that this module will not highlight the active item, that is the job of an observer such as makeup-active-descendant.
 
@@ -91,7 +87,7 @@ Note that this module will not highlight the active item, that is the job of an 
 ```
 
 ```js
-const NavigationEmitter = require('makeup-navigation-emitter');
+import NavigationEmitter from 'makeup-navigation-emitter';
 
 const widgetEl = document.querySelector('.widget');
 

@@ -4,23 +4,12 @@ Implements a roving tab index on given collection of elements
 
 ## Experimental
 
-This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
-
-## Install
-
-```js
-// via npm
-npm install makeup-roving-tabindex
-
-// via yarn
-yarn add makeup-roving-tabindex
-```
+This module is still in an experimental state, until it reaches v1 you must consider all minor releases as breaking changes.
 
 ## Example
 
 ```js
-// require the module
-const RovingTabindex = require('makeup-roving-tabindex');
+import * as RovingTabindex from 'makeup-roving-tabindex';
 
 // get an element reference
 const widgetEl = document.querySelector('.widget');

@@ -1,4 +1,4 @@
-const Lightbox = require('makeup-lightbox-dialog');
+import Lightbox from 'makeup-lightbox-dialog';
 
 const defaultAlertOptions = {
     baseClass: 'alert-dialog',
@@ -8,7 +8,7 @@ const defaultAlertOptions = {
     windowSelector: '.alert-dialog__window'
 };
 
-module.exports = class extends Lightbox {
+export default class extends Lightbox {
     constructor(el, selectedOptions = {}) {
         super(el, Object.assign({}, defaultAlertOptions, selectedOptions));
     }
@@ -38,7 +38,7 @@ module.exports = class extends Lightbox {
 
         this._onAcknowledgeButtonClickListener = null;
     }
-};
+}
 
 function _onAcknowledgeButtonClick() {
     this.acknowledge();

@@ -1,4 +1,8 @@
-const focusable = require('../../packages/makeup-focusables');
+// REQUIRE
+//const focusables = require('../../packages/makeup-focusables').default;
+
+// IMPORT
+import focusables from '../../packages/makeup-focusables';
 
 const listEl = document.getElementById('list');
 const appender1 = document.getElementById('appender1');
@@ -23,7 +27,7 @@ function onButtonClick(e) {
     listItem.innerText = `Item ${listEl.childNodes.length}`;
     listEl.appendChild(listItem);
 
-    const focusableEls = focusable(listEl);
+    const focusableEls = focusables(listEl);
     output.innerText = focusableEls.length;
 }
 

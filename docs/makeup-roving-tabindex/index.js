@@ -1,4 +1,8 @@
-const RovingTabindex = require('../../packages/makeup-roving-tabindex');
+// REQUIRE
+//const RovingTabindex = require('../../packages/makeup-roving-tabindex');
+
+// IMPORT
+import * as RovingTabindex from '../../packages/makeup-roving-tabindex';
 
 const rovers = [];
 const appender = document.getElementById('appender');

@@ -4,17 +4,7 @@ Creates the basic interactivity for an element that expands and collapses anothe
 
 ## Experimental
 
-This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
-
-## Install
-
-```js
-// via npm
-npm install makeup-expander
-
-// via yarn
-yarn add makeup-expander
-```
+This module is still in an experimental state, until it reaches v1 you must consider all minor releases as breaking changes.
 
 ## Example 1: Requires aria-expanded only
 
@@ -34,8 +24,7 @@ In the first example, our expanded content is adjacent to the host element.
 ```
 
 ```js
-// import the module
-const Expander = require('makeup-expander');
+import Expander from 'makeup-expander';
 
 // get an element reference
 const widgetEl = document.querySelector('.expander');
@@ -49,7 +38,7 @@ const options = {
 const widget = new Expander(widgetEl, options);
 ```
 
-Clicking the button will now toggle it's aria-expanded state. CSS can be used to display the content accordingly, for example:
+Clicking the button will now toggle its aria-expanded state. CSS can be used to display the content accordingly, for example:
 
 ```css
 .expander__content {
@@ -144,8 +133,3 @@ Set the following properties to true or false to enable or disable the behaviour
 * [makeup-exit-emitter](https://github.com/makeup/makeup-js/tree/master/packages/makeup-exit-emitter)
 * [makeup-focusables](https://github.com/makeup/makeup-js/tree/master/packages/makeup-focusables)
 * [makeup-next-id](https://github.com/makeup/makeup-js/tree/master/packages/makeup-next-id)
-* [custom-event](https://github.com/webmodules/custom-event) (for IE)
-
-## Polyfills
-
-None

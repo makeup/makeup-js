@@ -1,4 +1,4 @@
-const Menu = require('../src/index.js');
+import Menu from '../src/index.js';
 
 const defaultMarkup = `<span class="switch">
   <span class="switch__control" role="switch" tabindex="0"></span>

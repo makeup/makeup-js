@@ -1,11 +1,11 @@
-const RovingTabIndex = require('makeup-roving-tabindex');
-const PreventScrollKeys = require('makeup-prevent-scroll-keys');
+import * as RovingTabIndex from 'makeup-roving-tabindex';
+import * as PreventScrollKeys from 'makeup-prevent-scroll-keys';
 
 const defaultOptions = {
     customElementMode: false
 };
 
-module.exports = class {
+export default class {
     constructor(widgetEl, selectedOptions) {
         this._options = Object.assign({}, defaultOptions, selectedOptions);
 
@@ -107,7 +107,7 @@ module.exports = class {
         this._onClickListener = null;
         this._onMutationListener = null;
     }
-};
+}
 
 function _onMutation(mutationsList) {
     for (const mutation of mutationsList) {

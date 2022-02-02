@@ -41,7 +41,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const Combobox = require('makeup-combobox');
+import Combobox from 'makeup-combobox';
 
 document.querySelectorAll('.combobox').forEach(function(el, i) {
     const widget = new Combobox(el, config);

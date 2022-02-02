@@ -4,10 +4,10 @@ Sets an element to a modal state using [makeup-keyboard-trap](https://github.com
 
 ## Experimental
 
-This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
+This module is still in an experimental state, until it reaches v1 you must consider all minor releases as breaking changes.
 
 ```js
-const modal = require('makeup-modal');
+import * as modal from 'makeup-modal';
 
 // set an element to modal
 modal.modal(document.querySelector('el'));

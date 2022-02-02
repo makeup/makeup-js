@@ -1,5 +1,3 @@
-'use strict';
-
 const defaultOptions = {
     labelElementAnimateModifier: 'floating-label__label--animate',
     labelElementInlineModifier: 'floating-label__label--inline',
@@ -137,7 +135,7 @@ function _onFocus() {
     }
 }
 
-module.exports = class {
+export default class {
     constructor(el, userOptions) {
         this.options = Object.assign({}, defaultOptions, userOptions);
 
@@ -187,4 +185,4 @@ module.exports = class {
             this.labelEl.classList.add(this.options.labelElementFocusModifier);
         }
     }
-};
+}

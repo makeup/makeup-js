@@ -33,7 +33,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const AlertDialog = require('makeup-alert-dialog');
+import AlertDialog from 'makeup-alert-dialog';
 
 document.querySelectorAll('.alert-dialog').forEach(function(el, i) {
     const widget = new AlertDialog(el, config);

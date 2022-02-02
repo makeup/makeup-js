@@ -6,8 +6,8 @@
 * This code has been copied from Skin & MIND Patterns and has not yet been cleaned up.
 */
 
-const ActiveDescendant = require('makeup-active-descendant');
-const PreventScrollKeys = require('makeup-prevent-scroll-keys');
+import * as ActiveDescendant from 'makeup-active-descendant';
+import * as PreventScrollKeys from 'makeup-prevent-scroll-keys';
 
 const defaultOptions = {
     activeDescendantClassName: 'listbox__option--active', // the classname applied to the current active desdcendant
@@ -20,7 +20,7 @@ const defaultOptions = {
     useAriaChecked: true // doubles up on support for aria-selected to announce visible selected/checked state
 };
 
-module.exports = class {
+export default class {
     constructor(widgetEl, selectedOptions) {
         this._options = Object.assign({}, defaultOptions, selectedOptions);
 
@@ -168,7 +168,7 @@ module.exports = class {
         this._onActiveDescendantChangeListener = null;
         this._onMutationListener = null;
     }
-};
+}
 
 /*
 *   For listbox with auto select, the first keyboard focus should set selection to first option

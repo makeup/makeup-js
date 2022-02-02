@@ -1,4 +1,4 @@
-const Dialog = require('makeup-dialog');
+import Dialog from 'makeup-dialog';
 
 const defaultToastOptions = {
     baseClass: 'toast-dialog',
@@ -7,7 +7,7 @@ const defaultToastOptions = {
     transitionsModifier: 'transition'
 };
 
-module.exports = class extends Dialog {
+export default class extends Dialog {
     constructor(el, selectedOptions = {}) {
         super(el, Object.assign({}, defaultToastOptions, selectedOptions));
     }
@@ -44,7 +44,7 @@ module.exports = class extends Dialog {
         super.destroy();
         this._onCtaClickListener = null;
     }
-};
+}
 
 function _onCtaButtonClick() {
     this.cta();

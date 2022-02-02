@@ -1,6 +1,6 @@
-const Modal = require('makeup-modal');
-const focusables = require('makeup-focusables');
-const transition = require('./transition.js');
+import * as Modal from 'makeup-modal';
+import focusables from 'makeup-focusables';
+import transition from './transition.js';
 
 const defaultDialogOptions = {
     baseClass: 'dialog',
@@ -11,7 +11,7 @@ const defaultDialogOptions = {
     transitionsModifier: 'mask-fade'
 };
 
-module.exports = class {
+export default class {
     constructor(widgetEl, selectedOptions) {
         this._options = Object.assign({}, defaultDialogOptions, selectedOptions);
 
@@ -135,7 +135,7 @@ module.exports = class {
         this._onCloseTransitionEndCallback = null;
         this._autoDismissTimeout = null;
     }
-};
+}
 
 function _doModalFocusManagement(dialogWidget) {
     const autoFocusEl = dialogWidget._el.querySelector('[autofocus]');

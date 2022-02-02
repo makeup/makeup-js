@@ -1,6 +1,4 @@
-'use strict';
-
-const nextID = require('makeup-next-id');
+import nextID from 'makeup-next-id';
 const focusExitEmitters = {};
 
 function doFocusExit(el, fromElement, toElement) {
@@ -58,7 +56,7 @@ class FocusExitEmitter {
     }
 }
 
-function addFocusExit(el) {
+export function addFocusExit(el) {
     let exitEmitter = null;
 
     nextID(el);
@@ -71,7 +69,7 @@ function addFocusExit(el) {
     return exitEmitter;
 }
 
-function removeFocusExit(el) {
+export function removeFocusExit(el) {
     const exitEmitter = focusExitEmitters[el.id];
 
     if (exitEmitter) {
@@ -79,8 +77,3 @@ function removeFocusExit(el) {
         delete focusExitEmitters[el.id];
     }
 }
-
-module.exports = {
-    addFocusExit,
-    removeFocusExit
-};

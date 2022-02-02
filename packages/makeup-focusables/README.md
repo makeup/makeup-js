@@ -4,17 +4,7 @@ Returns an array of all focusable descendants of the given element.
 
 ## Experimental
 
-This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
-
-## Install
-
-```js
-// via npm
-npm install makeup-focusables
-
-// via yarn
-yarn add makeup-focusables
-```
+This module is still in an experimental state, until it reaches v1 you must consider all minor releases as breaking changes.
 
 ## Example
 
@@ -30,8 +20,7 @@ Markup:
 ```
 
 ```js
-// require the module
-const focusables = require('makeup-focusables');
+import focusables from 'makeup-focusables';
 
 // get element reference
 const widgetEl = document.querySelector('.widget');
@@ -54,13 +43,5 @@ console.log(keyboardItems.length) // outputs: 2
 * `callback`: if set, will call focusables after `requestAnimationFrame` and will pass the list of focusables in a callback method
 
 ## Custom Events
-
-* None
-
-## Dependencies
-
-* None
-
-## Polyfills
 
 * None

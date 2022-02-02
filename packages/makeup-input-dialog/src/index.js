@@ -1,4 +1,4 @@
-const Lightbox = require('makeup-lightbox-dialog');
+import Lightbox from 'makeup-lightbox-dialog';
 
 const defaultInputOptions = {
     baseClass: 'lightbox-dialog',
@@ -8,7 +8,7 @@ const defaultInputOptions = {
     windowSelector: '.lightbox-dialog__window'
 };
 
-module.exports = class extends Lightbox {
+export default class extends Lightbox {
     constructor(el, selectedOptions = {}) {
         super(el, Object.assign({}, defaultInputOptions, selectedOptions));
     }
@@ -51,7 +51,7 @@ module.exports = class extends Lightbox {
         this._onSubmitButtonClickListener = null;
         this._onCancelButtonClickListener = null;
     }
-};
+}
 
 function _onSubmitButtonClick() {
     this.submit();

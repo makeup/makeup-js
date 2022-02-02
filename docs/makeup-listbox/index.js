@@ -1,7 +1,11 @@
 import "../docs.css";
 import "@ebay/skin/listbox";
 
-const Listbox = require('../../packages/makeup-listbox');
+// REQUIRE
+// const Listbox = require('../../packages/makeup-listbox').default;
+
+// IMPORT
+import Listbox from '../../packages/makeup-listbox';
 
 window.onload = function() {
     document.querySelectorAll('.listbox').forEach(function(el, i) {

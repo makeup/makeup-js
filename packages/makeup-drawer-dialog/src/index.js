@@ -1,4 +1,4 @@
-const Lightbox = require('makeup-lightbox-dialog');
+import Lightbox from 'makeup-lightbox-dialog';
 
 const defaultDrawerOptions = {
     baseClass: 'drawer-dialog',
@@ -9,7 +9,7 @@ const defaultDrawerOptions = {
     windowSelector: '.drawer-dialog__window'
 };
 
-module.exports = class extends Lightbox {
+export default class extends Lightbox {
     constructor(el, selectedOptions = {}) {
         super(el, Object.assign({}, defaultDrawerOptions, selectedOptions));
     }
@@ -39,7 +39,7 @@ module.exports = class extends Lightbox {
 
         this._onResizeButtonClickListener = null;
     }
-};
+}
 
 function _onResizeButtonClick() {
     this.resize();

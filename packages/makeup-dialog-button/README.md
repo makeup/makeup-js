@@ -23,8 +23,8 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const DialogButton = require('makeup-dialog-button');
-const LightboxDialog = require('makeup-lightbox-dialog');
+import DialogButton from 'makeup-dialog-button';
+import LightboxDialog from 'makeup-lightbox-dialog';
 
 document.querySelectorAll('.dialog-button').forEach(function(el, i) {
     const dialogEl = document.getElementById(el.dataset.makeupFor);

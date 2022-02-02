@@ -1,6 +1,4 @@
-'use strict';
-
-function typeahead() {
+export default function() {
     let timeout;
     let typeStr = '';
     return {
@@ -30,5 +28,3 @@ function typeahead() {
         }
     };
 }
-
-module.exports = typeahead;

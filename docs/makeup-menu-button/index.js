@@ -2,7 +2,11 @@ import "../docs.css";
 import "@ebay/skin/expand-button";
 import "@ebay/skin/menu-button";
 
-const MenuButton = require('../../packages/makeup-menu-button');
+// REQUIRE
+// const MenuButton = require('../../packages/makeup-menu-button').default;
+
+// IMPORT
+import MenuButton from '../../packages/makeup-menu-button';
 
 window.onload = function() {
     document.querySelectorAll('.menu-button').forEach(function(el, i) {

@@ -2,19 +2,29 @@
   "name": "makeup-toast-dialog",
   "description": "JavaScript class representing a toast dialog",
   "version": "0.0.2",
-  "main": "dist/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-toast-dialog",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src --out-dir dist"
+    "compile": "npm run compile:mjs && npm run compile:cjs",
+    "compile:mjs": "esbuild src/index.js --outfile=dist/mjs/index.js --format=esm",
+    "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js"
   },
   "dependencies": {
     "makeup-dialog": "~0.3.1"
   },
   "files": [
     "browser.json",
-    "dist/index.js",
+    "dist/cjs/index.js",
+    "dist/mjs/index.js",
     "package-lock.json"
   ],
   "browserslist": [

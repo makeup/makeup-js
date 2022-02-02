@@ -2,7 +2,7 @@ const defaultOptions = {
     customElementMode: false
 };
 
-module.exports = class {
+export default class {
     constructor(widgetEl, dialog, selectedOptions) {
         this._options = Object.assign({}, defaultOptions, selectedOptions);
 
@@ -63,7 +63,7 @@ module.exports = class {
         this._onDialogCloseListener = null;
         this._onMutationListener = null;
     }
-};
+}
 
 function _onMutation(mutationsList) {
     for (const mutation of mutationsList) {

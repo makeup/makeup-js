@@ -1,5 +1,6 @@
-var modal = require('../src/index.js');
-var testData = require('./data.js');
+import * as modal from '../src/index.js';
+import testData from './data.js';
+
 var modalEl;
 var onModal;
 var onUnmodal;

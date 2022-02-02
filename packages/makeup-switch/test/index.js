@@ -1,4 +1,4 @@
-const MakeupSwitch = require('../src/index.js');
+import MakeupSwitch from '../src/index.js';
 
 const defaultMarkup = `<span class="switch">
   <span class="switch__control" role="switch" tabindex="0"></span>
@@ -53,7 +53,7 @@ describe('given a switch that is unchecked', function() {
     document.body.innerHTML = defaultMarkup;
     const switchEl = document.querySelector('.switch');
 
-    onToggle = jasmine.createSpy('onToggle');
+    let onToggle = jasmine.createSpy('onToggle');
     switchEl.addEventListener('makeup-switch-toggle', onToggle);
 
     const switch1 = new MakeupSwitch(switchEl);

@@ -1,7 +1,7 @@
 'use strict';
 
-const NavigationEmitter = require('makeup-navigation-emitter');
-const nextID = require('makeup-next-id');
+import * as NavigationEmitter from 'makeup-navigation-emitter';
+import nextID from 'makeup-next-id';
 
 const defaultOptions = {
     activeDescendantClassName: 'active-descendant',
@@ -174,6 +174,4 @@ function createLinear(el, focusEl, containerEl, itemSelector, selectedOptions) {
     return new LinearActiveDescendant(el, focusEl, containerEl, itemSelector, selectedOptions);
 }
 
-module.exports = {
-    createLinear
-};
+export { createLinear };

@@ -176,7 +176,7 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-const MenuButton = require('makeup-menu-button');
+import MenuButton from 'makeup-menu-button';
 
 document.querySelectorAll('.menu-button').forEach(function(el, i) {
     const widget = new MenuButton(el, config);

@@ -1,8 +1,10 @@
-'use strict';
+import * as KeyEmitter from 'makeup-key-emitter';
+import * as ExitEmitter from 'makeup-exit-emitter';
 
-const KeyEmitter = require('makeup-key-emitter');
-const ExitEmitter = require('makeup-exit-emitter');
 const dataSetKey = 'data-makeup-index';
+
+// todo: autoInit: -1, autoReset: -1 are used for activeDescendant behaviour. These values can be abstracted away with
+// a new "type" option (roving or active)
 
 const defaultOptions = {
     axis: 'both',
@@ -226,18 +228,18 @@ class NavigationEmitter {
 
         this._observer.disconnect();
     }
-
-    static createLinear(el, itemSelector, selectedOptions) {
-        const model = new LinearNavigationModel(el, itemSelector, selectedOptions);
-
-        return new NavigationEmitter(el, model);
-    }
-
-    /*
-    static createGrid(el, rowSelector, colSelector, selectedOptions) {
-        return null;
-    }
-    */
 }
 
-module.exports = NavigationEmitter;
+function createLinear(el, itemSelector, selectedOptions) {
+    const model = new LinearNavigationModel(el, itemSelector, selectedOptions);
+
+    return new NavigationEmitter(el, model);
+}
+
+/*
+static createGrid(el, rowSelector, colSelector, selectedOptions) {
+    return null;
+}
+*/
+
+export { createLinear };

@@ -1,8 +1,8 @@
 // REQUIRE
-const keyboardTrap = require('../../packages/makeup-keyboard-trap');
+// const keyboardTrap = require('../../packages/makeup-keyboard-trap');
 
 // IMPORT
-//import * as keyboardTrap from '../../packages/makeup-keyboard-trap';
+import * as keyboardTrap from '../../packages/makeup-keyboard-trap';
 
 const trap = document.getElementById('trap');
 const btn = document.querySelector('button');

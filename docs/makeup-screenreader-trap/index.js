@@ -1,5 +1,5 @@
 // REQUIRE
-//const screenreaderTrap = require('../../packages/makeup-screenreader-trap');
+// const screenreaderTrap = require('../../packages/makeup-screenreader-trap');
 
 // IMPORT
 import * as screenreaderTrap from '../../packages/makeup-screenreader-trap';

@@ -1,7 +1,7 @@
 {
   "name": "makeup-dialog",
   "description": "Abstract class representing the base behaviour for a modal or non-modal ARIA dialog",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "main": "./dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "exports": {
@@ -20,8 +20,8 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-focusables": "^0.2.0",
-    "makeup-modal": "^0.3.0"
+    "makeup-focusables": "^0.3.0",
+    "makeup-modal": "^0.4.0"
   },
   "files": [
     "browser.json",

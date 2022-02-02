@@ -20,7 +20,7 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-dialog": "^0.3.0"
+    "makeup-dialog": "^0.3.1"
   },
   "files": [
     "browser.json",

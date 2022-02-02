@@ -20,7 +20,7 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-expander": "~0.9.0",
+    "makeup-expander": "~0.9.1",
     "makeup-listbox": "~0.1.0"
   },
   "files": [

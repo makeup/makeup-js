@@ -20,8 +20,8 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-prevent-scroll-keys": "~0.1.0",
-    "makeup-active-descendant": "~0.4.0"
+    "makeup-prevent-scroll-keys": "~0.1.1",
+    "makeup-active-descendant": "~0.4.1"
   },
   "files": [
     "browser.json",

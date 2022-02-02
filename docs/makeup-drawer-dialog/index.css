@@ -586,6 +586,7 @@ svg.icon--sign-out {
 svg.icon--star-empty {
   height: 22px;
   width: 22px;
+  color: var(--color-text-disabled, #c7c7c7);
 }
 svg.icon--star-filled {
   height: 22px;
@@ -861,6 +862,12 @@ svg.icon--small-letter {
 svg.icon--star-filled-empty-small {
   height: 15px;
   width: 15px;
+  color: var(--color-text-disabled, #c7c7c7);
+}
+svg.icon--star-empty-small {
+  height: 15px;
+  width: 15px;
+  color: var(--color-text-disabled, #c7c7c7);
 }
 svg.icon--star-filled-small {
   height: 15px;
@@ -897,6 +904,51 @@ svg.icon--tick-small {
 svg.icon--truck-small {
   height: 13px;
   width: 16px;
+}
+svg.icon--social-link {
+  color: var(--color-social-icons-background, #000);
+  height: 24px;
+  width: 23px;
+}
+svg.icon--social-discord {
+  color: var(--color-social-icons-background, #000);
+  height: 18px;
+  width: 24px;
+}
+svg.icon--social-facebook {
+  color: var(--color-social-icons-background, #000);
+  height: 24px;
+  width: 24px;
+}
+svg.icon--social-messenger {
+  color: var(--color-social-icons-background, #000);
+  height: 24px;
+  width: 24px;
+}
+svg.icon--social-pinterest {
+  color: var(--color-social-icons-background, #000);
+  height: 24px;
+  width: 24px;
+}
+svg.icon--social-reddit {
+  color: var(--color-social-icons-background, #000);
+  height: 24px;
+  width: 24px;
+}
+svg.icon--social-twitter {
+  color: var(--color-social-icons-background, #000);
+  height: 19px;
+  width: 24px;
+}
+svg.icon--social-whatsapp {
+  color: var(--color-social-icons-background, #000);
+  height: 24px;
+  width: 24px;
+}
+svg.icon--social-linkedin {
+  color: var(--color-social-icons-background, #000);
+  height: 22px;
+  width: 22px;
 }
 [dir="rtl"] svg.icon--back,
 [dir="rtl"] svg.icon--breadcrumb,
@@ -1008,6 +1060,42 @@ a.icon-link--badged .badge {
   position: absolute;
   top: -12px;
   z-index: 1;
+}
+button.icon-btn > svg.icon--confirmation-filled,
+button.icon-btn > svg.icon--confirmation-filled-small,
+a.icon-link > svg.icon--confirmation-filled,
+a.icon-link > svg.icon--confirmation-filled-small {
+  fill: var(--color-status-confirmation, #05823f);
+}
+button.icon-btn > svg.icon--confirmation-filled:hover,
+button.icon-btn > svg.icon--confirmation-filled-small:hover,
+a.icon-link > svg.icon--confirmation-filled:hover,
+a.icon-link > svg.icon--confirmation-filled-small:hover {
+  fill: var(--color-status-confirmation, #05823f);
+}
+button.icon-btn > svg.icon--attention-filled,
+button.icon-btn > svg.icon--attention-filled-small,
+a.icon-link > svg.icon--attention-filled,
+a.icon-link > svg.icon--attention-filled-small {
+  fill: var(--color-status-attention, #e0103a);
+}
+button.icon-btn > svg.icon--attention-filled:hover,
+button.icon-btn > svg.icon--attention-filled-small:hover,
+a.icon-link > svg.icon--attention-filled:hover,
+a.icon-link > svg.icon--attention-filled-small:hover {
+  fill: var(--color-status-attention, #e0103a);
+}
+button.icon-btn > svg.icon--information-filled,
+button.icon-btn > svg.icon--information-filled-small,
+a.icon-link > svg.icon--information-filled,
+a.icon-link > svg.icon--information-filled-small {
+  fill: var(--color-status-information, #3665f3);
+}
+button.icon-btn > svg.icon--information-filled:hover,
+button.icon-btn > svg.icon--information-filled-small:hover,
+a.icon-link > svg.icon--information-filled:hover,
+a.icon-link > svg.icon--information-filled-small:hover {
+  fill: var(--color-status-information, #3665f3);
 }
 
 /* large screens */

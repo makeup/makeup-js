@@ -20,8 +20,8 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-expander": "~0.9.0",
-    "makeup-menu": "~0.1.0"
+    "makeup-expander": "~0.9.1",
+    "makeup-menu": "~0.1.1"
   },
   "files": [
     "browser.json",

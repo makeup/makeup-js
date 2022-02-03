@@ -1,7 +1,7 @@
 {
   "name": "makeup-toast-dialog",
   "description": "JavaScript class representing a toast dialog",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -19,7 +19,7 @@
     "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js"
   },
   "dependencies": {
-    "makeup-dialog": "~0.3.1"
+    "makeup-dialog": "~0.4.0"
   },
   "files": [
     "browser.json",

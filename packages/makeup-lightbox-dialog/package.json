@@ -1,7 +1,7 @@
 {
   "name": "makeup-lightbox-dialog",
   "description": "JavaScript class representing a generic lightbox dialog",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -20,7 +20,7 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-dialog": "^0.3.1"
+    "makeup-dialog": "^0.4.0"
   },
   "files": [
     "browser.json",

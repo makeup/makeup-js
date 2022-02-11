@@ -1,9 +1,9 @@
 {
   "name": "makeup-screenreader-trap",
   "description": "Restricts screen reader virtual cursor to a single subtree in the DOM",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "./dist/cjs/index.js",
-  "module": "dist/mjs/index.js",
+  "module": "./dist/mjs/index.js",
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",

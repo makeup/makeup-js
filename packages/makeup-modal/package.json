@@ -26,8 +26,8 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-keyboard-trap": "~0.4.0",
-    "makeup-screenreader-trap": "~0.4.0"
+    "makeup-keyboard-trap": "~0.4.1",
+    "makeup-screenreader-trap": "~0.4.1"
   },
   "files": [
     "browser.json",

@@ -6,6 +6,7 @@ import * as ActiveDescendant from '../../packages/makeup-active-descendant';
 
 const navs = [];
 const appender = document.getElementById('appender');
+const remover = document.getElementById('remover');
 const widgetEls = document.querySelectorAll('.widget');
 const wrapCheckbox = document.getElementById('wrap');
 
@@ -17,6 +18,14 @@ appender.addEventListener('click', function() {
         const numListItems = parseInt(list.querySelectorAll('li').length, 10);
         newListItem.innerText = `Item ${numListItems}`;
         list.appendChild(newListItem);
+    });
+});
+
+remover.addEventListener('click', function() {
+    widgetEls.forEach(function(el) {
+        const list = el.querySelector('ul');
+        const node = list.lastElementChild;
+        list.removeChild(node);
     });
 });
 

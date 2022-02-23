@@ -88,6 +88,11 @@ function onMutation() {
     // set data-makeup-index only on filtered items (e.g. non-hidden ones)
     setData(this.filteredItems);
 
+    if (this.index >= this.items.length) {
+        // do not use index setter, it will trigger change event
+        this._index = this.options.autoReset || this.options.autoInit;
+    }
+
     this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
 }
 

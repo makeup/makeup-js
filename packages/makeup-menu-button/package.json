@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "makeup-expander": "~0.10.0",
-    "makeup-menu": "~0.2.0"
+    "makeup-menu": "~0.2.1"
   },
   "files": [
     "browser.json",

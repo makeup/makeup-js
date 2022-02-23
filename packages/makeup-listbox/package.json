@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "makeup-prevent-scroll-keys": "~0.2.0",
-    "makeup-active-descendant": "~0.5.0"
+    "makeup-active-descendant": "~0.5.1"
   },
   "files": [
     "browser.json",

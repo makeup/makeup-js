@@ -1,7 +1,7 @@
 {
   "name": "makeup-roving-tabindex",
   "description": "Implements a roving tab index on given collection of elements",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "main": "./dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "exports": {

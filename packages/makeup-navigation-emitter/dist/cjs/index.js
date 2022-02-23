@@ -122,6 +122,11 @@ function onMutation() {
 
   setData(this.filteredItems);
 
+  if (this.index >= this.items.length) {
+    // do not use index setter, it will trigger change event
+    this._index = this.options.autoReset || this.options.autoInit;
+  }
+
   this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
 }
 

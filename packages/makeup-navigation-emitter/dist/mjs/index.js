@@ -65,6 +65,9 @@ function onFocusExit() {
 function onMutation() {
   clearData(this.items);
   setData(this.filteredItems);
+  if (this.index >= this.items.length) {
+    this._index = this.options.autoReset || this.options.autoInit;
+  }
   this._el.dispatchEvent(new CustomEvent("navigationModelMutation"));
 }
 class NavigationModel {

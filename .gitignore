@@ -1,7 +1,0 @@
-logs
-*.log
-*.log*
-*.compiled.js
-node_modules
-coverage
-.DS_Store

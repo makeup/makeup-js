@@ -94,6 +94,8 @@ var _default = /*#__PURE__*/function () {
   }, {
     key: "_show",
     value: function _show() {
+      var _this = this;
+
       if (this._hasTransitions) {
         if (this._cancelTransition) {
           this._cancelTransition();
@@ -102,7 +104,9 @@ var _default = /*#__PURE__*/function () {
         this._cancelTransition = (0, _transition.default)(this._el, "".concat(this._options.baseClass, "--show"), this._onOpenTransitionEndCallback);
       } else {
         if (this.modal) {
-          _doModalFocusManagement(this);
+          setTimeout(function () {
+            return _doModalFocusManagement(_this);
+          }, 50);
         }
 
         this._el.hidden = false;

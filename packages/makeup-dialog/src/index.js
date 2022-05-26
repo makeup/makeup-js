@@ -78,7 +78,7 @@ export default class {
             );
         } else {
             if (this.modal) {
-                _doModalFocusManagement(this);
+                setTimeout(() => _doModalFocusManagement(this), 50);
             }
             this._el.hidden = false;
         }

@@ -118,9 +118,12 @@ class src_default {
     this.formControlEl.addEventListener("focus", this._onFocusListener);
     if (!hasValue(this.formControlEl) && !isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)) {
       this.labelEl.classList.add(this.options.labelElementInlineModifier);
+    } else if (!isSelect(this.formControlEl)) {
+      this.labelEl.classList.remove(this.options.labelElementInlineModifier);
     }
     if (isFocused(this.formControlEl)) {
       this.labelEl.classList.add(this.options.labelElementFocusModifier);
+      this.labelEl.classList.remove(this.options.labelElementInlineModifier);
     }
     onMutation.call(this);
     this._observer.observe(this.formControlEl, {
@@ -141,6 +144,7 @@ class src_default {
     }
     if (isFocused(this.formControlEl)) {
       this.labelEl.classList.add(this.options.labelElementFocusModifier);
+      this.labelEl.classList.remove(this.options.labelElementInlineModifier);
     }
   }
 }

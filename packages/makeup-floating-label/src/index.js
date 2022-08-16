@@ -154,9 +154,12 @@ export default class {
         if (!hasValue(this.formControlEl) &&
             !isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)) {
             this.labelEl.classList.add(this.options.labelElementInlineModifier);
+        } else if (!isSelect(this.formControlEl)) {
+            this.labelEl.classList.remove(this.options.labelElementInlineModifier);
         }
         if (isFocused(this.formControlEl)) {
             this.labelEl.classList.add(this.options.labelElementFocusModifier);
+            this.labelEl.classList.remove(this.options.labelElementInlineModifier);
         }
 
         onMutation.call(this);
@@ -183,6 +186,7 @@ export default class {
         }
         if (isFocused(this.formControlEl)) {
             this.labelEl.classList.add(this.options.labelElementFocusModifier);
+            this.labelEl.classList.remove(this.options.labelElementInlineModifier);
         }
     }
 }

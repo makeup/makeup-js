@@ -24,16 +24,18 @@ class src_default {
   select(index) {
     this._unobserveMutations();
     const el = this.items[index];
-    switch (el.getAttribute("role")) {
-      case "menuitemcheckbox":
-        _selectMenuItemCheckbox(this.el, el);
-        break;
-      case "menuitemradio":
-        _selectMenuItemRadio(this.el, el);
-        break;
-      default:
-        _selectMenuItem(this.el, el);
-        break;
+    if (el.ariaDisabled !== "true" && !el.disabled) {
+      switch (el.getAttribute("role")) {
+        case "menuitemcheckbox":
+          _selectMenuItemCheckbox(this.el, el);
+          break;
+        case "menuitemradio":
+          _selectMenuItemRadio(this.el, el);
+          break;
+        default:
+          _selectMenuItem(this.el, el);
+          break;
+      }
     }
     this._observeMutations();
   }

@@ -24,6 +24,9 @@ function onModelMutation() {
 function onModelChange(e) {
   const fromItem = this.filteredItems[e.detail.fromIndex];
   const toItem = this.filteredItems[e.detail.toIndex];
+  if (toItem.ariaDisabled === "true" || toItem.disabled) {
+    return;
+  }
   if (fromItem) {
     fromItem.classList.remove(this._options.activeDescendantClassName);
   }

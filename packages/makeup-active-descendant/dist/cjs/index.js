@@ -66,6 +66,11 @@ function onModelChange(e) {
   var fromItem = this.filteredItems[e.detail.fromIndex];
   var toItem = this.filteredItems[e.detail.toIndex];
 
+  if (toItem.ariaDisabled === 'true' || toItem.disabled) {
+    // cancel change if item is disabled
+    return;
+  }
+
   if (fromItem) {
     fromItem.classList.remove(this._options.activeDescendantClassName);
   }

@@ -64,22 +64,60 @@ function isButton(el) {
   return el.tagName.toLowerCase() === 'button' || el.type === 'button';
 }
 
+function isDisabled(el) {
+  return el.ariaDisabled === 'true' || el.disabled;
+}
+
+function firstActiveIndex(items) {
+  var index = 0;
+
+  while (index < items.length && isDisabled(items[index])) {
+    index++;
+  }
+
+  return index;
+}
+
+function lastActiveIndex(items) {
+  var index = items.length - 1;
+
+  while (index >= 0 && isDisabled(items[index])) {
+    index--;
+  }
+
+  return index;
+}
+
 function onKeyPrev(e) {
   if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    if (!this.atStart()) {
-      this.index--;
+    var filteredItems = this.filteredItems;
+    var newIndex = +this.index - 1;
+
+    while (newIndex >= 0 && isDisabled(filteredItems[newIndex])) {
+      newIndex--;
+    }
+
+    if (newIndex >= 0) {
+      this.index = newIndex;
     } else if (this.options.wrap) {
-      this.index = this.filteredItems.length - 1;
+      this.index = lastActiveIndex(filteredItems);
     }
   }
 }
 
 function onKeyNext(e) {
   if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    if (!this.atEnd()) {
-      this.index++;
+    var filteredItems = this.filteredItems;
+    var newIndex = +this.index + 1;
+
+    while (newIndex < filteredItems.length && isDisabled(filteredItems[newIndex])) {
+      newIndex++;
+    }
+
+    if (newIndex < filteredItems.length) {
+      this.index = newIndex;
     } else if (this.options.wrap) {
-      this.index = 0;
+      this.index = firstActiveIndex(filteredItems);
     }
   }
 }
@@ -100,13 +138,13 @@ function onClick(e) {
 
 function onKeyHome(e) {
   if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    this.index = 0;
+    this.index = firstActiveIndex(this.filteredItems);
   }
 }
 
 function onKeyEnd(e) {
   if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    this.index = this.filteredItems.length;
+    this.index = lastActiveIndex(this.filteredItems);
   }
 }
 

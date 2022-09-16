@@ -68,21 +68,23 @@ var _default = /*#__PURE__*/function () {
 
       var el = this.items[index];
 
-      switch (el.getAttribute('role')) {
-        case 'menuitemcheckbox':
-          _selectMenuItemCheckbox(this.el, el);
+      if (el.ariaDisabled !== 'true' && !el.disabled) {
+        switch (el.getAttribute('role')) {
+          case 'menuitemcheckbox':
+            _selectMenuItemCheckbox(this.el, el);
 
-          break;
+            break;
 
-        case 'menuitemradio':
-          _selectMenuItemRadio(this.el, el);
+          case 'menuitemradio':
+            _selectMenuItemRadio(this.el, el);
 
-          break;
+            break;
 
-        default:
-          _selectMenuItem(this.el, el);
+          default:
+            _selectMenuItem(this.el, el);
 
-          break;
+            break;
+        }
       }
 
       this._observeMutations();

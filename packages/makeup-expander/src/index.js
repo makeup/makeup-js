@@ -16,7 +16,8 @@ const defaultOptions = {
     expandOnHover: false,
     focusManagement: null,
     hostSelector: '.expander__host',
-    simulateSpacebarClick: false
+    simulateSpacebarClick: false,
+    useAriaExpanded: true
 };
 
 function onHostKeyDown(e) {
@@ -123,7 +124,7 @@ export default class {
         this._focusExitListener = onFocusExit.bind(this);
         this._mouseLeaveListener = onMouseLeave.bind(this);
 
-        if (this.hostEl.getAttribute('aria-expanded') === null) {
+        if (this.options.useAriaExpanded === true && this.hostEl.getAttribute('aria-expanded') === null) {
             this.hostEl.setAttribute('aria-expanded', 'false');
         }
 
@@ -227,7 +228,9 @@ export default class {
 
     set expanded(bool) {
         if (bool === true && this.expanded === false) {
-            this.hostEl.setAttribute('aria-expanded', 'true');
+            if (this.options.useAriaExpanded === true) {
+                this.hostEl.setAttribute('aria-expanded', 'true');
+            }
             if (this.options.expandedClass) {
                 this.el.classList.add(this.options.expandedClass);
             }
@@ -239,7 +242,9 @@ export default class {
         }
 
         if (bool === false && this.expanded === true) {
-            this.hostEl.setAttribute('aria-expanded', 'false');
+            if (this.options.useAriaExpanded === true) {
+                this.hostEl.setAttribute('aria-expanded', 'false');
+            }
             if (this.options.expandedClass) {
                 this.el.classList.remove(this.options.expandedClass);
             }

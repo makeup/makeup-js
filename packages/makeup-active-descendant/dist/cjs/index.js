@@ -45,7 +45,12 @@ var defaultOptions = {
   autoReset: -1,
   autoScroll: false,
   axis: 'both',
-  ignoreButtons: false
+  ignoreButtons: false,
+
+  /** @type {{[attr: string]: unknown}} */
+  ignoreByAttrs: {
+    hidden: true
+  }
 };
 
 function onModelMutation() {
@@ -156,7 +161,8 @@ var LinearActiveDescendant = /*#__PURE__*/function (_ActiveDescendant) {
       autoInit: _this._options.autoInit,
       autoReset: _this._options.autoReset,
       axis: _this._options.axis,
-      ignoreButtons: _this._options.ignoreButtons
+      ignoreButtons: _this._options.ignoreButtons,
+      ignoreByAttrs: _this._options.ignoreByAttrs
     });
     _this._focusEl = focusEl;
     _this._containerEl = containerEl;

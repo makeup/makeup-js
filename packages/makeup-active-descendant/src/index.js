@@ -9,7 +9,9 @@ const defaultOptions = {
     autoReset: -1,
     autoScroll: false,
     axis: 'both',
-    ignoreButtons: false
+    ignoreButtons: false,
+    /** @type {{[attr: string]: unknown}} */
+    ignoreByAttrs: { hidden: true }
 };
 
 function onModelMutation() {
@@ -101,7 +103,8 @@ class LinearActiveDescendant extends ActiveDescendant {
             autoInit: this._options.autoInit,
             autoReset: this._options.autoReset,
             axis: this._options.axis,
-            ignoreButtons: this._options.ignoreButtons
+            ignoreButtons: this._options.ignoreButtons,
+            ignoreByAttrs: this._options.ignoreByAttrs
         });
 
         this._focusEl = focusEl;

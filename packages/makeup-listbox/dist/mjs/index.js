@@ -25,10 +25,10 @@ class src_default {
     }
     this._activeDescendant = ActiveDescendant.createLinear(this._activeDescendantRootEl, this._options.focusableElement || this._listboxEl, this._listboxEl, "[role=option]", {
       activeDescendantClassName: this._options.activeDescendantClassName,
-      autoInit: this.index,
       autoReset: this._options.autoReset,
       axis: "y",
-      ignoreButtons: true
+      ignoreButtons: true,
+      ignoreByAttrs: { hidden: true, "aria-disabled": "true", disabled: true }
     });
     PreventScrollKeys.add(this.el);
     this._onFocusListener = _onFocus.bind(this);
@@ -79,19 +79,23 @@ class src_default {
     return [...this.items].findIndex((el) => el.getAttribute("aria-selected") === "true");
   }
   get items() {
-    return this._listboxEl.querySelectorAll("[role=option]");
+    return this._activeDescendant.items;
+  }
+  get filteredItems() {
+    return this._activeDescendant.filteredItems;
   }
   select(index) {
     this._unobserveMutations();
-    if (_indexInBounds(index, this.items.length)) {
-      this.items[index].setAttribute("aria-selected", "true");
+    const items = this.filteredItems;
+    if (_indexInBounds(index, items.length)) {
+      items[index].setAttribute("aria-selected", "true");
       if (this._options.useAriaChecked === true) {
-        this.items[index].setAttribute("aria-checked", "true");
+        items[index].setAttribute("aria-checked", "true");
       }
       this.el.dispatchEvent(new CustomEvent("makeup-listbox-change", {
         detail: {
           optionIndex: index,
-          optionValue: this.items[index].innerText
+          optionValue: items[index].innerText
         }
       }));
     }
@@ -99,10 +103,11 @@ class src_default {
   }
   unselect(index) {
     this._unobserveMutations();
-    if (_indexInBounds(index, this.items.length)) {
-      this.items[index].setAttribute("aria-selected", "false");
+    const items = this.filteredItems;
+    if (_indexInBounds(index, items.length)) {
+      items[index].setAttribute("aria-selected", "false");
       if (this._options.useAriaChecked === true) {
-        this.items[index].setAttribute("aria-checked", "false");
+        items[index].setAttribute("aria-checked", "false");
       }
     }
     this._observeMutations();
@@ -123,9 +128,10 @@ function _onFocus() {
   this._unobserveMutations();
   if (this._mouseDownFlag !== true && this._options.autoSelect === true && this.index === -1) {
     this._activeDescendant.index = 0;
-    this.items[0].setAttribute("aria-selected", "true");
+    const firstItem = this.filteredItems[0];
+    firstItem.setAttribute("aria-selected", "true");
     if (this._options.useAriaChecked === true) {
-      this.items[0].setAttribute("aria-checked", "true");
+      firstItem.setAttribute("aria-checked", "true");
     }
   }
   this._mouseDownFlag = false;
@@ -137,9 +143,9 @@ function _onMouseDown() {
 function _onKeyDown(e) {
   if (e.keyCode === 13 || e.keyCode === 32) {
     const toElIndex = this._activeDescendant.index;
-    const toEl = this.items[toElIndex];
+    const toEl = this.filteredItems[toElIndex];
     const isTolElSelected = toEl.getAttribute("aria-selected") === "true";
-    if (this._options.autoSelect === false && isTolElSelected === false) {
+    if (isTolElSelected === false && toElIndex !== void 0) {
       this.unselect(this.index);
       this.select(toElIndex);
     }
@@ -149,7 +155,7 @@ function _onClick(e) {
   const toEl = e.target.closest("[role=option]");
   const toElIndex = toEl.dataset.makeupIndex;
   const isTolElSelected = toEl.getAttribute("aria-selected") === "true";
-  if (this._options.autoSelect === false && isTolElSelected === false) {
+  if (isTolElSelected === false && toElIndex !== void 0) {
     this.unselect(this.index);
     this.select(toElIndex);
   }
@@ -159,8 +165,9 @@ function _onActiveDescendantChange(e) {
     detail: e.detail
   }));
   if (this._options.autoSelect === true) {
-    const fromEl = this.items[e.detail.fromIndex];
-    const toEl = this.items[e.detail.toIndex];
+    const items = this.filteredItems;
+    const fromEl = items[e.detail.fromIndex];
+    const toEl = items[e.detail.toIndex];
     if (fromEl) {
       this.unselect(e.detail.fromIndex);
     }

@@ -8,7 +8,8 @@ class src_default {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
     this._rovingTabIndex = RovingTabIndex.createLinear(this.el, "[role^=menuitem]", {
-      autoReset: 0
+      autoReset: 0,
+      ignoreByAttrs: { hidden: true, "aria-disabled": "true", disabled: true }
     });
     PreventScrollKeys.add(this.el);
     this._onKeyDownListener = _onKeyDown.bind(this);
@@ -22,9 +23,9 @@ class src_default {
     }
   }
   select(index) {
-    this._unobserveMutations();
-    const el = this.items[index];
-    if (el.ariaDisabled !== "true" && !el.disabled) {
+    if (index !== void 0) {
+      this._unobserveMutations();
+      const el = this.filteredItems[index];
       switch (el.getAttribute("role")) {
         case "menuitemcheckbox":
           _selectMenuItemCheckbox(this.el, el);
@@ -36,11 +37,11 @@ class src_default {
           _selectMenuItem(this.el, el);
           break;
       }
+      this._observeMutations();
     }
-    this._observeMutations();
   }
-  get items() {
-    return this.el.querySelectorAll("[role^=menuitem]");
+  get filteredItems() {
+    return this._rovingTabIndex.filteredItems;
   }
   get radioGroupNames() {
     const els = [...this.el.querySelectorAll("[role=menuitemradio][data-makeup-group]")];

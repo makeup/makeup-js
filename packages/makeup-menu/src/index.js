@@ -12,7 +12,8 @@ export default class {
         this.el = widgetEl;
 
         this._rovingTabIndex = RovingTabIndex.createLinear(this.el, '[role^=menuitem]', {
-            autoReset: 0
+            autoReset: 0,
+            ignoreByAttrs: { hidden: true, 'aria-disabled': 'true', disabled: true }
         });
 
         PreventScrollKeys.add(this.el);
@@ -31,11 +32,11 @@ export default class {
     }
 
     select(index) {
-        this._unobserveMutations();
+        if (index !== undefined) {
+            this._unobserveMutations();
 
-        const el = this.items[index];
+            const el = this.filteredItems[index];
 
-        if (el.ariaDisabled !== 'true' && !el.disabled) {
             switch (el.getAttribute('role')) {
                 case 'menuitemcheckbox':
                     _selectMenuItemCheckbox(this.el, el);
@@ -47,13 +48,13 @@ export default class {
                     _selectMenuItem(this.el, el);
                     break;
             }
-        }
 
-        this._observeMutations();
+            this._observeMutations();
+        }
     }
 
-    get items() {
-        return this.el.querySelectorAll('[role^=menuitem]');
+    get filteredItems() {
+        return this._rovingTabIndex.filteredItems;
     }
 
     get radioGroupNames() {

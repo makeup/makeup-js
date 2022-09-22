@@ -4,7 +4,8 @@ const defaultOptions = {
   autoReset: null,
   index: 0,
   wrap: false,
-  axis: "both"
+  axis: "both",
+  ignoreByAttrs: { hidden: true }
 };
 const nodeListToArray = (nodeList) => Array.prototype.slice.call(nodeList);
 function onModelMutation() {
@@ -70,7 +71,8 @@ class LinearRovingTabindex extends RovingTabindex {
       autoInit: this._options.index,
       autoReset: this._options.autoReset,
       wrap: this._options.wrap,
-      axis: this._options.axis
+      axis: this._options.axis,
+      ignoreByAttrs: this._options.ignoreByAttrs
     });
   }
   get index() {

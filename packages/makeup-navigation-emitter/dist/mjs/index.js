@@ -6,9 +6,9 @@ const defaultOptions = {
   autoInit: 0,
   autoReset: null,
   ignoreButtons: false,
-  wrap: false
+  wrap: false,
+  ignoreByAttrs: { hidden: true }
 };
-const itemFilter = (el) => !el.hidden;
 function clearData(els) {
   els.forEach((el) => el.removeAttribute(dataSetKey));
 }
@@ -18,48 +18,21 @@ function setData(els) {
 function isButton(el) {
   return el.tagName.toLowerCase() === "button" || el.type === "button";
 }
-function isDisabled(el) {
-  return el.ariaDisabled === "true" || el.disabled;
-}
-function firstActiveIndex(items) {
-  let index = 0;
-  while (index < items.length && isDisabled(items[index])) {
-    index++;
-  }
-  return index;
-}
-function lastActiveIndex(items) {
-  let index = items.length - 1;
-  while (index >= 0 && isDisabled(items[index])) {
-    index--;
-  }
-  return index;
-}
 function onKeyPrev(e) {
   if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    const filteredItems = this.filteredItems;
-    let newIndex = +this.index - 1;
-    while (newIndex >= 0 && isDisabled(filteredItems[newIndex])) {
-      newIndex--;
-    }
-    if (newIndex >= 0) {
-      this.index = newIndex;
+    if (!this.atStart()) {
+      this.index--;
     } else if (this.options.wrap) {
-      this.index = lastActiveIndex(filteredItems);
+      this.index = this.filteredItems.length - 1;
     }
   }
 }
 function onKeyNext(e) {
   if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    const filteredItems = this.filteredItems;
-    let newIndex = +this.index + 1;
-    while (newIndex < filteredItems.length && isDisabled(filteredItems[newIndex])) {
-      newIndex++;
-    }
-    if (newIndex < filteredItems.length) {
-      this.index = newIndex;
+    if (!this.atEnd()) {
+      this.index++;
     } else if (this.options.wrap) {
-      this.index = firstActiveIndex(filteredItems);
+      this.index = 0;
     }
   }
 }
@@ -76,12 +49,12 @@ function onClick(e) {
 }
 function onKeyHome(e) {
   if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    this.index = firstActiveIndex(this.filteredItems);
+    this.index = 0;
   }
 }
 function onKeyEnd(e) {
   if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    this.index = lastActiveIndex(this.filteredItems);
+    this.index = this.filteredItems.length;
   }
 }
 function onFocusExit() {
@@ -118,11 +91,14 @@ class LinearNavigationModel extends NavigationModel {
       }));
     }
   }
+  shouldIgnore(el) {
+    return !Object.entries(this.options.ignoreByAttrs).some(([attr, value]) => el.getAttribute(attr) === value);
+  }
   get items() {
     return this._el.querySelectorAll(this._itemSelector);
   }
   get filteredItems() {
-    return Array.prototype.slice.call(this.items).filter(itemFilter);
+    return [...this.items].filter((el) => this.shouldIgnore(el));
   }
   get index() {
     return this._index;
@@ -187,7 +163,7 @@ class NavigationEmitter {
     this._observer.observe(this.el, {
       childList: true,
       subtree: true,
-      attributeFilter: ["hidden"],
+      attributeFilter: Object.keys(model.options.ignoreByAttrs),
       attributes: true
     });
   }

@@ -44,7 +44,12 @@ var _default = /*#__PURE__*/function () {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
     this._rovingTabIndex = RovingTabIndex.createLinear(this.el, '[role^=menuitem]', {
-      autoReset: 0
+      autoReset: 0,
+      ignoreByAttrs: {
+        hidden: true,
+        'aria-disabled': 'true',
+        disabled: true
+      }
     });
     PreventScrollKeys.add(this.el);
     this._onKeyDownListener = _onKeyDown.bind(this);
@@ -64,11 +69,11 @@ var _default = /*#__PURE__*/function () {
   _createClass(_default, [{
     key: "select",
     value: function select(index) {
-      this._unobserveMutations();
+      if (index !== undefined) {
+        this._unobserveMutations();
 
-      var el = this.items[index];
+        var el = this.filteredItems[index];
 
-      if (el.ariaDisabled !== 'true' && !el.disabled) {
         switch (el.getAttribute('role')) {
           case 'menuitemcheckbox':
             _selectMenuItemCheckbox(this.el, el);
@@ -85,14 +90,14 @@ var _default = /*#__PURE__*/function () {
 
             break;
         }
-      }
 
-      this._observeMutations();
+        this._observeMutations();
+      }
     }
   }, {
-    key: "items",
+    key: "filteredItems",
     get: function get() {
-      return this.el.querySelectorAll('[role^=menuitem]');
+      return this._rovingTabIndex.filteredItems;
     }
   }, {
     key: "radioGroupNames",

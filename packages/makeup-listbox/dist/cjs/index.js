@@ -72,10 +72,14 @@ var _default = /*#__PURE__*/function () {
 
     this._activeDescendant = ActiveDescendant.createLinear(this._activeDescendantRootEl, this._options.focusableElement || this._listboxEl, this._listboxEl, '[role=option]', {
       activeDescendantClassName: this._options.activeDescendantClassName,
-      autoInit: this.index,
       autoReset: this._options.autoReset,
       axis: 'y',
-      ignoreButtons: true
+      ignoreButtons: true,
+      ignoreByAttrs: {
+        hidden: true,
+        'aria-disabled': 'true',
+        disabled: true
+      }
     });
     PreventScrollKeys.add(this.el);
     this._onFocusListener = _onFocus.bind(this);
@@ -152,24 +156,31 @@ var _default = /*#__PURE__*/function () {
   }, {
     key: "items",
     get: function get() {
-      return this._listboxEl.querySelectorAll('[role=option]');
+      return this._activeDescendant.items;
+    }
+  }, {
+    key: "filteredItems",
+    get: function get() {
+      return this._activeDescendant.filteredItems;
     }
   }, {
     key: "select",
     value: function select(index) {
       this._unobserveMutations();
 
-      if (_indexInBounds(index, this.items.length)) {
-        this.items[index].setAttribute('aria-selected', 'true');
+      var items = this.filteredItems;
+
+      if (_indexInBounds(index, items.length)) {
+        items[index].setAttribute('aria-selected', 'true');
 
         if (this._options.useAriaChecked === true) {
-          this.items[index].setAttribute('aria-checked', 'true');
+          items[index].setAttribute('aria-checked', 'true');
         }
 
         this.el.dispatchEvent(new CustomEvent('makeup-listbox-change', {
           detail: {
             optionIndex: index,
-            optionValue: this.items[index].innerText
+            optionValue: items[index].innerText
           }
         }));
       }
@@ -181,11 +192,13 @@ var _default = /*#__PURE__*/function () {
     value: function unselect(index) {
       this._unobserveMutations();
 
-      if (_indexInBounds(index, this.items.length)) {
-        this.items[index].setAttribute('aria-selected', 'false');
+      var items = this.filteredItems;
+
+      if (_indexInBounds(index, items.length)) {
+        items[index].setAttribute('aria-selected', 'false');
 
         if (this._options.useAriaChecked === true) {
-          this.items[index].setAttribute('aria-checked', 'false');
+          items[index].setAttribute('aria-checked', 'false');
         }
       }
 
@@ -212,8 +225,8 @@ var _default = /*#__PURE__*/function () {
   return _default;
 }();
 /*
-*   For listbox with auto select, the first keyboard focus should set selection to first option
-*/
+ *   For listbox with auto select, the first keyboard focus should set selection to first option
+ */
 
 
 exports.default = _default;
@@ -223,10 +236,11 @@ function _onFocus() {
 
   if (this._mouseDownFlag !== true && this._options.autoSelect === true && this.index === -1) {
     this._activeDescendant.index = 0;
-    this.items[0].setAttribute('aria-selected', 'true');
+    var firstItem = this.filteredItems[0];
+    firstItem.setAttribute('aria-selected', 'true');
 
     if (this._options.useAriaChecked === true) {
-      this.items[0].setAttribute('aria-checked', 'true');
+      firstItem.setAttribute('aria-checked', 'true');
     }
   }
 
@@ -235,8 +249,8 @@ function _onFocus() {
   this._observeMutations();
 }
 /*
-*   This flag is used to help us detect if first focus comes from keyboard or as a result of mouse _onClick
-*/
+ *   This flag is used to help us detect if first focus comes from keyboard or as a result of mouse _onClick
+ */
 
 
 function _onMouseDown() {
@@ -247,10 +261,10 @@ function _onKeyDown(e) {
   if (e.keyCode === 13 || e.keyCode === 32) {
     // enter key or spacebar key
     var toElIndex = this._activeDescendant.index;
-    var toEl = this.items[toElIndex];
+    var toEl = this.filteredItems[toElIndex];
     var isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
-    if (this._options.autoSelect === false && isTolElSelected === false) {
+    if (isTolElSelected === false && toElIndex !== undefined) {
       this.unselect(this.index);
       this.select(toElIndex);
     }
@@ -262,7 +276,7 @@ function _onClick(e) {
   var toElIndex = toEl.dataset.makeupIndex;
   var isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
-  if (this._options.autoSelect === false && isTolElSelected === false) {
+  if (isTolElSelected === false && toElIndex !== undefined) {
     this.unselect(this.index);
     this.select(toElIndex);
   }
@@ -274,8 +288,9 @@ function _onActiveDescendantChange(e) {
   }));
 
   if (this._options.autoSelect === true) {
-    var fromEl = this.items[e.detail.fromIndex];
-    var toEl = this.items[e.detail.toIndex];
+    var items = this.filteredItems;
+    var fromEl = items[e.detail.fromIndex];
+    var toEl = items[e.detail.toIndex];
 
     if (fromEl) {
       this.unselect(e.detail.fromIndex);

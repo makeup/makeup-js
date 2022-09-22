@@ -35,7 +35,12 @@ var defaultOptions = {
   autoReset: null,
   index: 0,
   wrap: false,
-  axis: 'both'
+  axis: 'both',
+
+  /** @type {{[attr: string]: unknown}} */
+  ignoreByAttrs: {
+    hidden: true
+  }
 };
 
 var nodeListToArray = function nodeListToArray(nodeList) {
@@ -148,7 +153,8 @@ var LinearRovingTabindex = /*#__PURE__*/function (_RovingTabindex) {
       autoInit: _this._options.index,
       autoReset: _this._options.autoReset,
       wrap: _this._options.wrap,
-      axis: _this._options.axis
+      axis: _this._options.axis,
+      ignoreByAttrs: _this._options.ignoreByAttrs
     });
     return _this;
   }

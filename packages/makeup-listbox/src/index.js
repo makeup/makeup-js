@@ -1,10 +1,10 @@
 /**
-* A listbox can be a standalone focusable widget, or controlled by a separate, focusable widget
-* (a textbox for example, in the case of a combobox or datepicker)
-*
-* This listbox code currently supports single-selct only!
-* This code has been copied from Skin & MIND Patterns and has not yet been cleaned up.
-*/
+ * A listbox can be a standalone focusable widget, or controlled by a separate, focusable widget
+ * (a textbox for example, in the case of a combobox or datepicker)
+ *
+ * This listbox code currently supports single-selct only!
+ * This code has been copied from Skin & MIND Patterns and has not yet been cleaned up.
+ */
 
 import * as ActiveDescendant from 'makeup-active-descendant';
 import * as PreventScrollKeys from 'makeup-prevent-scroll-keys';
@@ -47,10 +47,10 @@ export default class {
             '[role=option]',
             {
                 activeDescendantClassName: this._options.activeDescendantClassName,
-                autoInit: this.index,
                 autoReset: this._options.autoReset,
                 axis: 'y',
-                ignoreButtons: true
+                ignoreButtons: true,
+                ignoreByAttrs: { hidden: true, 'aria-disabled': 'true', disabled: true }
             }
         );
 
@@ -118,25 +118,33 @@ export default class {
     }
 
     get items() {
-        return this._listboxEl.querySelectorAll('[role=option]');
+        return this._activeDescendant.items;
+    }
+
+    get filteredItems() {
+        return this._activeDescendant.filteredItems;
     }
 
     select(index) {
         this._unobserveMutations();
 
-        if (_indexInBounds(index, this.items.length)) {
-            this.items[index].setAttribute('aria-selected', 'true');
+        const items = this.filteredItems;
+
+        if (_indexInBounds(index, items.length)) {
+            items[index].setAttribute('aria-selected', 'true');
 
             if (this._options.useAriaChecked === true) {
-                this.items[index].setAttribute('aria-checked', 'true');
+                items[index].setAttribute('aria-checked', 'true');
             }
 
-            this.el.dispatchEvent(new CustomEvent('makeup-listbox-change', {
-                detail: {
-                    optionIndex: index,
-                    optionValue: this.items[index].innerText
-                }
-            }));
+            this.el.dispatchEvent(
+                new CustomEvent('makeup-listbox-change', {
+                    detail: {
+                        optionIndex: index,
+                        optionValue: items[index].innerText
+                    }
+                })
+            );
         }
 
         this._observeMutations();
@@ -145,11 +153,13 @@ export default class {
     unselect(index) {
         this._unobserveMutations();
 
-        if (_indexInBounds(index, this.items.length)) {
-            this.items[index].setAttribute('aria-selected', 'false');
+        const items = this.filteredItems;
+
+        if (_indexInBounds(index, items.length)) {
+            items[index].setAttribute('aria-selected', 'false');
 
             if (this._options.useAriaChecked === true) {
-                this.items[index].setAttribute('aria-checked', 'false');
+                items[index].setAttribute('aria-checked', 'false');
             }
         }
 
@@ -171,17 +181,18 @@ export default class {
 }
 
 /*
-*   For listbox with auto select, the first keyboard focus should set selection to first option
-*/
+ *   For listbox with auto select, the first keyboard focus should set selection to first option
+ */
 function _onFocus() {
     this._unobserveMutations();
 
     if (this._mouseDownFlag !== true && this._options.autoSelect === true && this.index === -1) {
         this._activeDescendant.index = 0;
-        this.items[0].setAttribute('aria-selected', 'true');
+        const firstItem = this.filteredItems[0];
+        firstItem.setAttribute('aria-selected', 'true');
 
         if (this._options.useAriaChecked === true) {
-            this.items[0].setAttribute('aria-checked', 'true');
+            firstItem.setAttribute('aria-checked', 'true');
         }
     }
     this._mouseDownFlag = false;
@@ -190,19 +201,20 @@ function _onFocus() {
 }
 
 /*
-*   This flag is used to help us detect if first focus comes from keyboard or as a result of mouse _onClick
-*/
+ *   This flag is used to help us detect if first focus comes from keyboard or as a result of mouse _onClick
+ */
 function _onMouseDown() {
     this._mouseDownFlag = true;
 }
 
 function _onKeyDown(e) {
-    if (e.keyCode === 13 || e.keyCode === 32) { // enter key or spacebar key
+    if (e.keyCode === 13 || e.keyCode === 32) {
+        // enter key or spacebar key
         const toElIndex = this._activeDescendant.index;
-        const toEl = this.items[toElIndex];
+        const toEl = this.filteredItems[toElIndex];
         const isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
-        if (this._options.autoSelect === false && isTolElSelected === false) {
+        if (isTolElSelected === false && toElIndex !== undefined) {
             this.unselect(this.index);
             this.select(toElIndex);
         }
@@ -214,20 +226,23 @@ function _onClick(e) {
     const toElIndex = toEl.dataset.makeupIndex;
     const isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
-    if (this._options.autoSelect === false && isTolElSelected === false) {
+    if (isTolElSelected === false && toElIndex !== undefined) {
         this.unselect(this.index);
         this.select(toElIndex);
     }
 }
 
 function _onActiveDescendantChange(e) {
-    this.el.dispatchEvent(new CustomEvent('makeup-listbox-active-descendant-change', {
-        detail: e.detail
-    }));
+    this.el.dispatchEvent(
+        new CustomEvent('makeup-listbox-active-descendant-change', {
+            detail: e.detail
+        })
+    );
 
     if (this._options.autoSelect === true) {
-        const fromEl = this.items[e.detail.fromIndex];
-        const toEl = this.items[e.detail.toIndex];
+        const items = this.filteredItems;
+        const fromEl = items[e.detail.fromIndex];
+        const toEl = items[e.detail.toIndex];
 
         if (fromEl) {
             this.unselect(e.detail.fromIndex);
@@ -242,11 +257,13 @@ function _onActiveDescendantChange(e) {
 function _onMutation(mutationsList) {
     for (const mutation of mutationsList) {
         if (mutation.type === 'attributes') {
-            this.el.dispatchEvent(new CustomEvent('makeup-listbox-mutation', {
-                detail: {
-                    attributeName: mutation.attributeName
-                }
-            }));
+            this.el.dispatchEvent(
+                new CustomEvent('makeup-listbox-mutation', {
+                    detail: {
+                        attributeName: mutation.attributeName
+                    }
+                })
+            );
         }
     }
 }

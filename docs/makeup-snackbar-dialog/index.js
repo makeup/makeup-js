@@ -1,8 +1,8 @@
-import "../docs.css";
-import "@ebay/skin/global";
-import "@ebay/skin/utility";
-import "@ebay/skin/link";
-import "@ebay/skin/snackbar-dialog";
+import '../docs.css';
+import '@ebay/skin/global';
+import '@ebay/skin/utility';
+import '@ebay/skin/link';
+import '@ebay/skin/snackbar-dialog';
 
 // REQUIRE
 // const SnackbarDialog = require('../../packages/makeup-snackbar-dialog').default;

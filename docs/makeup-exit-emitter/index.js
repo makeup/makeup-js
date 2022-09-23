@@ -1,5 +1,5 @@
 // REQUIRE
-//const ExitEmitter = require('../../packages/makeup-exit-emitter');
+// const ExitEmitter = require('../../packages/makeup-exit-emitter');
 
 // IMPORT
 import * as ExitEmitter from '../../packages/makeup-exit-emitter';

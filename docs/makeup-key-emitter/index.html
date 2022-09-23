@@ -1,31 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>makeup-key-emitter demo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    </head>
-    <body>
-        <main>
-            <h1>makeup-key-emitter demo</h1>
-            <p>Move keyboard focus to buttons and press UP, DOWN, ESC etc. Open your developer console to see debug output.</p>
-            <p><strong>NOTE:</strong> pressing UP and DOWN is <strong>not</strong> expected to move the focus, it should just trigger an event.<p>
-            <hr />
 
-            <h2>On Container (delegated)</h2>
-            <ul id="widget-1">
-                <li><button>Item 1</button></li>
-                <li><button>Item 2</button></li>
-                <li><button>Item 3</button></li>
-            </ul>
+<head>
+    <title>makeup-key-emitter demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
 
-            <h2>On Buttons (directly bound)</h2>
-            <ul id="widget-2">
-                <li><button>Item 1</button></li>
-                <li><button>Item 2</button></li>
-                <li><button>Item 3</button></li>
-            </ul>
+<body>
+    <main>
+        <h1>makeup-key-emitter demo</h1>
+        <p>
+            Move keyboard focus to buttons and press UP, DOWN, ESC etc. Open your developer console to see debug
+            output.
+        </p>
+        <p>
+            <strong>NOTE:</strong> pressing UP and DOWN is <strong>not</strong> expected to move the focus, it
+            should just trigger an event.
+        </p>
+        <p></p>
+        <hr />
 
-        </main>
-        <script src="index.min.js"></script>
-    </body>
+        <h2>On Container (delegated)</h2>
+        <ul id="widget-1">
+            <li><button>Item 1</button></li>
+            <li><button>Item 2</button></li>
+            <li><button>Item 3</button></li>
+        </ul>
+
+        <h2>On Buttons (directly bound)</h2>
+        <ul id="widget-2">
+            <li><button>Item 1</button></li>
+            <li><button>Item 2</button></li>
+            <li><button>Item 3</button></li>
+        </ul>
+    </main>
+    <script src="index.min.js"></script>
+</body>
+
 </html>

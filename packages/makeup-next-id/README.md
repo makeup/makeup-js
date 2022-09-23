@@ -12,10 +12,10 @@ This module is still in an experimental state, until it reaches v1 you must cons
 
 ```js
 // import the module
-import nextId from 'makeup-next-id';
+import nextId from "makeup-next-id";
 
 // get NodeList
-const widgetEls = document.querySelectorAll('.widget');
+const widgetEls = document.querySelectorAll(".widget");
 
 // assign next id to each element
 widgetEls.forEach((el) => nextId(el));
@@ -37,14 +37,14 @@ Markup after:
 <div class="widget" id="nid-tCa-3"></div>
 ```
 
-## Custom Events        
+## Custom Events
 
-* None
+-   None
 
 ## Dependencies
 
-* [nanoid](https://www.npmjs.com/package/nanoid)
+-   [nanoid](https://www.npmjs.com/package/nanoid)
 
 ## Polyfills
 
-* None
+-   None

@@ -116,8 +116,4 @@ function refresh() {
     }
 }
 
-export {
-    refresh,
-    trap,
-    untrap
-};
+export { refresh, trap, untrap };

@@ -1,8 +1,8 @@
-import "../docs.css";
-import "@ebay/skin/global";
-import "@ebay/skin/icon";
-import "@ebay/skin/icon-button";
-import "@ebay/skin/drawer-dialog";
+import '../docs.css';
+import '@ebay/skin/global';
+import '@ebay/skin/icon';
+import '@ebay/skin/icon-button';
+import '@ebay/skin/drawer-dialog';
 
 // REQUIRE
 // const DrawerDialog = require('../../packages/makeup-drawer-dialog').default;

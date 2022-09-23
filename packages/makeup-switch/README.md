@@ -13,8 +13,8 @@ The following markup is required. Classnames are configurable (see config sectio
 ```html
 <span id="label1">switch 1</span>
 <span class="switch">
-  <span class="switch__control" role="switch" tabindex="0" aria-checked="false" aria-labelledby="label1"></span>
-  <span class="switch__button"></span>
+    <span class="switch__control" role="switch" tabindex="0" aria-checked="false" aria-labelledby="label1"></span>
+    <span class="switch__button"></span>
 </span>
 ```
 
@@ -29,12 +29,12 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 // const MakeupSwitch = require('makeup-switch').default();
 
 // Consuming as ESM (recommended)
-import MakeupSwitch from 'makeup-switch';
+import MakeupSwitch from "makeup-switch";
 
-document.querySelectorAll('.switch').forEach(function(el, i) {
+document.querySelectorAll(".switch").forEach(function (el, i) {
     const widget = new MakeupSwitch(el, config);
 
-    el.addEventListener('makeup-switch-toggle', function(e) {
+    el.addEventListener("makeup-switch-toggle", function (e) {
         console.log(e.type, e.detail);
     });
 });
@@ -52,7 +52,7 @@ Set to true if using the class as the model for a custom element (aka Web Compon
 
 Use this object to specify your custom classnames (i.e. if you don't wish to use the default `switch` prefixes).
 
-* `bem.control`: classname for the focusable element (default: `switch__control`)
+-   `bem.control`: classname for the focusable element (default: `switch__control`)
 
 ## Events
 
@@ -60,4 +60,4 @@ Use this object to specify your custom classnames (i.e. if you don't wish to use
 
 Fired when the switch is toggled.
 
-* `detail.on`: true or false
+-   `detail.on`: true or false

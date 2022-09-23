@@ -20,7 +20,9 @@ function onModelMutation() {
 function onModelInit(e) {
     const items = e.detail.items;
 
-    nodeListToArray(items).filter((el, i) => i !== e.detail.toIndex).forEach(el => el.setAttribute('tabindex', '-1'));
+    nodeListToArray(items)
+        .filter((el, i) => i !== e.detail.toIndex)
+        .forEach((el) => el.setAttribute('tabindex', '-1'));
 
     if (items[e.detail.toIndex]) {
         items[e.detail.toIndex].setAttribute('tabindex', '0');
@@ -32,7 +34,9 @@ function onModelReset(e) {
 
     const items = this.filteredItems;
 
-    nodeListToArray(items).filter((el, i) => i !== e.detail.toIndex).forEach(el => el.setAttribute('tabindex', '-1'));
+    nodeListToArray(items)
+        .filter((el, i) => i !== e.detail.toIndex)
+        .forEach((el) => el.setAttribute('tabindex', '-1'));
     items[e.detail.toIndex].setAttribute('tabindex', '0');
 }
 
@@ -51,12 +55,14 @@ function onModelChange(e) {
         toItem.focus();
     }
 
-    this._el.dispatchEvent(new CustomEvent('rovingTabindexChange', {
-        detail: {
-            fromIndex: e.detail.fromIndex,
-            toIndex: e.detail.toIndex
-        }
-    }));
+    this._el.dispatchEvent(
+        new CustomEvent('rovingTabindexChange', {
+            detail: {
+                fromIndex: e.detail.fromIndex,
+                toIndex: e.detail.toIndex
+            }
+        })
+    );
 }
 
 class RovingTabindex {

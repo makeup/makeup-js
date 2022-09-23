@@ -61,7 +61,7 @@ export default class {
 
     resetFilter() {
         this._listboxWidget._activeDescendant.reset();
-        this._listboxWidget.items.forEach(el => (el.hidden = false));
+        this._listboxWidget.items.forEach((el) => (el.hidden = false));
     }
 
     _observeMutations() {
@@ -151,9 +151,9 @@ function _onTextboxKeyDown(e) {
         e.preventDefault();
         const widget = this;
 
-        this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter(
-            el => !el.hidden
-        )[this._listboxWidget._activeDescendant.index].innerText;
+        this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter((el) => !el.hidden)[
+            this._listboxWidget._activeDescendant.index
+        ].innerText;
 
         _dispatchChangeEvent(this._el, this._inputEl.value);
 
@@ -199,9 +199,9 @@ function _onListboxClick(e) {
     const indexData = element.dataset.makeupIndex;
 
     if (indexData !== undefined) {
-        this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter(
-            el => !el.hidden
-        )[indexData].innerText;
+        this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter((el) => !el.hidden)[
+            indexData
+        ].innerText;
 
         if (this._options.autoSelect === false) {
             _dispatchChangeEvent(this._el, this._inputEl.value);
@@ -215,9 +215,9 @@ function _onListboxClick(e) {
 
 function _onListboxActiveDescendantChange(e) {
     if (this._options.autoSelect === true) {
-        this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter(
-            el => !el.hidden
-        )[e.detail.toIndex].innerText;
+        this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter((el) => !el.hidden)[
+            e.detail.toIndex
+        ].innerText;
 
         _dispatchChangeEvent(this._el, this._inputEl.value);
     }
@@ -226,11 +226,13 @@ function _onListboxActiveDescendantChange(e) {
 function _onMutation(mutationsList) {
     for (const mutation of mutationsList) {
         if (mutation.type === 'attributes') {
-            this._el.dispatchEvent(new CustomEvent('makeup-combobox-mutation', {
-                detail: {
-                    attributeName: mutation.attributeName
-                }
-            }));
+            this._el.dispatchEvent(
+                new CustomEvent('makeup-combobox-mutation', {
+                    detail: {
+                        attributeName: mutation.attributeName
+                    }
+                })
+            );
         }
     }
 }
@@ -252,7 +254,9 @@ function _filterSuggestions(value, items) {
 }
 
 function _dispatchChangeEvent(el, value) {
-    el.dispatchEvent(new CustomEvent('makeup-combobox-change', {
-        detail: { value }
-    }));
+    el.dispatchEvent(
+        new CustomEvent('makeup-combobox-change', {
+            detail: { value }
+        })
+    );
 }

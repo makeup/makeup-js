@@ -1,8 +1,8 @@
-import "../docs.css";
-import "@ebay/skin/global";
-import "@ebay/skin/button";
-import "@ebay/skin/lightbox-dialog";
-import "@ebay/skin/textbox";
+import '../docs.css';
+import '@ebay/skin/global';
+import '@ebay/skin/button';
+import '@ebay/skin/lightbox-dialog';
+import '@ebay/skin/textbox';
 
 // REQUIRE
 // const InputDialog = require('../../packages/makeup-input-dialog').default;

@@ -1,5 +1,5 @@
 // REQUIRE
-//const RovingTabindex = require('../../packages/makeup-roving-tabindex');
+// const RovingTabindex = require('../../packages/makeup-roving-tabindex');
 
 // IMPORT
 import * as RovingTabindex from '../../packages/makeup-roving-tabindex';
@@ -27,8 +27,6 @@ remover.addEventListener('click', function() {
         ul.removeChild(node);
     });
 });
-
-
 
 incrementer.addEventListener('click', function() {
     widgetEls.forEach(function(el, i) {

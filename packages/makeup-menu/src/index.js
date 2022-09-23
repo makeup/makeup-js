@@ -56,14 +56,14 @@ export default class {
 
     get radioGroupNames() {
         const els = [...this.el.querySelectorAll('[role=menuitemradio][data-makeup-group]')];
-        const groupNames = [...new Set(els.map(el => el.dataset.makeupGroup))];
+        const groupNames = [...new Set(els.map((el) => el.dataset.makeupGroup))];
 
         return groupNames;
     }
 
     get checkboxGroupNames() {
         const els = [...this.el.querySelectorAll('[role=menuitemcheckbox][data-makeup-group]')];
-        const groupNames = [...new Set(els.map(el => el.dataset.makeupGroup))];
+        const groupNames = [...new Set(els.map((el) => el.dataset.makeupGroup))];
 
         return groupNames;
     }
@@ -112,11 +112,13 @@ export default class {
 function _onMutation(mutationsList) {
     for (const mutation of mutationsList) {
         if (mutation.type === 'attributes') {
-            this.el.dispatchEvent(new CustomEvent('makeup-menu-mutation', {
-                detail: {
-                    attributeName: mutation.attributeName
-                }
-            }));
+            this.el.dispatchEvent(
+                new CustomEvent('makeup-menu-mutation', {
+                    detail: {
+                        attributeName: mutation.attributeName
+                    }
+                })
+            );
         }
     }
 }
@@ -144,27 +146,31 @@ function _getElementIndex(el) {
 }
 
 function _selectMenuItem(widgetEl, menuItemEl) {
-    widgetEl.dispatchEvent(new CustomEvent('makeup-menu-select', {
-        detail: {
-            el: menuItemEl,
-            value: menuItemEl.innerText
-        }
-    }));
+    widgetEl.dispatchEvent(
+        new CustomEvent('makeup-menu-select', {
+            detail: {
+                el: menuItemEl,
+                value: menuItemEl.innerText
+            }
+        })
+    );
 }
 
 function _selectMenuItemCheckbox(widgetEl, menuItemEl) {
     const groupName = menuItemEl.dataset.makeupGroup;
 
-    menuItemEl.setAttribute('aria-checked', (menuItemEl.getAttribute('aria-checked') === 'true') ? 'false' : 'true');
+    menuItemEl.setAttribute('aria-checked', menuItemEl.getAttribute('aria-checked') === 'true' ? 'false' : 'true');
 
-    widgetEl.dispatchEvent(new CustomEvent('makeup-menu-change', {
-        detail: {
-            el: menuItemEl,
-            checked: menuItemEl.getAttribute('aria-checked'),
-            group: groupName,
-            value: menuItemEl.innerText
-        }
-    }));
+    widgetEl.dispatchEvent(
+        new CustomEvent('makeup-menu-change', {
+            detail: {
+                el: menuItemEl,
+                checked: menuItemEl.getAttribute('aria-checked'),
+                group: groupName,
+                value: menuItemEl.innerText
+            }
+        })
+    );
 }
 
 function _selectMenuItemRadio(widgetEl, menuItemEl) {
@@ -178,12 +184,14 @@ function _selectMenuItemRadio(widgetEl, menuItemEl) {
     if (checkedEl !== menuItemEl) {
         menuItemEl.setAttribute('aria-checked', 'true');
 
-        widgetEl.dispatchEvent(new CustomEvent('makeup-menu-change', {
-            detail: {
-                el: menuItemEl,
-                group: groupName,
-                value: menuItemEl.innerText
-            }
-        }));
+        widgetEl.dispatchEvent(
+            new CustomEvent('makeup-menu-change', {
+                detail: {
+                    el: menuItemEl,
+                    group: groupName,
+                    value: menuItemEl.innerText
+                }
+            })
+        );
     }
 }

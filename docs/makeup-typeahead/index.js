@@ -1,5 +1,5 @@
 // REQUIRE
-//const typeahead = require('../../packages/makeup-typeahead').default;
+// const typeahead = require('../../packages/makeup-typeahead').default;
 
 // IMPORT
 import typeahead from '../../packages/makeup-typeahead';
@@ -13,10 +13,10 @@ const { getIndex } = typeahead();
 function handleKeyDown(e) {
     if (e.key.length === 1) {
         const listIndex = getIndex(list.children, e.key, TIMEOUT_LENGTH);
-        if (listIndex !== - 1) {
+        if (listIndex !== -1) {
             selected.innerHTML = list.children[listIndex].innerHTML;
         }
     }
 }
 
-document.addEventListener('keydown', e => handleKeyDown(e));
+document.addEventListener('keydown', (e) => handleKeyDown(e));

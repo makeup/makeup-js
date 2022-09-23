@@ -2,19 +2,20 @@ import * as KeyEmitter from '../src/index.js';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
 
-describe("makeup-key-emitter", function() {
-    var dom = '<ul class="widget">'
-            + '<li><button>Button 1</button></li>'
-            + '<li><button>Button 2</button></li>'
-            + '<li><button>Button 3</button></li>'
-            + '</ul>';
+describe('makeup-key-emitter', function() {
+    var dom =
+        '<ul class="widget">' +
+        '<li><button>Button 1</button></li>' +
+        '<li><button>Button 2</button></li>' +
+        '<li><button>Button 3</button></li>' +
+        '</ul>';
 
     document.body.innerHTML = dom;
 
     var testEl = document.querySelector('.widget');
 
     describe('when emitter class is imported', function() {
-        it("KeyEmitter module should not be undefined", function() {
+        it('KeyEmitter module should not be undefined', function() {
             expect(KeyEmitter).not.toEqual(undefined);
         });
     });
@@ -24,7 +25,7 @@ describe("makeup-key-emitter", function() {
             KeyEmitter.addKeyDown(testEl);
         });
 
-        it("should trigger arrowLeftKeyDown event", function(done) {
+        it('should trigger arrowLeftKeyDown event', function(done) {
             // assert
             testEl.addEventListener('arrowLeftKeyDown', done());
             // execute
@@ -34,7 +35,7 @@ describe("makeup-key-emitter", function() {
             testEl.dispatchEvent(keyDownEvent);
         });
 
-        it("should trigger arrowUpKeyDown event", function(done) {
+        it('should trigger arrowUpKeyDown event', function(done) {
             // assert
             testEl.addEventListener('arrowUpKeyDown', done());
             // execute
@@ -44,7 +45,7 @@ describe("makeup-key-emitter", function() {
             testEl.dispatchEvent(keyDownEvent);
         });
 
-        it("should trigger arrowRightKeyDown event", function(done) {
+        it('should trigger arrowRightKeyDown event', function(done) {
             // assert
             testEl.addEventListener('arrowRightKeyDown', done());
             // execute
@@ -54,7 +55,7 @@ describe("makeup-key-emitter", function() {
             testEl.dispatchEvent(keyDownEvent);
         });
 
-        it("should trigger arrowDownKeyDown event", function(done) {
+        it('should trigger arrowDownKeyDown event', function(done) {
             // assert
             testEl.addEventListener('arrowDownKeyDown', done());
             // execute

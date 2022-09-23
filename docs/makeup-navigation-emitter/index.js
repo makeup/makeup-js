@@ -1,5 +1,5 @@
 // REQUIRE
-//const NavigationEmitter = require('../../packages/makeup-navigation-emitter');
+// const NavigationEmitter = require('../../packages/makeup-navigation-emitter');
 
 // IMPORT
 import * as NavigationEmitter from '../../packages/makeup-navigation-emitter';
@@ -10,11 +10,7 @@ const widgetEls = document.querySelectorAll('.widget');
 const consoleEls = document.querySelectorAll('.console');
 const wrapCheckbox = document.getElementById('wrap');
 
-const options = [
-    { },
-    { autoInit: -1, autoReset: -1 },
-    { autoInit: -1, autoReset: -1 }
-];
+const options = [{}, { autoInit: -1, autoReset: -1 }, { autoInit: -1, autoReset: -1 }];
 
 appender.addEventListener('click', function() {
     widgetEls.forEach(function(el) {

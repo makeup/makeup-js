@@ -37,9 +37,9 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import InputDialog from 'makeup-input-dialog';
+import InputDialog from "makeup-input-dialog";
 
-document.querySelectorAll('.input-dialog').forEach(function(el, i) {
+document.querySelectorAll(".input-dialog").forEach(function (el, i) {
     const widget = new InputDialog(el, config);
 });
 ```

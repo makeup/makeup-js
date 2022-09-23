@@ -3,10 +3,11 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
 import Expander from '../src/index.js';
 
 var containerEl = document.createElement('div');
-containerEl.innerHTML = '<span class="expander">'
-    + '<button class="expander__host"><button>'
-    + '<div class="expander__content"></div>'
-+ '</span>';
+containerEl.innerHTML =
+    '<span class="expander">' +
+    '<button class="expander__host"><button>' +
+    '<div class="expander__content"></div>' +
+    '</span>';
 
 var widgetEl = containerEl.querySelector('.expander');
 var hostEl = widgetEl.querySelector('.expander__host');

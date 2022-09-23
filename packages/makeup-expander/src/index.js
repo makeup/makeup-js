@@ -231,8 +231,10 @@ export default class {
             if (this.options.expandedClass) {
                 this.el.classList.add(this.options.expandedClass);
             }
-            if (this._expandWasKeyboardClickActivated ||
-                (this._expandWasMouseClickActivated && this.options.alwaysDoFocusManagement)) {
+            if (
+                this._expandWasKeyboardClickActivated ||
+                (this._expandWasMouseClickActivated && this.options.alwaysDoFocusManagement)
+            ) {
                 manageFocus(this.options.focusManagement, this.contentEl);
             }
             this.el.dispatchEvent(new CustomEvent('expander-expand', { bubbles: true, detail: this.contentEl }));

@@ -50,12 +50,12 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import ListboxButton from 'makeup-listbox-button';
+import ListboxButton from "makeup-listbox-button";
 
-document.querySelectorAll('.listbox-button').forEach(function(el, i) {
+document.querySelectorAll(".listbox-button").forEach(function (el, i) {
     const widget = new ListboxButton(el, config);
 
-    el.addEventListener('makeup-listbox-button-change', function(e) {
+    el.addEventListener("makeup-listbox-button-change", function (e) {
         console.log(e.type, e.detail);
     });
 });
@@ -73,5 +73,5 @@ todo
 
 Fired when the listbox selection is changed.
 
-* `fromValue`: the old value
-* `toValue`: the new value
+-   `fromValue`: the old value
+-   `toValue`: the new value

@@ -1,8 +1,8 @@
-import "../docs.css";
-import "@ebay/skin/global";
-import "@ebay/skin/icon";
-import "@ebay/skin/icon-button";
-import "@ebay/skin/fullscreen-dialog";
+import '../docs.css';
+import '@ebay/skin/global';
+import '@ebay/skin/icon';
+import '@ebay/skin/icon-button';
+import '@ebay/skin/fullscreen-dialog';
 
 // REQUIRE
 // const FullscreenDialog = require('../../packages/makeup-fullscreen-dialog').default;

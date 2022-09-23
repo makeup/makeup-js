@@ -1,6 +1,6 @@
-import "../docs.css";
-import "@ebay/skin/expand-button";
-import "@ebay/skin/menu-button";
+import '../docs.css';
+import '@ebay/skin/expand-button';
+import '@ebay/skin/menu-button';
 
 // REQUIRE
 // const MenuButton = require('../../packages/makeup-menu-button').default;

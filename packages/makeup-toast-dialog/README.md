@@ -9,7 +9,15 @@ JavaScript class representing a [toast dialog](https://ebay.gitbook.io/mindpatte
 The following markup structure and classnames are required. Any SVG icons can be used.
 
 ```html
-<aside id="dialog-toast" class="toast-dialog toast-dialog--transition" role="dialog" aria-label="Notification" aria-live="polite" aria-modal="false" hidden>
+<aside
+    id="dialog-toast"
+    class="toast-dialog toast-dialog--transition"
+    role="dialog"
+    aria-label="Notification"
+    aria-live="polite"
+    aria-modal="false"
+    hidden
+>
     <div class="toast-dialog__window">
         <div class="toast-dialog__header">
             <h2 class="toast-dialog__title">User Privacy Preferences</h2>
@@ -20,7 +28,10 @@ The following markup structure and classnames are required. Any SVG icons can be
             </button>
         </div>
         <div class="toast-dialog__main">
-            <p>We detected something unusual about a recent sign-in to your eBay account. To help keep you safe, we recommend you change the password.</p>
+            <p>
+                We detected something unusual about a recent sign-in to your eBay account. To help keep you safe, we
+                recommend you change the password.
+            </p>
         </div>
         <div class="toast-dialog__footer">
             <button accesskey="v" class="btn btn--primary toast-dialog__cta">View Account</button>
@@ -36,9 +47,9 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import ToastDialog from 'makeup-toast-dialog';
+import ToastDialog from "makeup-toast-dialog";
 
-document.querySelectorAll('.toast-dialog').forEach(function(el, i) {
+document.querySelectorAll(".toast-dialog").forEach(function (el, i) {
     const widget = new ToastDialog(el, config);
 });
 ```

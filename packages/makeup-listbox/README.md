@@ -48,12 +48,12 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import Listbox from 'makeup-listbox';
+import Listbox from "makeup-listbox";
 
-document.querySelectorAll('.listbox').forEach(function(el, i) {
+document.querySelectorAll(".listbox").forEach(function (el, i) {
     const widget = new Listbox(el, config);
 
-    el.addEventListener('makeup-listbox-change', function(e) {
+    el.addEventListener("makeup-listbox-change", function (e) {
         console.log(e.type, e.detail);
     });
 });
@@ -71,5 +71,5 @@ todo
 
 Fired when the selected option changes.
 
-* `optionIndex`: the index position of the selected option
-* `optionValue`: the value of the selected option
+-   `optionIndex`: the index position of the selected option
+-   `optionValue`: the value of the selected option

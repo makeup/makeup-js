@@ -1,7 +1,7 @@
-import "../docs.css";
-import "@ebay/skin/global";
-import "@ebay/skin/button";
-import "@ebay/skin/confirm-dialog";
+import '../docs.css';
+import '@ebay/skin/global';
+import '@ebay/skin/button';
+import '@ebay/skin/confirm-dialog';
 
 // REQUIRE
 // const ConfirmDialog = require('../../packages/makeup-confirm-dialog');

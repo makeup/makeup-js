@@ -92,11 +92,13 @@ export default class {
 function _onMutation(mutationsList) {
     for (const mutation of mutationsList) {
         if (mutation.type === 'attributes') {
-            this.el.dispatchEvent(new CustomEvent('makeup-menu-button-mutation', {
-                detail: {
-                    attributeName: mutation.attributeName
-                }
-            }));
+            this.el.dispatchEvent(
+                new CustomEvent('makeup-menu-button-mutation', {
+                    detail: {
+                        attributeName: mutation.attributeName
+                    }
+                })
+            );
         }
     }
 }

@@ -1,41 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>makeup-keyboard-trap demo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <style>
-            #trap {
-                border: 1px dashed #ccc;
-                padding: 1em;
-                margin-bottom: 1em;
-            }
-            #trap.keyboard-trap--active {
-                background-color: #eee;
-                border-style: solid;
-            }
-        </style>
-    </head>
-    <body>
-        <main role="main">
-            <h1>makeup-keyboard-trap demo</h1>
 
-            <p>Use keyboard to activate the 'trap' button. Keyboard focus will be trapped inside the bordered element. For best results, keyboard focus should be inside trapped element before trap is activated.</p>
+<head>
+    <title>makeup-keyboard-trap demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        #trap {
+            border: 1px dashed #ccc;
+            padding: 1em;
+            margin-bottom: 1em;
+        }
 
-            <h2>Test Area</h2>
-            <input aria-label="input before trap" placeholder="input before trap"/>
-            <p>text before trap</p>
-            <div id="trap">
-                <a href="http://www.ebay.com" hidden>ebay</a>
-                <a href="http://www.ebay.com">ebay</a>
-                <button aria-pressed="false">Trap</button>
-                <a href="http://www.ebay.com">ebay</a>
-                <a href="http://www.ebay.com" hidden>ebay</a>
-            </div>
-            <p>text after trap</p>
-            <input aria-label="input after trap" placeholder="input after trap"/>
+        #trap.keyboard-trap--active {
+            background-color: #eee;
+            border-style: solid;
+        }
+    </style>
+</head>
 
-        </main>
-        <script src="index.min.js"></script>
-    </body>
+<body>
+    <main role="main">
+        <h1>makeup-keyboard-trap demo</h1>
+
+        <p>
+            Use keyboard to activate the 'trap' button. Keyboard focus will be trapped inside the bordered element.
+            For best results, keyboard focus should be inside trapped element before trap is activated.
+        </p>
+
+        <h2>Test Area</h2>
+        <input aria-label="input before trap" placeholder="input before trap" />
+        <p>text before trap</p>
+        <div id="trap">
+            <a href="http://www.ebay.com" hidden>ebay</a>
+            <a href="http://www.ebay.com">ebay</a>
+            <button aria-pressed="false">Trap</button>
+            <a href="http://www.ebay.com">ebay</a>
+            <a href="http://www.ebay.com" hidden>ebay</a>
+        </div>
+        <p>text after trap</p>
+        <input aria-label="input after trap" placeholder="input after trap" />
+    </main>
+    <script src="index.min.js"></script>
+</body>
 
 </html>

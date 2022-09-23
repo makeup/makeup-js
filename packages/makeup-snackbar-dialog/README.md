@@ -9,13 +9,22 @@ JavaScript class representing a [snackbar dialog](https://ebay.gitbook.io/mindpa
 The following markup structure and classnames are required. Any SVG icons can be used.
 
 ```html
-<aside class="snackbar-dialog snackbar-dialog--transition" role="dialog" aria-label="Notification" aria-live="polite" aria-modal="false" hidden>
+<aside
+    class="snackbar-dialog snackbar-dialog--transition"
+    role="dialog"
+    aria-label="Notification"
+    aria-live="polite"
+    aria-modal="false"
+    hidden
+>
     <div class="snackbar-dialog__window">
         <div class="snackbar-dialog__main">
             <p>1 item deleted from watch list.</p>
         </div>
         <div class="snackbar-dialog__actions">
-            <button accesskey="u" class="fake-link snackbar-dialog__cta">Undo<span class="clipped"> - Access Key: U</span></button>
+            <button accesskey="u" class="fake-link snackbar-dialog__cta">
+                Undo<span class="clipped"> - Access Key: U</span>
+            </button>
         </div>
     </div>
 </aside>
@@ -28,9 +37,9 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import SnackbarDialog from 'makeup-snackbar-dialog';
+import SnackbarDialog from "makeup-snackbar-dialog";
 
-document.querySelectorAll('.snackbar-dialog').forEach(function(el, i) {
+document.querySelectorAll(".snackbar-dialog").forEach(function (el, i) {
     const widget = new SnackbarDialog(el, config);
 });
 ```

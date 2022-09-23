@@ -135,16 +135,16 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import Menu from 'makeup-menu';
+import Menu from "makeup-menu";
 
-document.querySelectorAll('.menu').forEach(function(el, i) {
+document.querySelectorAll(".menu").forEach(function (el, i) {
     const widget = new Menu(el, config);
 
-    el.addEventListener('makeup-menu-select', function(e) {
+    el.addEventListener("makeup-menu-select", function (e) {
         console.log(e.type, e.detail);
     });
 
-    el.addEventListener('makeup-menu-change', function(e) {
+    el.addEventListener("makeup-menu-change", function (e) {
         console.log(e.type, e.detail);
     });
 });

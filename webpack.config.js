@@ -1,5 +1,5 @@
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     devtool: 'source-map',
@@ -23,7 +23,6 @@ module.exports = {
         'makeup-listbox-button': './docs/makeup-listbox-button/index.compiled.js',
         'makeup-menu': './docs/makeup-menu/index.compiled.js',
         'makeup-menu-button': './docs/makeup-menu-button/index.compiled.js',
-        'makeup-listbox-button': './docs/makeup-listbox-button/index.compiled.js',
         'makeup-modal': './docs/makeup-modal/index.compiled.js',
         'makeup-navigation-emitter': './docs/makeup-navigation-emitter/index.compiled.js',
         'makeup-next-id': './docs/makeup-next-id/index.compiled.js',
@@ -44,15 +43,17 @@ module.exports = {
         filename: '[name]/index.min.js',
         path: path.resolve(__dirname, './docs')
     },
-    plugins: [new MiniCssExtractPlugin({
-        filename: '[name]/index.css'
-    })],
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: '[name]/index.css'
+        })
+    ],
     module: {
         rules: [
             {
                 test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, "css-loader"],
-            },
-        ],
-    },
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            }
+        ]
+    }
 };

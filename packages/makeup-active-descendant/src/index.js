@@ -43,12 +43,14 @@ function onModelChange(e) {
         }
     }
 
-    this._el.dispatchEvent(new CustomEvent('activeDescendantChange', {
-        detail: {
-            fromIndex: e.detail.fromIndex,
-            toIndex: e.detail.toIndex
-        }
-    }));
+    this._el.dispatchEvent(
+        new CustomEvent('activeDescendantChange', {
+            detail: {
+                fromIndex: e.detail.fromIndex,
+                toIndex: e.detail.toIndex
+            }
+        })
+    );
 }
 
 function onModelReset(e) {

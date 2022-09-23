@@ -53,7 +53,7 @@ describe('given a switch that is unchecked', function() {
     document.body.innerHTML = defaultMarkup;
     const switchEl = document.querySelector('.switch');
 
-    let onToggle = jasmine.createSpy('onToggle');
+    const onToggle = jasmine.createSpy('onToggle');
     switchEl.addEventListener('makeup-switch-toggle', onToggle);
 
     const switch1 = new MakeupSwitch(switchEl);

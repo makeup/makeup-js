@@ -1,5 +1,5 @@
 // REQUIRE
-//const scrollKeyPreventer = require('../../packages/makeup-prevent-scroll-keys');
+// const scrollKeyPreventer = require('../../packages/makeup-prevent-scroll-keys');
 
 // IMPORT
 import * as scrollKeyPreventer from '../../packages/makeup-prevent-scroll-keys';

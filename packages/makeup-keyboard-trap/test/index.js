@@ -2,7 +2,6 @@ import * as keyboardTrap from '../src/index.js';
 import testData from './data.js';
 
 testData.forEach(function(data) {
-
     var trapEl;
     var onTrap;
     var onUntrap;

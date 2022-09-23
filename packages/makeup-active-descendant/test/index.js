@@ -1,14 +1,15 @@
 import * as ActiveDescendant from '../src/index.js';
-    
+
 describe('makeup-active-descendant', function() {
-    var dom = '<div class="widget">'
-                + '<input/>'
-                + '<ul>'
-                    + '<li>Button 1</li>'
-                    + '<li>Button 2</li>'
-                    + '<li>Button 3</li>'
-                + '</ul>'
-            + '</div>';
+    var dom =
+        '<div class="widget">' +
+        '<input/>' +
+        '<ul>' +
+        '<li>Button 1</li>' +
+        '<li>Button 2</li>' +
+        '<li>Button 3</li>' +
+        '</ul>' +
+        '</div>';
 
     document.body.innerHTML = dom;
 

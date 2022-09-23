@@ -91,9 +91,10 @@ describe('makeup-focusables', function() {
         var focusableEls;
 
         beforeAll(function() {
-            body.innerHTML = '<div style="display:none" tabindex="0"></div>' +
-                                '<div></div>' +
-                                '<div style="display:none" tabindex="0"></div>';
+            body.innerHTML =
+                '<div style="display:none" tabindex="0"></div>' +
+                '<div></div>' +
+                '<div style="display:none" tabindex="0"></div>';
             focusableEls = focusable(body);
         });
 

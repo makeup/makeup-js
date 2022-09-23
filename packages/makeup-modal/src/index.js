@@ -119,7 +119,4 @@ function modal(el, options) {
     return modalEl;
 }
 
-export {
-    modal,
-    unmodal
-};
+export { modal, unmodal };

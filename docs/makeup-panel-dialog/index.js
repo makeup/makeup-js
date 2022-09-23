@@ -1,7 +1,7 @@
-import "../docs.css";
-import "@ebay/skin/global";
-import "@ebay/skin/icon-button";
-import "@ebay/skin/panel-dialog";
+import '../docs.css';
+import '@ebay/skin/global';
+import '@ebay/skin/icon-button';
+import '@ebay/skin/panel-dialog';
 
 // REQUIRE
 // const PanelDialog = require('../../packages/makeup-panel-dialog');

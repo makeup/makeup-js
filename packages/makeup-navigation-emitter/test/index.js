@@ -1,11 +1,7 @@
 import * as NavigationEmitter from '../src/index.js';
 
 describe('makeup-navigation-emitter', function() {
-    var dom = '<ul class="widget">'
-                + '<li>Button 1</li>'
-                + '<li>Button 2</li>'
-                + '<li>Button 3</li>'
-            + '</ul>';
+    var dom = '<ul class="widget">' + '<li>Button 1</li>' + '<li>Button 2</li>' + '<li>Button 3</li>' + '</ul>';
 
     describe('when module is imported', function() {
         it('module should not be undefined', function() {
@@ -30,40 +26,40 @@ describe('makeup-navigation-emitter', function() {
 
         it('should trigger 0 navigationModelChange event on arrow left', function() {
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
         });
 
         it('should trigger 0 navigationModelChange event on arrow up', function() {
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
         });
 
         it('should trigger 1 navigationModelChange event on arrow right', function() {
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
             // remove the listeners
             testEmitter.destroy();
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
         it('should trigger 1 navigationModelChange event on arrow down', function() {
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
             // remove the listeners
             testEmitter.destroy();
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
@@ -107,52 +103,52 @@ describe('makeup-navigation-emitter', function() {
 
         it('should trigger 1 navigationModelChange event on arrow left', function() {
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
             // remove the listeners
             testEmitter.destroy();
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
         it('should trigger 1 navigationModelChange event on arrow up', function() {
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
             // remove the listeners
             testEmitter.destroy();
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
         it('should trigger 1 navigationModelChange event on arrow right', function() {
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
             // remove the listeners
             testEmitter.destroy();
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
         it('should trigger 1 navigationModelChange event on arrow down', function() {
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
             // remove the listeners
             testEmitter.destroy();
             // execute
-            testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', {detail:{target:{tagName:''}}}));
+            testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });

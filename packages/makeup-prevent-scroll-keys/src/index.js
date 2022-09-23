@@ -12,7 +12,4 @@ function remove(el) {
     el.removeEventListener('keydown', onKeyDown);
 }
 
-export {
-    add,
-    remove
-};
+export { add, remove };

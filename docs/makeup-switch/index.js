@@ -1,8 +1,8 @@
-import "../docs.css";
-import "@ebay/skin/switch";
+import '../docs.css';
+import '@ebay/skin/switch';
 
 // REQUIRE
-//const MakeupSwitch = require('../../packages/makeup-switch').default;
+// const MakeupSwitch = require('../../packages/makeup-switch').default;
 
 // IMPORT
 import MakeupSwitch from '../../packages/makeup-switch';

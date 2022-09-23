@@ -1,5 +1,5 @@
 // REQUIRE
-//const nextId = require('../../packages/makeup-next-id').default;
+// const nextId = require('../../packages/makeup-next-id').default;
 
 // IMPORT
 import nextId from '../../packages/makeup-next-id';

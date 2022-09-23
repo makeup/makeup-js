@@ -9,29 +9,29 @@ This module is still in an experimental state; until it reaches v1, all minor re
 ## Example
 
 ```js
-import ExitEmitter from 'makeup-exit-emitter';
+import ExitEmitter from "makeup-exit-emitter";
 
-const el = document.getElementById('#widget1');
+const el = document.getElementById("#widget1");
 
 ExitEmitter.addFocusExit(el);
 
-el.addEventListener('focusExit', function(e){
-  console.log(this, e); // outputs (el1, 'focusExit')
+el.addEventListener("focusExit", function (e) {
+    console.log(this, e); // outputs (el1, 'focusExit')
 });
 ```
 
 ## Methods
 
-* addFocusExit(el)
-* removeFocusExit(el)
+-   addFocusExit(el)
+-   removeFocusExit(el)
 
 ## Events
 
-* 'focusExit'
-    * event.detail
-        * fromElement
-        * toElement
+-   'focusExit'
+    -   event.detail
+        -   fromElement
+        -   toElement
 
 ## Dependencies
 
-* [makeup-next-id](https://github.com/makeup/makeup-js/packages/makeup-next-id)
+-   [makeup-next-id](https://github.com/makeup/makeup-js/packages/makeup-next-id)

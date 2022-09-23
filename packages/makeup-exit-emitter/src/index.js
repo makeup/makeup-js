@@ -2,10 +2,12 @@ import nextID from 'makeup-next-id';
 const focusExitEmitters = {};
 
 function doFocusExit(el, fromElement, toElement) {
-    el.dispatchEvent(new CustomEvent('focusExit', {
-        detail: { fromElement, toElement },
-        bubbles: false // mirror the native mouseleave event
-    }));
+    el.dispatchEvent(
+        new CustomEvent('focusExit', {
+            detail: { fromElement, toElement },
+            bubbles: false // mirror the native mouseleave event
+        })
+    );
 }
 
 function onDocumentFocusIn(e) {
@@ -16,7 +18,8 @@ function onDocumentFocusIn(e) {
     if (targetIsDescendant === true) {
         // set the target as the currently focussed element
         this.currentFocusElement = newFocusElement;
-    } else { // else focus has not gone to a focusable descendant
+    } else {
+        // else focus has not gone to a focusable descendant
         window.removeEventListener('blur', this.onWindowBlurListener);
         document.removeEventListener('focusin', this.onDocumentFocusInListener);
         doFocusExit(this.el, this.currentFocusElement, newFocusElement);

@@ -1,19 +1,19 @@
 // STYLES
-import "../docs.css";
-import "@ebay/skin/global";
-import "@ebay/skin/utility";
-import "@ebay/skin/button";
-import "@ebay/skin/icon-button";
-import "@ebay/skin/link";
-import "@ebay/skin/textbox";
-import "@ebay/skin/alert-dialog";
-import "@ebay/skin/confirm-dialog";
-import "@ebay/skin/drawer-dialog";
-import "@ebay/skin/fullscreen-dialog";
-import "@ebay/skin/lightbox-dialog";
-import "@ebay/skin/panel-dialog";
-import "@ebay/skin/snackbar-dialog";
-import "@ebay/skin/toast-dialog";
+import '../docs.css';
+import '@ebay/skin/global';
+import '@ebay/skin/utility';
+import '@ebay/skin/button';
+import '@ebay/skin/icon-button';
+import '@ebay/skin/link';
+import '@ebay/skin/textbox';
+import '@ebay/skin/alert-dialog';
+import '@ebay/skin/confirm-dialog';
+import '@ebay/skin/drawer-dialog';
+import '@ebay/skin/fullscreen-dialog';
+import '@ebay/skin/lightbox-dialog';
+import '@ebay/skin/panel-dialog';
+import '@ebay/skin/snackbar-dialog';
+import '@ebay/skin/toast-dialog';
 
 // REQUIRE
 /*

@@ -8,7 +8,6 @@ A JavaScript class that represents an ARIA [menu button](https://ebay.github.io/
 
 The following markup structure and classnames are required. Any SVG icons can be used.
 
-
 ### Stateless Menu Button
 
 ```html
@@ -176,16 +175,16 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import MenuButton from 'makeup-menu-button';
+import MenuButton from "makeup-menu-button";
 
-document.querySelectorAll('.menu-button').forEach(function(el, i) {
+document.querySelectorAll(".menu-button").forEach(function (el, i) {
     const widget = new MenuButton(el, config);
 
-    el.addEventListener('makeup-menu-button-select', function(e) {
+    el.addEventListener("makeup-menu-button-select", function (e) {
         console.log(e.type, e.detail);
     });
 
-    el.addEventListener('makeup-menu-button-change', function(e) {
+    el.addEventListener("makeup-menu-button-change", function (e) {
         console.log(e.type, e.detail);
     });
 });

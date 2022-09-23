@@ -1,5 +1,5 @@
 // REQUIRE
-//const ActiveDescendant = require('../../packages/makeup-active-descendant');
+// const ActiveDescendant = require('../../packages/makeup-active-descendant');
 
 // IMPORT
 import * as ActiveDescendant from '../../packages/makeup-active-descendant';

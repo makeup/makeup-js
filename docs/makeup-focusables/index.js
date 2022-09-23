@@ -1,5 +1,5 @@
 // REQUIRE
-//const focusables = require('../../packages/makeup-focusables').default;
+// const focusables = require('../../packages/makeup-focusables').default;
 
 // IMPORT
 import focusables from '../../packages/makeup-focusables';

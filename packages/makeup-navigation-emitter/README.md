@@ -100,26 +100,26 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 
 ## Options
 
-* `autoInit`: specify an integer or -1 for initial index (default: 0)
-* `autoReset`: specify an integer or -1 for index position when focus exits widget (default: null)
-* `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
-* `ignoreButtons`: if set to true, nested button elements will not trigger navigationModelChange events. This is useful in a combobox + button scenario, where only the textbox should trigger navigationModelChange events (default: false)
-* `wrap` : specify whether arrow keys should wrap/loop (default: false)
+-   `autoInit`: specify an integer or -1 for initial index (default: 0)
+-   `autoReset`: specify an integer or -1 for index position when focus exits widget (default: null)
+-   `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
+-   `ignoreButtons`: if set to true, nested button elements will not trigger navigationModelChange events. This is useful in a combobox + button scenario, where only the textbox should trigger navigationModelChange events (default: false)
+-   `wrap` : specify whether arrow keys should wrap/loop (default: false)
 
 ## Methods
 
-* `destroy`: destroys all event listeners
-* `reset`: will force a reset to the value specified by `autoReset`
+-   `destroy`: destroys all event listeners
+-   `reset`: will force a reset to the value specified by `autoReset`
 
 ## Properties
 
-* `items`: returns all items that match item selector
-* `filteredItems`: returns filtered items (e.g. non-hidden items)
+-   `items`: returns all items that match item selector
+-   `filteredItems`: returns filtered items (e.g. non-hidden items)
 
 ## Events
 
-* `navigationModelInit` - fired when the model is auto initialised
-* `navigationModelChange` - fired when the index is set by any means other than auto init or auto reset
-* `navigationModelReset` - fired when the model is auto reset
+-   `navigationModelInit` - fired when the model is auto initialised
+-   `navigationModelChange` - fired when the index is set by any means other than auto init or auto reset
+-   `navigationModelReset` - fired when the model is auto reset
 
 For all 3 events, the event detail object contains the `fromIndex` and `toIndex`.

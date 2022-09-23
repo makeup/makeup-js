@@ -1,10 +1,9 @@
 // filter function for ancestor elements
-const filterAncestor = item => item.nodeType === 1
-                                && item.tagName.toLowerCase() !== 'body'
-                                && item.tagName.toLowerCase() !== 'html';
+const filterAncestor = (item) =>
+    item.nodeType === 1 && item.tagName.toLowerCase() !== 'body' && item.tagName.toLowerCase() !== 'html';
 
 // filter function for sibling elements
-const filterSibling = item => item.nodeType === 1 && item.tagName.toLowerCase() !== 'script';
+const filterSibling = (item) => item.nodeType === 1 && item.tagName.toLowerCase() !== 'script';
 
 // reducer to flatten arrays
 const flattenArrays = (a, b) => a.concat(b);
@@ -62,11 +61,9 @@ function getAncestors(el) {
 
 // get siblings of ancestors (i.e. aunts and uncles) of given el
 function getSiblingsOfAncestors(el) {
-    return getAncestors(el).map(item => getSiblings(item)).reduce(flattenArrays, []);
+    return getAncestors(el)
+        .map((item) => getSiblings(item))
+        .reduce(flattenArrays, []);
 }
 
-export {
-    getSiblings,
-    getAncestors,
-    getSiblingsOfAncestors
-};
+export { getSiblings, getAncestors, getSiblingsOfAncestors };

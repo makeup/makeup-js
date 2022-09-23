@@ -11,7 +11,14 @@ The following markup structure and classnames are required. Any SVG icons can be
 ```html
 <button data-makeup-for="dialog-lightbox" class="dialog-button" type="button" aria-haspopup="dialog">Lightbox</button>
 
-<div class="lightbox-dialog" hidden id="dialog-lightbox" role="dialog" aria-labelledby="dialog-1-title" aria-modal="true">
+<div
+    class="lightbox-dialog"
+    hidden
+    id="dialog-lightbox"
+    role="dialog"
+    aria-labelledby="dialog-1-title"
+    aria-modal="true"
+>
     <!-- dialog internals -->
 </div>
 ```
@@ -23,16 +30,16 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import DialogButton from 'makeup-dialog-button';
-import LightboxDialog from 'makeup-lightbox-dialog';
+import DialogButton from "makeup-dialog-button";
+import LightboxDialog from "makeup-lightbox-dialog";
 
-document.querySelectorAll('.dialog-button').forEach(function(el, i) {
+document.querySelectorAll(".dialog-button").forEach(function (el, i) {
     const dialogEl = document.getElementById(el.dataset.makeupFor);
     const dialogWidget = new LightboxDialog(dialogEl);
     const widget = new DialogButton(el, dialogWidget, config);
 
-    dialogWidget._el.addEventListener('dialog-open', log);
-    dialogWidget._el.addEventListener('dialog-close', log);
+    dialogWidget._el.addEventListener("dialog-open", log);
+    dialogWidget._el.addEventListener("dialog-close", log);
 });
 ```
 

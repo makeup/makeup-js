@@ -11,7 +11,16 @@ The following markup structure and classnames are required. Any SVG icons can be
 ```html
 <span class="combobox">
     <span class="combobox__control">
-        <input autocomplete="off" name="combobox-default" placeholder="Combobox" role="combobox" type="text" aria-haspopup="listbox" aria-label="Combobox demo" aria-owns="listbox1" />
+        <input
+            autocomplete="off"
+            name="combobox-default"
+            placeholder="Combobox"
+            role="combobox"
+            type="text"
+            aria-haspopup="listbox"
+            aria-label="Combobox demo"
+            aria-owns="listbox1"
+        />
         <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
             <use xlink:href="../style/icon.svg#icon-dropdown"></use>
         </svg>
@@ -41,12 +50,12 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import Combobox from 'makeup-combobox';
+import Combobox from "makeup-combobox";
 
-document.querySelectorAll('.combobox').forEach(function(el, i) {
+document.querySelectorAll(".combobox").forEach(function (el, i) {
     const widget = new Combobox(el, config);
 
-    el.addEventListener('makeup-combobox-change', function(e) {
+    el.addEventListener("makeup-combobox-change", function (e) {
         console.log(e.type, e.detail);
     });
 });

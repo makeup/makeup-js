@@ -1,11 +1,11 @@
 // STYLES
-import "../docs.css";
-import "@ebay/skin/global";
-import "@ebay/skin/button";
-import "@ebay/skin/alert-dialog";
+import '../docs.css';
+import '@ebay/skin/global';
+import '@ebay/skin/button';
+import '@ebay/skin/alert-dialog';
 
 // REQUIRE
-//const AlertDialog = require('../../packages/makeup-alert-dialog');
+// const AlertDialog = require('../../packages/makeup-alert-dialog');
 
 // IMPORT
 import AlertDialog from '../../packages/makeup-alert-dialog';

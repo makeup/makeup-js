@@ -28,21 +28,25 @@ hoverAndFocusExpanderEls.forEach(function(el) {
 });
 
 stealthExpanderEls.forEach(function(el) {
-    expanderWidgets.push(new Expander(el, {
-        ollapseOnClickOut: true,
-        collapseOnFocusOut: true,
-        expandOnClick: true,
-        focusManagement: 'focusable'
-    }));
+    expanderWidgets.push(
+        new Expander(el, {
+            ollapseOnClickOut: true,
+            collapseOnFocusOut: true,
+            expandOnClick: true,
+            focusManagement: 'focusable'
+        })
+    );
 });
 
 clickAndSpacebarExpanderEls.forEach(function(el) {
-    expanderWidgets.push(new Expander(el, {
-        autoCollapse: true,
-        expandOnClick: true,
-        simulateSpacebarClick: true,
-        expandedClass: 'expander__host-container--expanded'
-    }));
+    expanderWidgets.push(
+        new Expander(el, {
+            autoCollapse: true,
+            expandOnClick: true,
+            simulateSpacebarClick: true,
+            expandedClass: 'expander__host-container--expanded'
+        })
+    );
 });
 
 expanderWidgets.forEach(function(item) {

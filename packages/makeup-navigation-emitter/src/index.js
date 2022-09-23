@@ -17,7 +17,7 @@ const defaultOptions = {
 const itemFilter = (el) => !el.hidden;
 
 function clearData(els) {
-    els.forEach(el => el.removeAttribute(dataSetKey));
+    els.forEach((el) => el.removeAttribute(dataSetKey));
 }
 
 function setData(els) {
@@ -33,7 +33,7 @@ function onKeyPrev(e) {
         if (!this.atStart()) {
             this.index--;
         } else if (this.options.wrap) {
-            this.index = (this.filteredItems.length - 1);
+            this.index = this.filteredItems.length - 1;
         }
     }
 }
@@ -110,13 +110,15 @@ class LinearNavigationModel extends NavigationModel {
 
         if (this.options.autoInit !== null) {
             this._index = this.options.autoInit;
-            this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
-                detail: {
-                    items: this.filteredItems,
-                    toIndex: this.options.autoInit
-                },
-                bubbles: false
-            }));
+            this._el.dispatchEvent(
+                new CustomEvent('navigationModelInit', {
+                    detail: {
+                        items: this.filteredItems,
+                        toIndex: this.options.autoInit
+                    },
+                    bubbles: false
+                })
+            );
         }
     }
 
@@ -134,13 +136,15 @@ class LinearNavigationModel extends NavigationModel {
 
     set index(newIndex) {
         if (newIndex > -1 && newIndex < this.filteredItems.length && newIndex !== this.index) {
-            this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
-                detail: {
-                    fromIndex: this.index,
-                    toIndex: newIndex
-                },
-                bubbles: false
-            }));
+            this._el.dispatchEvent(
+                new CustomEvent('navigationModelChange', {
+                    detail: {
+                        fromIndex: this.index,
+                        toIndex: newIndex
+                    },
+                    bubbles: false
+                })
+            );
             this._index = newIndex;
         }
     }
@@ -148,12 +152,14 @@ class LinearNavigationModel extends NavigationModel {
     reset() {
         if (this.options.autoReset !== null) {
             this._index = this.options.autoReset; // do not use index setter, it will trigger change event
-            this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
-                detail: {
-                    toIndex: this.options.autoReset
-                },
-                bubbles: false
-            }));
+            this._el.dispatchEvent(
+                new CustomEvent('navigationModelReset', {
+                    detail: {
+                        toIndex: this.options.autoReset
+                    },
+                    bubbles: false
+                })
+            );
         }
     }
 

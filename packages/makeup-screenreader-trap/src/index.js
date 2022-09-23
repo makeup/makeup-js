@@ -10,7 +10,7 @@ let trappedEl;
 let dirtyObjects;
 
 // filter function for svg elements
-const filterSvg = item => item.tagName.toLowerCase() !== 'svg';
+const filterSvg = (item) => item.tagName.toLowerCase() !== 'svg';
 
 function showElementPrep(el, useHiddenProperty) {
     let preparedElement;
@@ -71,7 +71,7 @@ function cleanElement(preparedObj) {
 function untrap() {
     if (trappedEl) {
         // restore 'dirtied' elements to their original state
-        dirtyObjects.forEach(item => cleanElement(item));
+        dirtyObjects.forEach((item) => cleanElement(item));
 
         dirtyObjects = [];
 
@@ -121,18 +121,15 @@ function trap(el, selectedOptions) {
 
     // prepare elements
     dirtyObjects = [showElementPrep(trappedEl, options.useHiddenProperty)]
-        .concat(ancestors.map(item => showElementPrep(item, options.useHiddenProperty)))
-        .concat(siblings.map(item => hideElementPrep(item, options.useHiddenProperty)))
-        .concat(siblingsOfAncestors.map(item => hideElementPrep(item, options.useHiddenProperty)));
+        .concat(ancestors.map((item) => showElementPrep(item, options.useHiddenProperty)))
+        .concat(siblings.map((item) => hideElementPrep(item, options.useHiddenProperty)))
+        .concat(siblingsOfAncestors.map((item) => hideElementPrep(item, options.useHiddenProperty)));
 
     // update DOM
-    dirtyObjects.forEach(item => dirtyElement(item));
+    dirtyObjects.forEach((item) => dirtyElement(item));
 
     // let observers know the screenreader is now trapped
     trappedEl.dispatchEvent(new CustomEvent('screenreaderTrap', { bubbles: true }));
 }
 
-export {
-    trap,
-    untrap
-};
+export { trap, untrap };

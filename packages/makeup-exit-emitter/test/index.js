@@ -4,8 +4,9 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
 
 describe('makeup-focus-exit-emitter', function() {
     var timeoutInterval = 50;
-    var dom = '<div id="test-element" tabindex="0"><button></button><button></button></div>'
-            + '<div id="test-element-sibling" tabindex="0"><button></button><button></button></div>';
+    var dom =
+        '<div id="test-element" tabindex="0"><button></button><button></button></div>' +
+        '<div id="test-element-sibling" tabindex="0"><button></button><button></button></div>';
     var eventHandlers = {
         onFocusExit: function() {}
     };

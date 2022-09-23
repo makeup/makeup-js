@@ -151,8 +151,10 @@ export default class {
         this.formControlEl.addEventListener('blur', this._onBlurListener);
         this.formControlEl.addEventListener('focus', this._onFocusListener);
 
-        if (!hasValue(this.formControlEl) &&
-            !isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)) {
+        if (
+            !hasValue(this.formControlEl) &&
+            !isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)
+        ) {
             this.labelEl.classList.add(this.options.labelElementInlineModifier);
         } else if (!isSelect(this.formControlEl)) {
             this.labelEl.classList.remove(this.options.labelElementInlineModifier);
@@ -177,9 +179,11 @@ export default class {
     }
 
     refresh() {
-        if (hasValue(this.formControlEl) ||
+        if (
+            hasValue(this.formControlEl) ||
             isSelect(this.formControlEl) ||
-            isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)) {
+            isAutofilled(this.formControlEl, this.options.textboxElementBackgroundRGB)
+        ) {
             this.labelEl.classList.remove(this.options.labelElementInlineModifier);
         } else {
             this.labelEl.classList.add(this.options.labelElementInlineModifier);

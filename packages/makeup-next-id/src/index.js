@@ -23,7 +23,7 @@ function createRandomPortion(size) {
 }
 
 export default function(el, prefix = defaultPrefix) {
-    const separator = (prefix === '') ? '' : '-';
+    const separator = prefix === '' ? '' : '-';
 
     // join first prefix with random portion to create key
     const key = `${prefix}${separator}${randomPortion}`;

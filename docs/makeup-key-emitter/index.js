@@ -1,5 +1,5 @@
 // REQUIRE
-//const KeyEmitter = require('../../packages/makeup-key-emitter');
+// const KeyEmitter = require('../../packages/makeup-key-emitter');
 
 // IMPORT
 import * as KeyEmitter from '../../packages/makeup-key-emitter';

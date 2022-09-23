@@ -9,7 +9,14 @@ JavaScript class representing a [panel dialog](https://ebay.gitbook.io/mindpatte
 The following markup structure and classnames are required. Any SVG icons can be used.
 
 ```html
-<div class="panel-dialog panel-dialog--mask-fade-slow" id="dialog-panel" role="dialog" aria-labelledby="panel-dialog-title" aria-modal="true" hidden>
+<div
+    class="panel-dialog panel-dialog--mask-fade-slow"
+    id="dialog-panel"
+    role="dialog"
+    aria-labelledby="panel-dialog-title"
+    aria-modal="true"
+    hidden
+>
     <div class="panel-dialog__window panel-dialog__window--slide">
         <div class="panel-dialog__header">
             <h2 id="panel-dialog-title">Heading</h2>
@@ -20,10 +27,13 @@ The following markup structure and classnames are required. Any SVG icons can be
             </button>
         </div>
         <div class="panel-dialog__main">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+            </p>
             <p><a href="http://www.ebay.com">www.ebay.com</a></p>
         </div>
     </div>
@@ -37,9 +47,9 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import PanelDialog from 'makeup-panel-dialog';
+import PanelDialog from "makeup-panel-dialog";
 
-document.querySelectorAll('.panel-dialog').forEach(function(el, i) {
+document.querySelectorAll(".panel-dialog").forEach(function (el, i) {
     const widget = new PanelDialog(el, config);
 });
 ```

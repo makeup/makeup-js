@@ -1,7 +1,7 @@
-import "../docs.css";
-import "@ebay/skin/global";
-import "@ebay/skin/button";
-import "@ebay/skin/toast-dialog";
+import '../docs.css';
+import '@ebay/skin/global';
+import '@ebay/skin/button';
+import '@ebay/skin/toast-dialog';
 
 // REQUIRE
 // const ToastDialog = require('../../packages/makeup-toast-dialog').default;

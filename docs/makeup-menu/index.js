@@ -1,5 +1,5 @@
-import "../docs.css";
-import "@ebay/skin/menu";
+import '../docs.css';
+import '@ebay/skin/menu';
 
 // REQUIRE
 // const Menu = require('../../packages/makeup-menu').default;

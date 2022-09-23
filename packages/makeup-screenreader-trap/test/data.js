@@ -1,7 +1,6 @@
 export default [
     {
-        html: ''
-    + '<div class="trap"></div>',
+        html: '' + '<div class="trap"></div>',
         numSiblings: 0,
         numAncestors: 0,
         numSiblingsOfAncestors: 0,
@@ -13,8 +12,7 @@ export default [
         numAriaHiddenFalseAfterUntrap: 0
     },
     {
-        html: ''
-        + '<div class="trap" aria-hidden="true"></div>',
+        html: '' + '<div class="trap" aria-hidden="true"></div>',
         numSiblings: 0,
         numAncestors: 0,
         numSiblingsOfAncestors: 0,
@@ -26,10 +24,7 @@ export default [
         numAriaHiddenFalseAfterUntrap: 0
     },
     {
-        html: ''
-        + '<div></div>'
-        + '<div class="trap"></div>'
-        + '<div></div>',
+        html: '' + '<div></div>' + '<div class="trap"></div>' + '<div></div>',
         numSiblings: 2,
         numAncestors: 0,
         numSiblingsOfAncestors: 0,
@@ -41,12 +36,7 @@ export default [
         numAriaHiddenFalseAfterUntrap: 0
     },
     {
-        html: ''
-        + '<div>'
-          + '<div></div>'
-          + '<div class="trap"></div>'
-          + '<div></div>'
-        + '</div>',
+        html: '' + '<div>' + '<div></div>' + '<div class="trap"></div>' + '<div></div>' + '</div>',
         numSiblings: 2,
         numAncestors: 1,
         numSiblingsOfAncestors: 0,
@@ -58,14 +48,15 @@ export default [
         numAriaHiddenFalseAfterUntrap: 0
     },
     {
-        html: ''
-        + '<div></div>'
-        + '<div>'
-          + '<div></div>'
-          + '<div class="trap"></div>'
-          + '<div></div>'
-        + '</div>'
-        + '<div></div>',
+        html:
+            '' +
+            '<div></div>' +
+            '<div>' +
+            '<div></div>' +
+            '<div class="trap"></div>' +
+            '<div></div>' +
+            '</div>' +
+            '<div></div>',
         numSiblings: 2,
         numAncestors: 1,
         numSiblingsOfAncestors: 2,
@@ -77,19 +68,20 @@ export default [
         numAriaHiddenFalseAfterUntrap: 0
     },
     {
-        html: ''
-        + '<div>'
-            + '<div></div>'
-            + '<div>'
-              + '<script></script>'
-              + '<div></div>'
-              + '<div class="trap"></div>'
-              + '<div aria-hidden="true"></div>'
-              + '<div></div>'
-            + '</div>'
-            + '<div></div>'
-          + '</div>'
-        + '<div></div>',
+        html:
+            '' +
+            '<div>' +
+            '<div></div>' +
+            '<div>' +
+            '<script></script>' +
+            '<div></div>' +
+            '<div class="trap"></div>' +
+            '<div aria-hidden="true"></div>' +
+            '<div></div>' +
+            '</div>' +
+            '<div></div>' +
+            '</div>' +
+            '<div></div>',
         numSiblings: 3,
         numAncestors: 2,
         numSiblingsOfAncestors: 3,

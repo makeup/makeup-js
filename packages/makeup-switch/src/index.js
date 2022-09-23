@@ -62,12 +62,14 @@ export default class {
         this._unobserveMutations();
 
         this._focusableElement.setAttribute('aria-checked', isChecked.toString());
-        this.el.dispatchEvent(new CustomEvent('makeup-switch-toggle', {
-            composed: true,
-            detail: {
-                on: this.checked
-            }
-        }));
+        this.el.dispatchEvent(
+            new CustomEvent('makeup-switch-toggle', {
+                composed: true,
+                detail: {
+                    on: this.checked
+                }
+            })
+        );
 
         this._observeMutations();
     }
@@ -125,7 +127,7 @@ export default class {
     }
 
     toggle() {
-        this.checked = !(this.checked);
+        this.checked = !this.checked;
     }
 
     destroy() {
@@ -165,11 +167,13 @@ function _onClick() {
 function _onMutation(mutationsList) {
     for (const mutation of mutationsList) {
         if (mutation.type === 'attributes') {
-            this.el.dispatchEvent(new CustomEvent('makeup-switch-mutation', {
-                detail: {
-                    attributeName: mutation.attributeName
-                }
-            }));
+            this.el.dispatchEvent(
+                new CustomEvent('makeup-switch-mutation', {
+                    detail: {
+                        attributeName: mutation.attributeName
+                    }
+                })
+            );
         }
     }
 }

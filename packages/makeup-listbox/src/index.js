@@ -1,10 +1,10 @@
 /**
- * A listbox can be a standalone focusable widget, or controlled by a separate, focusable widget
- * (a textbox for example, in the case of a combobox or datepicker)
- *
- * This listbox code currently supports single-selct only!
- * This code has been copied from Skin & MIND Patterns and has not yet been cleaned up.
- */
+* A listbox can be a standalone focusable widget, or controlled by a separate, focusable widget
+* (a textbox for example, in the case of a combobox or datepicker)
+*
+* This listbox code currently supports single-selct only!
+* This code has been copied from Skin & MIND Patterns and has not yet been cleaned up.
+*/
 
 import * as ActiveDescendant from 'makeup-active-descendant';
 import * as PreventScrollKeys from 'makeup-prevent-scroll-keys';
@@ -181,8 +181,8 @@ export default class {
 }
 
 /*
- *   For listbox with auto select, the first keyboard focus should set selection to first option
- */
+*   For listbox with auto select, the first keyboard focus should set selection to first option
+*/
 function _onFocus() {
     this._unobserveMutations();
 
@@ -201,8 +201,8 @@ function _onFocus() {
 }
 
 /*
- *   This flag is used to help us detect if first focus comes from keyboard or as a result of mouse _onClick
- */
+*   This flag is used to help us detect if first focus comes from keyboard or as a result of mouse _onClick
+*/
 function _onMouseDown() {
     this._mouseDownFlag = true;
 }

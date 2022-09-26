@@ -225,8 +225,8 @@ var _default = /*#__PURE__*/function () {
   return _default;
 }();
 /*
- *   For listbox with auto select, the first keyboard focus should set selection to first option
- */
+*   For listbox with auto select, the first keyboard focus should set selection to first option
+*/
 
 
 exports.default = _default;
@@ -249,8 +249,8 @@ function _onFocus() {
   this._observeMutations();
 }
 /*
- *   This flag is used to help us detect if first focus comes from keyboard or as a result of mouse _onClick
- */
+*   This flag is used to help us detect if first focus comes from keyboard or as a result of mouse _onClick
+*/
 
 
 function _onMouseDown() {

@@ -62,5 +62,7 @@ widgetEls.forEach(function(el) {
 });
 
 wrapCheckbox.addEventListener('change', function(e) {
-    navs[0].wrap = e.target.checked;
+    navs.forEach(function(nav) {
+        nav.wrap = e.target.checked;
+    });
 });

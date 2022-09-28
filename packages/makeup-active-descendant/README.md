@@ -158,6 +158,17 @@ Use CSS to style the active descendant however you wish:
 * `autoScroll` : Specify true to scroll the container as activeDescendant changes (default: false)
 * `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
 * `ignoreButtons`: if set to true, nested button elements will not trigger navigationModelChange events. This is useful in a combobox + button scenario, where only the textbox should trigger navigationModelChange events (default: false)
+* `ignoreByAttrs`: Map from attribute names to the values that are associated with ignoring those names
+    * Ex. ignore when `aria-disabled="true"` or `hidden`
+        ```
+        {
+            ignoreByAttrs: {
+                "aria-disabled": "true",
+                hidden: true
+            }
+        }
+        ```
+    * Default: `{ hidden: true }`
 
 ## Custom Events
 

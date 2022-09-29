@@ -47,7 +47,7 @@ var defaultOptions = {
   axis: 'both',
   ignoreButtons: false,
 
-  /** @type {{[attr: string]: unknown}} */
+  /** @type {{[attr: string]: string | boolean}} */
   ignoreByAttrs: {
     hidden: true
   }

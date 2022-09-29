@@ -7,7 +7,7 @@ const defaultOptions = {
     index: 0,
     wrap: false,
     axis: 'both',
-    /** @type {{[attr: string]: unknown}} */
+    /** @type {{[attr: string]: string | boolean}} */
     ignoreByAttrs: { hidden: true }
 };
 

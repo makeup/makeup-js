@@ -63,7 +63,7 @@ var defaultOptions = {
   ignoreButtons: false,
   wrap: false,
 
-  /** @type {{[attr: string]: unknown}} */
+  /** @type {{[attr: string]: string | boolean}} */
   ignoreByAttrs: {
     hidden: true
   }
@@ -210,7 +210,7 @@ var LinearNavigationModel = /*#__PURE__*/function (_NavigationModel) {
             attr = _ref2[0],
             value = _ref2[1];
 
-        return el.getAttribute(attr) === value;
+        return el[typeof value === 'boolean' ? 'hasAttribute' : 'getAttribute'](attr) === value;
       });
     }
   }, {

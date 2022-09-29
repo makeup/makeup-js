@@ -92,7 +92,7 @@ class LinearNavigationModel extends NavigationModel {
     }
   }
   shouldIgnore(el) {
-    return !Object.entries(this.options.ignoreByAttrs).some(([attr, value]) => el.getAttribute(attr) === value);
+    return !Object.entries(this.options.ignoreByAttrs).some(([attr, value]) => el[typeof value === "boolean" ? "hasAttribute" : "getAttribute"](attr) === value);
   }
   get items() {
     return this._el.querySelectorAll(this._itemSelector);

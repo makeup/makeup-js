@@ -10,7 +10,7 @@ const defaultOptions = {
     autoScroll: false,
     axis: 'both',
     ignoreButtons: false,
-    /** @type {{[attr: string]: unknown}} */
+    /** @type {{[attr: string]: string | boolean}} */
     ignoreByAttrs: { hidden: true }
 };
 

@@ -12,7 +12,7 @@ const defaultOptions = {
     autoReset: null,
     ignoreButtons: false,
     wrap: false,
-    /** @type {{[attr: string]: unknown}} */
+    /** @type {{[attr: string]: string | boolean}} */
     ignoreByAttrs: { hidden: true }
 };
 
@@ -137,7 +137,7 @@ class LinearNavigationModel extends NavigationModel {
 
     shouldIgnore(el) {
         return !Object.entries(this.options.ignoreByAttrs).some(
-            ([attr, value]) => el.getAttribute(attr) === value);
+            ([attr, value]) => el[typeof value === 'boolean' ? 'hasAttribute' : 'getAttribute'](attr) === value);
     }
 
     get items() {

@@ -49,6 +49,9 @@ var nodeListToArray = function nodeListToArray(nodeList) {
 
 function onModelMutation() {
   var modelIndex = this._navigationEmitter.model.index;
+  this.items.forEach(function (el) {
+    return el.removeAttribute('tabindex');
+  });
   this.filteredItems.forEach(function (el, index) {
     return el.setAttribute('tabindex', index !== modelIndex ? '-1' : '0');
   });

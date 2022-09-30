@@ -10,6 +10,7 @@ const defaultOptions = {
 const nodeListToArray = (nodeList) => Array.prototype.slice.call(nodeList);
 function onModelMutation() {
   const modelIndex = this._navigationEmitter.model.index;
+  this.items.forEach((el) => el.removeAttribute("tabindex"));
   this.filteredItems.forEach((el, index) => el.setAttribute("tabindex", index !== modelIndex ? "-1" : "0"));
 }
 function onModelInit(e) {

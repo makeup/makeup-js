@@ -37,13 +37,17 @@ describe('given a list of 3 visible items', function() {
             testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 3 items', function() {
-            expect(testEmitter.model.filteredItems.length).toEqual(3);
+        it('model should have 3 matching items', function() {
+            expect(testEmitter.model.matchingItems.length).toEqual(3);
+        });
+
+        it('model should have 3 navigable items', function() {
+            expect(testEmitter.model.navigableItems.length).toEqual(3);
         });
     });
 });
 
-describe('given a list of 2 visible items, 1 hidden', function() {
+describe('given a list of 3 items with 1 hidden', function() {
     beforeAll(function() {
         document.body.innerHTML = `
             <ul class="widget">
@@ -60,8 +64,12 @@ describe('given a list of 2 visible items, 1 hidden', function() {
             testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 2 items', function() {
-            expect(testEmitter.model.filteredItems.length).toEqual(2);
+        it('model should have 3 matching items', function() {
+            expect(testEmitter.model.matchingItems.length).toEqual(3);
+        });
+
+        it('model should have 2 navigable items', function() {
+            expect(testEmitter.model.navigableItems.length).toEqual(2);
         });
     });
 });
@@ -83,8 +91,66 @@ describe('given a list of 3 hidden items', function() {
             testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 0 items', function() {
-            expect(testEmitter.model.filteredItems.length).toEqual(0);
+        it('model should have 3 matching items', function() {
+            expect(testEmitter.model.matchingItems.length).toEqual(3);
+        });
+
+        it('model should have 0 navigable items', function() {
+            expect(testEmitter.model.navigableItems.length).toEqual(0);
+        });
+    });
+});
+
+describe('given a list of 3 items with 1 aria-disabled', function() {
+    beforeAll(function() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li aria-disabled="true">Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+    });
+
+    describe('when instantiated', function() {
+        beforeAll(function() {
+            testEl = document.querySelector('.widget');
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
+        });
+
+        it('model should have 3 matching items', function() {
+            expect(testEmitter.model.matchingItems.length).toEqual(3);
+        });
+
+        it('model should have 2 navigable items', function() {
+            expect(testEmitter.model.navigableItems.length).toEqual(2);
+        });
+    });
+});
+
+describe('given a list of 3 aria-disabled items', function() {
+    beforeAll(function() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li aria-disabled="true">Item 1</li>
+                <li aria-disabled="true">Item 2</li>
+                <li aria-disabled="true">Item 3</li>
+            </ul>
+        `;
+    });
+
+    describe('when instantiated', function() {
+        beforeAll(function() {
+            testEl = document.querySelector('.widget');
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
+        });
+
+        it('model should have 3 matching items', function() {
+            expect(testEmitter.model.matchingItems.length).toEqual(3);
+        });
+
+        it('model should have 0 navigable items', function() {
+            expect(testEmitter.model.navigableItems.length).toEqual(0);
         });
     });
 });
@@ -107,24 +173,24 @@ describe('given a list of 3 visible items', function() {
         testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
     });
 
-    describe('when first item is hidden', function() {
+    describe('when first matching item is hidden', function() {
         beforeAll(function() {
-           testEmitter.model.items[0].hidden = true;
+           testEmitter.model.matchingItems[0].hidden = true;
         });
 
-        it('model should have 2 items', function() {
-            expect(testEmitter.model.filteredItems.length).toEqual(2);
+        it('model should have 2 navigable items', function() {
+            expect(testEmitter.model.navigableItems.length).toEqual(2);
         });
     });
 
     describe('when first item is hidden and then unhidden', function() {
         beforeAll(function() {
-           testEmitter.model.items[0].hidden = true;
-           testEmitter.model.items[0].hidden = false;
+           testEmitter.model.matchingItems[0].hidden = true;
+           testEmitter.model.matchingItems[0].hidden = false;
         });
 
-        it('model should have 3 items', function() {
-            expect(testEmitter.model.filteredItems.length).toEqual(3);
+        it('model should have 3 navigable items', function() {
+            expect(testEmitter.model.navigableItems.length).toEqual(3);
         });
     });
 });
@@ -627,7 +693,7 @@ describe('given 3 items', function() {
         document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
-                <li>Item 2</li>
+                <li aria-selected="true">Item 2</li>
                 <li>Item 3</li>
             </ul>
         `;
@@ -673,6 +739,22 @@ describe('given 3 items', function() {
     describe('when autoInit is 1', function() {
         beforeAll(function() {
             testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 1}); // eslint-disable-line
+        });
+
+        it('should trigger navigationModelInit event once', function() {
+            setTimeout(function() { 
+                expect(onNavigationModelInit).toHaveBeenCalledTimes(1);
+            }, timeoutInterval);
+        });
+
+        it('should have index value of 1', function() {
+            expect(testEmitter.model.index).toBe(1);
+        });
+    });
+
+    describe('when autoInit is aria-selected', function() {
+        beforeAll(function() {
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 'aria-selected'}); // eslint-disable-line
         });
 
         it('should trigger navigationModelInit event once', function() {

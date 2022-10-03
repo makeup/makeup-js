@@ -40,7 +40,7 @@ describe('given a list of 3 visible items', function() {
         });
 
         it('model should have 3 items', function() {
-            expect(testRovingIndex.filteredItems.length).toEqual(3);
+            expect(testRovingIndex.navigableItems.length).toEqual(3);
         });
     });
 });
@@ -63,7 +63,7 @@ describe('given a list of 2 visible items, 1 hidden', function() {
         });
 
         it('model should have 2 items', function() {
-            expect(testRovingIndex.filteredItems.length).toEqual(2);
+            expect(testRovingIndex.navigableItems.length).toEqual(2);
         });
     });
 });
@@ -86,7 +86,7 @@ describe('given a list of 3 hidden items', function() {
         });
 
         it('model should have 0 items', function() {
-            expect(testRovingIndex.filteredItems.length).toEqual(0);
+            expect(testRovingIndex.navigableItems.length).toEqual(0);
         });
     });
 });
@@ -111,22 +111,22 @@ describe('given a list of 3 visible items', function() {
 
     describe('when first item is hidden', function() {
         beforeAll(function() {
-            testRovingIndex.items[0].hidden = true;
+            testRovingIndex.matchingItems[0].hidden = true;
         });
 
         it('model should have 2 items', function() {
-            expect(testRovingIndex.filteredItems.length).toEqual(2);
+            expect(testRovingIndex.navigableItems.length).toEqual(2);
         });
     });
 
     describe('when first item is hidden and then unhidden', function() {
         beforeAll(function() {
-            testRovingIndex.items[0].hidden = true;
-            testRovingIndex.items[0].hidden = false;
+            testRovingIndex.matchingItems[0].hidden = true;
+            testRovingIndex.matchingItems[0].hidden = false;
         });
 
         it('model should have 3 items', function() {
-            expect(testRovingIndex.filteredItems.length).toEqual(3);
+            expect(testRovingIndex.navigableItems.length).toEqual(3);
         });
     });
 });

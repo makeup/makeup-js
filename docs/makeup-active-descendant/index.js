@@ -31,7 +31,7 @@ remover.addEventListener('click', function() {
 
 widgetEls.forEach(function(el) {
     el.addEventListener('activeDescendantChange', function(e) {
-        console.log(e);
+        console.log(e.type, e.detail);
     });
 
     const options = {

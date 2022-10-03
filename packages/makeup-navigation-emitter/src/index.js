@@ -1,8 +1,6 @@
 import * as KeyEmitter from 'makeup-key-emitter';
 import * as ExitEmitter from 'makeup-exit-emitter';
 
-const dataSetKey = 'data-makeup-index';
-
 // todo: autoInit: -1, autoReset: -1 are used for activeDescendant behaviour. These values can be abstracted away with
 // a new "type" option (roving or active)
 
@@ -14,64 +12,58 @@ const defaultOptions = {
     wrap: false
 };
 
-const itemFilter = (el) => !el.hidden;
-
-function clearData(els) {
-    els.forEach(el => el.removeAttribute(dataSetKey));
-}
-
-function setData(els) {
-    els.forEach((el, index) => el.setAttribute(dataSetKey, index));
-}
-
 function isButton(el) {
     return el.tagName.toLowerCase() === 'button' || el.type === 'button';
 }
 
 function onKeyPrev(e) {
+    // todo: improve this button checking logic/config, it's a little unintuitive
     if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
         if (!this.atStart()) {
-            this.index--;
+            this.index = this.prevNavigableIndex;
         } else if (this.options.wrap) {
-            this.index = (this.filteredItems.length - 1);
+            this.index = this.lastNavigableIndex;
         }
     }
 }
 
 function onKeyNext(e) {
+    // todo: improve this button checking logic/config, it's a little unintuitive
     if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
         if (!this.atEnd()) {
-            this.index++;
+            this.index = this.nextNavigableIndex;
         } else if (this.options.wrap) {
-            this.index = 0;
+            this.index = this.firstNavigableIndex;
         }
     }
 }
 
 function onClick(e) {
     let element = e.target;
-    let indexData = element.dataset.makeupIndex;
+    let elementIndex = this.matchingItems.indexOf(element);
 
-    // traverse widget ancestors until interactive element is found
-    while (element !== this._el && !indexData) {
+    // traverse widget ancestors until matching element is found
+    while (element !== this._el && elementIndex === -1) {
         element = element.parentNode;
-        indexData = element.dataset.makeupIndex;
+        elementIndex = this.matchingItems.indexOf(element);
     }
 
-    if (indexData !== undefined) {
-        this.index = indexData;
+    if (elementIndex !== -1) {
+        this.index = elementIndex;
     }
 }
 
 function onKeyHome(e) {
+    // todo: improve this button checking logic/config, it's a little unintuitive
     if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-        this.index = 0;
+        this.index = this.firstNavigableIndex;
     }
 }
 
 function onKeyEnd(e) {
+    // todo: improve this button checking logic/config, it's a little unintuitive
     if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-        this.index = this.filteredItems.length;
+        this.index = this.lastNavigableIndex;
     }
 }
 
@@ -82,13 +74,11 @@ function onFocusExit() {
 }
 
 function onMutation() {
-    // clear data-makeup-index on ALL items
-    clearData(this.items);
+    // todo: reset index position if currentItem becomes disabled or hidden
+    // const { target, attributeName } = e[0];
 
-    // set data-makeup-index only on filtered items (e.g. non-hidden ones)
-    setData(this.filteredItems);
-
-    if (this.index >= this.items.length) {
+    // reset index if position is rendered invalid after mutation (e.g. nodes are hidden or disabled)
+    if (this.index >= this.navigableItems.length) {
         // do not use index setter, it will trigger change event
         this._index = this.options.autoReset || this.options.autoInit;
     }
@@ -109,23 +99,63 @@ class LinearNavigationModel extends NavigationModel {
         super(el, itemSelector, selectedOptions);
 
         if (this.options.autoInit !== null) {
-            this._index = this.options.autoInit;
+            if (typeof this.options.autoInit === 'number') {
+                this._index = this.options.autoInit;
+            } else {
+                this._index = this.matchingItems.findIndex(
+                    (item) => item.getAttribute(this.options.autoInit) === 'true'
+                );
+            }
             this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
                 detail: {
-                    items: this.filteredItems,
-                    toIndex: this.options.autoInit
+                    items: this.matchingItems,
+                    toIndex: this._index
                 },
                 bubbles: false
             }));
         }
     }
 
-    get items() {
-        return this._el.querySelectorAll(this._itemSelector);
+    get firstNavigableIndex() {
+        return this.matchingItems.indexOf(this.navigableItems[0]);
     }
 
-    get filteredItems() {
-        return Array.prototype.slice.call(this.items).filter(itemFilter);
+    get lastNavigableIndex() {
+        return this.matchingItems.indexOf(this.navigableItems[this.navigableItems.length - 1]);
+    }
+
+    get nextNavigableIndex() {
+        let nextNavigableIndex = -1;
+        const el = this.navigableItems[this.navigableItems.indexOf(this.currentItem) + 1];
+
+        if (el) nextNavigableIndex = this.matchingItems.indexOf(el);
+
+        return nextNavigableIndex;
+    }
+
+    get prevNavigableIndex() {
+        let prevNavigableIndex = -1;
+        const el = this.navigableItems[this.navigableItems.indexOf(this.currentItem) - 1];
+
+        if (el) prevNavigableIndex = this.matchingItems.indexOf(el);
+
+        return prevNavigableIndex;
+    }
+
+    get currentItem() {
+        return this.matchingItems[this.index];
+    }
+
+    get matchingItems() {
+        return [...this.matchingNodes];
+    }
+
+    get matchingNodes() {
+        return this._el.querySelectorAll(`${this._itemSelector}`);
+    }
+
+    get navigableItems() {
+        return this.matchingItems.filter((el) => !el.hidden && el.getAttribute('aria-disabled') !== 'true');
     }
 
     get index() {
@@ -133,7 +163,7 @@ class LinearNavigationModel extends NavigationModel {
     }
 
     set index(newIndex) {
-        if (newIndex > -1 && newIndex < this.filteredItems.length && newIndex !== this.index) {
+        if (newIndex !== this.index && this.navigableItems.indexOf(this.matchingItems[newIndex]) !== -1) {
             this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
                 detail: {
                     fromIndex: this.index,
@@ -147,6 +177,7 @@ class LinearNavigationModel extends NavigationModel {
 
     reset() {
         if (this.options.autoReset !== null) {
+            // todo: add defensive code if autoReset index is out of bounds, disabled or hidden (-1 is a valid value)
             this._index = this.options.autoReset; // do not use index setter, it will trigger change event
             this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
                 detail: {
@@ -158,11 +189,11 @@ class LinearNavigationModel extends NavigationModel {
     }
 
     atEnd() {
-        return this.index === this.filteredItems.length - 1;
+        return this.index === this.lastNavigableIndex;
     }
 
     atStart() {
-        return this.index <= 0;
+        return this.index === this.firstNavigableIndex;
     }
 }
 
@@ -190,8 +221,6 @@ class NavigationEmitter {
         this._focusExitListener = onFocusExit.bind(model);
         this._observer = new MutationObserver(onMutation.bind(model));
 
-        setData(model.filteredItems);
-
         KeyEmitter.addKeyDown(this.el);
         ExitEmitter.addFocusExit(this.el);
 
@@ -213,8 +242,9 @@ class NavigationEmitter {
         this._observer.observe(this.el, {
             childList: true,
             subtree: true,
-            attributeFilter: ['hidden'],
-            attributes: true
+            attributeFilter: ['aria-disabled', 'hidden'],
+            attributes: true,
+            attributeOldValue: true
         });
     }
 

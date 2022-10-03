@@ -61,7 +61,7 @@ export default class {
 
     resetFilter() {
         this._listboxWidget._activeDescendant.reset();
-        this._listboxWidget.items.forEach(el => (el.hidden = false));
+        this._listboxWidget.matchingItems.forEach(el => (el.hidden = false));
     }
 
     _observeMutations() {
@@ -151,7 +151,7 @@ function _onTextboxKeyDown(e) {
         e.preventDefault();
         const widget = this;
 
-        this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter(
+        this._inputEl.value = nodeListToArray(this._listboxWidget.navigableItems).filter(
             el => !el.hidden
         )[this._listboxWidget._activeDescendant.index].innerText;
 
@@ -165,7 +165,7 @@ function _onTextboxKeyDown(e) {
                 if (widget._inputEl.value.length === 0) {
                     widget.resetFilter();
                 } else {
-                    _filterSuggestions(widget._inputEl.value, widget._listboxWidget.items);
+                    _filterSuggestions(widget._inputEl.value, widget._listboxWidget.navigableItems);
                 }
             }
         }, this._options.collapseTimeout);
@@ -188,7 +188,7 @@ function _onTextboxInput() {
         if (this._inputEl.value.length === 0) {
             this.resetFilter();
         } else {
-            _filterSuggestions(this._inputEl.value, this._listboxWidget.items);
+            _filterSuggestions(this._inputEl.value, this._listboxWidget.navigableItems);
         }
     }
 }
@@ -199,7 +199,7 @@ function _onListboxClick(e) {
     const indexData = element.dataset.makeupIndex;
 
     if (indexData !== undefined) {
-        this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter(
+        this._inputEl.value = nodeListToArray(this._listboxWidget.navigableItems).filter(
             el => !el.hidden
         )[indexData].innerText;
 
@@ -215,7 +215,7 @@ function _onListboxClick(e) {
 
 function _onListboxActiveDescendantChange(e) {
     if (this._options.autoSelect === true) {
-        this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter(
+        this._inputEl.value = nodeListToArray(this._listboxWidget.navigableItems).filter(
             el => !el.hidden
         )[e.detail.toIndex].innerText;
 

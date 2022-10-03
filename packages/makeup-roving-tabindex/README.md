@@ -40,9 +40,9 @@ Markup after:
 ```html
 <div class="widget">
     <ul>
-        <li data-makeup-index="0" tabindex="0">Item 1</li>
-        <li data-makeup-index="1" tabindex="-1">Item 2</li>
-        <li data-makeup-index="2" tabindex="-1">Item 3</li>
+        <li tabindex="0">Item 1</li>
+        <li tabindex="-1">Item 2</li>
+        <li tabindex="-1">Item 3</li>
     </ul>
 </div>
 ```

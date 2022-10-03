@@ -23,7 +23,7 @@ describe('given a list of 3 visible items in programmatic relationship', functio
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -45,7 +45,7 @@ describe('given a list of 3 visible items in programmatic relationship', functio
         });
 
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(3);
+            expect(testActiveDescendant.navigableItems.length).toEqual(3);
         });
     });
 });
@@ -54,7 +54,7 @@ describe('given a list of 3 visible items in hierarchial relationship', function
     beforeAll(function() {
         document.body.innerHTML = `
             <div class="widget">
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -76,7 +76,7 @@ describe('given a list of 3 visible items in hierarchial relationship', function
         });
 
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(3);
+            expect(testActiveDescendant.navigableItems.length).toEqual(3);
         });
     });
 });
@@ -86,7 +86,7 @@ describe('given a list of 2 visible items, 1 hidden in programmatic relationship
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li hidden>Button 2</li>
                     <li>Button 3</li>
@@ -104,7 +104,7 @@ describe('given a list of 2 visible items, 1 hidden in programmatic relationship
         });
 
         it('model should have 2 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(2);
+            expect(testActiveDescendant.navigableItems.length).toEqual(2);
         });
     });
 });
@@ -113,7 +113,7 @@ describe('given a list of 2 visible items, 1 hidden in hierarchial relationship'
     beforeAll(function() {
         document.body.innerHTML = `
             <div class="widget">
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li hidden>Button 2</li>
                     <li>Button 3</li>
@@ -131,7 +131,7 @@ describe('given a list of 2 visible items, 1 hidden in hierarchial relationship'
         });
 
         it('model should have 2 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(2);
+            expect(testActiveDescendant.navigableItems.length).toEqual(2);
         });
     });
 });
@@ -141,7 +141,7 @@ describe('given a list of 3 hidden items in programmatic relationship', function
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li hidden>Button 1</li>
                     <li hidden>Button 2</li>
                     <li hidden>Button 3</li>
@@ -159,7 +159,7 @@ describe('given a list of 3 hidden items in programmatic relationship', function
         });
 
         it('model should have 0 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(0);
+            expect(testActiveDescendant.navigableItems.length).toEqual(0);
         });
     });
 });
@@ -168,7 +168,7 @@ describe('given a list of 3 hidden items in hierarchial relationship', function(
     beforeAll(function() {
         document.body.innerHTML = `
             <div class="widget">
-                <ul class="widget">
+                <ul>
                     <li hidden>Button 1</li>
                     <li hidden>Button 2</li>
                     <li hidden>Button 3</li>
@@ -186,7 +186,7 @@ describe('given a list of 3 hidden items in hierarchial relationship', function(
         });
 
         it('model should have 0 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(0);
+            expect(testActiveDescendant.navigableItems.length).toEqual(0);
         });
     });
 });
@@ -199,7 +199,7 @@ describe('given a list of 3 visible items', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -215,22 +215,22 @@ describe('given a list of 3 visible items', function() {
 
     describe('when first item is hidden', function() {
         beforeAll(function() {
-            testActiveDescendant.items[0].hidden = true;
+            testActiveDescendant.matchingItems[0].hidden = true;
         });
 
         it('model should have 2 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(2);
+            expect(testActiveDescendant.navigableItems.length).toEqual(2);
         });
     });
 
     describe('when first item is hidden and then unhidden', function() {
         beforeAll(function() {
-            testActiveDescendant.items[0].hidden = true;
-            testActiveDescendant.items[0].hidden = false;
+            testActiveDescendant.matchingItems[0].hidden = true;
+            testActiveDescendant.matchingItems[0].hidden = false;
         });
 
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(3);
+            expect(testActiveDescendant.navigableItems.length).toEqual(3);
         });
     });
 });
@@ -244,7 +244,7 @@ describe('given 3 items with default options in programmatic relationship', func
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -354,7 +354,7 @@ describe('given 3 items with default options in hierarchial relationship', funct
     function setup() {
         document.body.innerHTML = `
             <div class="widget">
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -469,7 +469,7 @@ describe('given 3 items with autoWrap on', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -495,7 +495,9 @@ describe('given 3 items with autoWrap on', function() {
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            setTimeout(function() {
+                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            }, timeoutInterval);
         });
     });
 
@@ -505,7 +507,9 @@ describe('given 3 items with autoWrap on', function() {
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            setTimeout(function() {
+                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+         }, timeoutInterval);
         });
     });
 
@@ -559,7 +563,7 @@ describe('given 3 items with default options', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -619,7 +623,7 @@ describe('given 3 items with axis set to both', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -689,7 +693,7 @@ describe('given 3 items with axis set to x', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -758,7 +762,7 @@ describe('given 3 items with axis set to y', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -831,7 +835,7 @@ describe('given 3 items', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -868,7 +872,9 @@ describe('given 3 items', function() {
 
         it('should set aria-activedescendant to last element child', function() {
             // eslint-disable-next-line max-len
-            expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.lastElementChild.getAttribute('id'));
+            setTimeout(function() {
+                expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.lastElementChild.getAttribute('id'));
+            }, timeoutInterval);
         });
     });
 });
@@ -884,7 +890,7 @@ describe('given 3 items', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>

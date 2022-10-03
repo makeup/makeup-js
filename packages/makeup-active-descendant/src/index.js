@@ -3,6 +3,7 @@
 import * as NavigationEmitter from 'makeup-navigation-emitter';
 import nextID from 'makeup-next-id';
 
+// todo: rename autoInit and autoReset to make it clearer they are for kb focus behaviour
 const defaultOptions = {
     activeDescendantClassName: 'active-descendant',
     autoInit: -1,
@@ -17,7 +18,7 @@ function onModelMutation() {
     const options = this._options;
     const modelIndex = this._navigationEmitter.model.index;
 
-    this.filteredItems.forEach(function(item, index) {
+    this.matchingItems.forEach(function(item, index) {
         nextID(item);
         if (index !== modelIndex) {
             item.classList.remove(options.activeDescendantClassName);
@@ -28,8 +29,8 @@ function onModelMutation() {
 }
 
 function onModelChange(e) {
-    const fromItem = this.filteredItems[e.detail.fromIndex];
-    const toItem = this.filteredItems[e.detail.toIndex];
+    const fromItem = this.matchingItems[e.detail.fromIndex];
+    const toItem = this.matchingItems[e.detail.toIndex];
 
     if (fromItem) {
         fromItem.classList.remove(this._options.activeDescendantClassName);
@@ -56,16 +57,27 @@ function onModelReset(e) {
     const toIndex = e.detail.toIndex;
     const activeClassName = this._options.activeDescendantClassName;
 
-    this.filteredItems.forEach(function(el) {
+    this.matchingItems.forEach(function(el) {
         el.classList.remove(activeClassName);
     });
 
     if (toIndex > -1) {
-        const itemEl = this.filteredItems[toIndex];
+        const itemEl = this.matchingItems[toIndex];
         itemEl.classList.add(activeClassName);
         this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
     } else {
         this._focusEl.removeAttribute('aria-activedescendant');
+    }
+}
+
+function onModelInit(e) {
+    const { items, toIndex } = e.detail;
+
+    if (toIndex > -1) {
+        const itemEl = items[toIndex];
+
+        itemEl.classList.add(this._options.activeDescendantClassName);
+        this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
     }
 }
 
@@ -75,16 +87,19 @@ class ActiveDescendant {
         this._onMutationListener = onModelMutation.bind(this);
         this._onChangeListener = onModelChange.bind(this);
         this._onResetListener = onModelReset.bind(this);
+        this._onInitListener = onModelInit.bind(this);
 
         this._el.addEventListener('navigationModelMutation', this._onMutationListener);
         this._el.addEventListener('navigationModelChange', this._onChangeListener);
         this._el.addEventListener('navigationModelReset', this._onResetListener);
+        this._el.addEventListener('navigationModelInit', this._onInitListener);
     }
 
     destroy() {
         this._el.removeEventListener('navigationModelMutation', this._onMutationListener);
         this._el.removeEventListener('navigationModelChange', this._onChangeListener);
         this._el.removeEventListener('navigationModelReset', this._onResetListener);
+        this._el.removeEventListener('navigationModelInit', this._onInitListener);
     }
 }
 
@@ -94,6 +109,10 @@ class LinearActiveDescendant extends ActiveDescendant {
 
         this._options = Object.assign({}, defaultOptions, selectedOptions);
 
+        this._focusEl = focusEl;
+        this._containerEl = containerEl;
+        this._itemSelector = itemSelector;
+
         this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
             autoInit: this._options.autoInit,
             autoReset: this._options.autoReset,
@@ -101,10 +120,6 @@ class LinearActiveDescendant extends ActiveDescendant {
             ignoreButtons: this._options.ignoreButtons,
             wrap: this._options.wrap
         });
-
-        this._focusEl = focusEl;
-        this._containerEl = containerEl;
-        this._itemSelector = itemSelector;
 
         // ensure container has an id
         nextID(containerEl);
@@ -116,42 +131,32 @@ class LinearActiveDescendant extends ActiveDescendant {
         }
 
         // ensure each item has an id
-        this.items.forEach(function(itemEl) {
+        this.matchingItems.forEach(function(itemEl) {
             nextID(itemEl);
         });
-
-        if (this._options.autoInit > -1) {
-            const itemEl = this.filteredItems[this._options.autoInit];
-
-            itemEl.classList.add(this._options.activeDescendantClassName);
-
-            this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
-        }
     }
 
+    // todo: rename or remove
     get index() {
         return this._navigationEmitter.model.index;
     }
 
+    // todo: rename or remove
     set index(newIndex) {
         this._navigationEmitter.model.index = newIndex;
     }
 
+    // todo: rename
     reset() {
         this._navigationEmitter.model.reset();
     }
 
-    get filteredItems() {
-        return this._navigationEmitter.model.filteredItems;
+    get navigableItems() {
+        return this._navigationEmitter.model.navigableItems;
     }
 
-    get items() {
-        return this._navigationEmitter.model.items;
-    }
-
-    // backwards compat
-    get _items() {
-        return this.items;
+    get matchingItems() {
+        return this._navigationEmitter.model.matchingItems;
     }
 
     set wrap(newWrap) {

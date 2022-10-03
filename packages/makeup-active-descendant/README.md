@@ -51,9 +51,9 @@ Markup after instantiation:
 <div class="widget" id="widget-0">
     <input type="text" aria-owns="widget-0-list-0">
     <ul id="widget-0-list-0">
-        <li id="widget-0-item-0" data-makeup-index="0">Item 1</li>
-        <li id="widget-0-item-1" data-makeup-index="1">Item 2</li>
-        <li id="widget-0-item-2" data-makeup-index="2">Item 3</li>
+        <li id="widget-0-item-0">Item 1</li>
+        <li id="widget-0-item-1">Item 2</li>
+        <li id="widget-0-item-2">Item 3</li>
     </ul>
 </div>
 ```
@@ -64,9 +64,9 @@ Markup after pressing down arrow key on focusable element:
 <div class="widget" id="widget-0">
     <input type="text" aria-activedescendant="widget-0-item-0" aria-owns="widget-0-list-0">
     <ul id="widget-0-list-0">
-        <li class="active-descendant" id="widget-0-item-0" data-makeup-index="0">Item 1</li>
-        <li id="widget-0-item-1" data-makeup-index="1">Item 2</li>
-        <li id="widget-0-item-2" data-makeup-index="2">Item 3</li>
+        <li class="active-descendant" id="widget-0-item-0">Item 1</li>
+        <li id="widget-0-item-1">Item 2</li>
+        <li id="widget-0-item-2">Item 3</li>
     </ul>
 </div>
 ```
@@ -123,9 +123,9 @@ Markup after instantiation:
 ```html
 <div class="widget" id="widget-0">
     <ul id="widget-0-list-0" tabindex="0">
-        <li id="widget-0-item-0" data-makeup-index="0">Item 1</li>
-        <li id="widget-0-item-1" data-makeup-index="1">Item 2</li>
-        <li id="widget-0-item-2" data-makeup-index="2">Item 3</li>
+        <li id="widget-0-item-0">Item 1</li>
+        <li id="widget-0-item-1">Item 2</li>
+        <li id="widget-0-item-2">Item 3</li>
     </ul>
 </div>
 ```
@@ -135,9 +135,9 @@ Markup after pressing down arrow key on focusable element:
 ```html
 <div class="widget" id="widget-0">
     <ul id="widget-0-list-0" aria-activedescendant="widget-0-item-0" tabindex="0">
-        <li class="active-descendant" id="widget-0-item-0" data-makeup-index="0">Item 1</li>
-        <li id="widget-0-item-1" data-makeup-index="1">Item 2</li>
-        <li id="widget-0-item-2" data-makeup-index="2">Item 3</li>
+        <li class="active-descendant" id="widget-0-item-0">Item 1</li>
+        <li id="widget-0-item-1">Item 2</li>
+        <li id="widget-0-item-2">Item 3</li>
     </ul>
 </div>
 ```

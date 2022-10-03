@@ -12,6 +12,8 @@ export default class {
         this.el = widgetEl;
 
         this._rovingTabIndex = RovingTabIndex.createLinear(this.el, '[role^=menuitem]', {
+            // todo: what if autoReset index is disabled or hidden?
+            // Leverage navigationEmitter.firstNavigableIndex?
             autoReset: 0
         });
 
@@ -33,7 +35,7 @@ export default class {
     select(index) {
         this._unobserveMutations();
 
-        const el = this.items[index];
+        const el = this.navigableItems[index];
 
         switch (el.getAttribute('role')) {
             case 'menuitemcheckbox':
@@ -50,8 +52,12 @@ export default class {
         this._observeMutations();
     }
 
-    get items() {
-        return this.el.querySelectorAll('[role^=menuitem]');
+    get matchingItems() {
+        return this._rovingTabIndex.matchingItems;
+    }
+
+    get navigableItems() {
+        return this._rovingTabIndex.navigableItems;
     }
 
     get radioGroupNames() {
@@ -129,18 +135,21 @@ function _onKeyDown(e) {
     }
 
     if (e.keyCode === 13 || e.keyCode === 32) {
-        this.select(_getElementIndex(e.target));
+        this.select(Array.from(this.navigableItems).indexOf(e.target));
     }
 
     this._observeMutations();
 }
 
 function _onClick(e) {
-    this.select(_getElementIndex(e.target));
-}
+    // unlike the keyDown event, the click event target can be a child element of the menuitem
+    // e.g. <div role="menuitem"><span>Item 1</span></div>
+    const menuItemEl = e.target.closest('[role^=menuitem]');
+    const index = [...this.navigableItems].indexOf(menuItemEl);
 
-function _getElementIndex(el) {
-    return el.closest('[role^=menuitem]').dataset.makeupIndex;
+    if (index !== -1) {
+        this.select(index);
+    }
 }
 
 function _selectMenuItem(widgetEl, menuItemEl) {

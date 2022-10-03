@@ -2,42 +2,41 @@
 
 import * as NavigationEmitter from 'makeup-navigation-emitter';
 
+// todo: rename autoReset to make it clearer it is for kb focus behaviour
 const defaultOptions = {
     autoReset: null,
+    // todo: what if if index element is disabled or hidden?
+    // Leverage navigationEmitter.firstNavigableIndex?
     index: 0,
     wrap: false,
     axis: 'both'
 };
 
-const nodeListToArray = (nodeList) => Array.prototype.slice.call(nodeList);
-
 function onModelMutation() {
     const modelIndex = this._navigationEmitter.model.index;
 
-    this.filteredItems.forEach((el, index) => el.setAttribute('tabindex', index !== modelIndex ? '-1' : '0'));
+    this.navigableItems.forEach((el, index) => el.setAttribute('tabindex', index !== modelIndex ? '-1' : '0'));
 }
 
 function onModelInit(e) {
-    const items = e.detail.items;
+    const { items, toIndex } = e.detail;
 
-    nodeListToArray(items).filter((el, i) => i !== e.detail.toIndex).forEach(el => el.setAttribute('tabindex', '-1'));
+    items.filter((el, i) => i !== toIndex).forEach((el) => el.setAttribute('tabindex', '-1'));
 
-    if (items[e.detail.toIndex]) {
-        items[e.detail.toIndex].setAttribute('tabindex', '0');
+    if (items[toIndex]) {
+        items[toIndex].setAttribute('tabindex', '0');
     }
 }
 
 function onModelReset(e) {
-    this._index = e.detail.toIndex; // seems unused internally. scheduled for deletion.
+    const items = this.matchingItems;
 
-    const items = this.filteredItems;
-
-    nodeListToArray(items).filter((el, i) => i !== e.detail.toIndex).forEach(el => el.setAttribute('tabindex', '-1'));
+    items.filter((el, i) => i !== e.detail.toIndex).forEach((el) => el.setAttribute('tabindex', '-1'));
     items[e.detail.toIndex].setAttribute('tabindex', '0');
 }
 
 function onModelChange(e) {
-    const items = this.filteredItems;
+    const items = this.matchingItems;
 
     const fromItem = items[e.detail.fromIndex];
     const toItem = items[e.detail.toIndex];
@@ -97,10 +96,12 @@ class LinearRovingTabindex extends RovingTabindex {
         });
     }
 
+    // todo: rename or remove
     get index() {
         return this._navigationEmitter.model.index;
     }
 
+    // todo: rename or remove
     set index(newIndex) {
         this._navigationEmitter.model.index = newIndex;
     }
@@ -109,19 +110,15 @@ class LinearRovingTabindex extends RovingTabindex {
         this._navigationEmitter.model.options.wrap = newWrap;
     }
 
-    get filteredItems() {
-        return this._navigationEmitter.model.filteredItems;
+    get navigableItems() {
+        return this._navigationEmitter.model.navigableItems;
     }
 
-    get items() {
-        return this._navigationEmitter.model.items;
+    get matchingItems() {
+        return this._navigationEmitter.model.matchingItems;
     }
 
-    // backwards compat
-    get _items() {
-        return this.items;
-    }
-
+    // todo: rename
     reset() {
         this._navigationEmitter.model.reset();
     }

@@ -28,8 +28,6 @@ remover.addEventListener('click', function() {
     });
 });
 
-
-
 incrementer.addEventListener('click', function() {
     widgetEls.forEach(function(el, i) {
         rovers[i].index++;
@@ -46,7 +44,7 @@ widgetEls.forEach(function(el) {
     rovers.push(RovingTabindex.createLinear(el, 'li', { index: 0 }));
 
     el.addEventListener('rovingTabindexChange', function(e) {
-        console.log(e);
+        console.log(e.type, e.detail);
     });
 });
 

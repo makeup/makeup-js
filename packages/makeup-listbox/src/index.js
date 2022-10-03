@@ -47,7 +47,9 @@ export default class {
             '[role=option]',
             {
                 activeDescendantClassName: this._options.activeDescendantClassName,
-                autoInit: this.index,
+                autoInit: 'aria-selected',
+                // todo: what if autoReset index is disabled or hidden?
+                // Leverage navigationEmitter.firstNavigableIndex?
                 autoReset: this._options.autoReset,
                 axis: 'y',
                 ignoreButtons: true
@@ -114,27 +116,31 @@ export default class {
     }
 
     get index() {
-        return [...this.items].findIndex((el) => el.getAttribute('aria-selected') === 'true');
+        return [...this.navigableItems].findIndex((el) => el.getAttribute('aria-selected') === 'true');
     }
 
-    get items() {
-        return this._listboxEl.querySelectorAll('[role=option]');
+    get navigableItems() {
+        return this._activeDescendant.navigableItems;
+    }
+
+    get matchingItems() {
+        return this._activeDescendant.matchingItems;
     }
 
     select(index) {
         this._unobserveMutations();
 
-        if (_indexInBounds(index, this.items.length)) {
-            this.items[index].setAttribute('aria-selected', 'true');
+        if (_indexInBounds(index, this.navigableItems.length)) {
+            this.navigableItems[index].setAttribute('aria-selected', 'true');
 
             if (this._options.useAriaChecked === true) {
-                this.items[index].setAttribute('aria-checked', 'true');
+                this.navigableItems[index].setAttribute('aria-checked', 'true');
             }
 
             this.el.dispatchEvent(new CustomEvent('makeup-listbox-change', {
                 detail: {
                     optionIndex: index,
-                    optionValue: this.items[index].innerText
+                    optionValue: this.navigableItems[index].innerText
                 }
             }));
         }
@@ -145,11 +151,11 @@ export default class {
     unselect(index) {
         this._unobserveMutations();
 
-        if (_indexInBounds(index, this.items.length)) {
-            this.items[index].setAttribute('aria-selected', 'false');
+        if (_indexInBounds(index, this.navigableItems.length)) {
+            this.navigableItems[index].setAttribute('aria-selected', 'false');
 
             if (this._options.useAriaChecked === true) {
-                this.items[index].setAttribute('aria-checked', 'false');
+                this.navigableItems[index].setAttribute('aria-checked', 'false');
             }
         }
 
@@ -178,10 +184,10 @@ function _onFocus() {
 
     if (this._mouseDownFlag !== true && this._options.autoSelect === true && this.index === -1) {
         this._activeDescendant.index = 0;
-        this.items[0].setAttribute('aria-selected', 'true');
+        this.navigableItems[0].setAttribute('aria-selected', 'true');
 
         if (this._options.useAriaChecked === true) {
-            this.items[0].setAttribute('aria-checked', 'true');
+            this.navigableItems[0].setAttribute('aria-checked', 'true');
         }
     }
     this._mouseDownFlag = false;
@@ -199,7 +205,7 @@ function _onMouseDown() {
 function _onKeyDown(e) {
     if (e.keyCode === 13 || e.keyCode === 32) { // enter key or spacebar key
         const toElIndex = this._activeDescendant.index;
-        const toEl = this.items[toElIndex];
+        const toEl = this.navigableItems[toElIndex];
         const isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
         if (this._options.autoSelect === false && isTolElSelected === false) {
@@ -210,8 +216,10 @@ function _onKeyDown(e) {
 }
 
 function _onClick(e) {
+    // unlike the keyDown event, the click event target can be a child element of the option
+    // e.g. <div role="option"><span>Item 1</span></div>
     const toEl = e.target.closest('[role=option]');
-    const toElIndex = toEl.dataset.makeupIndex;
+    const toElIndex = Array.from(this.navigableItems).indexOf(toEl);
     const isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
     if (this._options.autoSelect === false && isTolElSelected === false) {
@@ -226,8 +234,8 @@ function _onActiveDescendantChange(e) {
     }));
 
     if (this._options.autoSelect === true) {
-        const fromEl = this.items[e.detail.fromIndex];
-        const toEl = this.items[e.detail.toIndex];
+        const fromEl = this.navigableItems[e.detail.fromIndex];
+        const toEl = this.navigableItems[e.detail.toIndex];
 
         if (fromEl) {
             this.unselect(e.detail.fromIndex);

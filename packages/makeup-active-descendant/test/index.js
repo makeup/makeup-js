@@ -23,7 +23,7 @@ describe('given a list of 3 visible items in programmatic relationship', functio
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -40,12 +40,8 @@ describe('given a list of 3 visible items in programmatic relationship', functio
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('module should not be undefined', function() {
-            expect(ActiveDescendant).not.toEqual(undefined);
-        });
-
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(3);
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -54,7 +50,7 @@ describe('given a list of 3 visible items in hierarchial relationship', function
     beforeAll(function() {
         document.body.innerHTML = `
             <div class="widget">
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -71,12 +67,8 @@ describe('given a list of 3 visible items in hierarchial relationship', function
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('module should not be undefined', function() {
-            expect(ActiveDescendant).not.toEqual(undefined);
-        });
-
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(3);
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -86,7 +78,7 @@ describe('given a list of 2 visible items, 1 hidden in programmatic relationship
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li hidden>Button 2</li>
                     <li>Button 3</li>
@@ -103,8 +95,8 @@ describe('given a list of 2 visible items, 1 hidden in programmatic relationship
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 2 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(2);
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -113,7 +105,7 @@ describe('given a list of 2 visible items, 1 hidden in hierarchial relationship'
     beforeAll(function() {
         document.body.innerHTML = `
             <div class="widget">
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li hidden>Button 2</li>
                     <li>Button 3</li>
@@ -130,8 +122,8 @@ describe('given a list of 2 visible items, 1 hidden in hierarchial relationship'
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 2 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(2);
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -141,7 +133,7 @@ describe('given a list of 3 hidden items in programmatic relationship', function
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li hidden>Button 1</li>
                     <li hidden>Button 2</li>
                     <li hidden>Button 3</li>
@@ -158,8 +150,8 @@ describe('given a list of 3 hidden items in programmatic relationship', function
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 0 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(0);
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -168,7 +160,7 @@ describe('given a list of 3 hidden items in hierarchial relationship', function(
     beforeAll(function() {
         document.body.innerHTML = `
             <div class="widget">
-                <ul class="widget">
+                <ul>
                     <li hidden>Button 1</li>
                     <li hidden>Button 2</li>
                     <li hidden>Button 3</li>
@@ -185,57 +177,12 @@ describe('given a list of 3 hidden items in hierarchial relationship', function(
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 0 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(0);
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
 /* END STATIC MODEL SIZE TESTS */
-
-/* BEGIN DYNAMIC MODEL SIZE TESTS */
-
-describe('given a list of 3 visible items', function() {
-    beforeAll(function() {
-        document.body.innerHTML = `
-            <div class="widget">
-                <input type="text"/>
-                <ul class="widget">
-                    <li>Button 1</li>
-                    <li>Button 2</li>
-                    <li>Button 3</li>
-                </ul>
-            </div>
-        `;
-
-        widgetEl = document.querySelector('.widget');
-        focusEl = widgetEl.querySelector('input');
-        containerEl = widgetEl.querySelector('ul');
-        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
-    });
-
-    describe('when first item is hidden', function() {
-        beforeAll(function() {
-            testActiveDescendant.items[0].hidden = true;
-        });
-
-        it('model should have 2 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(2);
-        });
-    });
-
-    describe('when first item is hidden and then unhidden', function() {
-        beforeAll(function() {
-            testActiveDescendant.items[0].hidden = true;
-            testActiveDescendant.items[0].hidden = false;
-        });
-
-        it('model should have 3 items', function() {
-            expect(testActiveDescendant.filteredItems.length).toEqual(3);
-        });
-    });
-});
-
-/* END DYNAMIC MODEL SIZE TESTS */
 
 /* BEGIN ARROW KEY TESTS */
 
@@ -244,7 +191,7 @@ describe('given 3 items with default options in programmatic relationship', func
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -354,7 +301,7 @@ describe('given 3 items with default options in hierarchial relationship', funct
     function setup() {
         document.body.innerHTML = `
             <div class="widget">
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -401,9 +348,11 @@ describe('given 3 items with default options in hierarchial relationship', funct
         });
 
         it('should trigger 1 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            // eslint-disable-next-line max-len
-            expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.firstElementChild.getAttribute('id'));
+            setTimeout(function() {
+                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+                // eslint-disable-next-line max-len
+                expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.firstElementChild.getAttribute('id'));
+            }, timeoutInterval);
         });
     });
 
@@ -419,11 +368,15 @@ describe('given 3 items with default options in hierarchial relationship', funct
 
     describe('when arrow right is pressed four times', function() {
         beforeAll(function() {
-            triggerArrowKeyPress(widgetEl, 'Right', 4);
+            setTimeout(function() {
+                triggerArrowKeyPress(widgetEl, 'Right', 4);
+            }, timeoutInterval);
         });
 
         it('should trigger 3 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
+            setTimeout(function() {
+                expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
+            }, timeoutInterval);
         });
     });
 
@@ -469,7 +422,7 @@ describe('given 3 items with autoWrap on', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -495,7 +448,9 @@ describe('given 3 items with autoWrap on', function() {
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            setTimeout(function() {
+                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            }, timeoutInterval);
         });
     });
 
@@ -505,7 +460,9 @@ describe('given 3 items with autoWrap on', function() {
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            setTimeout(function() {
+                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+         }, timeoutInterval);
         });
     });
 
@@ -559,7 +516,7 @@ describe('given 3 items with default options', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -619,7 +576,7 @@ describe('given 3 items with axis set to both', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -689,7 +646,7 @@ describe('given 3 items with axis set to x', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -758,7 +715,7 @@ describe('given 3 items with axis set to y', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -831,7 +788,7 @@ describe('given 3 items', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -853,7 +810,9 @@ describe('given 3 items', function() {
         });
 
         it('should have index value of 0', function() {
-            expect(testActiveDescendant.index).toBe(0);
+            setTimeout(function() {
+                expect(testActiveDescendant.index).toBe(0);
+            }, timeoutInterval);
         });
     });
 
@@ -863,12 +822,16 @@ describe('given 3 items', function() {
         });
 
         it('should have index value of 2', function() {
-            expect(testActiveDescendant.index).toBe(2);
+            setTimeout(function() {
+                expect(testActiveDescendant.index).toBe(2);
+            }, timeoutInterval);
         });
 
         it('should set aria-activedescendant to last element child', function() {
             // eslint-disable-next-line max-len
-            expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.lastElementChild.getAttribute('id'));
+            setTimeout(function() {
+                expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.lastElementChild.getAttribute('id'));
+            }, timeoutInterval);
         });
     });
 });
@@ -884,7 +847,7 @@ describe('given 3 items', function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
-                <ul class="widget">
+                <ul>
                     <li>Button 1</li>
                     <li>Button 2</li>
                     <li>Button 3</li>
@@ -910,7 +873,9 @@ describe('given 3 items', function() {
         });
 
         it('should have index value of 1', function() {
-            expect(testActiveDescendant.index).toBe(1);
+            setTimeout(function() {
+                expect(testActiveDescendant.index).toBe(1);
+            }, timeoutInterval);
         });
     });
 

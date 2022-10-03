@@ -40,25 +40,38 @@ Markup after:
 ```html
 <div class="widget">
     <ul>
-        <li data-makeup-index="0" tabindex="0">Item 1</li>
-        <li data-makeup-index="1" tabindex="-1">Item 2</li>
-        <li data-makeup-index="2" tabindex="-1">Item 3</li>
+        <li tabindex="0">Item 1</li>
+        <li tabindex="-1">Item 2</li>
+        <li tabindex="-1">Item 3</li>
     </ul>
 </div>
 ```
 
 ## Options
 
-* `autoReset`: the index position that should receive the roving tabindex when model is reset (default: null)
-* `index`: the initial index position of the roving tabindex (default: 0)
+* `autoInit`: declares the initial roving tabindex item (default: "interactive"). Possible values are:
+    * "none": no index position is set (useful in programmatic active-descendant)
+    * "interactive": first non aria-disabled or hidden element (default)
+    * "ariaChecked": first element with aria-checked=true (useful in ARIA menu)
+    * "ariaSelected": first element with aria-selected=true (useful in ARIA tabs)
+    * "ariaSelectedOrInteractive": first element with aria-selected=true, falling back to "interactive" if not found (useful in ARIA listbox)
+    * *number*: specific index position of items (throws error if non-interactive)
+* `autoReset`: declares the roving tabindex item after a reset and/or when keyboard focus exits the widget (default: "current"). Possible values are:
+    * "none": no index position is set (useful in programmatic active-descendant)
+    * "current": index remains current (radio button like behaviour)
+    * "interactive": index moves to first non aria-disabled or hidden element
+    * "ariaChecked": index moves to first element with aria-checked=true
+    * "ariaSelected": index moves to first element with aria-selected=true
+    * *number*: specific index position of items (throws error if non-interactive)
 * `wrap` : specify whether arrow keys should wrap/loop (default: false)
 * `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
 
 ## Properties
 
-* `filteredItems`: returns filtered items (e.g. non-hidden items)
-* `index`: the index position of the roving tabindex (i.e. the element with tabindex="0")
-* `items`: returns all items that match item selector
+* `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden items)
+* `index`: the index position of the roving tabindex (i.e. the element with tabindex="0"). A no-op on aria-disabled or hidden items.
+* `matchingItems`: returns all items that match item selector
+* `ignoreByDelegateSelector`: CSS selector of descendant elements that will be ignored by the navigation emitters key event delegation (i.e. these elements will *not* operate the roving tabindex) (default: null)
 
 ## Methods
 
@@ -67,7 +80,16 @@ Markup after:
 
 ## Custom Events        
 
+* `rovingTabindexInit`
+    * detail
+        * items
+        * fromIndex
+        * toIndex
 * `rovingTabindexChange`
+    * detail
+        * fromIndex
+        * toIndex
+* `rovingTabindexReset`
     * detail
         * fromIndex
         * toIndex

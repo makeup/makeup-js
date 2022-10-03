@@ -5,31 +5,33 @@ import nextID from 'makeup-next-id';
 
 const defaultOptions = {
     activeDescendantClassName: 'active-descendant',
-    autoInit: -1,
-    autoReset: -1,
+    autoInit: 'none',
+    autoReset: 'none',
     autoScroll: false,
     axis: 'both',
-    ignoreButtons: false,
     wrap: false
 };
 
-function onModelMutation() {
-    const options = this._options;
-    const modelIndex = this._navigationEmitter.model.index;
+function onModelMutation(e) {
+    const { toIndex } = e.detail;
+    const activeDescendantClassName = this.options.activeDescendantClassName;
 
-    this.filteredItems.forEach(function(item, index) {
+    this.items.forEach(function(item, index) {
         nextID(item);
-        if (index !== modelIndex) {
-            item.classList.remove(options.activeDescendantClassName);
+        if (index !== toIndex) {
+            item.classList.remove(activeDescendantClassName);
         } else {
-            item.classList.add(options.activeDescendantClassName);
+            item.classList.add(activeDescendantClassName);
         }
     });
+
+    this._el.dispatchEvent(new CustomEvent('activeDescendantMutation', { detail: e.detail }));
 }
 
 function onModelChange(e) {
-    const fromItem = this.filteredItems[e.detail.fromIndex];
-    const toItem = this.filteredItems[e.detail.toIndex];
+    const { fromIndex, toIndex } = e.detail;
+    const fromItem = this.items[fromIndex];
+    const toItem = this.items[toIndex];
 
     if (fromItem) {
         fromItem.classList.remove(this._options.activeDescendantClassName);
@@ -44,29 +46,38 @@ function onModelChange(e) {
         }
     }
 
-    this._el.dispatchEvent(new CustomEvent('activeDescendantChange', {
-        detail: {
-            fromIndex: e.detail.fromIndex,
-            toIndex: e.detail.toIndex
-        }
-    }));
+    this._el.dispatchEvent(new CustomEvent('activeDescendantChange', { detail: e.detail }));
 }
 
 function onModelReset(e) {
     const toIndex = e.detail.toIndex;
     const activeClassName = this._options.activeDescendantClassName;
 
-    this.filteredItems.forEach(function(el) {
+    this.items.forEach(function(el) {
         el.classList.remove(activeClassName);
     });
 
-    if (toIndex > -1) {
-        const itemEl = this.filteredItems[toIndex];
+    if (toIndex !== null && toIndex !== -1) {
+        const itemEl = this.items[toIndex];
         itemEl.classList.add(activeClassName);
         this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
     } else {
         this._focusEl.removeAttribute('aria-activedescendant');
     }
+
+    this._el.dispatchEvent(new CustomEvent('activeDescendantReset', { detail: e.detail }));
+}
+
+function onModelInit(e) {
+    const { items, toIndex } = e.detail;
+    const itemEl = items[toIndex];
+
+    if (itemEl) {
+        itemEl.classList.add(this._options.activeDescendantClassName);
+        this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
+    }
+
+    this._el.dispatchEvent(new CustomEvent('activeDescendantInit', { detail: e.detail }));
 }
 
 class ActiveDescendant {
@@ -75,58 +86,52 @@ class ActiveDescendant {
         this._onMutationListener = onModelMutation.bind(this);
         this._onChangeListener = onModelChange.bind(this);
         this._onResetListener = onModelReset.bind(this);
+        this._onInitListener = onModelInit.bind(this);
 
         this._el.addEventListener('navigationModelMutation', this._onMutationListener);
         this._el.addEventListener('navigationModelChange', this._onChangeListener);
         this._el.addEventListener('navigationModelReset', this._onResetListener);
+        this._el.addEventListener('navigationModelInit', this._onInitListener);
     }
 
     destroy() {
         this._el.removeEventListener('navigationModelMutation', this._onMutationListener);
         this._el.removeEventListener('navigationModelChange', this._onChangeListener);
         this._el.removeEventListener('navigationModelReset', this._onResetListener);
+        this._el.removeEventListener('navigationModelInit', this._onInitListener);
     }
 }
 
 class LinearActiveDescendant extends ActiveDescendant {
-    constructor(el, focusEl, containerEl, itemSelector, selectedOptions) {
+    constructor(el, focusEl, itemContainerEl, itemSelector, selectedOptions) {
         super(el);
 
         this._options = Object.assign({}, defaultOptions, selectedOptions);
+
+        this._focusEl = focusEl;
+        this._itemContainerEl = itemContainerEl;
+        this._itemSelector = itemSelector;
+
+        // ensure container has an id
+        nextID(this._itemContainerEl);
+
+        // if programmatic relationship set aria-owns
+        if (this._itemContainerEl !== this._focusEl) {
+            focusEl.setAttribute('aria-owns', this._itemContainerEl.id);
+        }
 
         this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
             autoInit: this._options.autoInit,
             autoReset: this._options.autoReset,
             axis: this._options.axis,
-            ignoreButtons: this._options.ignoreButtons,
+            ignoreByDelegateSelector: this._options.ignoreByDelegateSelector,
             wrap: this._options.wrap
         });
-
-        this._focusEl = focusEl;
-        this._containerEl = containerEl;
-        this._itemSelector = itemSelector;
-
-        // ensure container has an id
-        nextID(containerEl);
-
-        // if DOM hierarchy cannot be determined,
-        // focus element must programatically 'own' the container of descendant items
-        if (containerEl !== focusEl) {
-            focusEl.setAttribute('aria-owns', containerEl.id);
-        }
 
         // ensure each item has an id
         this.items.forEach(function(itemEl) {
             nextID(itemEl);
         });
-
-        if (this._options.autoInit > -1) {
-            const itemEl = this.filteredItems[this._options.autoInit];
-
-            itemEl.classList.add(this._options.activeDescendantClassName);
-
-            this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
-        }
     }
 
     get index() {
@@ -141,17 +146,12 @@ class LinearActiveDescendant extends ActiveDescendant {
         this._navigationEmitter.model.reset();
     }
 
-    get filteredItems() {
-        return this._navigationEmitter.model.filteredItems;
+    get currentItem() {
+        return this._navigationEmitter.model.currentItem;
     }
 
     get items() {
         return this._navigationEmitter.model.items;
-    }
-
-    // backwards compat
-    get _items() {
-        return this.items;
     }
 
     set wrap(newWrap) {
@@ -172,8 +172,8 @@ class GridActiveDescendant extends ActiveDescendant {
 }
 */
 
-function createLinear(el, focusEl, containerEl, itemSelector, selectedOptions) {
-    return new LinearActiveDescendant(el, focusEl, containerEl, itemSelector, selectedOptions);
+function createLinear(el, focusEl, itemContainerEl, itemSelector, selectedOptions) {
+    return new LinearActiveDescendant(el, focusEl, itemContainerEl, itemSelector, selectedOptions);
 }
 
 export { createLinear };

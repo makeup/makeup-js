@@ -7,18 +7,17 @@ import "@ebay/skin/listbox";
 // IMPORT
 import Listbox from '../../packages/makeup-listbox';
 
+const log = e => console.log(e.type, e.detail);
+const widgets = [];
+
 window.onload = function() {
     document.querySelectorAll('.listbox').forEach(function(el, i) {
-        const widget = new Listbox(el, {
-            autoSelect: (el.dataset.makeupAutoSelect === 'false') ? false : true
-        });
+        el.addEventListener('activeDescendantInit', log);
+        el.addEventListener('activeDescendantChange', log);
+        el.addEventListener('makeup-listbox-init', log);
+        el.addEventListener('makeup-listbox-change', log);
+        el.addEventListener('makeup-listbox-mutation', log);
 
-        el.addEventListener('makeup-listbox-change', function(e) {
-            console.log(e.type, e.detail);
-        });
-
-        el.addEventListener('makeup-listbox-mutation', function(e) {
-            console.log(e.type, e.detail);
-        });
+        widgets.push(new Listbox(el, { autoSelect: (el.dataset.makeupAutoSelect === 'false') ? false : true }));
     });
 };

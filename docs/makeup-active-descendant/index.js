@@ -5,23 +5,45 @@
 import * as ActiveDescendant from '../../packages/makeup-active-descendant';
 
 const navs = [];
-const appender = document.getElementById('appender');
-const remover = document.getElementById('remover');
+const append = document.getElementById('append');
+const prepend = document.getElementById('prepend');
+const removeFirst = document.getElementById('removeFirst');
+const removeLast = document.getElementById('removeLast');
 const widgetEls = document.querySelectorAll('.widget');
 const wrapCheckbox = document.getElementById('wrap');
+const log = e => console.log(e.type, e.detail);
 
-appender.addEventListener('click', function() {
+prepend.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
         const list = el.querySelector('ul');
         const newListItem = document.createElement('li');
         newListItem.setAttribute('role', 'option');
         const numListItems = parseInt(list.querySelectorAll('li').length, 10);
-        newListItem.innerText = `Item ${numListItems}`;
+        newListItem.innerText = `Item ${numListItems + 1}`;
+        list.insertBefore(newListItem, list.children[0]);
+    });
+});
+
+append.addEventListener('click', function() {
+    widgetEls.forEach(function(el) {
+        const list = el.querySelector('ul');
+        const newListItem = document.createElement('li');
+        newListItem.setAttribute('role', 'option');
+        const numListItems = parseInt(list.querySelectorAll('li').length, 10);
+        newListItem.innerText = `Item ${numListItems + 1}`;
         list.appendChild(newListItem);
     });
 });
 
-remover.addEventListener('click', function() {
+removeFirst.addEventListener('click', function() {
+    widgetEls.forEach(function(el) {
+        const list = el.querySelector('ul');
+        const node = list.firstElementChild;
+        list.removeChild(node);
+    });
+});
+
+removeLast.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
         const list = el.querySelector('ul');
         const node = list.lastElementChild;
@@ -29,33 +51,26 @@ remover.addEventListener('click', function() {
     });
 });
 
-widgetEls.forEach(function(el) {
-    el.addEventListener('activeDescendantChange', function(e) {
-        console.log(e);
+disableCurrent.addEventListener('click', function() {
+    navs.forEach(function(nav) {
+        if (nav.currentItem) nav.currentItem.setAttribute('aria-disabled', 'true');
     });
+});
 
-    const options = {
-        ignoreButtons: true
-    };
-
-    if (el.dataset.makeupInit !== undefined) {
-        options.autoInit = el.dataset.makeupInit;
-    }
-
-    if (el.dataset.makeupReset !== undefined) {
-        if (el.dataset.makeupReset === 'null') {
-            options.autoReset = null;
-        } else {
-            options.autoReset = el.dataset.makeupReset;
-        }
-    }
+widgetEls.forEach(function(el) {
+    el.addEventListener('activeDescendantInit', log);
+    el.addEventListener('activeDescendantChange', log);
+    el.addEventListener('activeDescendantReset', log);
+    el.addEventListener('activeDescendantMutation', log);
 
     const widget = ActiveDescendant.createLinear(
         el,
         el.querySelector('input') || el.querySelector('ul'),
         el.querySelector('ul'),
         'li',
-        options
+        {
+            nonEmittingElementSelector: 'input[type="button"]'
+        }
     );
 
     navs.push(widget);

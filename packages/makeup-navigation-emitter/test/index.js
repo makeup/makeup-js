@@ -30,7 +30,7 @@ describe('given a list of 3 visible items', function() {
         });
 
         it('model should have 3 items', function() {
-            expect(testEmitter.model.items.length).toEqual(3);
+            expect(testEmitter.model.filteredItems.length).toEqual(3);
         });
     });
 });
@@ -53,7 +53,7 @@ describe('given a list of 2 visible items, 1 hidden', function() {
         });
 
         it('model should have 2 items', function() {
-            expect(testEmitter.model.items.length).toEqual(2);
+            expect(testEmitter.model.filteredItems.length).toEqual(2);
         });
     });
 });
@@ -76,7 +76,7 @@ describe('given a list of 3 hidden items', function() {
         });
 
         it('model should have 0 items', function() {
-            expect(testEmitter.model.items.length).toEqual(0);
+            expect(testEmitter.model.filteredItems.length).toEqual(0);
         });
     });
 });

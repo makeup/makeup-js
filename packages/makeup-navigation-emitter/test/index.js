@@ -369,3 +369,269 @@ describe('given 3 items with default options', function() {
 });
 
 /* END INDEX SETTER TESTS */
+
+/* BEGIN AXIS TESTS */
+
+describe('given 3 items with axis set to x', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+        testEl = document.querySelector('.widget');
+        testEmitter = NavigationEmitter.createLinear(testEl, 'li', {axis: 'x'}); // eslint-disable-line
+
+        onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
+        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+
+        onNavigationModelChange.calls.reset();
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow down is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Down', 1);
+        });
+
+        it('should trigger 0 navigationModelChange event', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow up is pressed once after arrow down', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Down', 1);
+            triggerArrowKeyPress(testEl, 'Up', 1);
+        });
+
+        it('should trigger 0 navigationModelChange event', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Right', 1);
+        });
+
+        it('should trigger 1 navigationModelChange event', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow left is pressed once after arrow right', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Right', 1);
+            triggerArrowKeyPress(testEl, 'Left', 1);
+        });
+
+        it('should trigger 2 navigationModelChange events', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
+        });
+    });
+});
+
+describe('given 3 items with axis set to y', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+        testEl = document.querySelector('.widget');
+        testEmitter = NavigationEmitter.createLinear(testEl, 'li', {axis: 'y'}); // eslint-disable-line
+
+        onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
+        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Right', 1);
+        });
+
+        it('should trigger 0 navigationModelChange event', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow left is pressed once after arrow right', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Right', 1);
+            triggerArrowKeyPress(testEl, 'Left', 1);
+        });
+
+        it('should trigger 0 navigationModelChange event', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow Down is pressed twice', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Down', 2);
+        });
+
+        it('should trigger 2 navigationModelChange events', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe('when arrow Up is pressed once after arrow down', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Down', 1);
+            triggerArrowKeyPress(testEl, 'Up', 1);
+        });
+
+        it('should trigger 2 navigationModelChange events', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
+        });
+    });
+});
+
+/* END AXIS TESTS */
+
+/* BEGIN AUTO INIT & RESET TESTS */
+
+describe('given 3 items with autoInit set to 1', function() {
+    var onNavigationModelInit;
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+        testEl = document.querySelector('.widget');
+        testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 1}); // eslint-disable-line
+
+        onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
+        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Right', 1);
+        });
+
+        it('should set the index to 2', function() {
+            expect(testEmitter.model.index).toBe(2);
+        });
+    });
+
+    describe('when arrow up is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Up', 1);
+        });
+
+        it('should set the index to 0', function() {
+            expect(testEmitter.model.index).toBe(0);
+        });
+    });
+
+    describe('when testEmitter is destroyed and recreated', function() {
+        beforeAll(function() {
+            // reset testEmitter to test onNavigationModelInit
+            testEmitter.destroy();
+
+            onNavigationModelInit = jasmine.createSpy('onNavigationModelInit');
+            testEl.addEventListener('navigationModelInit', onNavigationModelInit);
+
+            testEl = document.querySelector('.widget');
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 1}); // eslint-disable-line
+        });
+
+        it('should trigger 1 navigationModelInit event', function() {
+            expect(onNavigationModelInit).toHaveBeenCalledTimes(1);
+        });
+    });
+});
+
+describe('given 3 items with autoReset set to 1', function() {
+    var onNavigationModelReset;
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+        testEl = document.querySelector('.widget');
+        testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoReset: 1}); // eslint-disable-line
+
+        onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
+        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Right', 1);
+        });
+
+        it('should set the index to 1', function() {
+            expect(testEmitter.model.index).toBe(1);
+        });
+    });
+
+    describe('when arrow up is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Up', 1);
+        });
+
+        it('should set the index to 0', function() {
+            expect(testEmitter.model.index).toBe(0);
+        });
+    });
+
+    describe('when testEmitter gets reset', function() {
+        beforeAll(function() {
+            onNavigationModelReset = jasmine.createSpy('onNavigationModelReset');
+            testEl.addEventListener('navigationModelReset', onNavigationModelReset);
+        });
+
+        it('should trigger 1 onNavigationModelReset event', function() {
+            testEmitter.model.reset();
+            expect(onNavigationModelReset).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    // describe('when focus exits the widget', function() {
+    //     var eventHandlers = {
+    //         onFocusExit: function() {}
+    //     };
+
+    //     beforeAll(function() {
+    //         spyOn(eventHandlers, 'onFocusExit');
+    //         testEl.addEventListener('focusExit', eventHandlers.onFocusExit);
+
+    //         testEl.blur();
+    //     });
+
+    //     it('should set focus to item with index 1', function() {
+    //         expect(testEmitter.model.index).toBe(1);
+    //     });
+    // });
+});
+
+/* END AUTO INIT & RESET TESTS */

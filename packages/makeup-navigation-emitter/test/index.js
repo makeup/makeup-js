@@ -10,6 +10,10 @@ function triggerArrowKeyPress(el, dir, num) {
     }
 }
 
+function triggerKeyPress(el, keyType) {
+    el.dispatchEvent(new CustomEvent(`${keyType}KeyDown`, {detail:{target:{tagName:''}}}));
+}
+
 /* BEGIN STATIC MODEL SIZE TESTS */
 
 describe('given a list of 3 visible items', function() {
@@ -230,6 +234,51 @@ describe('given 3 items with default options', function() {
 
 /* END ARROW KEYS TESTS */
 
+/* BEGIN HOME & END KEY TESTS */
+
+describe('given 3 items with default options', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+        testEl = document.querySelector('.widget');
+        testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
+
+        onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
+        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when home key is pressed once', function() {
+        beforeAll(function() {
+            triggerKeyPress(testEl, 'home');
+        });
+
+        it('should trigger 0 navigationModelChange events', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    // describe('when end key is pressed once', function() {
+    //     beforeAll(function() {
+    //         triggerKeyPress(testEl, 'end');
+    //     });
+
+    //     it('should trigger 1 navigationModelChange event', function() {
+    //         expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
+    //     });
+    // });
+});
+
+/* END HOME & END KEYS TESTS */
+
 /* BEGIN AUTOWRAP ARROW KEY TESTS */
 
 describe('given 3 items with autoWrap on', function() {
@@ -372,6 +421,71 @@ describe('given 3 items with default options', function() {
 
 /* BEGIN AXIS TESTS */
 
+describe('given 3 items with axis set to both', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+        testEl = document.querySelector('.widget');
+        testEmitter = NavigationEmitter.createLinear(testEl, 'li', {axis: 'both'}); // eslint-disable-line
+
+        onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
+        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+
+        onNavigationModelChange.calls.reset();
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow down is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Down', 1);
+        });
+
+        it('should trigger 1 navigationModelChange event', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow up is pressed once after arrow down', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Down', 1);
+            triggerArrowKeyPress(testEl, 'Up', 1);
+        });
+
+        it('should trigger 2 navigationModelChange events', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Right', 1);
+        });
+
+        it('should trigger 1 navigationModelChange event', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow left is pressed once after arrow right', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(testEl, 'Right', 1);
+            triggerArrowKeyPress(testEl, 'Left', 1);
+        });
+
+        it('should trigger 2 navigationModelChange events', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
+        });
+    });
+});
+
 describe('given 3 items with axis set to x', function() {
     function setup() {
         document.body.innerHTML = `
@@ -504,6 +618,39 @@ describe('given 3 items with axis set to y', function() {
 
 /* BEGIN AUTO INIT & RESET TESTS */
 
+describe('given 3 items with autoInit set to null', function() {
+    var onNavigationModelInit;
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when testEmitter is destroyed and recreated', function() {
+        beforeAll(function() {
+            // reset testEmitter to test onNavigationModelInit
+            testEmitter.destroy();
+
+            onNavigationModelInit = jasmine.createSpy('onNavigationModelInit');
+            testEl.addEventListener('navigationModelInit', onNavigationModelInit);
+
+            testEl = document.querySelector('.widget');
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: null}); // eslint-disable-line
+        });
+
+        it('should not trigger navigationModelInit event', function() {
+            expect(onNavigationModelInit).toHaveBeenCalledTimes(0);
+        });
+    });
+});
+
 describe('given 3 items with autoInit set to 1', function() {
     var onNavigationModelInit;
     function setup() {
@@ -561,10 +708,26 @@ describe('given 3 items with autoInit set to 1', function() {
             expect(onNavigationModelInit).toHaveBeenCalledTimes(1);
         });
     });
+
+    describe('when index set out of bounds', function() {
+        beforeEach(function() {
+            testEmitter.model.index = 100;
+        });
+
+        it('should trigger 0 navigationModelChange events', function() {
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
+        });
+
+        it('should reset index to autoInit value', function() {
+            expect(testEmitter.model.index).toBe(1);
+        });
+    });
 });
 
 describe('given 3 items with autoReset set to 1', function() {
-    var onNavigationModelReset;
+    var buttonEl,
+        onNavigationModelReset;
+
     function setup() {
         document.body.innerHTML = `
             <ul class="widget">
@@ -572,9 +735,11 @@ describe('given 3 items with autoReset set to 1', function() {
                 <li>Item 2</li>
                 <li>Item 3</li>
             </ul>
+            <button>Button 1</button>
         `;
 
         testEl = document.querySelector('.widget');
+        buttonEl = document.querySelector('button');
         testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoReset: 1}); // eslint-disable-line
 
         onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
@@ -608,28 +773,35 @@ describe('given 3 items with autoReset set to 1', function() {
         beforeAll(function() {
             onNavigationModelReset = jasmine.createSpy('onNavigationModelReset');
             testEl.addEventListener('navigationModelReset', onNavigationModelReset);
+            testEmitter.model.reset();
         });
 
         it('should trigger 1 onNavigationModelReset event', function() {
-            testEmitter.model.reset();
             expect(onNavigationModelReset).toHaveBeenCalledTimes(1);
         });
     });
 
     // describe('when focus exits the widget', function() {
-    //     var eventHandlers = {
-    //         onFocusExit: function() {}
-    //     };
-
     //     beforeAll(function() {
-    //         spyOn(eventHandlers, 'onFocusExit');
-    //         testEl.addEventListener('focusExit', eventHandlers.onFocusExit);
+    //         buttonEl.focus();
+    //     });
 
-    //         testEl.blur();
+    //     beforeEach(function() {
+    //         jasmine.clock().install();
+    //     });
+
+    //     afterEach(function() {
+    //         jasmine.clock().uninstall();
     //     });
 
     //     it('should set focus to item with index 1', function() {
+    //         jasmine.clock().tick(10000);
     //         expect(testEmitter.model.index).toBe(1);
+    //     });
+
+    //     it('should trigger 1 onNavigationModelReset event', function() {
+    //         jasmine.clock().tick(10000);
+    //         expect(onNavigationModelReset).toHaveBeenCalledTimes(1);
     //     });
     // });
 });

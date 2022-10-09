@@ -133,17 +133,11 @@ describe('makeup-active-descendant', function() {
             expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
         });
 
-        it('should trigger onActiveDescendantChange event on arrow up', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
-            setTimeout(function() {
-                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            }, timeoutInterval);
+        it('should trigger 0 onActiveDescendantChange event on arrow up', function() {
             // execute
             widgetEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
-            setTimeout(function() {
-                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            }, timeoutInterval);
+            // assert
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
         });
     });
 

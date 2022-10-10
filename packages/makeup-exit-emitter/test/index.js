@@ -1,118 +1,112 @@
 import * as ExitEmitter from '../src/index.js';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
+const timeoutInterval = 500;
 
-describe('makeup-focus-exit-emitter', function() {
-    var timeoutInterval = 50;
-    var dom = '<div id="test-element" tabindex="0"><button></button><button></button></div>'
-            + '<div id="test-element-sibling" tabindex="0"><button></button><button></button></div>';
-    var eventHandlers = {
-        onFocusExit: function() {}
-    };
+let testEl;
+let testElSibling;
+let onFocusExit;
 
-    var testEl;
-    var testElSibling;
+describe('given an element with focus', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div id="test-element" tabindex="0">
+                <button></button>
+            </div>
+            <div id="test-element-sibling" tabindex="0">
+                <button></button>
+            </div>
+        `;
 
-    describe('when emitter class is imported', function() {
-        it('FocusExitEmitter module should not be undefined', function() {
-            expect(ExitEmitter).not.toEqual(undefined);
+        testEl = document.querySelector('#test-element');
+        testElSibling = document.querySelector('#test-element-sibling');
+        ExitEmitter.addFocusExit(testEl);
+        testEl.addEventListener('onFocusExit', onFocusExit);
+        onFocusExit = jasmine.createSpy('onFocusExit');
+        testEl.focus();
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when focus moves to sibling', function() {
+        beforeAll(function() { 
+            testElSibling.focus();
+        });
+
+        it('should trigger focusExit once', function() {
+            setTimeout(function() {
+                expect(onFocusExit).toHaveBeenCalledTimes(1); 
+            }, timeoutInterval);
         });
     });
 
-    describe('when emitter is added', function() {
-        it('should trigger focusexit when focus moves from element root to sibling', function(done) {
-            document.body.innerHTML = dom;
-            testEl = document.querySelector('#test-element');
-            testElSibling = document.querySelector('#test-element-sibling');
-            ExitEmitter.addFocusExit(testEl);
+    describe('when focus moves to descendant', function() {
+        beforeAll(function() { 
+            testEl.querySelector('button').focus();
+        });
 
-            // async assert
-            testEl.addEventListener('focusExit', done());
+        it('should not trigger focusExit', function() {
+            setTimeout(function() {
+                expect(onFocusExit).not.toHaveBeenCalled();
+            }, timeoutInterval);
+        });
+    });
+});
 
-            // excecute
-            testEl.focus();
+describe('given an element with focus on descendant', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div id="test-element" tabindex="0">
+                <button></button>
+            </div>
+            <div id="test-element-sibling" tabindex="0">
+                <button></button>
+            </div>
+        `;
+
+        testEl = document.querySelector('#test-element');
+        testElSibling = document.querySelector('#test-element-sibling');
+        ExitEmitter.addFocusExit(testEl);
+        testEl.addEventListener('onFocusExit', onFocusExit);
+        onFocusExit = jasmine.createSpy('onFocusExit');
+        testEl.querySelector('button').focus();
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when focus moves to sibling of element root', function() {
+        beforeAll(function() { 
             testElSibling.focus();
-
-            ExitEmitter.removeFocusExit(testEl);
         });
 
-        it('should trigger when focus moves from element descendant to element sibling', function(done) {
-            document.body.innerHTML = dom;
-            testEl = document.querySelector('#test-element');
-            testElSibling = document.querySelector('#test-element-sibling');
-            ExitEmitter.addFocusExit(testEl);
-
-            // async assert
-            testEl.addEventListener('focusExit', done());
-
-            // excecute
-            testEl.querySelector('button').focus();
-            testElSibling.querySelector('button').focus();
-
-            ExitEmitter.removeFocusExit(testEl);
-        });
-
-        it('should NOT trigger when focus moves from element root to element descendant', function(done) {
-            document.body.innerHTML = dom;
-            testEl = document.querySelector('#test-element');
-            testElSibling = document.querySelector('#test-element-sibling');
-            ExitEmitter.addFocusExit(testEl);
-
-            // spy
-            spyOn(eventHandlers, 'onFocusExit');
-
-            // execute
-            testEl.addEventListener('focusExit', eventHandlers.onFocusExit);
-            testEl.focus();
-            testEl.querySelector('button').focus();
-
-            // async assert
+        it('should trigger focusExit once', function() {
             setTimeout(function() {
-                expect(eventHandlers.onFocusExit).not.toHaveBeenCalled();
-                done();
-                ExitEmitter.removeFocusExit(testEl);
+                expect(onFocusExit).toHaveBeenCalledTimes(1); 
             }, timeoutInterval);
         });
+    });
 
-        it('should NOT trigger when focus moves from element descendant to element descendant', function(done) {
-            document.body.innerHTML = dom;
-            testEl = document.querySelector('#test-element');
-            testElSibling = document.querySelector('#test-element-sibling');
-            ExitEmitter.addFocusExit(testEl);
-
-            // spy
-            spyOn(eventHandlers, 'onFocusExit');
-
-            // execute
+    describe('when focus is reset on descendant', function() {
+        beforeAll(function() { 
             testEl.querySelector('button').focus();
-            testEl.querySelector('button').focus();
-
-            // async assert
-            setTimeout(function() {
-                expect(eventHandlers.onFocusExit).not.toHaveBeenCalled();
-                done();
-                ExitEmitter.removeFocusExit(testEl);
-            }, timeoutInterval);
         });
 
-        it('should NOT trigger when focus moves from element descendant to element root', function(done) {
-            document.body.innerHTML = dom;
-            testEl = document.querySelector('#test-element');
-            testElSibling = document.querySelector('#test-element-sibling');
-            ExitEmitter.addFocusExit(testEl);
-
-            // spy
-            spyOn(eventHandlers, 'onFocusExit');
-
-            // execute
-            testEl.querySelector('button').focus();
-            testEl.focus();
-
-            // async assert
+        it('should not trigger focusExit', function() {
             setTimeout(function() {
-                expect(eventHandlers.onFocusExit).not.toHaveBeenCalled();
-                done();
-                ExitEmitter.removeFocusExit(testEl);
+                expect(onFocusExit).not.toHaveBeenCalled();
+            }, timeoutInterval);
+        });
+    });
+
+    describe('when focus moves to element root', function() {
+        beforeAll(function() { 
+            testEl.focus();
+        });
+
+        it('should not trigger focusExit', function() {
+            setTimeout(function() {
+                expect(onFocusExit).not.toHaveBeenCalled();
             }, timeoutInterval);
         });
     });

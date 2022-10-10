@@ -1,8 +1,12 @@
 import * as NavigationEmitter from '../src/index.js';
 
+const timeoutInterval = 500;
+
 var testEl,
     testEmitter,
-    onNavigationModelChange;
+    onNavigationModelChange,
+    onNavigationModelInit,
+    onNavigationModelReset;
 
 function triggerArrowKeyPress(el, dir, num) {
     for(let i = 0; i < num; i++) {
@@ -616,10 +620,9 @@ describe('given 3 items with axis set to y', function() {
 
 /* END AXIS TESTS */
 
-/* BEGIN AUTO INIT & RESET TESTS */
+/* BEGIN AUTO INIT TESTS */
 
-describe('given 3 items with autoInit set to null', function() {
-    var onNavigationModelInit;
+describe('given 3 items', function() {
     function setup() {
         document.body.innerHTML = `
             <ul class="widget">
@@ -628,105 +631,68 @@ describe('given 3 items with autoInit set to null', function() {
                 <li>Item 3</li>
             </ul>
         `;
+
+        onNavigationModelInit = jasmine.createSpy('onNavigationModelInit');
+        testEl = document.querySelector('.widget');
+        testEl.addEventListener('navigationModelInit', onNavigationModelInit);
     }
 
     beforeAll(setup);
     afterEach(setup);
 
-    describe('when testEmitter is destroyed and recreated', function() {
+    describe('when autoInit is null', function() {
         beforeAll(function() {
-            // reset testEmitter to test onNavigationModelInit
-            testEmitter.destroy();
-
-            onNavigationModelInit = jasmine.createSpy('onNavigationModelInit');
-            testEl.addEventListener('navigationModelInit', onNavigationModelInit);
-
-            testEl = document.querySelector('.widget');
             testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: null}); // eslint-disable-line
         });
 
         it('should not trigger navigationModelInit event', function() {
-            expect(onNavigationModelInit).toHaveBeenCalledTimes(0);
-        });
-    });
-});
-
-describe('given 3 items with autoInit set to 1', function() {
-    var onNavigationModelInit;
-    function setup() {
-        document.body.innerHTML = `
-            <ul class="widget">
-                <li>Item 1</li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-            </ul>
-        `;
-
-        testEl = document.querySelector('.widget');
-        testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 1}); // eslint-disable-line
-
-        onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
-        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
-    }
-
-    beforeAll(setup);
-    afterEach(setup);
-
-    describe('when arrow right is pressed once', function() {
-        beforeAll(function() {
-            triggerArrowKeyPress(testEl, 'Right', 1);
+            expect(onNavigationModelInit).not.toHaveBeenCalled();
         });
 
-        it('should set the index to 2', function() {
-            expect(testEmitter.model.index).toBe(2);
+        it('should have index value of undefined', function() {
+            expect(testEmitter.model.index).toBe(undefined);
         });
     });
 
-    describe('when arrow up is pressed once', function() {
+    describe('when autoInit is 0', function() {
         beforeAll(function() {
-            triggerArrowKeyPress(testEl, 'Up', 1);
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 0}); // eslint-disable-line
         });
 
-        it('should set the index to 0', function() {
+        it('should trigger navigationModelInit event once', function() {
+            setTimeout(function() { 
+                expect(onNavigationModelInit).toHaveBeenCalledTimes(1);
+            }, timeoutInterval);
+        });
+
+        it('should have index value of 0', function() {
             expect(testEmitter.model.index).toBe(0);
         });
     });
 
-    describe('when testEmitter is destroyed and recreated', function() {
+    describe('when autoInit is 1', function() {
         beforeAll(function() {
-            // reset testEmitter to test onNavigationModelInit
-            testEmitter.destroy();
-
-            onNavigationModelInit = jasmine.createSpy('onNavigationModelInit');
-            testEl.addEventListener('navigationModelInit', onNavigationModelInit);
-
-            testEl = document.querySelector('.widget');
             testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 1}); // eslint-disable-line
         });
 
-        it('should trigger 1 navigationModelInit event', function() {
-            expect(onNavigationModelInit).toHaveBeenCalledTimes(1);
-        });
-    });
-
-    describe('when index set out of bounds', function() {
-        beforeEach(function() {
-            testEmitter.model.index = 100;
+        it('should trigger navigationModelInit event once', function() {
+            setTimeout(function() { 
+                expect(onNavigationModelInit).toHaveBeenCalledTimes(1);
+            }, timeoutInterval);
         });
 
-        it('should trigger 0 navigationModelChange events', function() {
-            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
-        });
-
-        it('should reset index to autoInit value', function() {
+        it('should have index value of 1', function() {
             expect(testEmitter.model.index).toBe(1);
         });
     });
 });
 
-describe('given 3 items with autoReset set to 1', function() {
-    var buttonEl,
-        onNavigationModelReset;
+/* END AUTO INIT TESTS */
+
+/* BEGIN AUTO RESET TEST */
+
+describe('given 3 items', function() {
+    var buttonEl;
 
     function setup() {
         document.body.innerHTML = `
@@ -740,44 +706,27 @@ describe('given 3 items with autoReset set to 1', function() {
 
         testEl = document.querySelector('.widget');
         buttonEl = document.querySelector('button');
-        testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoReset: 1}); // eslint-disable-line
 
-        onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
-        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+        onNavigationModelReset = jasmine.createSpy('onNavigationModelReset');
+        testEl.addEventListener('navigationModelReset', onNavigationModelReset);
     }
 
     beforeAll(setup);
     afterEach(setup);
 
-    describe('when arrow right is pressed once', function() {
+    describe('and autoReset is 1', function() {
         beforeAll(function() {
-            triggerArrowKeyPress(testEl, 'Right', 1);
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoReset: 1}); // eslint-disable-line
         });
 
-        it('should set the index to 1', function() {
-            expect(testEmitter.model.index).toBe(1);
-        });
-    });
+        describe('when testEmitter gets reset', function() {
+            beforeAll(function() {
+                testEmitter.model.reset();
+            });
 
-    describe('when arrow up is pressed once', function() {
-        beforeAll(function() {
-            triggerArrowKeyPress(testEl, 'Up', 1);
-        });
-
-        it('should set the index to 0', function() {
-            expect(testEmitter.model.index).toBe(0);
-        });
-    });
-
-    describe('when testEmitter gets reset', function() {
-        beforeAll(function() {
-            onNavigationModelReset = jasmine.createSpy('onNavigationModelReset');
-            testEl.addEventListener('navigationModelReset', onNavigationModelReset);
-            testEmitter.model.reset();
-        });
-
-        it('should trigger 1 onNavigationModelReset event', function() {
-            expect(onNavigationModelReset).toHaveBeenCalledTimes(1);
+            it('should trigger 1 onNavigationModelReset event', function() {
+                expect(onNavigationModelReset).toHaveBeenCalledTimes(1);
+            });
         });
     });
 
@@ -806,4 +755,4 @@ describe('given 3 items with autoReset set to 1', function() {
     // });
 });
 
-/* END AUTO INIT & RESET TESTS */
+/* END AUTO RESET TESTS */

@@ -1,361 +1,869 @@
 import * as ActiveDescendant from '../src/index.js';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 
-describe('makeup-active-descendant', function() {
-    var timeoutInterval = 50;
-    var dom = '<div class="widget">'
-                + '<input type="text"/>'
-                + '<input type="button" value="button">'
-                + '<ul>'
-                    + '<li>Button 1</li>'
-                    + '<li>Button 2</li>'
-                    + '<li>Button 3</li>'
-                + '</ul>'
-            + '</div>';
+const timeoutInterval = 500;
 
-    var hierarchyDom = '<div class="widget">'
-            + '<ul>'
-                + '<li>Button 1</li>'
-                + '<li>Button 2</li>'
-                + '<li>Button 3</li>'
-            + '</ul>'
-        + '</div>';
+var widgetEl,
+    focusEl,
+    containerEl,
+    testActiveDescendant,
+    onActiveDescendantChange;
 
-    document.body.innerHTML = dom;
+function triggerArrowKeyPress(el, dir, num) {
+    for (let i = 0; i < num; i++) {
+        el.dispatchEvent(new CustomEvent(`arrow${dir}KeyDown`, {detail:{target:{tagName:''}}}));
+    }
+}
 
-    var widgetEl = document.querySelector('.widget');
-    var containerEl = widgetEl.querySelector('ul');
-    var testActiveDescendant;
-    var onActiveDescendantChange;
+/* BEGIN STATIC MODEL SIZE TESTS */
 
-    describe('when module is imported', function() {
+describe('given a list of 3 visible items in programmatic relationship', function() {
+    beforeAll(function() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+    });
+
+    describe('when instantiated', function() {
+        beforeAll(function() {
+            widgetEl = document.querySelector('.widget');
+            focusEl = widgetEl.querySelector('input');
+            containerEl = widgetEl.querySelector('ul');
+            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
+        });
+
         it('module should not be undefined', function() {
             expect(ActiveDescendant).not.toEqual(undefined);
         });
+
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.filteredItems.length).toEqual(3);
+        });
+    });
+});
+
+describe('given a list of 3 visible items in hierarchial relationship', function() {
+    beforeAll(function() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
     });
 
-    describe('when module is created with default options in programmatic relationship', function() {
-        var focusEl = widgetEl.querySelector('input');
-
-        beforeEach(function() {
-            document.body.innerHTML = dom;
+    describe('when instantiated', function() {
+        beforeAll(function() {
+            widgetEl = document.querySelector('.widget');
+            focusEl = widgetEl.querySelector('ul');
+            containerEl = focusEl;
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
+        });
 
-            onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
-            widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
+        it('module should not be undefined', function() {
+            expect(ActiveDescendant).not.toEqual(undefined);
+        });
 
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.filteredItems.length).toEqual(3);
+        });
+    });
+});
+
+describe('given a list of 2 visible items, 1 hidden in programmatic relationship', function() {
+    beforeAll(function() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li hidden>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+    });
+
+    describe('when instantiated', function() {
+        beforeAll(function() {
+            widgetEl = document.querySelector('.widget');
+            focusEl = widgetEl.querySelector('input');
+            containerEl = widgetEl.querySelector('ul');
+            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
+        });
+
+        it('model should have 2 items', function() {
+            expect(testActiveDescendant.filteredItems.length).toEqual(2);
+        });
+    });
+});
+
+describe('given a list of 2 visible items, 1 hidden in hierarchial relationship', function() {
+    beforeAll(function() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li hidden>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+    });
+
+    describe('when instantiated with hierarchial relationship', function() {
+        beforeAll(function() {
+            widgetEl = document.querySelector('.widget');
+            focusEl = widgetEl.querySelector('ul');
+            containerEl = focusEl;
+            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
+        });
+
+        it('model should have 2 items', function() {
+            expect(testActiveDescendant.filteredItems.length).toEqual(2);
+        });
+    });
+});
+
+describe('given a list of 3 hidden items in programmatic relationship', function() {
+    beforeAll(function() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li hidden>Button 1</li>
+                    <li hidden>Button 2</li>
+                    <li hidden>Button 3</li>
+                </ul>
+            </div>
+        `;
+    });
+
+    describe('when instantiated', function() {
+        beforeAll(function() {
+            widgetEl = document.querySelector('.widget');
+            focusEl = widgetEl.querySelector('input');
+            containerEl = widgetEl.querySelector('ul');
+            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
+        });
+
+        it('model should have 0 items', function() {
+            expect(testActiveDescendant.filteredItems.length).toEqual(0);
+        });
+    });
+});
+
+describe('given a list of 3 hidden items in hierarchial relationship', function() {
+    beforeAll(function() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <ul class="widget">
+                    <li hidden>Button 1</li>
+                    <li hidden>Button 2</li>
+                    <li hidden>Button 3</li>
+                </ul>
+            </div>
+        `;
+    });
+
+    describe('when instantiated', function() {
+        beforeAll(function() {
+            widgetEl = document.querySelector('.widget');
+            focusEl = widgetEl.querySelector('ul');
+            containerEl = focusEl;
+            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
+        });
+
+        it('model should have 0 items', function() {
+            expect(testActiveDescendant.filteredItems.length).toEqual(0);
+        });
+    });
+});
+/* END STATIC MODEL SIZE TESTS */
+
+/* BEGIN DYNAMIC MODEL SIZE TESTS */
+
+describe('given a list of 3 visible items', function() {
+    beforeAll(function() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('input');
+        containerEl = widgetEl.querySelector('ul');
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
+    });
+
+    describe('when first item is hidden', function() {
+        beforeAll(function() {
+            testActiveDescendant.items[0].hidden = true;
+        });
+
+        it('model should have 2 items', function() {
+            expect(testActiveDescendant.filteredItems.length).toEqual(2);
+        });
+    });
+
+    describe('when first item is hidden and then unhidden', function() {
+        beforeAll(function() {
+            testActiveDescendant.items[0].hidden = true;
+            testActiveDescendant.items[0].hidden = false;
+        });
+
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.filteredItems.length).toEqual(3);
+        });
+    });
+});
+
+/* END DYNAMIC MODEL SIZE TESTS */
+
+/* BEGIN ARROW KEY TESTS */
+
+describe('given 3 items with default options in programmatic relationship', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('input');
+        containerEl = widgetEl.querySelector('ul');
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
+
+        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow left is pressed once', function() {
+        beforeAll(function() {
             focusEl.focus();
+            triggerArrowKeyPress(widgetEl, 'Left', 1);
         });
 
-        afterEach(function() {
-            testActiveDescendant.destroy();
-            onActiveDescendantChange.calls.reset();
-        });
-
-        it('the focus el should have correct aria-owns attribute', function() {
-            setTimeout(function() {
-                // assert
-                expect(focusEl.getAttribute('aria-owns')).toEqual(containerEl.getAttribute('id'));
-            }, timeoutInterval);
-        });
-
-        it('should trigger 0 onActiveDescendantChange event on arrow left', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
+        it('should trigger 0 activeDescendantChange events', function() {
             expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
         });
+    });
 
-        it('should trigger 0 onActiveDescendantChange event on arrow up', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+    describe('when arrow up is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Up', 1);
         });
 
-        it('should trigger onActiveDescendantChange event and set active-descendant class on arrow down', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
+        it('should trigger 0 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
+        });
+
+        it('should trigger 1 activeDescendantChange events', function() {
             expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            // assert
-            expect(containerEl.firstElementChild.className).toEqual('active-descendant');
-            // assert
             // eslint-disable-next-line max-len
             expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.firstElementChild.getAttribute('id'));
         });
     });
 
-    describe('when module is created in programmatic relationship with axis y', function() {
-        var focusEl = widgetEl.querySelector('input');
-
+    describe('when arrow right is pressed twice', function() {
         beforeAll(function() {
-            document.body.innerHTML = dom;
-            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { axis: 'y' }); // eslint-disable-line
-
-            onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
-            widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
-
-            focusEl.focus();
+            triggerArrowKeyPress(widgetEl, 'Right', 2);
         });
 
-        beforeEach(function() {
-            focusEl.focus();
+        it('should trigger 2 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe('when arrow right is pressed four times', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 4);
         });
 
-        afterEach(function() {
-            onActiveDescendantChange.calls.reset();
+        it('should trigger 3 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
         });
+    });
 
-        afterAll(function() {
+    describe('when arrow right is pressed once after activedescendant is destroyed', function() {
+        beforeAll(function() {
             testActiveDescendant.destroy();
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
-        it('should trigger 0 onActiveDescendantChange event on arrow right', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowRightKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
-        });
-
-        it('should trigger onActiveDescendantChange event on arrow down', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-        });
-
-        it('should trigger 0 onActiveDescendantChange event on arrow left', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
-        });
-
-        it('should trigger 0 onActiveDescendantChange event on arrow up', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
+        it('should trigger 0 activeDescendantChange events', function() {
             expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
         });
     });
 
-    describe('when module is created in programmatic relationship with autowrap', function() {
-        var focusEl = widgetEl.querySelector('input');
-
-        beforeEach(function() {
-            document.body.innerHTML = dom;
-            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { wrap: true }); // eslint-disable-line
-
-            onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
-            widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
-
-            focusEl.focus();
+    describe('when arrow down is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
-        afterEach(function() {
-            testActiveDescendant.destroy();
-            onActiveDescendantChange.calls.reset();
-        });
-
-        it('should trigger onActiveDescendantChange event on arrow left', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            // execute
-            onActiveDescendantChange.calls.reset();
-            widgetEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-        });
-
-        it('should trigger onActiveDescendantChange event on arrow up', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            // execute
-            onActiveDescendantChange.calls.reset();
-            widgetEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
+        it('should trigger 1 activeDescendantChange events', function() {
             expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
         });
     });
 
-    describe('when module is created in programmatic relationship with autoInit', function() {
-        var focusEl = widgetEl.querySelector('input');
-
-        beforeEach(function() {
-            document.body.innerHTML = dom;
-            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoInit: 2 }); // eslint-disable-line
-
-            onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
-            widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
-        });
-
-        afterEach(function() {
+    describe('when arrow down is pressed once after emitter is destroyed', function() {
+        beforeAll(function() {
             testActiveDescendant.destroy();
-            onActiveDescendantChange.calls.reset();
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
-        it('should set aria-activedescendant to last element child', function() {
+        it('should trigger 0 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+        });
+    });
+});
+
+describe('given 3 items with default options in hierarchial relationship', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('ul');
+        containerEl = focusEl;
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
+
+        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow left is pressed once', function() {
+        beforeAll(function() {
+            focusEl.focus();
+            triggerArrowKeyPress(widgetEl, 'Left', 1);
+        });
+
+        it('should trigger 0 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow up is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Up', 1);
+        });
+
+        it('should trigger 0 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
+        });
+
+        it('should trigger 1 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
             // eslint-disable-next-line max-len
-            expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.lastElementChild.getAttribute('id'));
+            expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.firstElementChild.getAttribute('id'));
         });
     });
 
-    // describe('when module is created in programmatic relationship with autoReset', function() {
-    //     var focusEl = widgetEl.querySelector('input');
-
-    //     beforeEach(function() {
-    //         document.body.innerHTML = dom;
-    //         testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoReset: 2 }); // eslint-disable-line
-    //         onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
-    //         widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
-    //         // execute
-    //         focusEl.focus();
-    //     });
-
-    //     afterEach(function() {
-    //         testActiveDescendant.destroy();
-    //     });
-    //     it('should set active-descendant to first element child on focus', function() {
-    //         setTimeout(function() {
-    //             console.log(document.activeElement);
-    //             // assert
-    //             expect(containerEl.firstElementChild.className).toEqual('active-descendant');
-    //         }, timeoutInterval);
-    //     });
-
-    //     it('should set active-descendant to selected element child on blur', function() {
-    //         focusEl.blur();
-    //         console.log(document.activeElement);
-    //         setTimeout(function() {
-    //             // assert
-    //             // eslint-disable-next-line max-len
-    //             expect(containerEl.lastElementChild.className).toEqual('active-descendant');
-    //         }, timeoutInterval);
-    //     });
-    // });
-
-    describe('when module is created with default options in hierarchial relationship', function() {
-        var focusEl;
-
-        beforeEach(function() {
-            document.body.innerHTML = hierarchyDom;
-            // in this scenario the container element is the same as the focusable element
-            focusEl = containerEl;
-            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li');
-
-            onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
-            widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
-
-            widgetEl.focus();
+    describe('when arrow right is pressed twice', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 2);
         });
 
-        afterEach(function() {
+        it('should trigger 2 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe('when arrow right is pressed four times', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 4);
+        });
+
+        it('should trigger 3 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
+        });
+    });
+
+    describe('when arrow right is pressed once after activedescendant is destroyed', function() {
+        beforeAll(function() {
             testActiveDescendant.destroy();
-            onActiveDescendantChange.calls.reset();
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
-        it('the container el should not have aria-owns attribute', function() {
-            expect(focusEl.getAttribute('aria-owns')).toEqual(null);
-        });
-
-        it('should trigger 0 onActiveDescendantChange event on arrow left', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
+        it('should trigger 0 activeDescendantChange events', function() {
             expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
         });
+    });
 
-        it('should trigger 0 onActiveDescendantChange event on arrow up', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
+    describe('when arrow down is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
+        });
+
+        it('should trigger 1 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow down is pressed once after emitter is destroyed', function() {
+        beforeAll(function() {
+            testActiveDescendant.destroy();
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
+        });
+
+        it('should trigger 0 activeDescendantChange events', function() {
             expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
         });
-
-        it('should trigger onActiveDescendantChange event and set active-descendant class on arrow down', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowDownKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(containerEl.lastElementChild.className).toEqual('active-descendant');
-            // assert
-            // eslint-disable-next-line max-len
-            expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.lastElementChild.getAttribute('id'));
-        });
     });
+});
 
-    describe('when module is created in hierarchial relationship with autowrap', function() {
-        var focusEl;
+/* END ARROW KEY TESTS */
 
-        beforeEach(function() {
-            document.body.innerHTML = hierarchyDom;
-            // in this scenario the container element is the same as the focusable element
-            focusEl = containerEl;
-            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { wrap: true }); // eslint-disable-line
+/* BEGIN AUTOWRAP ARROW KEY TESTS */
 
-            onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
-            widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
+describe('given 3 items with autoWrap on', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
 
-            widgetEl.focus();
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('input');
+        containerEl = widgetEl.querySelector('ul');
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { wrap : true}); // eslint-disable-line
+
+        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow left is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Left', 1);
         });
 
-        afterEach(function() {
-            testActiveDescendant.destroy();
-            onActiveDescendantChange.calls.reset();
-        });
-
-        it('should trigger onActiveDescendantChange event on arrow left', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            // execute
-            onActiveDescendantChange.calls.reset();
-            widgetEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-        });
-
-        it('should trigger onActiveDescendantChange event on arrow up', function() {
-            // execute
-            widgetEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            // execute
-            onActiveDescendantChange.calls.reset();
-            widgetEl.dispatchEvent(new CustomEvent('arrowUpKeyDown', { detail: { target: { tagName: '' } } }));
-            // assert
+        it('should trigger 1 activeDescendantChange event', function() {
             expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
         });
     });
 
-    describe('when module is created in hierarchial relationship with autoInit', function() {
-        var focusEl;
-
-        beforeEach(function() {
-            document.body.innerHTML = hierarchyDom;
-            // in this scenario the container element is the same as the focusable element
-            focusEl = containerEl;
-            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoInit: 2 }); // eslint-disable-line
-
-            onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
-            widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
-
-            widgetEl.focus();
+    describe('when arrow up is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Up', 1);
         });
 
-        afterEach(function() {
-            testActiveDescendant.destroy();
-            onActiveDescendantChange.calls.reset();
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
+        });
+
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow right is pressed twice', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 2);
+        });
+
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe('when arrow right is pressed three times', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 3);
+        });
+
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
+        });
+    });
+
+    describe('when arrow down is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
+        });
+
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+});
+
+/* END AUTOWRAP ARROW KEYS TESTS */
+
+/* BEGIN INDEX SETTER TESTS */
+
+describe('given 3 items with default options', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('input');
+        containerEl = widgetEl.querySelector('ul');
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { wrap : true}); // eslint-disable-line
+
+        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when index set to current index', function() {
+        beforeEach(function() {
+            testActiveDescendant.index = 0;
+        });
+
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when index set within bounds', function() {
+        beforeEach(function() {
+            testActiveDescendant.index = 1;
+        });
+
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when index set out of bounds', function() {
+        beforeEach(function() {
+            testActiveDescendant.index = 100;
+        });
+
+        it('should trigger 0 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+        });
+    });
+});
+
+/* END INDEX SETTER TESTS */
+
+/* BEGIN AXIS TESTS */
+
+describe('given 3 items with axis set to both', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('input');
+        containerEl = widgetEl.querySelector('ul');
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { axis : 'both'}); // eslint-disable-line
+
+        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow down is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
+        });
+
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow up is pressed once after arrow down', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
+        });
+
+        it('should trigger 2 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            triggerArrowKeyPress(widgetEl, 'Up', 1);
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
+        });
+
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow left is pressed once after arrow right', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
+        });
+
+        it('should trigger 2 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            triggerArrowKeyPress(widgetEl, 'Left', 1);
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+});
+
+describe('given 3 items with axis set to x', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('input');
+        containerEl = widgetEl.querySelector('ul');
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { axis : 'x'}); // eslint-disable-line
+
+        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow down is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
+        });
+
+        it('should trigger 0 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow up is pressed once after arrow down', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
+            triggerArrowKeyPress(widgetEl, 'Up', 1);
+        });
+
+        it('should trigger 0 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
+        });
+
+        it('should trigger 1 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('when arrow left is pressed once after arrow right', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
+        });
+
+        it('should trigger 2 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            triggerArrowKeyPress(widgetEl, 'Left', 1);
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+});
+
+describe('given 3 items with axis set to y', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('input');
+        containerEl = widgetEl.querySelector('ul');
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { axis : 'y'}); // eslint-disable-line
+
+        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when arrow right is pressed once', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
+        });
+
+        it('should trigger 0 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow left is pressed once after arrow right', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 1);
+            triggerArrowKeyPress(widgetEl, 'Left', 1);
+        });
+
+        it('should trigger 0 activeDescendantChange event', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('when arrow Down is pressed twice', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Down', 2);
+        });
+
+        it('should trigger 2 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe('when arrow Up is pressed once after arrow down', function() {
+        beforeAll(function() {
+            triggerArrowKeyPress(widgetEl, 'Down', 1);
+        });
+
+        it('should trigger 2 activeDescendantChange events', function() {
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            triggerArrowKeyPress(widgetEl, 'Up', 1);
+            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+        });
+    });
+});
+
+/* END AXIS TESTS */
+
+/* BEGIN AUTO INIT TESTS */
+
+describe('given 3 items', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('input');
+        containerEl = widgetEl.querySelector('ul');
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when autoInit is 0', function() {
+        beforeAll(function() {
+            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoInit : 0}); // eslint-disable-line
+        });
+
+        it('should have index value of 0', function() {
+            expect(testActiveDescendant.index).toBe(0);
+        });
+    });
+
+    describe('when autoInit is 2', function() {
+        beforeAll(function() {
+            testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoInit : 2}); // eslint-disable-line
+        });
+
+        it('should have index value of 2', function() {
+            expect(testActiveDescendant.index).toBe(2);
         });
 
         it('should set aria-activedescendant to last element child', function() {
@@ -364,3 +872,59 @@ describe('makeup-active-descendant', function() {
         });
     });
 });
+
+/* END AUTO INIT TESTS */
+
+/* BEGIN AUTO RESET TESTS */
+
+describe('given 3 items', function() {
+    var buttonEl;
+
+    function setup() {
+        document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul class="widget">
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+            <button>Button 1</button>
+        `;
+
+        widgetEl = document.querySelector('.widget');
+        focusEl = widgetEl.querySelector('input');
+        containerEl = widgetEl.querySelector('ul');
+        buttonEl = document.querySelector('button');
+
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoReset : 1}); // eslint-disable-line
+    }
+
+    beforeAll(setup);
+    afterEach(setup);
+
+    describe('when autoReset is 1', function() {
+        beforeAll(function() {
+            testActiveDescendant.reset();
+        });
+
+        it('should have index value of 1', function() {
+            expect(testActiveDescendant.index).toBe(1);
+        });
+    });
+
+    describe('when focus exits the widget', function() {
+        beforeAll(function() {
+            buttonEl.focus();
+        });
+
+        it('should set focus to item with index 1', function() {
+            setTimeout(function() {
+                expect(testActiveDescendant.index).toBe(1);
+            }, timeoutInterval);
+        });
+    });
+});
+
+/* END AUTO RESET TESTS */

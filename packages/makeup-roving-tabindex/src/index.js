@@ -127,6 +127,7 @@ class LinearRovingTabindex extends RovingTabindex {
     }
 
     destroy() {
+        super.destroy();
         this._navigationEmitter.destroy();
     }
 }

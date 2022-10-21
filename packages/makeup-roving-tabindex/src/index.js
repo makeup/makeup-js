@@ -86,8 +86,9 @@ class LinearRovingTabindex extends RovingTabindex {
 
         this._itemSelector = itemSelector;
 
+        // todo: options.index is deprecated. Remove support in future release.
         this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
-            autoInit: this._options.autoInit,
+            autoInit: (this._options.index !== undefined) ? this._options.index : this._options.autoInit,
             autoReset: this._options.autoReset,
             wrap: this._options.wrap,
             axis: this._options.axis

@@ -56,9 +56,9 @@ Markup after:
 
 ## Properties
 
-* `filteredItems`: returns filtered items (e.g. non-hidden items)
-* `index`: the index position of the roving tabindex (i.e. the element with tabindex="0")
-* `items`: returns all items that match item selector
+* `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden items)
+* `index`: the index position of the roving tabindex (i.e. the element with tabindex="0"). A no-op on aria-disabled or hidden items.
+* `matchingItems`: returns all items that match item selector
 
 ## Methods
 

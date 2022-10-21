@@ -168,9 +168,9 @@ Use CSS to style the active descendant however you wish:
 
 ## Properties
 
-* `filteredItems`: returns filtered items (e.g. non-hidden items)
-* `index`: the index position of the current active descendant
-* `items`: returns all items that match item selector
+* `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden & non-disabled items)
+* `index`: the index position of the current active descendant. A no-op on aria-disabled or hidden items.
+* `matchingItems`: returns all items that match item selector
 
 ## Methods
 

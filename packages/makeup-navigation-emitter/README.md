@@ -113,8 +113,8 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 
 ## Properties
 
-* `items`: returns all items that match item selector
-* `filteredItems`: returns filtered items (e.g. non-hidden items)
+* `matchingItems`: returns all items that match item selector
+* `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden & non aria-disabled items)
 
 ## Events
 

@@ -50,7 +50,7 @@ Markup after:
 ## Options
 
 * `autoReset`: the index position that should receive the roving tabindex when model is reset (default: null)
-* `index`: the initial index position of the roving tabindex (default: 0)
+* `autoInit`: the initial index position of the roving tabindex (default: 'first')
 * `wrap` : specify whether arrow keys should wrap/loop (default: false)
 * `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
 

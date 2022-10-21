@@ -116,7 +116,7 @@ export default class {
     }
 
     get index() {
-        return [...this.navigableItems].findIndex((el) => el.getAttribute('aria-selected') === 'true');
+        return [...this.matchingItems].findIndex((el) => el.getAttribute('aria-selected') === 'true');
     }
 
     get navigableItems() {
@@ -130,17 +130,17 @@ export default class {
     select(index) {
         this._unobserveMutations();
 
-        if (_indexInBounds(index, this.navigableItems.length)) {
-            this.navigableItems[index].setAttribute('aria-selected', 'true');
+        if (_indexInBounds(index, this.matchingItems.length)) {
+            this.matchingItems[index].setAttribute('aria-selected', 'true');
 
             if (this._options.useAriaChecked === true) {
-                this.navigableItems[index].setAttribute('aria-checked', 'true');
+                this.matchingItems[index].setAttribute('aria-checked', 'true');
             }
 
             this.el.dispatchEvent(new CustomEvent('makeup-listbox-change', {
                 detail: {
                     optionIndex: index,
-                    optionValue: this.navigableItems[index].innerText
+                    optionValue: this.matchingItems[index].innerText
                 }
             }));
         }
@@ -151,11 +151,11 @@ export default class {
     unselect(index) {
         this._unobserveMutations();
 
-        if (_indexInBounds(index, this.navigableItems.length)) {
-            this.navigableItems[index].setAttribute('aria-selected', 'false');
+        if (_indexInBounds(index, this.matchingItems.length)) {
+            this.matchingItems[index].setAttribute('aria-selected', 'false');
 
             if (this._options.useAriaChecked === true) {
-                this.navigableItems[index].setAttribute('aria-checked', 'false');
+                this.matchingItems[index].setAttribute('aria-checked', 'false');
             }
         }
 
@@ -184,10 +184,10 @@ function _onFocus() {
 
     if (this._mouseDownFlag !== true && this._options.autoSelect === true && this.index === -1) {
         this._activeDescendant.index = 0;
-        this.navigableItems[0].setAttribute('aria-selected', 'true');
+        this.matchingItems[0].setAttribute('aria-selected', 'true');
 
         if (this._options.useAriaChecked === true) {
-            this.navigableItems[0].setAttribute('aria-checked', 'true');
+            this.matchingItems[0].setAttribute('aria-checked', 'true');
         }
     }
     this._mouseDownFlag = false;
@@ -205,7 +205,7 @@ function _onMouseDown() {
 function _onKeyDown(e) {
     if (e.keyCode === 13 || e.keyCode === 32) { // enter key or spacebar key
         const toElIndex = this._activeDescendant.index;
-        const toEl = this.navigableItems[toElIndex];
+        const toEl = this.matchingItems[toElIndex];
         const isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
         if (this._options.autoSelect === false && isTolElSelected === false) {
@@ -219,7 +219,7 @@ function _onClick(e) {
     // unlike the keyDown event, the click event target can be a child element of the option
     // e.g. <div role="option"><span>Item 1</span></div>
     const toEl = e.target.closest('[role=option]');
-    const toElIndex = Array.from(this.navigableItems).indexOf(toEl);
+    const toElIndex = Array.from(this.matchingItems).indexOf(toEl);
     const isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
 
     if (this._options.autoSelect === false && isTolElSelected === false) {
@@ -234,8 +234,8 @@ function _onActiveDescendantChange(e) {
     }));
 
     if (this._options.autoSelect === true) {
-        const fromEl = this.navigableItems[e.detail.fromIndex];
-        const toEl = this.navigableItems[e.detail.toIndex];
+        const fromEl = this.matchingItems[e.detail.fromIndex];
+        const toEl = this.matchingItems[e.detail.toIndex];
 
         if (fromEl) {
             this.unselect(e.detail.fromIndex);

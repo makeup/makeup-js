@@ -1,12 +1,12 @@
 import * as KeyEmitter from 'makeup-key-emitter';
 import * as ExitEmitter from 'makeup-exit-emitter';
 
-// todo: autoInit: -1, autoReset: -1 are used for activeDescendant behaviour. These values can be abstracted away with
-// a new "type" option (roving or active)
+// todo: autoInit: -1, autoReset: -1 are used for activeDescendant behaviour. How they work is a little unintuitive.
+// These values can be abstracted away with a new "type" option (roving or active)
 
 const defaultOptions = {
     axis: 'both',
-    autoInit: 0,
+    autoInit: 'first',
     autoReset: null,
     ignoreButtons: false,
     wrap: false
@@ -99,20 +99,33 @@ class LinearNavigationModel extends NavigationModel {
         super(el, itemSelector, selectedOptions);
 
         if (this.options.autoInit !== null) {
-            if (typeof this.options.autoInit === 'number') {
-                this._index = this.options.autoInit;
-            } else {
-                this._index = this.matchingItems.findIndex(
+            let newIndex = null;
+
+            if (this.options.autoInit === -1) {
+                newIndex = -1;
+            } else if (this.options.autoInit === 'first') {
+                newIndex = this.firstNavigableIndex;
+            } else if (typeof this.options.autoInit === 'number') {
+                if (this.navigableItems.indexOf(this.matchingItems[this.options.autoInit]) !== -1) {
+                    newIndex = this.options.autoInit;
+                }
+            } else if (this.options.autoInit === 'aria-selected') {
+                newIndex = this.matchingItems.findIndex(
                     (item) => item.getAttribute(this.options.autoInit) === 'true'
                 );
             }
-            this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
-                detail: {
-                    items: this.matchingItems,
-                    toIndex: this._index
-                },
-                bubbles: false
-            }));
+
+            if (newIndex !== null) {
+                this._index = newIndex;
+
+                this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
+                    detail: {
+                        items: this.matchingItems,
+                        toIndex: this._index
+                    },
+                    bubbles: false
+                }));
+            }
         }
     }
 
@@ -126,18 +139,26 @@ class LinearNavigationModel extends NavigationModel {
 
     get nextNavigableIndex() {
         let nextNavigableIndex = -1;
-        const el = this.navigableItems[this.navigableItems.indexOf(this.currentItem) + 1];
 
-        if (el) nextNavigableIndex = this.matchingItems.indexOf(el);
+        if (this.index === -1) {
+            nextNavigableIndex = this.firstNavigableIndex;
+        } else {
+            const el = this.navigableItems[this.navigableItems.indexOf(this.currentItem) + 1];
+
+            if (el) nextNavigableIndex = this.matchingItems.indexOf(el);
+        }
 
         return nextNavigableIndex;
     }
 
     get prevNavigableIndex() {
         let prevNavigableIndex = -1;
-        const el = this.navigableItems[this.navigableItems.indexOf(this.currentItem) - 1];
 
-        if (el) prevNavigableIndex = this.matchingItems.indexOf(el);
+        if (this.index !== -1) {
+            const el = this.navigableItems[this.navigableItems.indexOf(this.currentItem) - 1];
+
+            if (el) prevNavigableIndex = this.matchingItems.indexOf(el);
+        }
 
         return prevNavigableIndex;
     }
@@ -177,14 +198,28 @@ class LinearNavigationModel extends NavigationModel {
 
     reset() {
         if (this.options.autoReset !== null) {
-            // todo: add defensive code if autoReset index is out of bounds, disabled or hidden (-1 is a valid value)
-            this._index = this.options.autoReset; // do not use index setter, it will trigger change event
-            this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
-                detail: {
-                    toIndex: this.options.autoReset
-                },
-                bubbles: false
-            }));
+            let newIndex = null;
+
+            if (this.options.autoReset === -1) {
+                newIndex = -1;
+            } else if (this.options.autoReset === 'first') {
+                newIndex = this.firstNavigableIndex;
+            } else if (typeof this.options.autoReset === 'number') {
+                if (this.navigableItems.indexOf(this.matchingItems[this.options.autoReset]) !== -1) {
+                    newIndex = this.options.autoReset; // do not use index setter, it will trigger change event
+                }
+            }
+
+            if (newIndex !== null) {
+                this._index = newIndex;
+
+                this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
+                    detail: {
+                        toIndex: this._index
+                    },
+                    bubbles: false
+                }));
+            }
         }
     }
 

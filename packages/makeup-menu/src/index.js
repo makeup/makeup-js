@@ -12,9 +12,7 @@ export default class {
         this.el = widgetEl;
 
         this._rovingTabIndex = RovingTabIndex.createLinear(this.el, '[role^=menuitem]', {
-            // todo: what if autoReset index is disabled or hidden?
-            // Leverage navigationEmitter.firstNavigableIndex?
-            autoReset: 0
+            autoReset: 'first'
         });
 
         PreventScrollKeys.add(this.el);

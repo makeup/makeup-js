@@ -5,9 +5,7 @@ import * as NavigationEmitter from 'makeup-navigation-emitter';
 // todo: rename autoReset to make it clearer it is for kb focus behaviour
 const defaultOptions = {
     autoReset: null,
-    // todo: what if if index element is disabled or hidden?
-    // Leverage navigationEmitter.firstNavigableIndex?
-    index: 0,
+    autoInit: 'first',
     wrap: false,
     axis: 'both'
 };
@@ -89,7 +87,7 @@ class LinearRovingTabindex extends RovingTabindex {
         this._itemSelector = itemSelector;
 
         this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
-            autoInit: this._options.index,
+            autoInit: this._options.autoInit,
             autoReset: this._options.autoReset,
             wrap: this._options.wrap,
             axis: this._options.axis

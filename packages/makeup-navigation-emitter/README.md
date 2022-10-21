@@ -100,7 +100,7 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 
 ## Options
 
-* `autoInit`: specify an integer or -1 for initial index position. Can also set to "aria-selected" which will set to index position of first item with `aria-selected=true` (default: 0)
+* `autoInit`: specify an integer or -1 for initial index position. Can also set to "aria-selected" which will set to index position of first item with `aria-selected=true` (default: 'first')
 * `autoReset`: specify an integer or -1 for index position when focus exits widget (default: null)
 * `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
 * `ignoreButtons`: if set to true, nested button elements will not trigger navigationModelChange events. This is useful in a combobox + button scenario, where only the textbox should trigger navigationModelChange events (default: false)

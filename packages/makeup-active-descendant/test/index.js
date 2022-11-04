@@ -401,9 +401,11 @@ describe('given 3 items with default options in hierarchial relationship', funct
         });
 
         it('should trigger 1 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            // eslint-disable-next-line max-len
-            expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.firstElementChild.getAttribute('id'));
+            setTimeout(function() {
+                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+                // eslint-disable-next-line max-len
+                expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.firstElementChild.getAttribute('id'));
+            }, timeoutInterval);
         });
     });
 
@@ -419,11 +421,15 @@ describe('given 3 items with default options in hierarchial relationship', funct
 
     describe('when arrow right is pressed four times', function() {
         beforeAll(function() {
-            triggerArrowKeyPress(widgetEl, 'Right', 4);
+            setTimeout(function() {
+                triggerArrowKeyPress(widgetEl, 'Right', 4);
+            }, timeoutInterval);
         });
 
         it('should trigger 3 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
+            setTimeout(function() {
+                expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
+            }, timeoutInterval);
         });
     });
 
@@ -857,7 +863,9 @@ describe('given 3 items', function() {
         });
 
         it('should have index value of 0', function() {
-            expect(testActiveDescendant.index).toBe(0);
+            setTimeout(function() {
+                expect(testActiveDescendant.index).toBe(0);
+            }, timeoutInterval);
         });
     });
 
@@ -867,7 +875,9 @@ describe('given 3 items', function() {
         });
 
         it('should have index value of 2', function() {
-            expect(testActiveDescendant.index).toBe(2);
+            setTimeout(function() {
+                expect(testActiveDescendant.index).toBe(2);
+            }, timeoutInterval);
         });
 
         it('should set aria-activedescendant to last element child', function() {
@@ -916,7 +926,9 @@ describe('given 3 items', function() {
         });
 
         it('should have index value of 1', function() {
-            expect(testActiveDescendant.index).toBe(1);
+            setTimeout(function() {
+                expect(testActiveDescendant.index).toBe(1);
+            }, timeoutInterval);
         });
     });
 

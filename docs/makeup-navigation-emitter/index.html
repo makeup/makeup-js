@@ -12,42 +12,42 @@
     <body>
         <main role="main">
             <h1>makeup-navigation-emitter demo</h1>
-            <p>Set focus inside on any of the focusable elements, then use ARROW keys to update model.</p>
-            <p><strong>NOTE</strong>: This module does not do any focus management, it only models state, and triggers an event on state change (see developer console for events). So do not expect arrow keys to change focus.</p>
+            <p>Set focus inside on any of the focusable elements, then use ARROW keys to update model (see developer console).</p>
+            <p><strong>NOTE</strong>: Arrow keys DO NOT change focus. This module does not do any focus management, it only models state, and triggers events.</p>
             <p>This module creates the underlying model for <a href="https://github.com/makeup-js/makeup-roving-tabindex">makeup-roving-tabindex</a> and <a href="https://github.com/makeup-js/makeup-active-descendant">makeup-active-descendant</a>. Those modules <em>will</em> change focus on arrow keys. You probably don't need to use this module directly.</p>
 
-            <h2>Example 1 - Roving Tabindex style</h2>
+            <h2>Example 1 - Item-Based Relationship</h2>
             <div class="widget">
                 <ul>
-                    <li tabindex="0">Item 0</li>
-                    <li>Item 1</li>
+                    <li tabindex="0">Item 1</li>
                     <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                    <li>Item 5</li>
                 </ul>
-                <label>Index</label>
-                <input type="text" class="console" readonly disabled />
             </div>
 
-            <h2>Example 2 - Activedescendant style</h2>
+            <h2>Example 2 - Container-Based Relationship</h2>
             <div class="widget" tabindex="0">
                 <ul>
-                    <li>Item 0</li>
                     <li>Item 1</li>
                     <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                    <li>Item 5</li>
                 </ul>
-                <label>Index</label>
-                <input type="text" class="console" readonly disabled />
             </div>
 
-            <h2>Example 3 - "Owned" Activedescendant style</h2>
+            <h2>Example 3 - External-Based Relationship</h2>
             <div class="widget">
                 <input />
                 <ul>
-                    <li>Item 0</li>
                     <li>Item 1</li>
                     <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                    <li>Item 5</li>
                 </ul>
-                <label>Index</label>
-                <input type="text" class="console" readonly disabled />
             </div>
 
             <!--
@@ -59,8 +59,6 @@
                     <li><span>Item 1</span></li>
                     <li><span>Item 2</span></li>
                 </ul>
-                <label>Index</label>
-                <input type="text" class="console" readonly disabled />
             </div>
 
             <h2>Example 2b - Nested</h2>
@@ -70,8 +68,6 @@
                     <li><span>Item 1</span></li>
                     <li><span>Item 2</span></li>
                 </ul>
-                <label>Index</label>
-                <input type="text" class="console" readonly disabled />
             </div>
 
             <h2>Example 3b - Nested</h2>
@@ -82,8 +78,6 @@
                     <li><span>Item 1</span></li>
                     <li><span>Item 2</span></li>
                 </ul>
-                <label>Index</label>
-                <input type="text" class="console" readonly disabled />
             </div>
             -->
 

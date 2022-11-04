@@ -3,18 +3,16 @@
 import * as NavigationEmitter from 'makeup-navigation-emitter';
 import nextID from 'makeup-next-id';
 
-// todo: rename autoInit and autoReset to make it clearer they are for kb focus behaviour
 const defaultOptions = {
     activeDescendantClassName: 'active-descendant',
-    autoInit: -1,
-    autoReset: -1,
+    autoInit: 'none',
+    autoReset: 'none',
     autoScroll: false,
     axis: 'both',
-    ignoreButtons: false,
     wrap: false
 };
 
-function onModelMutation() {
+function onModelMutation(e) {
     const options = this._options;
     const modelIndex = this._navigationEmitter.model.index;
 
@@ -26,11 +24,14 @@ function onModelMutation() {
             item.classList.add(options.activeDescendantClassName);
         }
     });
+
+    this._el.dispatchEvent(new CustomEvent('activeDescendantMutation', { detail: e.detail }));
 }
 
 function onModelChange(e) {
-    const fromItem = this.matchingItems[e.detail.fromIndex];
-    const toItem = this.matchingItems[e.detail.toIndex];
+    const { fromIndex, toIndex } = e.detail;
+    const fromItem = this.matchingItems[fromIndex];
+    const toItem = this.matchingItems[toIndex];
 
     if (fromItem) {
         fromItem.classList.remove(this._options.activeDescendantClassName);
@@ -45,12 +46,7 @@ function onModelChange(e) {
         }
     }
 
-    this._el.dispatchEvent(new CustomEvent('activeDescendantChange', {
-        detail: {
-            fromIndex: e.detail.fromIndex,
-            toIndex: e.detail.toIndex
-        }
-    }));
+    this._el.dispatchEvent(new CustomEvent('activeDescendantChange', { detail: e.detail }));
 }
 
 function onModelReset(e) {
@@ -61,24 +57,27 @@ function onModelReset(e) {
         el.classList.remove(activeClassName);
     });
 
-    if (toIndex > -1) {
+    if (toIndex !== null && toIndex !== -1) {
         const itemEl = this.matchingItems[toIndex];
         itemEl.classList.add(activeClassName);
         this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
     } else {
         this._focusEl.removeAttribute('aria-activedescendant');
     }
+
+    this._el.dispatchEvent(new CustomEvent('activeDescendantReset', { detail: e.detail }));
 }
 
 function onModelInit(e) {
     const { items, toIndex } = e.detail;
+    const itemEl = items[toIndex];
 
-    if (toIndex > -1) {
-        const itemEl = items[toIndex];
-
+    if (itemEl) {
         itemEl.classList.add(this._options.activeDescendantClassName);
         this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
     }
+
+    this._el.dispatchEvent(new CustomEvent('activeDescendantInit', { detail: e.detail }));
 }
 
 class ActiveDescendant {
@@ -104,36 +103,42 @@ class ActiveDescendant {
 }
 
 class LinearActiveDescendant extends ActiveDescendant {
-    constructor(el, focusEl, containerEl, itemSelector, selectedOptions) {
+    constructor(el, focusEl, itemContainerEl, itemSelector, selectedOptions) {
         super(el);
 
         this._options = Object.assign({}, defaultOptions, selectedOptions);
 
         this._focusEl = focusEl;
-        this._containerEl = containerEl;
+        this._itemContainerEl = itemContainerEl;
         this._itemSelector = itemSelector;
+
+        // ensure container has an id
+        nextID(this._itemContainerEl);
+
+        if (this.isProgrammaticRelationship === true) {
+            focusEl.setAttribute('aria-owns', this._itemContainerEl.id);
+        }
 
         this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
             autoInit: this._options.autoInit,
             autoReset: this._options.autoReset,
             axis: this._options.axis,
-            ignoreButtons: this._options.ignoreButtons,
+            nonEmittingElementSelector: this._options.nonEmittingElementSelector,
             wrap: this._options.wrap
         });
-
-        // ensure container has an id
-        nextID(containerEl);
-
-        // if DOM hierarchy cannot be determined,
-        // focus element must programatically 'own' the container of descendant items
-        if (containerEl !== focusEl) {
-            focusEl.setAttribute('aria-owns', containerEl.id);
-        }
 
         // ensure each item has an id
         this.matchingItems.forEach(function(itemEl) {
             nextID(itemEl);
         });
+    }
+
+    get isProgrammaticRelationship() {
+        return this._itemContainerEl !== this._focusEl;
+    }
+
+    get isHierarchicalRelationship() {
+        return this._itemContainerEl === this._focusEl;
     }
 
     // todo: rename or remove
@@ -149,6 +154,10 @@ class LinearActiveDescendant extends ActiveDescendant {
     // todo: rename
     reset() {
         this._navigationEmitter.model.reset();
+    }
+
+    get currentItem() {
+        return this._navigationEmitter.model.currentItem;
     }
 
     get navigableItems() {
@@ -177,8 +186,8 @@ class GridActiveDescendant extends ActiveDescendant {
 }
 */
 
-function createLinear(el, focusEl, containerEl, itemSelector, selectedOptions) {
-    return new LinearActiveDescendant(el, focusEl, containerEl, itemSelector, selectedOptions);
+function createLinear(el, focusEl, itemContainerEl, itemSelector, selectedOptions) {
+    return new LinearActiveDescendant(el, focusEl, itemContainerEl, itemSelector, selectedOptions);
 }
 
 export { createLinear };

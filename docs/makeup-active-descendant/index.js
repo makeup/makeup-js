@@ -9,6 +9,7 @@ const appender = document.getElementById('appender');
 const remover = document.getElementById('remover');
 const widgetEls = document.querySelectorAll('.widget');
 const wrapCheckbox = document.getElementById('wrap');
+const log = e => console.log(e.type, e.detail);
 
 appender.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
@@ -16,7 +17,7 @@ appender.addEventListener('click', function() {
         const newListItem = document.createElement('li');
         newListItem.setAttribute('role', 'option');
         const numListItems = parseInt(list.querySelectorAll('li').length, 10);
-        newListItem.innerText = `Item ${numListItems}`;
+        newListItem.innerText = `Item ${numListItems + 1}`;
         list.appendChild(newListItem);
     });
 });
@@ -30,32 +31,19 @@ remover.addEventListener('click', function() {
 });
 
 widgetEls.forEach(function(el) {
-    el.addEventListener('activeDescendantChange', function(e) {
-        console.log(e.type, e.detail);
-    });
-
-    const options = {
-        ignoreButtons: true
-    };
-
-    if (el.dataset.makeupInit !== undefined) {
-        options.autoInit = el.dataset.makeupInit;
-    }
-
-    if (el.dataset.makeupReset !== undefined) {
-        if (el.dataset.makeupReset === 'null') {
-            options.autoReset = null;
-        } else {
-            options.autoReset = el.dataset.makeupReset;
-        }
-    }
+    el.addEventListener('activeDescendantInit', log);
+    el.addEventListener('activeDescendantChange', log);
+    el.addEventListener('activeDescendantReset', log);
+    el.addEventListener('activeDescendantMutation', log);
 
     const widget = ActiveDescendant.createLinear(
         el,
         el.querySelector('input') || el.querySelector('ul'),
         el.querySelector('ul'),
         'li',
-        options
+        {
+            nonEmittingElementSelector: 'input[type="button"]'
+        }
     );
 
     navs.push(widget);

@@ -20,8 +20,22 @@ export default class {
         this._buttonLabelEl = widgetEl.querySelector(this._options.buttonLabelSelector);
         this._buttonFloatingLabelEl = widgetEl.querySelector(this._options.floatingLabelSelector);
         this._buttonPrefix = this._buttonEl.dataset?.listboxButtonPrefix;
+        this._listboxEl = this.el.querySelector(this._options.listboxSelector);
 
-        this.listbox = new Listbox(this.el.querySelector(this._options.listboxSelector), {
+        this._onButtonFirstClickListener = _onButtonFirstClick.bind(this);
+        this._onListboxClickListener = _onListboxClick.bind(this);
+        this._onListboxKeyDownListener = _onListboxKeyDown.bind(this);
+        this._onListboxInitListener = _onListboxInit.bind(this);
+        this._onListboxChangeListener = _onListboxChange.bind(this);
+        this._onMutationListener = _onMutation.bind(this);
+
+        if (!this._options.customElementMode) {
+            this._mutationObserver = new MutationObserver(this._onMutationListener);
+            this._observeMutations();
+            this._observeEvents();
+        }
+
+        this.listbox = new Listbox(this._listboxEl, {
             activeDescendantClassName: 'listbox-button__option--active',
             autoSelect: this._options.autoSelect
         });
@@ -38,19 +52,7 @@ export default class {
             hostSelector: 'button'
         });
 
-        this._onButtonFirstClickListener = _onButtonFirstClick.bind(this);
-        this._onListboxClickListener = _onListboxClick.bind(this);
-        this._onListboxKeyDownListener = _onListboxKeyDown.bind(this);
-        this._onListboxChangeListener = _onListboxChange.bind(this);
-        this._onMutationListener = _onMutation.bind(this);
-
         this.el.classList.add('listbox-button--js');
-
-        if (!this._options.customElementMode) {
-            this._mutationObserver = new MutationObserver(this._onMutationListener);
-            this._observeMutations();
-            this._observeEvents();
-        }
 
         if (this._buttonFloatingLabelEl) {
             if (!this._buttonLabelEl.innerText) {
@@ -78,17 +80,19 @@ export default class {
 
     _unobserveEvents() {
         this._buttonEl.removeEventListener('click', this._onButtonFirstClickListener);
-        this.listbox.el.removeEventListener('click', this._onListboxClickListener);
-        this.listbox.el.removeEventListener('keydown', this._onListboxKeyDownListener);
-        this.listbox.el.removeEventListener('makeup-listbox-change', this._onListboxChangeListener);
+        this._listboxEl.removeEventListener('click', this._onListboxClickListener);
+        this._listboxEl.removeEventListener('keydown', this._onListboxKeyDownListener);
+        this._listboxEl.removeEventListener('makeup-listbox-init', this._onListboxInitListener);
+        this._listboxEl.removeEventListener('makeup-listbox-change', this._onListboxChangeListener);
     }
 
     _observeEvents() {
         if (this._destroyed !== true) {
             this._buttonEl.addEventListener('click', this._onButtonFirstClickListener, { once: true });
-            this.listbox.el.addEventListener('click', this._onListboxClickListener);
-            this.listbox.el.addEventListener('keydown', this._onListboxKeyDownListener);
-            this.listbox.el.addEventListener('makeup-listbox-change', this._onListboxChangeListener);
+            this._listboxEl.addEventListener('click', this._onListboxClickListener);
+            this._listboxEl.addEventListener('keydown', this._onListboxKeyDownListener);
+            this._listboxEl.addEventListener('makeup-listbox-init', this._onListboxInitListener);
+            this._listboxEl.addEventListener('makeup-listbox-change', this._onListboxChangeListener);
         }
     }
 
@@ -112,6 +116,7 @@ export default class {
         this._onButtonFirstClickListener = null;
         this._onListboxClickListener = null;
         this._onListboxKeyDownListener = null;
+        this._onListboxInitListener = null;
         this._onListboxChangeListener = null;
         this._onMutationListener = null;
     }
@@ -132,8 +137,11 @@ function _onListboxClick() {
     this.collapse();
 }
 
+function _onListboxInit(e) {
+    this.el.dispatchEvent(new CustomEvent('makeup-listbox-button-init', { detail: e.detail }));
+}
+
 function _onListboxChange(e) {
-    const fromValue = this._buttonLabelEl.innerText;
     const toValue = e.detail.optionValue;
 
     if (this._buttonPrefix) {
@@ -151,12 +159,7 @@ function _onListboxChange(e) {
         }
     }
 
-    this.el.dispatchEvent(new CustomEvent('makeup-listbox-button-change', {
-        detail: {
-            fromValue: fromValue,
-            toValue: toValue
-        }
-    }));
+    this.el.dispatchEvent(new CustomEvent('makeup-listbox-button-change', { detail: e.detail }));
 }
 
 function _onMutation(mutationsList) {

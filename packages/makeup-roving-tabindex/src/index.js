@@ -2,28 +2,33 @@
 
 import * as NavigationEmitter from 'makeup-navigation-emitter';
 
-// todo: rename autoReset to make it clearer it is for kb focus behaviour
 const defaultOptions = {
-    autoReset: null,
-    autoInit: 'first',
+    autoInit: 'interactive',
+    autoReset: 'current',
     wrap: false,
     axis: 'both'
 };
 
-function onModelMutation() {
-    const modelIndex = this._navigationEmitter.model.index;
+function onModelMutation(e) {
+    const { toIndex } = e.detail;
 
-    this.navigableItems.forEach((el, index) => el.setAttribute('tabindex', index !== modelIndex ? '-1' : '0'));
+    this.navigableItems.filter((el, i) => i !== toIndex).forEach((el) => el.setAttribute('tabindex', '-1'));
+    if (toIndex !== null) this.matchingItems[toIndex].setAttribute('tabindex', '0');
+
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexMutation', { detail: e.detail }));
 }
 
 function onModelInit(e) {
     const { items, toIndex } = e.detail;
+    const itemEl = items[toIndex];
 
-    items.filter((el, i) => i !== toIndex).forEach((el) => el.setAttribute('tabindex', '-1'));
+    items.filter((el) => el !== itemEl).forEach((el) => el.setAttribute('tabindex', '-1'));
 
-    if (items[toIndex]) {
-        items[toIndex].setAttribute('tabindex', '0');
+    if (itemEl) {
+        itemEl.setAttribute('tabindex', '0');
     }
+
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexInit', { detail: e.detail }));
 }
 
 function onModelReset(e) {
@@ -31,6 +36,8 @@ function onModelReset(e) {
 
     items.filter((el, i) => i !== e.detail.toIndex).forEach((el) => el.setAttribute('tabindex', '-1'));
     items[e.detail.toIndex].setAttribute('tabindex', '0');
+
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexReset', { detail: e.detail }));
 }
 
 function onModelChange(e) {
@@ -48,12 +55,7 @@ function onModelChange(e) {
         toItem.focus();
     }
 
-    this._el.dispatchEvent(new CustomEvent('rovingTabindexChange', {
-        detail: {
-            fromIndex: e.detail.fromIndex,
-            toIndex: e.detail.toIndex
-        }
-    }));
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexChange', { detail: e.detail }));
 }
 
 class RovingTabindex {
@@ -95,12 +97,10 @@ class LinearRovingTabindex extends RovingTabindex {
         });
     }
 
-    // todo: rename or remove
     get index() {
         return this._navigationEmitter.model.index;
     }
 
-    // todo: rename or remove
     set index(newIndex) {
         this._navigationEmitter.model.index = newIndex;
     }
@@ -117,7 +117,14 @@ class LinearRovingTabindex extends RovingTabindex {
         return this._navigationEmitter.model.matchingItems;
     }
 
-    // todo: rename
+    next() {
+        this._navigationEmitter.model.gotoNextNavigableIndex();
+    }
+
+    previous() {
+        this._navigationEmitter.model.gotoPreviousNavigableIndex();
+    }
+
     reset() {
         this._navigationEmitter.model.reset();
     }

@@ -6,50 +6,65 @@ import * as RovingTabindex from '../../packages/makeup-roving-tabindex';
 
 const rovers = [];
 const appender = document.getElementById('appender');
-const remover = document.getElementById('remover');
-const incrementer = document.getElementById('incrementer');
-const decrementer = document.getElementById('decrementer');
+const prepender = document.getElementById('prepender');
+const removeFirst = document.getElementById('removeFirst');
+const removeLast = document.getElementById('removeLast');
+const removeAll = document.getElementById('removeAll');
+const next = document.getElementById('next');
+const prev = document.getElementById('prev');
 const widgetEls = document.querySelectorAll('.widget');
-const wrapCheckbox = document.getElementById('wrap');
+const wrap = document.getElementById('wrap');
+const log = e => console.log(e.type, e.detail);
 
 appender.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
         const listItem = document.createElement('li');
-        listItem.innerText = `Item ${parseInt(el.querySelectorAll('li').length, 10)}`;
+        listItem.innerText = `Item ${parseInt(el.querySelectorAll('li').length + 1, 10)}`;
         el.children[0].appendChild(listItem);
     });
 });
 
-remover.addEventListener('click', function() {
+prepender.addEventListener('click', function() {
+    widgetEls.forEach(function(el) {
+        const ul = el.children[0];
+        const listItem = document.createElement('li');
+        listItem.innerText = `Item ${parseInt(el.querySelectorAll('li').length + 1, 10)}`;
+        ul.insertBefore(listItem, ul.children[0]);
+    });
+});
+
+removeFirst.addEventListener('click', function() {
+    widgetEls.forEach(function(el) {
+        const ul = el.children[0];
+        const node = ul.firstElementChild;
+        if (node) ul.removeChild(node);
+    });
+});
+
+removeLast.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
         const ul = el.children[0];
         const node = ul.lastElementChild;
-        ul.removeChild(node);
+        if (node) ul.removeChild(node);
     });
 });
 
-incrementer.addEventListener('click', function() {
-    widgetEls.forEach(function(el, i) {
-        rovers[i].index++;
+removeAll.addEventListener('click', function() {
+    widgetEls.forEach(function(el) {
+        const ul = el.children[0];
+        ul.innerHTML = '';
     });
 });
 
-decrementer.addEventListener('click', function() {
-    widgetEls.forEach(function(el, i) {
-        rovers[i].index--;
-    });
-});
+next.addEventListener('click', () => widgetEls.forEach((el, i) => rovers[i].next()));
+prev.addEventListener('click', () => widgetEls.forEach((el, i) => rovers[i].previous()));
+wrap.addEventListener('change', (e) => rovers.forEach((rover) => rover.wrap = e.target.checked));
 
 widgetEls.forEach(function(el) {
-    rovers.push(RovingTabindex.createLinear(el, 'li', { index: 0 }));
+    el.addEventListener('rovingTabindexInit', log);
+    el.addEventListener('rovingTabindexChange', log);
+    el.addEventListener('rovingTabindexMutation', log);
+    el.addEventListener('rovingTabindexReset', log);
 
-    el.addEventListener('rovingTabindexChange', function(e) {
-        console.log(e.type, e.detail);
-    });
-});
-
-wrapCheckbox.addEventListener('change', function(e) {
-    rovers.forEach(function(rover) {
-        rover.wrap = e.target.checked;
-    });
+    rovers.push(RovingTabindex.createLinear(el, 'li'));
 });

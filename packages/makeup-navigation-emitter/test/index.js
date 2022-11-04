@@ -711,12 +711,12 @@ describe('given 3 items', function() {
             testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: null}); // eslint-disable-line
         });
 
-        it('should not trigger navigationModelInit event', function() {
-            expect(onNavigationModelInit).not.toHaveBeenCalled();
+        it('should trigger navigationModelInit event', function() {
+            expect(onNavigationModelInit).toHaveBeenCalledTimes(1);
         });
 
-        it('should have index value of undefined', function() {
-            expect(testEmitter.model.index).toBe(undefined);
+        it('should have index value of null', function() {
+            expect(testEmitter.model.index).toBe(null);
         });
     });
 
@@ -752,9 +752,9 @@ describe('given 3 items', function() {
         });
     });
 
-    describe('when autoInit is aria-selected', function() {
+    describe('when autoInit is ariaSelected', function() {
         beforeAll(function() {
-            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 'aria-selected'}); // eslint-disable-line
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 'ariaSelected'}); // eslint-disable-line
         });
 
         it('should trigger navigationModelInit event once', function() {

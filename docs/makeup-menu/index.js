@@ -7,20 +7,14 @@ import "@ebay/skin/menu";
 // IMPORT
 import Menu from '../../packages/makeup-menu';
 
+const log = e => console.log(e.type, e.detail);
+
 window.onload = function() {
     document.querySelectorAll('.menu').forEach(function(el, i) {
         const widget = new Menu(el);
 
-        el.addEventListener('makeup-menu-select', function(e) {
-            console.log(e.type, e.detail);
-        });
-
-        el.addEventListener('makeup-menu-change', function(e) {
-            console.log(e.type, e.detail);
-        });
-
-        el.addEventListener('makeup-menu-mutation', function(e) {
-            console.log(e.type, e.detail);
-        });
+        el.addEventListener('makeup-menu-select', log);
+        el.addEventListener('makeup-menu-change', log);
+        el.addEventListener('makeup-menu-mutation', log);
     });
 };

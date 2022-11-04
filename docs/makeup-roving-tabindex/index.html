@@ -7,26 +7,36 @@
             li[aria-disabled="true"] {
                 color: lightgrey;
             }
+            li[hidden] {
+                display: block;
+                text-decoration: line-through;
+            }
         </style>
     </head>
     <body>
         <main role="main">
             <h1>makeup-roving-tabindex demo</h1>
+            <p>For the purpose of demonstration, aria-disabled items are greyed out. Hidden items have strike-through.</p>
 
             <div class="widget">
                 <ul>
-                    <li>Item 0</li>
                     <li>Item 1</li>
-                    <li>Item 2</li>
+                    <li aria-disabled="true">Item 2</li>
+                    <li>Item 3</li>
+                    <li hidden>Item 4</li>
+                    <li>Item 5</li>
                 </ul>
             </div>
 
             <fieldset>
                 <legend>Tools</legend>
-                <button id="decrementer" type="button">Decrement tabindex</button>
-                <button id="incrementer" type="button">Increment tabindex</button>
-                <button id="appender" type="button">Append New Items</button>
-                <button id="remover" type="button">Remove Last Item</button>
+                <button id="prev" type="button">Prev</button>
+                <button id="next" type="button">Next</button>
+                <button id="prepender" type="button">Prepend New Item</button>
+                <button id="appender" type="button">Append New Item</button>
+                <button id="removeFirst" type="button">Remove First Item</button>
+                <button id="removeLast" type="button">Remove Last Item</button>
+                <button id="removeAll" type="button">Remove All Items</button>
                 <label for="wrap">Wrap</label><input id="wrap" type="checkbox">
             </fieldset>
         </main>

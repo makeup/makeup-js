@@ -2,7 +2,9 @@ import * as RovingTabIndex from 'makeup-roving-tabindex';
 import * as PreventScrollKeys from 'makeup-prevent-scroll-keys';
 
 const defaultOptions = {
-    customElementMode: false
+    customElementMode: false,
+    autoInit: 'interactive',
+    autoReset: 'interactive'
 };
 
 export default class {
@@ -12,7 +14,8 @@ export default class {
         this.el = widgetEl;
 
         this._rovingTabIndex = RovingTabIndex.createLinear(this.el, '[role^=menuitem]', {
-            autoReset: 'first'
+            autoInit: this._options.autoInit,
+            autoReset: this._options.autoReset
         });
 
         PreventScrollKeys.add(this.el);
@@ -33,7 +36,7 @@ export default class {
     select(index) {
         this._unobserveMutations();
 
-        const el = this.navigableItems[index];
+        const el = this.items[index];
 
         switch (el.getAttribute('role')) {
             case 'menuitemcheckbox':
@@ -50,12 +53,8 @@ export default class {
         this._observeMutations();
     }
 
-    get matchingItems() {
+    get items() {
         return this._rovingTabIndex.matchingItems;
-    }
-
-    get navigableItems() {
-        return this._rovingTabIndex.navigableItems;
     }
 
     get radioGroupNames() {
@@ -133,7 +132,7 @@ function _onKeyDown(e) {
     }
 
     if (e.keyCode === 13 || e.keyCode === 32) {
-        this.select(Array.from(this.navigableItems).indexOf(e.target));
+        this.select(Array.from(this.items).indexOf(e.target));
     }
 
     this._observeMutations();
@@ -143,7 +142,7 @@ function _onClick(e) {
     // unlike the keyDown event, the click event target can be a child element of the menuitem
     // e.g. <div role="menuitem"><span>Item 1</span></div>
     const menuItemEl = e.target.closest('[role^=menuitem]');
-    const index = [...this.navigableItems].indexOf(menuItemEl);
+    const index = this.items.indexOf(menuItemEl);
 
     if (index !== -1) {
         this.select(index);

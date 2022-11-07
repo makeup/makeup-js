@@ -49,12 +49,18 @@ removeLast.addEventListener('click', function() {
     });
 });
 
+/*
 removeAll.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
         const ul = el.children[0];
         ul.innerHTML = '';
     });
 });
+*/
+
+removeCurrent.addEventListener('click', () => rovers.forEach(widget => widget.currentItem.remove()));
+disableCurrent.addEventListener('click', () => rovers.forEach(widget => widget.currentItem.setAttribute('aria-disabled', 'true')));
+hideCurrent.addEventListener('click', () => rovers.forEach(widget => widget.currentItem.hidden = true));
 
 next.addEventListener('click', () => widgetEls.forEach((el, i) => rovers[i].next()));
 prev.addEventListener('click', () => widgetEls.forEach((el, i) => rovers[i].previous()));

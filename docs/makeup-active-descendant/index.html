@@ -19,18 +19,20 @@
     <body>
         <main role="main">
             <h1>makeup-active-descendant demo</h1>
-            <p>For the purpose of demonstration, aria-disabled items are greyed out. Hidden items have strike-through.</p>
+            <p>Use ARROW keys to move the active descendant.</p>
+            <p>For the purpose of demonstration, aria-disabled items are greyed out; hidden items have strike-through (in the real world they would obviously be actually hidden). Disabled and hidden items are included in indexing, but skipped in navigation.</p>
 
             <hr />
 
-            <h2>Example 1 - Hierarchical Relationship (default)</h2>
+            <h2>Example 1 - Hierarchical Relationship</h2>
             <div class="widget">
                 <ul role="listbox" tabindex="0">
                     <li role="option">Item 1</li>
-                    <li role="option" aria-disabled="true">Item 2</li>
-                    <li role="option">Item 3</li>
-                    <li role="option" hidden>Item 4</li>
-                    <li role="option">Item 5</li>
+                    <li role="option">Item 2</li>
+                    <li role="option" aria-disabled="true">Item 3</li>
+                    <li role="option">Item 4</li>
+                    <li role="option" hidden>Item 5</li>
+                    <li role="option">Item 6</li>
                 </ul>
             </div>
 
@@ -42,10 +44,11 @@
                 <input type="button" value="button">
                 <ul id="listbox1" role="listbox">
                     <li role="option">Item 1</li>
-                    <li role="option" aria-disabled="true">Item 2</li>
-                    <li role="option">Item 3</li>
-                    <li role="option" hidden>Item 4</li>
-                    <li role="option">Item 5</li>
+                    <li role="option">Item 2</li>
+                    <li role="option" aria-disabled="true">Item 3</li>
+                    <li role="option">Item 4</li>
+                    <li role="option" hidden>Item 5</li>
+                    <li role="option">Item 6</li>
                 </ul>
             </div>
 
@@ -53,8 +56,11 @@
 
             <fieldset>
                 <legend>Tools</legend>
-                <button id="appender">Append New Items</button>
-                <button id="remover">Remove Last Item</button>
+                <button id="prepend">Prepend New Item</button>
+                <button id="append">Append New Item</button>
+                <button id="removeFirst">Remove First Item</button>
+                <button id="removeLast">Remove Last Item</button>
+                <button id="disableCurrent" type="button">Disable Current Item</button>
                 <label>Wrap</label><input id="wrap" type="checkbox">
             </fieldset>
         </main>

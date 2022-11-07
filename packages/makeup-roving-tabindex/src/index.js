@@ -109,6 +109,10 @@ class LinearRovingTabindex extends RovingTabindex {
         this._navigationEmitter.model.options.wrap = newWrap;
     }
 
+    get currentItem() {
+        return this._navigationEmitter.model.currentItem;
+    }
+
     get navigableItems() {
         return this._navigationEmitter.model.navigableItems;
     }

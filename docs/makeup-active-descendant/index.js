@@ -5,13 +5,26 @@
 import * as ActiveDescendant from '../../packages/makeup-active-descendant';
 
 const navs = [];
-const appender = document.getElementById('appender');
-const remover = document.getElementById('remover');
+const append = document.getElementById('append');
+const prepend = document.getElementById('prepend');
+const removeFirst = document.getElementById('removeFirst');
+const removeLast = document.getElementById('removeLast');
 const widgetEls = document.querySelectorAll('.widget');
 const wrapCheckbox = document.getElementById('wrap');
 const log = e => console.log(e.type, e.detail);
 
-appender.addEventListener('click', function() {
+prepend.addEventListener('click', function() {
+    widgetEls.forEach(function(el) {
+        const list = el.querySelector('ul');
+        const newListItem = document.createElement('li');
+        newListItem.setAttribute('role', 'option');
+        const numListItems = parseInt(list.querySelectorAll('li').length, 10);
+        newListItem.innerText = `Item ${numListItems + 1}`;
+        list.insertBefore(newListItem, list.children[0]);
+    });
+});
+
+append.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
         const list = el.querySelector('ul');
         const newListItem = document.createElement('li');
@@ -22,11 +35,25 @@ appender.addEventListener('click', function() {
     });
 });
 
-remover.addEventListener('click', function() {
+removeFirst.addEventListener('click', function() {
+    widgetEls.forEach(function(el) {
+        const list = el.querySelector('ul');
+        const node = list.firstElementChild;
+        list.removeChild(node);
+    });
+});
+
+removeLast.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
         const list = el.querySelector('ul');
         const node = list.lastElementChild;
         list.removeChild(node);
+    });
+});
+
+disableCurrent.addEventListener('click', function() {
+    navs.forEach(function(nav) {
+        if (nav.currentItem) nav.currentItem.setAttribute('aria-disabled', 'true');
     });
 });
 

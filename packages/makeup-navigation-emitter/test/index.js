@@ -712,7 +712,9 @@ describe('given 3 items', function() {
         });
 
         it('should trigger navigationModelInit event', function() {
-            expect(onNavigationModelInit).toHaveBeenCalledTimes(1);
+            setTimeout(function() { 
+                expect(onNavigationModelInit).toHaveBeenCalledTimes(1);
+            }, timeoutInterval);
         });
 
         it('should have index value of null', function() {

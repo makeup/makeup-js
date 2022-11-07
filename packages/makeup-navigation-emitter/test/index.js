@@ -6,7 +6,8 @@ var testEl,
     testEmitter,
     onNavigationModelChange,
     onNavigationModelInit,
-    onNavigationModelReset;
+    onNavigationModelReset,
+    onNavigationModelMutation;
 
 function triggerArrowKeyPress(el, dir, num) {
     for(let i = 0; i < num; i++) {
@@ -38,11 +39,7 @@ describe('given a list of 3 visible items', function() {
         });
 
         it('model should have 3 matching items', function() {
-            expect(testEmitter.model.matchingItems.length).toEqual(3);
-        });
-
-        it('model should have 3 navigable items', function() {
-            expect(testEmitter.model.navigableItems.length).toEqual(3);
+            expect(testEmitter.model.items.length).toEqual(3);
         });
     });
 });
@@ -64,12 +61,8 @@ describe('given a list of 3 items with 1 hidden', function() {
             testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 3 matching items', function() {
-            expect(testEmitter.model.matchingItems.length).toEqual(3);
-        });
-
-        it('model should have 2 navigable items', function() {
-            expect(testEmitter.model.navigableItems.length).toEqual(2);
+        it('model should have 3 items', function() {
+            expect(testEmitter.model.items.length).toEqual(3);
         });
     });
 });
@@ -91,12 +84,8 @@ describe('given a list of 3 hidden items', function() {
             testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 3 matching items', function() {
-            expect(testEmitter.model.matchingItems.length).toEqual(3);
-        });
-
-        it('model should have 0 navigable items', function() {
-            expect(testEmitter.model.navigableItems.length).toEqual(0);
+        it('model should have 3 items', function() {
+            expect(testEmitter.model.items.length).toEqual(3);
         });
     });
 });
@@ -118,12 +107,8 @@ describe('given a list of 3 items with 1 aria-disabled', function() {
             testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 3 matching items', function() {
-            expect(testEmitter.model.matchingItems.length).toEqual(3);
-        });
-
-        it('model should have 2 navigable items', function() {
-            expect(testEmitter.model.navigableItems.length).toEqual(2);
+        it('model should have 3 items', function() {
+            expect(testEmitter.model.items.length).toEqual(3);
         });
     });
 });
@@ -145,19 +130,15 @@ describe('given a list of 3 aria-disabled items', function() {
             testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 3 matching items', function() {
-            expect(testEmitter.model.matchingItems.length).toEqual(3);
-        });
-
-        it('model should have 0 navigable items', function() {
-            expect(testEmitter.model.navigableItems.length).toEqual(0);
+        it('model should have 3 items', function() {
+            expect(testEmitter.model.items.length).toEqual(3);
         });
     });
 });
 
 /* END STATIC MODEL SIZE TESTS */
 
-/* BEGIN DYNAMIC MODEL SIZE TESTS */
+/* BEGIN MUTATION TESTS */
 
 describe('given a list of 3 visible items', function() {
     beforeAll(function() {
@@ -170,32 +151,25 @@ describe('given a list of 3 visible items', function() {
         `;
 
         testEl = document.querySelector('.widget');
+        onNavigationModelMutation = jasmine.createSpy('onNavigationModelMutation');
+        testEl.addEventListener('navigationModelMutation', onNavigationModelChange);
         testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
     });
 
-    describe('when first matching item is hidden', function() {
+    describe('when second item is hidden', function() {
         beforeAll(function() {
-           testEmitter.model.matchingItems[0].hidden = true;
+           testEmitter.model.items[1].hidden = true;
         });
 
-        it('model should have 2 navigable items', function() {
-            expect(testEmitter.model.navigableItems.length).toEqual(2);
-        });
-    });
-
-    describe('when first item is hidden and then unhidden', function() {
-        beforeAll(function() {
-           testEmitter.model.matchingItems[0].hidden = true;
-           testEmitter.model.matchingItems[0].hidden = false;
-        });
-
-        it('model should have 3 navigable items', function() {
-            expect(testEmitter.model.navigableItems.length).toEqual(3);
+        it('should trigger 1 navigationModelMutation event', function() {
+            setTimeout(function() { 
+                expect(onNavigationModelMutation).toHaveBeenCalledTimes(1);
+            }, timeoutInterval);
         });
     });
 });
 
-/* END DYNAMIC MODEL SIZE TESTS */
+/* END MUTATION TESTS */
 
 /* BEGIN ARROW KEY TESTS */
 

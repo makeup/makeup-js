@@ -169,7 +169,7 @@ Use CSS to style the active descendant however you wish:
     * *number*: specific index position of items (throws error if non-interactive)
 * `autoScroll` : Specify true to scroll the container as activeDescendant changes (default: false)
 * `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
-* `ignoreButtons`: if set to true, nested button elements will not trigger navigationModelChange events. This is useful in a combobox + button scenario, where only the textbox should trigger navigationModelChange events (default: false)
+* `ignoreByDelegateSelector`: CSS selector of descendant elements that will be ignored by the navigation emitters key event delegation (i.e. these elements will *not* operate the active descendant) (default: null)
 
 ## Custom Events
 

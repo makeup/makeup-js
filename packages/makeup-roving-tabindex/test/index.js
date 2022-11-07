@@ -35,12 +35,8 @@ describe('given a list of 3 visible items', function() {
             testRovingIndex = RovingTabindex.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('module should not be undefined', function() {
-            expect(RovingTabindex).not.toEqual(undefined);
-        });
-
         it('model should have 3 items', function() {
-            expect(testRovingIndex.navigableItems.length).toEqual(3);
+            expect(testRovingIndex.items.length).toEqual(3);
         });
     });
 });
@@ -62,8 +58,8 @@ describe('given a list of 2 visible items, 1 hidden', function() {
             testRovingIndex = RovingTabindex.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 2 items', function() {
-            expect(testRovingIndex.navigableItems.length).toEqual(2);
+        it('model should have 3 items', function() {
+            expect(testRovingIndex.items.length).toEqual(3);
         });
     });
 });
@@ -85,53 +81,13 @@ describe('given a list of 3 hidden items', function() {
             testRovingIndex = RovingTabindex.createLinear(testEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 0 items', function() {
-            expect(testRovingIndex.navigableItems.length).toEqual(0);
+        it('model should have 3 items', function() {
+            expect(testRovingIndex.items.length).toEqual(3);
         });
     });
 });
 
 /* END STATIC MODEL SIZE TESTS */
-
-/* BEGIN DYNAMIC MODEL SIZE TESTS */
-
-describe('given a list of 3 visible items', function() {
-    beforeAll(function() {
-        document.body.innerHTML = `
-            <ul class="widget">
-                <li>Item 1</li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-            </ul>
-        `;
-
-        testEl = document.querySelector('.widget');
-        testRovingIndex = RovingTabindex.createLinear(testEl, 'li'); // eslint-disable-line
-    });
-
-    describe('when first item is hidden', function() {
-        beforeAll(function() {
-            testRovingIndex.matchingItems[0].hidden = true;
-        });
-
-        it('model should have 2 items', function() {
-            expect(testRovingIndex.navigableItems.length).toEqual(2);
-        });
-    });
-
-    describe('when first item is hidden and then unhidden', function() {
-        beforeAll(function() {
-            testRovingIndex.matchingItems[0].hidden = true;
-            testRovingIndex.matchingItems[0].hidden = false;
-        });
-
-        it('model should have 3 items', function() {
-            expect(testRovingIndex.navigableItems.length).toEqual(3);
-        });
-    });
-});
-
-/* END DYNAMIC MODEL SIZE TESTS */
 
 /* BEGIN ARROW KEY TESTS */
 

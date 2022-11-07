@@ -5,40 +5,160 @@ const defaultOptions = {
     axis: 'both',
     autoInit: 'interactive',
     autoReset: 'current',
-    nonEmittingElementSelector: null,
+    ignoreByDelegateSelector: null,
     wrap: false
 };
 
-function findAriaCheckedIndex(items) {
-    return items.findIndex((item) => item.getAttribute('aria-checked') === 'true');
+function findNavigableItems(items) {
+    return items.filter((el) => !el.hidden && el.getAttribute('aria-disabled') !== 'true');
 }
 
-function findAriaSelectedIndex(items) {
-    return items.findIndex((item) => item.getAttribute('aria-selected') === 'true');
+function findFirstNavigableIndex(items) {
+    return items.indexOf(findNavigableItems(items)[0]);
+}
+
+function findLastNavigableIndex(items) {
+    return items.indexOf(findNavigableItems(items).reverse()[0]);
+}
+
+function findIndexByAttribute(items, attribute, value) {
+    return items.findIndex((item) => item.getAttribute(attribute) === value);
+}
+
+function findFirstNavigableAriaCheckedIndex(items) {
+    const navigableItems = findNavigableItems(items);
+
+    return items.indexOf(navigableItems[findIndexByAttribute(navigableItems, 'aria-checked', 'true')]);
+}
+
+function findFirstNavigableAriaSelectedIndex(items) {
+    const navigableItems = findNavigableItems(items);
+
+    return items.indexOf(navigableItems[findIndexByAttribute(navigableItems, 'aria-selected', 'true')]);
+}
+
+function findIgnoredByDelegateItems(el, options) {
+    return (options.ignoreByDelegateSelector !== null) ?
+        [...el.querySelectorAll(options.ignoreByDelegateSelector)] : [];
+}
+
+function findPreviousNavigableIndex(items, index, wrap) {
+    let previousNavigableIndex = -1;
+
+    if (index === null) {
+        // no-op
+    } else if (atStart(items, index)) {
+        if (wrap === true) {
+            previousNavigableIndex = findLastNavigableIndex(items);
+        }
+    } else {
+        const previousSiblingItems = items.slice(0, index);
+        const allNavigableItems = findNavigableItems(items);
+        const previousNavigableSiblingItems = previousSiblingItems.reverse().filter(
+            el => allNavigableItems.includes(el)
+        );
+
+        if (previousNavigableSiblingItems[0]) {
+            previousNavigableIndex = items.indexOf(previousNavigableSiblingItems[0]);
+        }
+    }
+
+    return previousNavigableIndex;
+}
+
+function findNextNavigableIndex(items, index, wrap) {
+    let nextNavigableIndex = -1;
+
+    if (index === null) {
+        nextNavigableIndex = findFirstNavigableIndex(items);
+    } else if (atEnd(items, index)) {
+        if (wrap === true) {
+            nextNavigableIndex = findFirstNavigableIndex(items);
+        }
+    } else {
+        const nextSiblingItems = items.slice(index + 1);
+        const allNavigableItems = findNavigableItems(items);
+        const nextNavigableSiblingItems = nextSiblingItems.filter(
+            el => allNavigableItems.includes(el)
+        );
+
+        if (nextNavigableSiblingItems[0]) {
+            nextNavigableIndex = items.indexOf(nextNavigableSiblingItems[0]);
+        }
+    }
+
+    return nextNavigableIndex;
+}
+
+// returning -1 means not found
+function findIndexPositionByType(type, items, currentIndex) {
+    let index = -1;
+
+    switch (type) {
+        case 'none':
+            index = null;
+            break;
+        case 'current':
+            index = currentIndex;
+            break;
+        case 'interactive':
+            index = findFirstNavigableIndex(items);
+            break;
+        case 'ariaChecked':
+            index = findFirstNavigableAriaCheckedIndex(items);
+            break;
+        case 'ariaSelected':
+            index = findFirstNavigableAriaSelectedIndex(items);
+            break;
+        case 'ariaSelectedOrInteractive':
+            index = findFirstNavigableAriaSelectedIndex(items);
+            index = (index === -1) ? findFirstNavigableIndex(items) : index;
+            break;
+        default:
+            index = type;
+    }
+
+    return index;
+}
+
+function isIndexNavigable(items, index) {
+    return findNavigableItems(items).includes(items[index]);
+}
+
+function atStart(items, index) {
+    return index === findFirstNavigableIndex(items);
+}
+
+function atEnd(items, index) {
+    return index === findLastNavigableIndex(items);
 }
 
 function onKeyPrev(e) {
-    // todo: update KeyEmitter to filter out nonEmitting items?
-    if (this.nonEmittingItems.length === 0 || !this.nonEmittingItems.includes(e.detail.target)) {
-        this.gotoPreviousNavigableIndex();
+    const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+
+    // todo: update KeyEmitter to deal with ignored items?
+    if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
+        this.index = findPreviousNavigableIndex(this.items, this.index, this.options.wrap);
     }
 }
 
 function onKeyNext(e) {
-    // todo: update KeyEmitter to filter out nonEmitting items?
-    if (this.nonEmittingItems.length === 0 || !this.nonEmittingItems.includes(e.detail.target)) {
-        this.gotoNextNavigableIndex();
+    const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+
+    // todo: update KeyEmitter to deal with ignored items?
+    if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
+        this.index = findNextNavigableIndex(this.items, this.index, this.options.wrap);
     }
 }
 
 function onClick(e) {
     let element = e.target;
-    let elementIndex = this.matchingItems.indexOf(element);
+    let elementIndex = this.indexOf(element);
 
     // traverse widget ancestors until matching element is found
     while (element !== this._el && elementIndex === -1) {
         element = element.parentNode;
-        elementIndex = this.matchingItems.indexOf(element);
+        elementIndex = this.indexOf(element);
     }
 
     if (elementIndex !== -1) {
@@ -47,16 +167,20 @@ function onClick(e) {
 }
 
 function onKeyHome(e) {
-    // todo: update KeyEmitter to filter out nonEmitting items?
-    if (this.nonEmittingItems.length === 0 || !this.nonEmittingItems.includes(e.detail.target)) {
-        this.index = this.firstNavigableIndex;
+    const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+
+    // todo: update KeyEmitter to deal with ignored items?
+    if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
+        this.index = findFirstNavigableIndex(this.items);
     }
 }
 
 function onKeyEnd(e) {
-    // todo: update KeyEmitter to filter out nonEmitting items?
-    if (this.nonEmittingItems.length === 0 || !this.nonEmittingItems.includes(e.detail.target)) {
-        this.index = this.lastNavigableIndex;
+    const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+
+    // todo: update KeyEmitter to deal with ignored items?
+    if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
+        this.index = findLastNavigableIndex(this.items);
     }
 }
 
@@ -69,6 +193,7 @@ function onFocusExit() {
 function onMutation(e) {
     const fromIndex = this.index;
     let toIndex = this.index;
+    // https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord
     const { addedNodes, attributeName, removedNodes, target, type } = e[0];
 
     if (type === 'attributes') {
@@ -78,7 +203,7 @@ function onMutation(e) {
                 toIndex = this.index;
             } else if (attributeName === 'hidden') {
                 // current item was hidden and focus is lost - reset index to first interactive element
-                toIndex = this.firstNavigableIndex;
+                toIndex = findFirstNavigableIndex(this.items);
             }
         } else {
             toIndex = this.index;
@@ -86,10 +211,10 @@ function onMutation(e) {
     } else if (type === 'childList') {
         if (removedNodes.length > 0 && [...removedNodes].includes(this._cachedElement)) {
             // current item was removed and focus is lost - reset index to first interactive element
-            toIndex = this.firstNavigableIndex;
+            toIndex = findFirstNavigableIndex(this.items);
         } else if (removedNodes.length > 0 || addedNodes.length > 0) {
             // nodes were added and/or removed - keep current item and resync its index
-            toIndex = this.matchingItems.indexOf(this._cachedElement);
+            toIndex = this.indexOf(this._cachedElement);
         }
     }
 
@@ -129,82 +254,32 @@ class LinearNavigationModel extends NavigationModel {
         super(el, itemSelector, selectedOptions);
 
         const fromIndex = this._index;
-        const toIndex = this.findIndexPosition(this.options.autoInit);
+        const toIndex = findIndexPositionByType(this.options.autoInit, this.items, this.index);
 
         // do not use setter as it will trigger a change event
         this._index = toIndex;
 
-        // always keep reference to the last item (for use in mutation observer)
+        // always keep an element reference to the last item (for use in mutation observer)
         // todo: convert index to Tuple to store last/current values instead?
-        this._cachedElement = this.matchingItems[toIndex];
+        this._cachedElement = this.items[toIndex];
 
         this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
             bubbles: false,
             detail: {
                 firstInteractiveIndex: this.firstNavigableIndex,
                 fromIndex,
-                items: this.matchingItems,
+                items: this.items,
                 toIndex
             }
         }));
     }
 
-    get firstNavigableIndex() {
-        return this.matchingItems.indexOf(this.navigableItems[0]);
-    }
-
-    get lastNavigableIndex() {
-        return this.matchingItems.indexOf(this.navigableItems[this.navigableItems.length - 1]);
-    }
-
-    get nextNavigableIndex() {
-        let nextNavigableIndex = -1;
-
-        if (this.index === null) {
-            nextNavigableIndex = this.firstNavigableIndex;
-        } else if (this.options.wrap && this.atEnd()) {
-            nextNavigableIndex = this.firstNavigableIndex;
-        } else {
-            const remainingItems = this.matchingItems.slice(this.index + 1);
-            const navigableItems = this.navigableItems;
-            const item = remainingItems.filter(el => navigableItems.includes(el))[0];
-            nextNavigableIndex = this.matchingItems.indexOf(item);
-        }
-
-        return nextNavigableIndex;
-    }
-
-    get previousNavigableIndex() {
-        let previousNavigableIndex = -1;
-
-        if (this.options.wrap && this.atStart()) {
-            previousNavigableIndex = this.lastNavigableIndex;
-        } else if (this.index !== null) {
-            const remainingItems = this.matchingItems.slice(0, this.index);
-            const navigableItems = this.navigableItems;
-            const item = remainingItems.reverse().filter(el => navigableItems.includes(el))[0];
-            previousNavigableIndex = this.matchingItems.indexOf(item);
-        }
-
-        return previousNavigableIndex;
-    }
-
     get currentItem() {
-        return this.matchingItems[this.index];
+        return this.items[this.index];
     }
 
-    get matchingItems() {
+    get items() {
         return [...this._el.querySelectorAll(`${this._itemSelector}`)];
-    }
-
-    get navigableItems() {
-        return this.matchingItems.filter((el) => !el.hidden && el.getAttribute('aria-disabled') !== 'true');
-    }
-
-    get nonEmittingItems() {
-        const selector = this.options.nonEmittingElementSelector;
-
-        return (selector !== null) ? [...this._el.querySelectorAll(selector)] : [];
     }
 
     get index() {
@@ -212,13 +287,17 @@ class LinearNavigationModel extends NavigationModel {
     }
 
     /**
-     * @param {number} toIndex - index position of navigable item in matchingItems
+     * @param {number} toIndex - update index position in this.items (non-interactive indexes fail silently)
      */
     set index(toIndex) {
-        if (toIndex !== this.index && this.isIndexNavigable(toIndex) === true) {
+        if (toIndex === this.index) {
+            return;
+        } else if (!isIndexNavigable(this.items, toIndex)) {
+            // no-op. throw exception?
+        } else {
             const fromIndex = this.index;
-            // always keep reference to the last item (for use in mutation observer, as it becomes "lost" at that point)
-            this._cachedElement = this.matchingItems[toIndex];
+            // update cached element reference (for use in mutation observer if DOM node gets removed)
+            this._cachedElement = this.items[toIndex];
             this._index = toIndex;
 
             this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
@@ -228,60 +307,13 @@ class LinearNavigationModel extends NavigationModel {
         }
     }
 
-    isIndexNavigable(index) {
-        return this.navigableItems.includes(this.matchingItems[index]);
-    }
-
-    gotoFirstNavigableIndex() {
-        this.index = this.firstNavigableIndex;
-    }
-
-    gotoLastNavigableIndex() {
-        this.index = this.lastNavigableIndex;
-    }
-
-    gotoNextNavigableIndex() {
-        this.index = this.nextNavigableIndex;
-    }
-
-    gotoPreviousNavigableIndex() {
-        this.index = this.previousNavigableIndex;
-    }
-
-    // returning -1 means not found
-    findIndexPosition(value) {
-        let index = -1;
-
-        switch (value) {
-            case 'none':
-                index = null;
-                break;
-            case 'current':
-                index = this.index;
-                break;
-            case 'interactive':
-                index = this.firstNavigableIndex;
-                break;
-            case 'ariaChecked':
-                index = findAriaCheckedIndex(this.matchingItems);
-                break;
-            case 'ariaSelected':
-                index = findAriaSelectedIndex(this.matchingItems);
-                break;
-            case 'ariaSelectedOrInteractive':
-                index = findAriaSelectedIndex(this.matchingItems);
-                index = (index === -1) ? this.firstNavigableIndex : index;
-                break;
-            default:
-                index = value;
-        }
-
-        return index;
+    indexOf(element) {
+        return this.items.indexOf(element);
     }
 
     reset() {
         const fromIndex = this.index;
-        const toIndex = this.findIndexPosition(this.options.autoReset);
+        const toIndex = findIndexPositionByType(this.options.autoReset, this.items, this.index);
 
         if (toIndex !== fromIndex) {
             // do not use setter as it will trigger a navigationModelChange event
@@ -292,14 +324,6 @@ class LinearNavigationModel extends NavigationModel {
                 detail: { fromIndex, toIndex }
             }));
         }
-    }
-
-    atEnd() {
-        return this.index === this.lastNavigableIndex;
-    }
-
-    atStart() {
-        return this.index === this.firstNavigableIndex;
     }
 }
 

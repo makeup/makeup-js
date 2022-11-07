@@ -37,6 +37,7 @@ export default class {
 
         this.listbox = new Listbox(this._listboxEl, {
             activeDescendantClassName: 'listbox-button__option--active',
+            autoReset: 'ariaSelectedOrInteractive',
             autoSelect: this._options.autoSelect
         });
 

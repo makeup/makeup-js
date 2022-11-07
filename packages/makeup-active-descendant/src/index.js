@@ -13,15 +13,15 @@ const defaultOptions = {
 };
 
 function onModelMutation(e) {
-    const options = this._options;
-    const modelIndex = this._navigationEmitter.model.index;
+    const { toIndex } = e.detail;
+    const activeDescendantClassName = this.options.activeDescendantClassName;
 
-    this.matchingItems.forEach(function(item, index) {
+    this.items.forEach(function(item, index) {
         nextID(item);
-        if (index !== modelIndex) {
-            item.classList.remove(options.activeDescendantClassName);
+        if (index !== toIndex) {
+            item.classList.remove(activeDescendantClassName);
         } else {
-            item.classList.add(options.activeDescendantClassName);
+            item.classList.add(activeDescendantClassName);
         }
     });
 
@@ -30,8 +30,8 @@ function onModelMutation(e) {
 
 function onModelChange(e) {
     const { fromIndex, toIndex } = e.detail;
-    const fromItem = this.matchingItems[fromIndex];
-    const toItem = this.matchingItems[toIndex];
+    const fromItem = this.items[fromIndex];
+    const toItem = this.items[toIndex];
 
     if (fromItem) {
         fromItem.classList.remove(this._options.activeDescendantClassName);
@@ -53,12 +53,12 @@ function onModelReset(e) {
     const toIndex = e.detail.toIndex;
     const activeClassName = this._options.activeDescendantClassName;
 
-    this.matchingItems.forEach(function(el) {
+    this.items.forEach(function(el) {
         el.classList.remove(activeClassName);
     });
 
     if (toIndex !== null && toIndex !== -1) {
-        const itemEl = this.matchingItems[toIndex];
+        const itemEl = this.items[toIndex];
         itemEl.classList.add(activeClassName);
         this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
     } else {
@@ -115,7 +115,8 @@ class LinearActiveDescendant extends ActiveDescendant {
         // ensure container has an id
         nextID(this._itemContainerEl);
 
-        if (this.isProgrammaticRelationship === true) {
+        // if programmatic relationship set aria-owns
+        if (this._itemContainerEl !== this._focusEl) {
             focusEl.setAttribute('aria-owns', this._itemContainerEl.id);
         }
 
@@ -123,35 +124,24 @@ class LinearActiveDescendant extends ActiveDescendant {
             autoInit: this._options.autoInit,
             autoReset: this._options.autoReset,
             axis: this._options.axis,
-            nonEmittingElementSelector: this._options.nonEmittingElementSelector,
+            ignoreByDelegateSelector: this._options.ignoreByDelegateSelector,
             wrap: this._options.wrap
         });
 
         // ensure each item has an id
-        this.matchingItems.forEach(function(itemEl) {
+        this.items.forEach(function(itemEl) {
             nextID(itemEl);
         });
     }
 
-    get isProgrammaticRelationship() {
-        return this._itemContainerEl !== this._focusEl;
-    }
-
-    get isHierarchicalRelationship() {
-        return this._itemContainerEl === this._focusEl;
-    }
-
-    // todo: rename or remove
     get index() {
         return this._navigationEmitter.model.index;
     }
 
-    // todo: rename or remove
     set index(newIndex) {
         this._navigationEmitter.model.index = newIndex;
     }
 
-    // todo: rename
     reset() {
         this._navigationEmitter.model.reset();
     }
@@ -160,12 +150,8 @@ class LinearActiveDescendant extends ActiveDescendant {
         return this._navigationEmitter.model.currentItem;
     }
 
-    get navigableItems() {
-        return this._navigationEmitter.model.navigableItems;
-    }
-
-    get matchingItems() {
-        return this._navigationEmitter.model.matchingItems;
+    get items() {
+        return this._navigationEmitter.model.items;
     }
 
     set wrap(newWrap) {

@@ -40,12 +40,8 @@ describe('given a list of 3 visible items in programmatic relationship', functio
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('module should not be undefined', function() {
-            expect(ActiveDescendant).not.toEqual(undefined);
-        });
-
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.navigableItems.length).toEqual(3);
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -71,12 +67,8 @@ describe('given a list of 3 visible items in hierarchial relationship', function
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('module should not be undefined', function() {
-            expect(ActiveDescendant).not.toEqual(undefined);
-        });
-
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.navigableItems.length).toEqual(3);
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -103,8 +95,8 @@ describe('given a list of 2 visible items, 1 hidden in programmatic relationship
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 2 items', function() {
-            expect(testActiveDescendant.navigableItems.length).toEqual(2);
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -130,8 +122,8 @@ describe('given a list of 2 visible items, 1 hidden in hierarchial relationship'
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 2 items', function() {
-            expect(testActiveDescendant.navigableItems.length).toEqual(2);
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -158,8 +150,8 @@ describe('given a list of 3 hidden items in programmatic relationship', function
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 0 items', function() {
-            expect(testActiveDescendant.navigableItems.length).toEqual(0);
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
@@ -185,57 +177,12 @@ describe('given a list of 3 hidden items in hierarchial relationship', function(
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
         });
 
-        it('model should have 0 items', function() {
-            expect(testActiveDescendant.navigableItems.length).toEqual(0);
+        it('model should have 3 items', function() {
+            expect(testActiveDescendant.items.length).toEqual(3);
         });
     });
 });
 /* END STATIC MODEL SIZE TESTS */
-
-/* BEGIN DYNAMIC MODEL SIZE TESTS */
-
-describe('given a list of 3 visible items', function() {
-    beforeAll(function() {
-        document.body.innerHTML = `
-            <div class="widget">
-                <input type="text"/>
-                <ul>
-                    <li>Button 1</li>
-                    <li>Button 2</li>
-                    <li>Button 3</li>
-                </ul>
-            </div>
-        `;
-
-        widgetEl = document.querySelector('.widget');
-        focusEl = widgetEl.querySelector('input');
-        containerEl = widgetEl.querySelector('ul');
-        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
-    });
-
-    describe('when first item is hidden', function() {
-        beforeAll(function() {
-            testActiveDescendant.matchingItems[0].hidden = true;
-        });
-
-        it('model should have 2 items', function() {
-            expect(testActiveDescendant.navigableItems.length).toEqual(2);
-        });
-    });
-
-    describe('when first item is hidden and then unhidden', function() {
-        beforeAll(function() {
-            testActiveDescendant.matchingItems[0].hidden = true;
-            testActiveDescendant.matchingItems[0].hidden = false;
-        });
-
-        it('model should have 3 items', function() {
-            expect(testActiveDescendant.navigableItems.length).toEqual(3);
-        });
-    });
-});
-
-/* END DYNAMIC MODEL SIZE TESTS */
 
 /* BEGIN ARROW KEY TESTS */
 

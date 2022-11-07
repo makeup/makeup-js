@@ -9,9 +9,6 @@ const appender = document.getElementById('appender');
 const prepender = document.getElementById('prepender');
 const removeFirst = document.getElementById('removeFirst');
 const removeLast = document.getElementById('removeLast');
-const removeAll = document.getElementById('removeAll');
-const next = document.getElementById('next');
-const prev = document.getElementById('prev');
 const widgetEls = document.querySelectorAll('.widget');
 const wrap = document.getElementById('wrap');
 const log = e => console.log(e.type, e.detail);
@@ -49,21 +46,10 @@ removeLast.addEventListener('click', function() {
     });
 });
 
-/*
-removeAll.addEventListener('click', function() {
-    widgetEls.forEach(function(el) {
-        const ul = el.children[0];
-        ul.innerHTML = '';
-    });
-});
-*/
-
 removeCurrent.addEventListener('click', () => rovers.forEach(widget => widget.currentItem.remove()));
 disableCurrent.addEventListener('click', () => rovers.forEach(widget => widget.currentItem.setAttribute('aria-disabled', 'true')));
 hideCurrent.addEventListener('click', () => rovers.forEach(widget => widget.currentItem.hidden = true));
 
-next.addEventListener('click', () => widgetEls.forEach((el, i) => rovers[i].next()));
-prev.addEventListener('click', () => widgetEls.forEach((el, i) => rovers[i].previous()));
 wrap.addEventListener('change', (e) => rovers.forEach((rover) => rover.wrap = e.target.checked));
 
 widgetEls.forEach(function(el) {

@@ -12,8 +12,9 @@ const defaultOptions = {
 function onModelMutation(e) {
     const { toIndex } = e.detail;
 
-    this.navigableItems.filter((el, i) => i !== toIndex).forEach((el) => el.setAttribute('tabindex', '-1'));
-    if (toIndex !== null) this.matchingItems[toIndex].setAttribute('tabindex', '0');
+    this.items.forEach((el) => el.setAttribute('tabindex', '-1'));
+    const el = this.items[toIndex];
+    if (el) el.setAttribute('tabindex', '0');
 
     this._el.dispatchEvent(new CustomEvent('rovingTabindexMutation', { detail: e.detail }));
 }
@@ -32,7 +33,7 @@ function onModelInit(e) {
 }
 
 function onModelReset(e) {
-    const items = this.matchingItems;
+    const items = this.items;
 
     items.filter((el, i) => i !== e.detail.toIndex).forEach((el) => el.setAttribute('tabindex', '-1'));
     items[e.detail.toIndex].setAttribute('tabindex', '0');
@@ -41,7 +42,7 @@ function onModelReset(e) {
 }
 
 function onModelChange(e) {
-    const items = this.matchingItems;
+    const items = this.items;
 
     const fromItem = items[e.detail.fromIndex];
     const toItem = items[e.detail.toIndex];
@@ -113,20 +114,8 @@ class LinearRovingTabindex extends RovingTabindex {
         return this._navigationEmitter.model.currentItem;
     }
 
-    get navigableItems() {
-        return this._navigationEmitter.model.navigableItems;
-    }
-
-    get matchingItems() {
-        return this._navigationEmitter.model.matchingItems;
-    }
-
-    next() {
-        this._navigationEmitter.model.gotoNextNavigableIndex();
-    }
-
-    previous() {
-        this._navigationEmitter.model.gotoPreviousNavigableIndex();
+    get items() {
+        return this._navigationEmitter.model.items;
     }
 
     reset() {

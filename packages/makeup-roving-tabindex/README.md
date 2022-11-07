@@ -71,7 +71,7 @@ Markup after:
 * `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden items)
 * `index`: the index position of the roving tabindex (i.e. the element with tabindex="0"). A no-op on aria-disabled or hidden items.
 * `matchingItems`: returns all items that match item selector
-* `nonEmittingElementSelector`: CSS selector of nested elements that will *not* operate the navigation emitter. This is useful in a combobox + button scenario, where the nested button should not trigger navigationModelChange events (default: null)
+* `ignoreByDelegateSelector`: CSS selector of descendant elements that will be ignored by the navigation emitters key event delegation (i.e. these elements will *not* operate the roving tabindex) (default: null)
 
 ## Methods
 

@@ -119,7 +119,7 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
     * "ariaSelected": index moves to first element with aria-selected=true
     * *number*: specific index position of items (throws error if non-interactive)
 * `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
-* `nonEmittingElementSelector`: CSS selector of nested elements that will *not* operate the navigation emitter. This is useful in a combobox + button scenario, where the nested button should not trigger navigationModelChange events (default: null)
+* `ignoreByDelegateSelector`: CSS selector of descendant elements that will be ignored by the key event delegation (i.e. these elements will *not* operate the navigation emitter) (default: null)
 * `wrap` : specify whether arrow keys should wrap/loop (default: false)
 
 ## Methods
@@ -137,3 +137,4 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 * `navigationModelInit` - fired when the model is auto initialised (bubbles: false)
 * `navigationModelChange` - fired when the index is set by any means other than auto init or auto reset (bubbles: false)
 * `navigationModelReset` - fired when the model is auto reset (bubbles: false)
+* `navigationModelMutation` - fired when any changes to the elements DOM (bubbles: false)

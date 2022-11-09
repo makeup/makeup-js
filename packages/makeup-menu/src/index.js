@@ -159,37 +159,43 @@ function _selectMenuItem(widgetEl, menuItemEl) {
 }
 
 function _selectMenuItemCheckbox(widgetEl, menuItemEl) {
-    const groupName = menuItemEl.dataset.makeupGroup;
+    if (menuItemEl.getAttribute('aria-disabled') !== 'true') {
+        const groupName = menuItemEl.dataset.makeupGroup;
 
-    menuItemEl.setAttribute('aria-checked', (menuItemEl.getAttribute('aria-checked') === 'true') ? 'false' : 'true');
-
-    widgetEl.dispatchEvent(new CustomEvent('makeup-menu-change', {
-        detail: {
-            el: menuItemEl,
-            checked: menuItemEl.getAttribute('aria-checked'),
-            group: groupName,
-            value: menuItemEl.innerText
-        }
-    }));
-}
-
-function _selectMenuItemRadio(widgetEl, menuItemEl) {
-    const groupName = menuItemEl.dataset.makeupGroup;
-    const checkedEl = widgetEl.querySelector(`[data-makeup-group=${groupName}][aria-checked=true]`);
-
-    if (checkedEl) {
-        checkedEl.setAttribute('aria-checked', 'false');
-    }
-
-    if (checkedEl !== menuItemEl) {
-        menuItemEl.setAttribute('aria-checked', 'true');
+        menuItemEl.setAttribute(
+            'aria-checked', (menuItemEl.getAttribute('aria-checked') === 'true') ? 'false' : 'true'
+        );
 
         widgetEl.dispatchEvent(new CustomEvent('makeup-menu-change', {
             detail: {
                 el: menuItemEl,
+                checked: menuItemEl.getAttribute('aria-checked'),
                 group: groupName,
                 value: menuItemEl.innerText
             }
         }));
+    }
+}
+
+function _selectMenuItemRadio(widgetEl, menuItemEl) {
+    if (menuItemEl.getAttribute('aria-disabled') !== 'true') {
+        const groupName = menuItemEl.dataset.makeupGroup;
+        const checkedEl = widgetEl.querySelector(`[data-makeup-group=${groupName}][aria-checked=true]`);
+
+        if (checkedEl) {
+            checkedEl.setAttribute('aria-checked', 'false');
+        }
+
+        if (checkedEl !== menuItemEl) {
+            menuItemEl.setAttribute('aria-checked', 'true');
+
+            widgetEl.dispatchEvent(new CustomEvent('makeup-menu-change', {
+                detail: {
+                    el: menuItemEl,
+                    group: groupName,
+                    value: menuItemEl.innerText
+                }
+            }));
+        }
     }
 }

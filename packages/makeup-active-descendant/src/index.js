@@ -12,20 +12,16 @@ const defaultOptions = {
     wrap: false
 };
 
-function onModelMutation(e) {
-    const { toIndex } = e.detail;
-    const activeDescendantClassName = this.options.activeDescendantClassName;
+function onModelInit(e) {
+    const { items, toIndex } = e.detail;
+    const itemEl = items[toIndex];
 
-    this.items.forEach(function(item, index) {
-        nextID(item);
-        if (index !== toIndex) {
-            item.classList.remove(activeDescendantClassName);
-        } else {
-            item.classList.add(activeDescendantClassName);
-        }
-    });
+    if (itemEl) {
+        itemEl.classList.add(this._options.activeDescendantClassName);
+        this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
+    }
 
-    this._el.dispatchEvent(new CustomEvent('activeDescendantMutation', { detail: e.detail }));
+    this._el.dispatchEvent(new CustomEvent('activeDescendantInit', { detail: e.detail }));
 }
 
 function onModelChange(e) {
@@ -68,16 +64,20 @@ function onModelReset(e) {
     this._el.dispatchEvent(new CustomEvent('activeDescendantReset', { detail: e.detail }));
 }
 
-function onModelInit(e) {
-    const { items, toIndex } = e.detail;
-    const itemEl = items[toIndex];
+function onModelMutation(e) {
+    const { toIndex } = e.detail;
+    const activeDescendantClassName = this.options.activeDescendantClassName;
 
-    if (itemEl) {
-        itemEl.classList.add(this._options.activeDescendantClassName);
-        this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
-    }
+    this.items.forEach(function(item, index) {
+        nextID(item);
+        if (index !== toIndex) {
+            item.classList.remove(activeDescendantClassName);
+        } else {
+            item.classList.add(activeDescendantClassName);
+        }
+    });
 
-    this._el.dispatchEvent(new CustomEvent('activeDescendantInit', { detail: e.detail }));
+    this._el.dispatchEvent(new CustomEvent('activeDescendantMutation', { detail: e.detail }));
 }
 
 class ActiveDescendant {

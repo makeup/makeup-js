@@ -9,8 +9,16 @@ const defaultOptions = {
     wrap: false
 };
 
+function isItemNavigable(el) {
+    return !el.hidden && el.getAttribute('aria-disabled') !== 'true';
+}
+
+function isIndexNavigable(items, index) {
+    return (index >= 0 && index < items.length) ? isItemNavigable(items[index]) : false;
+}
+
 function findNavigableItems(items) {
-    return items.filter((el) => !el.hidden && el.getAttribute('aria-disabled') !== 'true');
+    return items.filter(isItemNavigable);
 }
 
 function findFirstNavigableIndex(items) {
@@ -18,23 +26,22 @@ function findFirstNavigableIndex(items) {
 }
 
 function findLastNavigableIndex(items) {
+    // todo: at(-1) is more performant than reverse(), but Babel is not transpiling it
     return items.indexOf(findNavigableItems(items).reverse()[0]);
 }
 
 function findIndexByAttribute(items, attribute, value) {
-    return items.findIndex((item) => item.getAttribute(attribute) === value);
+    const navigableItems = findNavigableItems(items);
+
+    return items.indexOf(navigableItems[navigableItems.findIndex((item) => item.getAttribute(attribute) === value)]);
 }
 
 function findFirstNavigableAriaCheckedIndex(items) {
-    const navigableItems = findNavigableItems(items);
-
-    return items.indexOf(navigableItems[findIndexByAttribute(navigableItems, 'aria-checked', 'true')]);
+    return findIndexByAttribute(items, 'aria-checked', 'true');
 }
 
 function findFirstNavigableAriaSelectedIndex(items) {
-    const navigableItems = findNavigableItems(items);
-
-    return items.indexOf(navigableItems[findIndexByAttribute(navigableItems, 'aria-selected', 'true')]);
+    return findIndexByAttribute(items, 'aria-selected', 'true');
 }
 
 function findIgnoredByDelegateItems(el, options) {
@@ -52,14 +59,13 @@ function findPreviousNavigableIndex(items, index, wrap) {
             previousNavigableIndex = findLastNavigableIndex(items);
         }
     } else {
-        const previousSiblingItems = items.slice(0, index);
-        const allNavigableItems = findNavigableItems(items);
-        const previousNavigableSiblingItems = previousSiblingItems.reverse().filter(
-            el => allNavigableItems.includes(el)
-        );
+        let i = index;
 
-        if (previousNavigableSiblingItems[0]) {
-            previousNavigableIndex = items.indexOf(previousNavigableSiblingItems[0]);
+        while (--i >= 0) {
+            if (isItemNavigable(items[i])) {
+                previousNavigableIndex = i;
+                break;
+            }
         }
     }
 
@@ -76,14 +82,13 @@ function findNextNavigableIndex(items, index, wrap) {
             nextNavigableIndex = findFirstNavigableIndex(items);
         }
     } else {
-        const nextSiblingItems = items.slice(index + 1);
-        const allNavigableItems = findNavigableItems(items);
-        const nextNavigableSiblingItems = nextSiblingItems.filter(
-            el => allNavigableItems.includes(el)
-        );
+        let i = index;
 
-        if (nextNavigableSiblingItems[0]) {
-            nextNavigableIndex = items.indexOf(nextNavigableSiblingItems[0]);
+        while (++i < items.length) {
+            if (isItemNavigable(items[i])) {
+                nextNavigableIndex = i;
+                break;
+            }
         }
     }
 
@@ -91,10 +96,10 @@ function findNextNavigableIndex(items, index, wrap) {
 }
 
 // returning -1 means not found
-function findIndexPositionByType(type, items, currentIndex) {
+function findIndexPositionByType(typeOrNum, items, currentIndex) {
     let index = -1;
 
-    switch (type) {
+    switch (typeOrNum) {
         case 'none':
             index = null;
             break;
@@ -115,14 +120,10 @@ function findIndexPositionByType(type, items, currentIndex) {
             index = (index === -1) ? findFirstNavigableIndex(items) : index;
             break;
         default:
-            index = type;
+            index = (typeof typeOrNum === 'number' || typeOrNum === null) ? typeOrNum : -1;
     }
 
     return index;
-}
-
-function isIndexNavigable(items, index) {
-    return findNavigableItems(items).includes(items[index]);
 }
 
 function atStart(items, index) {
@@ -152,17 +153,10 @@ function onKeyNext(e) {
 }
 
 function onClick(e) {
-    let element = e.target;
-    let elementIndex = this.indexOf(element);
+    const itemIndex = this.indexOf(e.target.closest(this._itemSelector));
 
-    // traverse widget ancestors until matching element is found
-    while (element !== this._el && elementIndex === -1) {
-        element = element.parentNode;
-        elementIndex = this.indexOf(element);
-    }
-
-    if (elementIndex !== -1) {
-        this.index = elementIndex;
+    if (isIndexNavigable(this.items, itemIndex)) {
+        this.index = itemIndex;
     }
 }
 
@@ -278,6 +272,7 @@ class LinearNavigationModel extends NavigationModel {
         return this.items[this.index];
     }
 
+    // todo: code smell as getter abstracts that the query selector re-runs every time getter is accessed
     get items() {
         return [...this._el.querySelectorAll(`${this._itemSelector}`)];
     }

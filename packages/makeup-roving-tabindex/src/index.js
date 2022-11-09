@@ -9,36 +9,16 @@ const defaultOptions = {
     axis: 'both'
 };
 
-function onModelMutation(e) {
-    const { toIndex } = e.detail;
-
-    this.items.forEach((el) => el.setAttribute('tabindex', '-1'));
-    const el = this.items[toIndex];
-    if (el) el.setAttribute('tabindex', '0');
-
-    this._el.dispatchEvent(new CustomEvent('rovingTabindexMutation', { detail: e.detail }));
+function refreshTabindex(items, focusIndex) {
+    items.forEach(function(el, i) {
+        el.setAttribute('tabindex', i === focusIndex ? '0' : '-1');
+    });
 }
 
 function onModelInit(e) {
-    const { items, toIndex } = e.detail;
-    const itemEl = items[toIndex];
-
-    items.filter((el) => el !== itemEl).forEach((el) => el.setAttribute('tabindex', '-1'));
-
-    if (itemEl) {
-        itemEl.setAttribute('tabindex', '0');
-    }
+    refreshTabindex(e.detail.items, e.detail.toIndex);
 
     this._el.dispatchEvent(new CustomEvent('rovingTabindexInit', { detail: e.detail }));
-}
-
-function onModelReset(e) {
-    const items = this.items;
-
-    items.filter((el, i) => i !== e.detail.toIndex).forEach((el) => el.setAttribute('tabindex', '-1'));
-    items[e.detail.toIndex].setAttribute('tabindex', '0');
-
-    this._el.dispatchEvent(new CustomEvent('rovingTabindexReset', { detail: e.detail }));
 }
 
 function onModelChange(e) {
@@ -57,6 +37,18 @@ function onModelChange(e) {
     }
 
     this._el.dispatchEvent(new CustomEvent('rovingTabindexChange', { detail: e.detail }));
+}
+
+function onModelReset(e) {
+    refreshTabindex(this.items, e.detail.toIndex);
+
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexReset', { detail: e.detail }));
+}
+
+function onModelMutation(e) {
+    refreshTabindex(this.items, e.detail.toIndex);
+
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexMutation', { detail: e.detail }));
 }
 
 class RovingTabindex {

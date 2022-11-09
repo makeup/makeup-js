@@ -12,7 +12,7 @@ import * as PreventScrollKeys from 'makeup-prevent-scroll-keys';
 const defaultOptions = {
     activeDescendantClassName: 'listbox__option--active', // the classname applied to the current active desdcendant
     autoInit: 'ariaSelectedOrInteractive',
-    autoReset: 'ariaSelected',
+    autoReset: 'ariaSelectedOrInteractive',
     autoSelect: true, // when true, aria-checked state matches active-descendant
     customElementMode: false,
     focusableElement: null, // used in a combobox/datepicker scenario
@@ -170,7 +170,9 @@ export default class {
 }
 
 function _onKeyDown(e) {
-    if (isSpacebarOrEnter(e.keyCode) && this._activeDescendant.currentItem.getAttribute('aria-selected') !== 'true') {
+    const activeDescendantEl = this._activeDescendant.currentItem;
+
+    if (isSpacebarOrEnter(e.keyCode) && activeDescendantEl?.getAttribute('aria-selected') !== 'true') {
         // todo: this.select() should take care of unselecting any existing selections
         this.unselect(this.index);
         this.select(this._activeDescendant.index);

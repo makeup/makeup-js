@@ -22,7 +22,7 @@ function findNavigableItems(items) {
 }
 
 function findFirstNavigableIndex(items) {
-    return items.indexOf(findNavigableItems(items)[0]);
+    return items.findIndex((item) => isItemNavigable(item));
 }
 
 function findLastNavigableIndex(items) {
@@ -33,7 +33,7 @@ function findLastNavigableIndex(items) {
 function findIndexByAttribute(items, attribute, value) {
     const navigableItems = findNavigableItems(items);
 
-    return items.indexOf(navigableItems[navigableItems.findIndex((item) => item.getAttribute(attribute) === value)]);
+    return items.findIndex((item) => isItemNavigable(item) && item.getAttribute(attribute) === value);
 }
 
 function findFirstNavigableAriaCheckedIndex(items) {

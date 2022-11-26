@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = transition;
-
 /* eslint-disable indent */
 
 /**
@@ -41,7 +40,6 @@ function transition(el, baseClass, cb) {
     classList.remove(initClass);
     pending = getTransitionCount(el);
     cancelFrame = undefined;
-
     if (pending === 0) {
       cancel();
     }
@@ -56,10 +54,8 @@ function transition(el, baseClass, cb) {
     if (ended) {
       return;
     }
-
     ended = true;
     el.removeEventListener(TRANSITION_END, listener, true);
-
     if (cancelFrame) {
       cancelFrame();
       classList.remove(initClass);
@@ -72,19 +68,18 @@ function transition(el, baseClass, cb) {
   * Once all child transitions have ended the overall animation is completed.
   */
 
-
   function listener() {
     if (++ran === pending) {
       ended = true;
       el.removeEventListener(TRANSITION_END, listener, true);
       classList.remove(baseClass);
-
       if (cb) {
         cb();
       }
     }
   }
 }
+
 /**
 * Walks the tree of an element and counts how many transitions have been applied.
 *
@@ -92,16 +87,13 @@ function transition(el, baseClass, cb) {
 * @return {number}
 */
 
-
 function getTransitionCount(el) {
   var count = window.getComputedStyle(el).transitionDuration.replace(IMMEDIATE_TRANSITION_REG, '') ? 1 : 0;
   var child = el.firstElementChild;
-
   while (child) {
     count += getTransitionCount(child);
     child = child.nextElementSibling;
   }
-
   return count;
 }
 /**
@@ -111,11 +103,9 @@ function getTransitionCount(el) {
 * @return {function} a function to cancel the callback.
 */
 
-
 function nextFrame(fn) {
   var frame;
   var cancelFrame;
-
   if (window.requestAnimationFrame) {
     frame = requestAnimationFrame(function () {
       frame = requestAnimationFrame(fn);
@@ -126,7 +116,6 @@ function nextFrame(fn) {
 
     cancelFrame = clearTimeout;
   }
-
   return function () {
     if (frame) {
       cancelFrame(frame);

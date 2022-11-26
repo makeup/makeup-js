@@ -18,7 +18,9 @@ class src_default {
     }
     this._windowEl = this._el.querySelector(this._options.windowSelector);
     this._closeButtonEl = this._el.querySelector(this._options.closeButtonSelector);
-    this._hasTransitions = this._el.classList.contains(`${this._options.baseClass}--${this._options.transitionsModifier}`);
+    this._hasTransitions = this._el.classList.contains(
+      `${this._options.baseClass}--${this._options.transitionsModifier}`
+    );
     this._onCloseButtonClickListener = _onCloseButtonClick.bind(this);
     this._onKeyDownListener = _onKeyDown.bind(this);
     this._onOpenTransitionEndCallback = _onOpenTransitionEnd.bind(this);
@@ -53,7 +55,11 @@ class src_default {
       if (this._cancelTransition) {
         this._cancelTransition();
       }
-      this._cancelTransition = transition(this._el, `${this._options.baseClass}--show`, this._onOpenTransitionEndCallback);
+      this._cancelTransition = transition(
+        this._el,
+        `${this._options.baseClass}--show`,
+        this._onOpenTransitionEndCallback
+      );
     } else {
       if (this.modal) {
         setTimeout(() => _doModalFocusManagement(this), 50);
@@ -67,7 +73,11 @@ class src_default {
       if (this._cancelTransition) {
         this._cancelTransition();
       }
-      this._cancelTransition = transition(this._el, `${this._options.baseClass}--hide`, this._onCloseTransitionEndCallback);
+      this._cancelTransition = transition(
+        this._el,
+        `${this._options.baseClass}--hide`,
+        this._onCloseTransitionEndCallback
+      );
     } else {
       if (this.modal) {
         Modal.unmodal();

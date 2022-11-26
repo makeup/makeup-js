@@ -1,6 +1,5 @@
 import Expander from "makeup-expander";
 import Listbox from "makeup-listbox";
-const nodeListToArray = (nodeList) => Array.prototype.slice.call(nodeList);
 const defaultOptions = {
   autoSelect: true,
   collapseTimeout: 150,
@@ -67,7 +66,10 @@ class src_default {
   _observeEvents() {
     if (this._destroyed !== true) {
       this._listboxEl.addEventListener("click", this._onListboxClickListener);
-      this._listboxEl.addEventListener("makeup-listbox-active-descendant-change", this._onListboxActiveDescendantChangeListener);
+      this._listboxWidget._activeDescendantRootEl.addEventListener(
+        "activeDescendantChange",
+        this._onListboxActiveDescendantChangeListener
+      );
       this._inputEl.addEventListener("focus", this._onInputFocusListener);
       this._inputEl.addEventListener("keydown", this._onTextboxKeyDownListener);
       this._inputEl.addEventListener("input", this._onTextboxInputListener);
@@ -76,7 +78,10 @@ class src_default {
   }
   _unobserveEvents() {
     this._listboxEl.removeEventListener("click", this._onListboxClickListener);
-    this._listboxEl.removeEventListener("makeup-listbox-active-descendant-change", this._onListboxActiveDescendantChangeListener);
+    this._listboxWidget._activeDescendantRootEl.removeEventListener(
+      "activeDescendantChange",
+      this._onListboxActiveDescendantChangeListener
+    );
     this._inputEl.removeEventListener("focus", this._onInputFocusListener);
     this._inputEl.removeEventListener("keydown", this._onTextboxKeyDownListener);
     this._inputEl.removeEventListener("input", this._onTextboxInputListener);
@@ -116,7 +121,9 @@ function _onTextboxKeyDown(e) {
   if (this._options.autoSelect === false && e.keyCode === 13 && this._inputEl.getAttribute("aria-activedescendant")) {
     e.preventDefault();
     const widget = this;
-    this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter((el) => !el.hidden)[this._listboxWidget._activeDescendant.index].innerText;
+    this._inputEl.value = this._listboxWidget.items.filter(
+      (el) => !el.hidden
+    )[this._listboxWidget._activeDescendant.index].innerText;
     _dispatchChangeEvent(this._el, this._inputEl.value);
     this._listboxWidget._activeDescendant.reset();
     setTimeout(function() {
@@ -154,7 +161,9 @@ function _onListboxClick(e) {
   const element = e.target.closest("[data-makeup-index]");
   const indexData = element.dataset.makeupIndex;
   if (indexData !== void 0) {
-    this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter((el) => !el.hidden)[indexData].innerText;
+    this._inputEl.value = this._listboxWidget.items.filter(
+      (el) => !el.hidden
+    )[indexData].innerText;
     if (this._options.autoSelect === false) {
       _dispatchChangeEvent(this._el, this._inputEl.value);
     }
@@ -165,7 +174,9 @@ function _onListboxClick(e) {
 }
 function _onListboxActiveDescendantChange(e) {
   if (this._options.autoSelect === true) {
-    this._inputEl.value = nodeListToArray(this._listboxWidget.items).filter((el) => !el.hidden)[e.detail.toIndex].innerText;
+    this._inputEl.value = this._listboxWidget.items.filter(
+      (el) => !el.hidden
+    )[e.detail.toIndex].innerText;
     _dispatchChangeEvent(this._el, this._inputEl.value);
   }
 }
@@ -183,10 +194,10 @@ function _onMutation(mutationsList) {
 function _filterSuggestions(value, items) {
   const numChars = value.length;
   const currentValue = value.toLowerCase();
-  const matchedItems = nodeListToArray(items).filter((el) => {
+  const matchedItems = items.filter((el) => {
     return el.innerText.trim().substring(0, numChars).toLowerCase() === currentValue;
   });
-  const unmatchedItems = nodeListToArray(items).filter((el) => {
+  const unmatchedItems = items.filter((el) => {
     return el.innerText.trim().substring(0, numChars).toLowerCase() !== currentValue;
   });
   matchedItems.forEach((el) => el.hidden = false);

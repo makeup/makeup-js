@@ -1,60 +1,137 @@
 import * as KeyEmitter from "makeup-key-emitter";
 import * as ExitEmitter from "makeup-exit-emitter";
-const dataSetKey = "data-makeup-index";
 const defaultOptions = {
   axis: "both",
-  autoInit: 0,
-  autoReset: null,
-  ignoreButtons: false,
+  autoInit: "interactive",
+  autoReset: "current",
+  ignoreByDelegateSelector: null,
   wrap: false
 };
-const itemFilter = (el) => !el.hidden;
-function clearData(els) {
-  els.forEach((el) => el.removeAttribute(dataSetKey));
+function isItemNavigable(el) {
+  return !el.hidden && el.getAttribute("aria-disabled") !== "true";
 }
-function setData(els) {
-  els.forEach((el, index) => el.setAttribute(dataSetKey, index));
+function isIndexNavigable(items, index) {
+  return index >= 0 && index < items.length ? isItemNavigable(items[index]) : false;
 }
-function isButton(el) {
-  return el.tagName.toLowerCase() === "button" || el.type === "button";
+function findNavigableItems(items) {
+  return items.filter(isItemNavigable);
+}
+function findFirstNavigableIndex(items) {
+  return items.findIndex((item) => isItemNavigable(item));
+}
+function findLastNavigableIndex(items) {
+  return items.indexOf(findNavigableItems(items).reverse()[0]);
+}
+function findIndexByAttribute(items, attribute, value) {
+  return items.findIndex((item) => isItemNavigable(item) && item.getAttribute(attribute) === value);
+}
+function findFirstNavigableAriaCheckedIndex(items) {
+  return findIndexByAttribute(items, "aria-checked", "true");
+}
+function findFirstNavigableAriaSelectedIndex(items) {
+  return findIndexByAttribute(items, "aria-selected", "true");
+}
+function findIgnoredByDelegateItems(el, options) {
+  return options.ignoreByDelegateSelector !== null ? [...el.querySelectorAll(options.ignoreByDelegateSelector)] : [];
+}
+function findPreviousNavigableIndex(items, index, wrap) {
+  let previousNavigableIndex = -1;
+  if (index === null) {
+  } else if (atStart(items, index)) {
+    if (wrap === true) {
+      previousNavigableIndex = findLastNavigableIndex(items);
+    }
+  } else {
+    let i = index;
+    while (--i >= 0) {
+      if (isItemNavigable(items[i])) {
+        previousNavigableIndex = i;
+        break;
+      }
+    }
+  }
+  return previousNavigableIndex;
+}
+function findNextNavigableIndex(items, index, wrap) {
+  let nextNavigableIndex = -1;
+  if (index === null) {
+    nextNavigableIndex = findFirstNavigableIndex(items);
+  } else if (atEnd(items, index)) {
+    if (wrap === true) {
+      nextNavigableIndex = findFirstNavigableIndex(items);
+    }
+  } else {
+    let i = index;
+    while (++i < items.length) {
+      if (isItemNavigable(items[i])) {
+        nextNavigableIndex = i;
+        break;
+      }
+    }
+  }
+  return nextNavigableIndex;
+}
+function findIndexPositionByType(typeOrNum, items, currentIndex) {
+  let index = -1;
+  switch (typeOrNum) {
+    case "none":
+      index = null;
+      break;
+    case "current":
+      index = currentIndex;
+      break;
+    case "interactive":
+      index = findFirstNavigableIndex(items);
+      break;
+    case "ariaChecked":
+      index = findFirstNavigableAriaCheckedIndex(items);
+      break;
+    case "ariaSelected":
+      index = findFirstNavigableAriaSelectedIndex(items);
+      break;
+    case "ariaSelectedOrInteractive":
+      index = findFirstNavigableAriaSelectedIndex(items);
+      index = index === -1 ? findFirstNavigableIndex(items) : index;
+      break;
+    default:
+      index = typeof typeOrNum === "number" || typeOrNum === null ? typeOrNum : -1;
+  }
+  return index;
+}
+function atStart(items, index) {
+  return index === findFirstNavigableIndex(items);
+}
+function atEnd(items, index) {
+  return index === findLastNavigableIndex(items);
 }
 function onKeyPrev(e) {
-  if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    if (!this.atStart()) {
-      this.index--;
-    } else if (this.options.wrap) {
-      this.index = this.filteredItems.length - 1;
-    }
+  const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+  if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
+    this.index = findPreviousNavigableIndex(this.items, this.index, this.options.wrap);
   }
 }
 function onKeyNext(e) {
-  if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    if (!this.atEnd()) {
-      this.index++;
-    } else if (this.options.wrap) {
-      this.index = 0;
-    }
+  const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+  if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
+    this.index = findNextNavigableIndex(this.items, this.index, this.options.wrap);
   }
 }
 function onClick(e) {
-  let element = e.target;
-  let indexData = element.dataset.makeupIndex;
-  while (element !== this._el && !indexData) {
-    element = element.parentNode;
-    indexData = element.dataset.makeupIndex;
-  }
-  if (indexData !== void 0) {
-    this.index = indexData;
+  const itemIndex = this.indexOf(e.target.closest(this._itemSelector));
+  if (isIndexNavigable(this.items, itemIndex)) {
+    this.index = itemIndex;
   }
 }
 function onKeyHome(e) {
-  if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    this.index = 0;
+  const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+  if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
+    this.index = findFirstNavigableIndex(this.items);
   }
 }
 function onKeyEnd(e) {
-  if (isButton(e.detail.target) === false || this.options.ignoreButtons === false) {
-    this.index = this.filteredItems.length;
+  const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+  if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
+    this.index = findLastNavigableIndex(this.items);
   }
 }
 function onFocusExit() {
@@ -62,13 +139,32 @@ function onFocusExit() {
     this.reset();
   }
 }
-function onMutation() {
-  clearData(this.items);
-  setData(this.filteredItems);
-  if (this.index >= this.items.length) {
-    this._index = this.options.autoReset || this.options.autoInit;
+function onMutation(e) {
+  const fromIndex = this.index;
+  let toIndex = this.index;
+  const { addedNodes, attributeName, removedNodes, target, type } = e[0];
+  if (type === "attributes") {
+    if (target === this.currentItem) {
+      if (attributeName === "aria-disabled") {
+        toIndex = this.index;
+      } else if (attributeName === "hidden") {
+        toIndex = findFirstNavigableIndex(this.items);
+      }
+    } else {
+      toIndex = this.index;
+    }
+  } else if (type === "childList") {
+    if (removedNodes.length > 0 && [...removedNodes].includes(this._cachedElement)) {
+      toIndex = findFirstNavigableIndex(this.items);
+    } else if (removedNodes.length > 0 || addedNodes.length > 0) {
+      toIndex = this.indexOf(this._cachedElement);
+    }
   }
-  this._el.dispatchEvent(new CustomEvent("navigationModelMutation"));
+  this._index = toIndex;
+  this._el.dispatchEvent(new CustomEvent("navigationModelMutation", {
+    bubbles: false,
+    detail: { fromIndex, toIndex }
+  }));
 }
 class NavigationModel {
   constructor(el, itemSelector, selectedOptions) {
@@ -80,54 +176,56 @@ class NavigationModel {
 class LinearNavigationModel extends NavigationModel {
   constructor(el, itemSelector, selectedOptions) {
     super(el, itemSelector, selectedOptions);
-    if (this.options.autoInit !== null) {
-      this._index = this.options.autoInit;
-      this._el.dispatchEvent(new CustomEvent("navigationModelInit", {
-        detail: {
-          items: this.filteredItems,
-          toIndex: this.options.autoInit
-        },
-        bubbles: false
-      }));
-    }
+    const fromIndex = this._index;
+    const toIndex = findIndexPositionByType(this.options.autoInit, this.items, this.index);
+    this._index = toIndex;
+    this._cachedElement = this.items[toIndex];
+    this._el.dispatchEvent(new CustomEvent("navigationModelInit", {
+      bubbles: false,
+      detail: {
+        firstInteractiveIndex: this.firstNavigableIndex,
+        fromIndex,
+        items: this.items,
+        toIndex
+      }
+    }));
+  }
+  get currentItem() {
+    return this.items[this.index];
   }
   get items() {
-    return this._el.querySelectorAll(this._itemSelector);
-  }
-  get filteredItems() {
-    return Array.prototype.slice.call(this.items).filter(itemFilter);
+    return [...this._el.querySelectorAll(`${this._itemSelector}`)];
   }
   get index() {
     return this._index;
   }
-  set index(newIndex) {
-    if (newIndex > -1 && newIndex < this.filteredItems.length && newIndex !== this.index) {
+  set index(toIndex) {
+    if (toIndex === this.index) {
+      return;
+    } else if (!isIndexNavigable(this.items, toIndex)) {
+    } else {
+      const fromIndex = this.index;
+      this._cachedElement = this.items[toIndex];
+      this._index = toIndex;
       this._el.dispatchEvent(new CustomEvent("navigationModelChange", {
-        detail: {
-          fromIndex: this.index,
-          toIndex: newIndex
-        },
-        bubbles: false
+        bubbles: false,
+        detail: { fromIndex, toIndex }
       }));
-      this._index = newIndex;
     }
+  }
+  indexOf(element) {
+    return this.items.indexOf(element);
   }
   reset() {
-    if (this.options.autoReset !== null) {
-      this._index = this.options.autoReset;
+    const fromIndex = this.index;
+    const toIndex = findIndexPositionByType(this.options.autoReset, this.items, this.index);
+    if (toIndex !== fromIndex) {
+      this._index = toIndex;
       this._el.dispatchEvent(new CustomEvent("navigationModelReset", {
-        detail: {
-          toIndex: this.options.autoReset
-        },
-        bubbles: false
+        bubbles: false,
+        detail: { fromIndex, toIndex }
       }));
     }
-  }
-  atEnd() {
-    return this.index === this.filteredItems.length - 1;
-  }
-  atStart() {
-    return this.index <= 0;
   }
 }
 class NavigationEmitter {
@@ -141,7 +239,6 @@ class NavigationEmitter {
     this._clickListener = onClick.bind(model);
     this._focusExitListener = onFocusExit.bind(model);
     this._observer = new MutationObserver(onMutation.bind(model));
-    setData(model.filteredItems);
     KeyEmitter.addKeyDown(this.el);
     ExitEmitter.addFocusExit(this.el);
     const axis = model.options.axis;
@@ -160,8 +257,9 @@ class NavigationEmitter {
     this._observer.observe(this.el, {
       childList: true,
       subtree: true,
-      attributeFilter: ["hidden"],
-      attributes: true
+      attributeFilter: ["aria-disabled", "hidden"],
+      attributes: true,
+      attributeOldValue: true
     });
   }
   destroy() {

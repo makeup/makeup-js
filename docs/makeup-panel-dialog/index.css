@@ -25,7 +25,7 @@ a:visited {
   color: var(--color-link-visited, #82187c);
 }
 a:hover {
-  color: var(--color-link-hover, #2b0eaf);
+  color: var(--color-link-hover, #382aef);
 }
 
 a.icon-link {
@@ -44,6 +44,7 @@ a.icon-link {
   font-family: inherit;
   height: 40px;
   margin: 0;
+  min-width: 40px;
   padding: 0;
   vertical-align: text-bottom;
   width: 40px;
@@ -81,6 +82,7 @@ a.icon-link:not(:focus-visible) {
 button.icon-btn--transparent,
 a.icon-link--transparent {
   background-color: transparent;
+  outline-offset: -10px;
 }
 button.icon-btn--transparent:active,
 a.icon-link--transparent:active,
@@ -164,7 +166,6 @@ a.icon-link > svg.icon--information-filled-small:hover {
   fill: var(--color-status-information, #3665f3);
 }
 
-/* large screens */
 .panel-dialog[role="dialog"] {
   background-color: var(--dialog-mask-background-color, var(--color-mask-faded, rgba(17, 24, 32, 0.7)));
   bottom: 0;

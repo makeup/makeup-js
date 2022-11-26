@@ -52,6 +52,9 @@ button.expand-btn svg.icon:first-child {
 button.expand-btn svg.icon:last-child {
   margin-left: 8px;
 }
+button.expand-btn svg.icon:only-child {
+  margin: 0;
+}
 button.expand-btn--wide {
   padding-left: 48px;
   padding-right: 48px;
@@ -190,6 +193,9 @@ button.expand-btn--floating-label .expand-btn__floating-label--inline {
   transform: translate(0, -6px);
 }
 
+.split-button {
+  display: inline-flex;
+}
 .menu-button,
 .fake-menu-button {
   line-height: normal;
@@ -261,8 +267,8 @@ div.menu-button__item[role^="menuitem"]:last-child {
   border-bottom-left-radius: var(--border-radius-dropdown, 8px);
   border-bottom-right-radius: var(--border-radius-dropdown, 8px);
 }
-.menu-button__item svg.icon,
-.fake-menu-button__item svg.icon {
+.menu-button__item svg.icon--tick-small,
+.fake-menu-button__item svg.icon--tick-small {
   align-self: center;
   fill: currentColor;
   height: 10px;
@@ -272,8 +278,8 @@ div.menu-button__item[role^="menuitem"]:last-child {
   stroke-width: 0;
   width: 14px;
 }
-.menu-button__item svg.icon:last-child,
-.fake-menu-button__item svg.icon:last-child {
+.menu-button__item svg.icon--tick-small:last-child,
+.fake-menu-button__item svg.icon--tick-small:last-child {
   margin-left: 8px;
 }
 a.fake-menu-button__item {
@@ -294,8 +300,8 @@ button.fake-menu-button__item {
   font-size: 1em;
   text-align: left;
 }
-button.fake-menu-button__item:active svg.icon,
-a.fake-menu-button__item:active svg.icon {
+button.fake-menu-button__item:active svg.icon--tick-small,
+a.fake-menu-button__item:active svg.icon--tick-small {
   color: var(--menu-menuitem-active-status-color, var(--color-selection-list-item-active-status, #fff));
 }
 a.fake-menu-button__item:not([href]),
@@ -303,14 +309,14 @@ button.fake-menu-button__item[disabled],
 div.menu-button__item[role^="menuitem"][aria-disabled="true"] {
   color: var(--menu-button-menuitem-disabled-foreground-color, var(--color-text-disabled, #c7c7c7));
 }
-a.fake-menu-button__item[aria-current="page"] svg.icon,
-button.fake-menu-button__item[aria-current="page"] svg.icon {
+a.fake-menu-button__item[aria-current="page"] svg.icon--tick-small,
+button.fake-menu-button__item[aria-current="page"] svg.icon--tick-small {
   opacity: 1;
 }
-div.menu-button__item[role^="menuitem"]:active svg.icon {
+div.menu-button__item[role^="menuitem"]:active svg.icon--tick-small {
   color: var(--menu-menuitem-active-status-color, var(--color-selection-list-item-active-status, #fff));
 }
-div.menu-button__item[role^="menuitem"][aria-checked="true"] svg.icon {
+div.menu-button__item[role^="menuitem"][aria-checked="true"] svg.icon--tick-small {
   opacity: 1;
 }
 .fake-menu-button__menu a.fake-menu-button__item,
@@ -390,6 +396,11 @@ div.menu-button__item--badged[role^="menuitem"] .badge {
 .fake-menu-button__menu--reverse {
   right: 0;
 }
+[dir="rtl"] .menu-button__menu--reverse,
+[dir="rtl"] .fake-menu-button__menu--reverse {
+  left: 0;
+  right: inherit;
+}
 .menu-button button.expand-btn--borderless,
 .fake-menu-button button.expand-btn--borderless {
   background-color: transparent;
@@ -405,13 +416,17 @@ div.menu-button__item--badged[role^="menuitem"] .badge {
 .menu-button__button[aria-expanded="true"] ~ .menu-button__menu,
 .fake-menu-button__button[aria-expanded="true"] ~ .fake-menu-button__menu,
 .menu-button .expand-btn[aria-expanded="true"] ~ .menu-button__menu,
-.fake-menu-button .expand-btn[aria-expanded="true"] ~ .fake-menu-button__menu {
+.fake-menu-button .expand-btn[aria-expanded="true"] ~ .fake-menu-button__menu,
+.menu-button .btn[aria-expanded="true"] ~ .menu-button__menu,
+.fake-menu-button .btn[aria-expanded="true"] ~ .fake-menu-button__menu {
   display: block;
 }
 .menu-button__button ~ .menu-button__menu--static,
 .fake-menu-button__button ~ .fake-menu-button__menu--static,
 .expand-btn ~ .menu-button__menu--static,
-.expand_btn ~ .fake-menu-button__menu--static {
+.expand_btn ~ .fake-menu-button__menu--static,
+.btn ~ .menu-button__menu--static,
+.btn ~ .fake-menu-button__menu--static {
   position: static;
 }
 .menu button.expand-btn--borderless[aria-expanded="true"] ~ .menu-button__menu,

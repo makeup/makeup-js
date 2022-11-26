@@ -25,7 +25,7 @@ a:visited {
   color: var(--color-link-visited, #82187c);
 }
 a:hover {
-  color: var(--color-link-hover, #2b0eaf);
+  color: var(--color-link-hover, #382aef);
 }
 
 .clearfix::before,
@@ -149,13 +149,12 @@ button.fake-link[disabled] {
   opacity: 0.5;
 }
 button.fake-link:hover {
-  color: var(--fake-link-hover-color, var(--color-link-hover, #2b0eaf));
+  color: var(--fake-link-hover-color, var(--color-link-hover, #382aef));
 }
 
-/* large screens */
 .snackbar-dialog {
   background-color: var(--snackbar-dialog-background-color, var(--color-action-tertiary, #f7f7f7));
-  border-radius: var(--snackbar-dialog-border-radius, var(--border-radius-dialog, 16px));
+  border-radius: var(--snackbar-dialog-border-radius, var(--border-radius-none, 0));
   bottom: 0;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.28);
   color: var(--snackbar-dialog-foreground-color, var(--color-text-default, #111820));

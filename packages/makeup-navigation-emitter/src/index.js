@@ -31,8 +31,6 @@ function findLastNavigableIndex(items) {
 }
 
 function findIndexByAttribute(items, attribute, value) {
-    const navigableItems = findNavigableItems(items);
-
     return items.findIndex((item) => isItemNavigable(item) && item.getAttribute(attribute) === value);
 }
 

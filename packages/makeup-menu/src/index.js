@@ -2,7 +2,9 @@ import * as RovingTabIndex from 'makeup-roving-tabindex';
 import * as PreventScrollKeys from 'makeup-prevent-scroll-keys';
 
 const defaultOptions = {
-    customElementMode: false
+    customElementMode: false,
+    autoInit: 'interactive',
+    autoReset: 'interactive'
 };
 
 export default class {
@@ -12,7 +14,8 @@ export default class {
         this.el = widgetEl;
 
         this._rovingTabIndex = RovingTabIndex.createLinear(this.el, '[role^=menuitem]', {
-            autoReset: 0
+            autoInit: this._options.autoInit,
+            autoReset: this._options.autoReset
         });
 
         PreventScrollKeys.add(this.el);
@@ -51,7 +54,7 @@ export default class {
     }
 
     get items() {
-        return this.el.querySelectorAll('[role^=menuitem]');
+        return this._rovingTabIndex.items;
     }
 
     get radioGroupNames() {
@@ -129,18 +132,21 @@ function _onKeyDown(e) {
     }
 
     if (e.keyCode === 13 || e.keyCode === 32) {
-        this.select(_getElementIndex(e.target));
+        this.select(Array.from(this.items).indexOf(e.target));
     }
 
     this._observeMutations();
 }
 
 function _onClick(e) {
-    this.select(_getElementIndex(e.target));
-}
+    // unlike the keyDown event, the click event target can be a child element of the menuitem
+    // e.g. <div role="menuitem"><span>Item 1</span></div>
+    const menuItemEl = e.target.closest('[role^=menuitem]');
+    const index = this.items.indexOf(menuItemEl);
 
-function _getElementIndex(el) {
-    return el.closest('[role^=menuitem]').dataset.makeupIndex;
+    if (index !== -1) {
+        this.select(index);
+    }
 }
 
 function _selectMenuItem(widgetEl, menuItemEl) {
@@ -153,37 +159,43 @@ function _selectMenuItem(widgetEl, menuItemEl) {
 }
 
 function _selectMenuItemCheckbox(widgetEl, menuItemEl) {
-    const groupName = menuItemEl.dataset.makeupGroup;
+    if (menuItemEl.getAttribute('aria-disabled') !== 'true') {
+        const groupName = menuItemEl.dataset.makeupGroup;
 
-    menuItemEl.setAttribute('aria-checked', (menuItemEl.getAttribute('aria-checked') === 'true') ? 'false' : 'true');
-
-    widgetEl.dispatchEvent(new CustomEvent('makeup-menu-change', {
-        detail: {
-            el: menuItemEl,
-            checked: menuItemEl.getAttribute('aria-checked'),
-            group: groupName,
-            value: menuItemEl.innerText
-        }
-    }));
-}
-
-function _selectMenuItemRadio(widgetEl, menuItemEl) {
-    const groupName = menuItemEl.dataset.makeupGroup;
-    const checkedEl = widgetEl.querySelector(`[data-makeup-group=${groupName}][aria-checked=true]`);
-
-    if (checkedEl) {
-        checkedEl.setAttribute('aria-checked', 'false');
-    }
-
-    if (checkedEl !== menuItemEl) {
-        menuItemEl.setAttribute('aria-checked', 'true');
+        menuItemEl.setAttribute(
+            'aria-checked', (menuItemEl.getAttribute('aria-checked') === 'true') ? 'false' : 'true'
+        );
 
         widgetEl.dispatchEvent(new CustomEvent('makeup-menu-change', {
             detail: {
                 el: menuItemEl,
+                checked: menuItemEl.getAttribute('aria-checked'),
                 group: groupName,
                 value: menuItemEl.innerText
             }
         }));
+    }
+}
+
+function _selectMenuItemRadio(widgetEl, menuItemEl) {
+    if (menuItemEl.getAttribute('aria-disabled') !== 'true') {
+        const groupName = menuItemEl.dataset.makeupGroup;
+        const checkedEl = widgetEl.querySelector(`[data-makeup-group=${groupName}][aria-checked=true]`);
+
+        if (checkedEl) {
+            checkedEl.setAttribute('aria-checked', 'false');
+        }
+
+        if (checkedEl !== menuItemEl) {
+            menuItemEl.setAttribute('aria-checked', 'true');
+
+            widgetEl.dispatchEvent(new CustomEvent('makeup-menu-change', {
+                detail: {
+                    el: menuItemEl,
+                    group: groupName,
+                    value: menuItemEl.innerText
+                }
+            }));
+        }
     }
 }

@@ -117,6 +117,7 @@ describe('makeup-focusables', function() {
 
     describe('when it has a callback, should request animation frame and trigger callback', function() {
         beforeAll(function() {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 200;
             body.innerHTML = '<div tabindex="1"></div><div></div><div tabindex="2"></div>';
         });
 

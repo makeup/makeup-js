@@ -51,9 +51,9 @@ Markup after instantiation:
 <div class="widget" id="widget-0">
     <input type="text" aria-owns="widget-0-list-0">
     <ul id="widget-0-list-0">
-        <li id="widget-0-item-0" data-makeup-index="0">Item 1</li>
-        <li id="widget-0-item-1" data-makeup-index="1">Item 2</li>
-        <li id="widget-0-item-2" data-makeup-index="2">Item 3</li>
+        <li id="widget-0-item-0">Item 1</li>
+        <li id="widget-0-item-1">Item 2</li>
+        <li id="widget-0-item-2">Item 3</li>
     </ul>
 </div>
 ```
@@ -64,9 +64,9 @@ Markup after pressing down arrow key on focusable element:
 <div class="widget" id="widget-0">
     <input type="text" aria-activedescendant="widget-0-item-0" aria-owns="widget-0-list-0">
     <ul id="widget-0-list-0">
-        <li class="active-descendant" id="widget-0-item-0" data-makeup-index="0">Item 1</li>
-        <li id="widget-0-item-1" data-makeup-index="1">Item 2</li>
-        <li id="widget-0-item-2" data-makeup-index="2">Item 3</li>
+        <li class="active-descendant" id="widget-0-item-0">Item 1</li>
+        <li id="widget-0-item-1">Item 2</li>
+        <li id="widget-0-item-2">Item 3</li>
     </ul>
 </div>
 ```
@@ -123,9 +123,9 @@ Markup after instantiation:
 ```html
 <div class="widget" id="widget-0">
     <ul id="widget-0-list-0" tabindex="0">
-        <li id="widget-0-item-0" data-makeup-index="0">Item 1</li>
-        <li id="widget-0-item-1" data-makeup-index="1">Item 2</li>
-        <li id="widget-0-item-2" data-makeup-index="2">Item 3</li>
+        <li id="widget-0-item-0">Item 1</li>
+        <li id="widget-0-item-1">Item 2</li>
+        <li id="widget-0-item-2">Item 3</li>
     </ul>
 </div>
 ```
@@ -135,9 +135,9 @@ Markup after pressing down arrow key on focusable element:
 ```html
 <div class="widget" id="widget-0">
     <ul id="widget-0-list-0" aria-activedescendant="widget-0-item-0" tabindex="0">
-        <li class="active-descendant" id="widget-0-item-0" data-makeup-index="0">Item 1</li>
-        <li id="widget-0-item-1" data-makeup-index="1">Item 2</li>
-        <li id="widget-0-item-2" data-makeup-index="2">Item 3</li>
+        <li class="active-descendant" id="widget-0-item-0">Item 1</li>
+        <li id="widget-0-item-1">Item 2</li>
+        <li id="widget-0-item-2">Item 3</li>
     </ul>
 </div>
 ```
@@ -153,24 +153,46 @@ Use CSS to style the active descendant however you wish:
 ## Options
 
 * `activeDescendantClassName`: the HTML class name that will be applied to the ARIA active descendant element (default: 'active-descendant')
-* `autoInit`: specify an integer or -1 for initial index (default: 0) (see [`makeup-navigation-emitter`](https://github.com/makeup-js/makeup-navigation-emitter#options))
-* `autoReset`: specify an integer or -1 for index position when focus exits widget (default: null) (see [`makeup-navigation-emitter`](https://github.com/makeup-js/makeup-navigation-emitter#options))
+* `autoInit`: declares the initial active descendant item (default: "none"). Possible values are:
+    * "none": no index position is set (useful in programmatic active-descendant)
+    * "interactive": first non aria-disabled or hidden element (default)
+    * "ariaChecked": first element with aria-checked=true (useful in ARIA menu)
+    * "ariaSelected": first element with aria-selected=true (useful in ARIA tabs)
+    * "ariaSelectedOrInteractive": first element with aria-selected=true, falling back to "interactive" if not found (useful in ARIA listbox)
+    * *number*: specific index position of items (throws error if non-interactive)
+* `autoReset`: declares the active descendant item after a reset and/or when keyboard focus exits the widget (default: "none"). Possible values are:
+    * "none": no index position is set (useful in programmatic active-descendant)
+    * "current": index remains current (radio button like behaviour)
+    * "interactive": index moves to first non aria-disabled or hidden element
+    * "ariaChecked": index moves to first element with aria-checked=true
+    * "ariaSelected": index moves to first element with aria-selected=true 
+    * *number*: specific index position of items (throws error if non-interactive)
 * `autoScroll` : Specify true to scroll the container as activeDescendant changes (default: false)
 * `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
-* `ignoreButtons`: if set to true, nested button elements will not trigger navigationModelChange events. This is useful in a combobox + button scenario, where only the textbox should trigger navigationModelChange events (default: false)
+* `ignoreByDelegateSelector`: CSS selector of descendant elements that will be ignored by the navigation emitters key event delegation (i.e. these elements will *not* operate the active descendant) (default: null)
 
 ## Custom Events
 
+* `activeDescendantInit`
+    * detail
+        * items
+        * fromIndex
+        * toIndex
 * `activeDescendantChange`
+    * detail
+        * fromIndex
+        * toIndex
+* `activeDescendantReset`
     * detail
         * fromIndex
         * toIndex
 
 ## Properties
 
-* `filteredItems`: returns filtered items (e.g. non-hidden items)
-* `index`: the index position of the current active descendant
-* `items`: returns all items that match item selector
+* `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden & non-disabled items)
+* `index`: the index position of the current active descendant. A no-op on aria-disabled or hidden items.
+* `matchingItems`: returns all items that match item selector
+* `nonEmittingElementSelector`: CSS selector of nested elements that will *not* operate the navigation emitter. This is useful in a combobox + button scenario, where the nested button should not trigger navigationModelChange events (default: null)
 
 ## Methods
 

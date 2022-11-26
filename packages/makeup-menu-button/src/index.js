@@ -13,7 +13,9 @@ export default class {
         this._options = Object.assign({}, defaultOptions, selectedOptions);
         this.el = widgetEl;
         this._buttonEl = widgetEl.querySelector('button');
-        this.menu = new Menu(widgetEl.querySelector(this._options.menuSelector));
+        this.menu = new Menu(widgetEl.querySelector(this._options.menuSelector), {
+            autoReset: 'interactive'
+        });
         this._buttonPrefix = this._buttonEl.dataset?.makeupMenuButtonPrefix;
         this._buttonTextEl = this._buttonEl.querySelector(defaultOptions.buttonTextSelector);
 

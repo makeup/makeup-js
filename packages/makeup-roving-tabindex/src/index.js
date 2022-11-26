@@ -3,41 +3,26 @@
 import * as NavigationEmitter from 'makeup-navigation-emitter';
 
 const defaultOptions = {
-    autoReset: null,
-    index: 0,
+    autoInit: 'interactive',
+    autoReset: 'current',
     wrap: false,
     axis: 'both'
 };
 
-const nodeListToArray = (nodeList) => Array.prototype.slice.call(nodeList);
-
-function onModelMutation() {
-    const modelIndex = this._navigationEmitter.model.index;
-
-    this.filteredItems.forEach((el, index) => el.setAttribute('tabindex', index !== modelIndex ? '-1' : '0'));
+function refreshTabindex(items, focusIndex) {
+    items.forEach(function(el, i) {
+        el.setAttribute('tabindex', i === focusIndex ? '0' : '-1');
+    });
 }
 
 function onModelInit(e) {
-    const items = e.detail.items;
+    refreshTabindex(e.detail.items, e.detail.toIndex);
 
-    nodeListToArray(items).filter((el, i) => i !== e.detail.toIndex).forEach(el => el.setAttribute('tabindex', '-1'));
-
-    if (items[e.detail.toIndex]) {
-        items[e.detail.toIndex].setAttribute('tabindex', '0');
-    }
-}
-
-function onModelReset(e) {
-    this._index = e.detail.toIndex; // seems unused internally. scheduled for deletion.
-
-    const items = this.filteredItems;
-
-    nodeListToArray(items).filter((el, i) => i !== e.detail.toIndex).forEach(el => el.setAttribute('tabindex', '-1'));
-    items[e.detail.toIndex].setAttribute('tabindex', '0');
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexInit', { detail: e.detail }));
 }
 
 function onModelChange(e) {
-    const items = this.filteredItems;
+    const items = this.items;
 
     const fromItem = items[e.detail.fromIndex];
     const toItem = items[e.detail.toIndex];
@@ -51,12 +36,19 @@ function onModelChange(e) {
         toItem.focus();
     }
 
-    this._el.dispatchEvent(new CustomEvent('rovingTabindexChange', {
-        detail: {
-            fromIndex: e.detail.fromIndex,
-            toIndex: e.detail.toIndex
-        }
-    }));
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexChange', { detail: e.detail }));
+}
+
+function onModelReset(e) {
+    refreshTabindex(this.items, e.detail.toIndex);
+
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexReset', { detail: e.detail }));
+}
+
+function onModelMutation(e) {
+    refreshTabindex(this.items, e.detail.toIndex);
+
+    this._el.dispatchEvent(new CustomEvent('rovingTabindexMutation', { detail: e.detail }));
 }
 
 class RovingTabindex {
@@ -89,8 +81,9 @@ class LinearRovingTabindex extends RovingTabindex {
 
         this._itemSelector = itemSelector;
 
+        // todo: options.index is deprecated. Remove support in future release.
         this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
-            autoInit: this._options.index,
+            autoInit: (this._options.index !== undefined) ? this._options.index : this._options.autoInit,
             autoReset: this._options.autoReset,
             wrap: this._options.wrap,
             axis: this._options.axis
@@ -109,17 +102,12 @@ class LinearRovingTabindex extends RovingTabindex {
         this._navigationEmitter.model.options.wrap = newWrap;
     }
 
-    get filteredItems() {
-        return this._navigationEmitter.model.filteredItems;
+    get currentItem() {
+        return this._navigationEmitter.model.currentItem;
     }
 
     get items() {
         return this._navigationEmitter.model.items;
-    }
-
-    // backwards compat
-    get _items() {
-        return this.items;
     }
 
     reset() {

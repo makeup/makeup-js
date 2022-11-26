@@ -7,13 +7,13 @@ import * as NavigationEmitter from '../../packages/makeup-navigation-emitter';
 const emitters = [];
 const appender = document.getElementById('appender');
 const widgetEls = document.querySelectorAll('.widget');
-const consoleEls = document.querySelectorAll('.console');
 const wrapCheckbox = document.getElementById('wrap');
+const log = e => console.log(e.type, e.detail);
 
 const options = [
     { },
-    { autoInit: -1, autoReset: -1 },
-    { autoInit: -1, autoReset: -1 }
+    { autoInit: 'none', autoReset: 'none' },
+    { autoInit: 'none', autoReset: 'none' }
 ];
 
 appender.addEventListener('click', function() {
@@ -26,15 +26,10 @@ appender.addEventListener('click', function() {
 });
 
 widgetEls.forEach(function(el, index) {
-    el.addEventListener('navigationModelInit', function(e) {
-        consoleEls[index].value = e.detail.toIndex;
-    });
-    el.addEventListener('navigationModelChange', function(e) {
-        consoleEls[index].value = e.detail.toIndex;
-    });
-    el.addEventListener('navigationModelReset', function(e) {
-        consoleEls[index].value = e.detail.toIndex;
-    });
+    el.addEventListener('navigationModelInit', log);
+    el.addEventListener('navigationModelChange', log);
+    el.addEventListener('navigationModelReset', log);
+    el.addEventListener('navigationModelMutation', log);
     emitters.push(NavigationEmitter.createLinear(el, 'li', options[index]));
 });
 

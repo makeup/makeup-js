@@ -130,7 +130,7 @@ function _onTextboxKeyDown(e) {
   if (this._options.autoSelect === false && e.keyCode === 13 && this._inputEl.getAttribute('aria-activedescendant')) {
     e.preventDefault();
     var widget = this;
-    this._inputEl.value = this._listboxWidget.items.filter(el => !el.hidden)[this._listboxWidget._activeDescendant.index].innerText;
+    this._inputEl.value = this._listboxWidget.items[this._listboxWidget._activeDescendant.index].innerText;
     _dispatchChangeEvent(this._el, this._inputEl.value);
     this._listboxWidget._activeDescendant.reset();
     setTimeout(function () {
@@ -165,10 +165,11 @@ function _onTextboxInput() {
 }
 function _onListboxClick(e) {
   var widget = this;
-  var element = e.target.closest('[data-makeup-index]');
-  var indexData = element.dataset.makeupIndex;
+  var element = e.target.closest('[role=option]');
+  var indexData = this._listboxWidget.items.indexOf(element);
+  console.log(indexData);
   if (indexData !== undefined) {
-    this._inputEl.value = this._listboxWidget.items.filter(el => !el.hidden)[indexData].innerText;
+    this._inputEl.value = this._listboxWidget.items[indexData].innerText;
     if (this._options.autoSelect === false) {
       _dispatchChangeEvent(this._el, this._inputEl.value);
     }
@@ -179,7 +180,7 @@ function _onListboxClick(e) {
 }
 function _onListboxActiveDescendantChange(e) {
   if (this._options.autoSelect === true) {
-    this._inputEl.value = this._listboxWidget.items.filter(el => !el.hidden)[e.detail.toIndex].innerText;
+    this._inputEl.value = this._listboxWidget.items[e.detail.toIndex].innerText;
     _dispatchChangeEvent(this._el, this._inputEl.value);
   }
 }

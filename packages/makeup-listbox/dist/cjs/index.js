@@ -106,7 +106,8 @@ class _default {
   }
   select(index) {
     this._unobserveMutations();
-    if (_indexInBounds(index, this.items.length)) {
+    var itemEl = this.items[index];
+    if (itemEl && itemEl.getAttribute('aria-disabled') !== 'true') {
       var matchingItem = this.items[index];
       matchingItem.setAttribute('aria-selected', 'true');
       if (this._options.useAriaChecked === true) {
@@ -123,7 +124,8 @@ class _default {
   }
   unselect(index) {
     this._unobserveMutations();
-    if (_indexInBounds(index, this.items.length)) {
+    var itemEl = this.items[index];
+    if (itemEl && itemEl.getAttribute('aria-disabled') !== 'true') {
       var matchingItem = this.items[index];
       matchingItem.setAttribute('aria-selected', 'false');
       if (this._options.useAriaChecked === true) {
@@ -157,7 +159,8 @@ function _onClick(e) {
   var toEl = e.target.closest('[role=option]');
   var toElIndex = this.items.indexOf(toEl);
   var isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
-  if (this._options.autoSelect === false && isTolElSelected === false) {
+  var isTolElDisabled = toEl.getAttribute('aria-disabled') === 'true';
+  if (!isTolElDisabled && this._options.autoSelect === false && isTolElSelected === false) {
     // todo: this.select() should take care of unselecting any existing selections
     this.unselect(this.index);
     this.select(toElIndex);
@@ -190,7 +193,4 @@ function _onMutation(mutationsList) {
       }));
     }
   }
-}
-function _indexInBounds(index, size) {
-  return index > -1 && index < size;
 }

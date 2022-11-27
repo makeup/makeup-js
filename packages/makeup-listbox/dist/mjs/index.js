@@ -92,7 +92,8 @@ class src_default {
   }
   select(index) {
     this._unobserveMutations();
-    if (_indexInBounds(index, this.items.length)) {
+    const itemEl = this.items[index];
+    if (itemEl && itemEl.getAttribute("aria-disabled") !== "true") {
       const matchingItem = this.items[index];
       matchingItem.setAttribute("aria-selected", "true");
       if (this._options.useAriaChecked === true) {
@@ -109,7 +110,8 @@ class src_default {
   }
   unselect(index) {
     this._unobserveMutations();
-    if (_indexInBounds(index, this.items.length)) {
+    const itemEl = this.items[index];
+    if (itemEl && itemEl.getAttribute("aria-disabled") !== "true") {
       const matchingItem = this.items[index];
       matchingItem.setAttribute("aria-selected", "false");
       if (this._options.useAriaChecked === true) {
@@ -139,7 +141,8 @@ function _onClick(e) {
   const toEl = e.target.closest("[role=option]");
   const toElIndex = this.items.indexOf(toEl);
   const isTolElSelected = toEl.getAttribute("aria-selected") === "true";
-  if (this._options.autoSelect === false && isTolElSelected === false) {
+  const isTolElDisabled = toEl.getAttribute("aria-disabled") === "true";
+  if (!isTolElDisabled && this._options.autoSelect === false && isTolElSelected === false) {
     this.unselect(this.index);
     this.select(toElIndex);
   }
@@ -167,9 +170,6 @@ function _onMutation(mutationsList) {
       }));
     }
   }
-}
-function _indexInBounds(index, size) {
-  return index > -1 && index < size;
 }
 export {
   src_default as default

@@ -73,7 +73,7 @@ function onModelMutation(e) {
   var {
     toIndex
   } = e.detail;
-  var activeDescendantClassName = this.options.activeDescendantClassName;
+  var activeDescendantClassName = this._options.activeDescendantClassName;
   this.items.forEach(function (item, index) {
     (0, _makeupNextId.default)(item);
     if (index !== toIndex) {

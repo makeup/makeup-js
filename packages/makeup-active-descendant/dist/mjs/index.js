@@ -50,7 +50,7 @@ function onModelReset(e) {
 }
 function onModelMutation(e) {
   const { toIndex } = e.detail;
-  const activeDescendantClassName = this.options.activeDescendantClassName;
+  const activeDescendantClassName = this._options.activeDescendantClassName;
   this.items.forEach(function(item, index) {
     nextID(item);
     if (index !== toIndex) {

@@ -1,4 +1,6 @@
 import MakeupSwitch from '../src/index.js';
+import { expect } from 'chai';
+import sinon from 'sinon';
 
 const defaultMarkup = `<span class="switch">
   <span class="switch__control" role="switch" tabindex="0"></span>
@@ -21,11 +23,11 @@ describe('given a switch with default markup', function() {
     const switch1 = new MakeupSwitch(document.querySelector('.switch'));
 
     it('then it should not be disabled', function() {
-        expect(switch1.disabled).toEqual(false);
+        expect(switch1.disabled).to.be.false;
     });
 
     it('then it should not be checked', function() {
-        expect(switch1.checked).toEqual(false);
+        expect(switch1.checked).to.be.false;
     });
 });
 
@@ -35,7 +37,7 @@ describe('given a switch with aria-checked="true"', function() {
     const switch1 = new MakeupSwitch(document.querySelector('.switch'));
 
     it('it should be programmatically checked', function() {
-        expect(switch1.checked).toEqual(true);
+        expect(switch1.checked).to.be.true;
     });
 });
 
@@ -45,7 +47,7 @@ describe('given a switch with aria-disabled="true"', function() {
     const switch1 = new MakeupSwitch(document.querySelector('.switch'));
 
     it('then it should be programmatically disabled', function() {
-        expect(switch1.disabled).toEqual(true);
+        expect(switch1.disabled).to.be.true;
     });
 });
 
@@ -53,7 +55,7 @@ describe('given a switch that is unchecked', function() {
     document.body.innerHTML = defaultMarkup;
     const switchEl = document.querySelector('.switch');
 
-    let onToggle = jasmine.createSpy('onToggle');
+    let onToggle = sinon.spy();
     switchEl.addEventListener('makeup-switch-toggle', onToggle);
 
     const switch1 = new MakeupSwitch(switchEl);
@@ -62,11 +64,11 @@ describe('given a switch that is unchecked', function() {
         document.querySelector('.switch__control').click();
 
         it('then it should be checked', function() {
-            expect(switch1.checked).toEqual(true);
+            expect(switch1.checked).to.be.true;
         });
 
         it('then it should trigger one toggle event', function() {
-            expect(onToggle).toHaveBeenCalledTimes(1);
+            expect(onToggle.callCount).to.equal(1);
         });
     });
 });

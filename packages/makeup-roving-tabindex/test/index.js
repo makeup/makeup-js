@@ -242,9 +242,7 @@ describe('given 3 items with default options', function() {
         });
 
         it('should trigger 1 navigationModelChange event', function() {
-            setTimeout(function() {
-                expect(onNavigationModelChange.callCount).to.equal(1);
-            }, timeoutInterval);
+            expect(onNavigationModelChange.callCount).to.equal(1);
         });
     });
 });
@@ -589,7 +587,7 @@ describe('given 3 items with axis set to y', function() {
 
 /* BEGIN AUTO RESET TESTS */
 
-describe('given 3 items', function() {
+describe('given 3 items with focus on second', function() {
     var buttonEl;
 
     function setup() {
@@ -604,16 +602,17 @@ describe('given 3 items', function() {
 
         testEl = document.querySelector('.widget');
         buttonEl = document.querySelector('button');
-        testRovingIndex = RovingTabindex.createLinear(testEl, 'li', {autoReset: 1}); // eslint-disable-line
+        testRovingIndex = RovingTabindex.createLinear(testEl, 'li', {autoReset: "current"}); // eslint-disable-line
 
         onNavigationModelChange = Sinon.spy();
         testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+        triggerArrowKeyPress(testEl, 'Down', 1);
     }
 
     before(setup);
     afterEach(setup);
 
-    describe('when autoReset is 1', function() {
+    describe('when autoReset is set to current', function() {
         before(function() {
             testRovingIndex.reset();
         });
@@ -629,9 +628,53 @@ describe('given 3 items', function() {
         });
 
         it('should set focus to item with index 1', function() {
-            setTimeout(function() {
-                expect(testRovingIndex.index).to.equal(1);
-            }, timeoutInterval);
+            expect(testRovingIndex.index).to.equal(1);
+        });
+    });
+});
+
+describe('given 3 items with focus on second', function() {
+    var buttonEl;
+
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+            <button>Button 1</button>
+        `;
+
+        testEl = document.querySelector('.widget');
+        buttonEl = document.querySelector('button');
+        testRovingIndex = RovingTabindex.createLinear(testEl, 'li', {autoReset: "interactive"}); // eslint-disable-line
+
+        onNavigationModelChange = Sinon.spy();
+        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+        triggerArrowKeyPress(testEl, 'Down', 1);
+    }
+
+    before(setup);
+    afterEach(setup);
+
+    describe('when autoReset is set to interactive', function() {
+        before(function() {
+            testRovingIndex.reset();
+        });
+
+        it('should have index value of 0', function() {
+            expect(testRovingIndex.index).to.equal(0);
+        });
+    });
+
+    describe('when focus exits the widget', function() {
+        before(function() {
+            buttonEl.focus();
+        });
+
+        it('should set focus to item with index 0', function() {
+            expect(testRovingIndex.index).to.equal(0);
         });
     });
 });

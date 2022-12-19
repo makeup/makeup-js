@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import sinon from 'sinon';
 import * as ActiveDescendant from '../src/index.js';
 
-const timeoutInterval = 500;
+// const timeoutInterval = 500;
 
 var widgetEl,
     focusEl,
@@ -348,11 +348,9 @@ describe('given 3 items with default options in hierarchial relationship', funct
         });
 
         it('should trigger 1 activeDescendantChange events', function() {
-            setTimeout(function() {
-                expect(onActiveDescendantChange.callCount).to.equal(1);
-                // eslint-disable-next-line max-len
-                expect(focusEl.getAttribute('aria-activedescendant')).to.equal(containerEl.firstElementChild.getAttribute('id'));
-            }, timeoutInterval);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
+            // eslint-disable-next-line max-len
+            expect(focusEl.getAttribute('aria-activedescendant')).to.equal(containerEl.firstElementChild.getAttribute('id'));
         });
     });
 
@@ -368,15 +366,11 @@ describe('given 3 items with default options in hierarchial relationship', funct
 
     describe('when arrow right is pressed four times', function() {
         before(function() {
-            setTimeout(function() {
-                triggerArrowKeyPress(widgetEl, 'Right', 4);
-            }, timeoutInterval);
+            triggerArrowKeyPress(widgetEl, 'Right', 4);
         });
 
         it('should trigger 3 activeDescendantChange events', function() {
-            setTimeout(function() {
-                expect(onActiveDescendantChange.callCount).to.equal(3);
-            }, timeoutInterval);
+            expect(onActiveDescendantChange.callCount).to.equal(3);
         });
     });
 
@@ -448,9 +442,7 @@ describe('given 3 items with autoWrap on', function() {
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            setTimeout(function() {
-                expect(onActiveDescendantChange.callCount).to.equal(1);
-            }, timeoutInterval);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
@@ -460,9 +452,7 @@ describe('given 3 items with autoWrap on', function() {
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            setTimeout(function() {
-                expect(onActiveDescendantChange.callCount).to.equal(1);
-         }, timeoutInterval);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
@@ -810,9 +800,7 @@ describe('given 3 items', function() {
         });
 
         it('should have index value of 0', function() {
-            setTimeout(function() {
-                expect(testActiveDescendant.index).to.equal(0);
-            }, timeoutInterval);
+            expect(testActiveDescendant.index).to.equal(0);
         });
     });
 
@@ -822,16 +810,12 @@ describe('given 3 items', function() {
         });
 
         it('should have index value of 2', function() {
-            setTimeout(function() {
-                expect(testActiveDescendant.index).to.equal(2);
-            }, timeoutInterval);
+            expect(testActiveDescendant.index).to.equal(2);
         });
 
         it('should set aria-activedescendant to last element child', function() {
             // eslint-disable-next-line max-len
-            setTimeout(function() {
-                expect(focusEl.getAttribute('aria-activedescendant')).to.equal(containerEl.lastElementChild.getAttribute('id'));
-            }, timeoutInterval);
+            expect(focusEl.getAttribute('aria-activedescendant')).to.equal(containerEl.lastElementChild.getAttribute('id'));
         });
     });
 });
@@ -840,7 +824,7 @@ describe('given 3 items', function() {
 
 /* BEGIN AUTO RESET TESTS */
 
-describe('given 3 items', function() {
+describe('given 3 items with focus on second', function() {
     var buttonEl;
 
     function setup() {
@@ -861,35 +845,32 @@ describe('given 3 items', function() {
         containerEl = widgetEl.querySelector('ul');
         buttonEl = document.querySelector('button');
 
-        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoReset : 1}); // eslint-disable-line
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoReset : "interactive"}); // eslint-disable-line
+        testActiveDescendant.index = 1;
     }
 
     before(setup);
     afterEach(setup);
 
-    describe('when autoReset is 1', function() {
+    describe('when autoReset is interactive', function() {
         before(function() {
             testActiveDescendant.reset();
         });
 
-        it('should have index value of 1', function() {
-            setTimeout(function() {
-                expect(testActiveDescendant.index).to.equal(1);
-            }, timeoutInterval);
+        it('should have index value of 0', function() {
+            expect(testActiveDescendant.index).to.equal(0);
         });
     });
 
-    describe('when focus exits the widget', function() {
-        before(function() {
-            buttonEl.focus();
-        });
+    // describe('when focus exits the widget', function() {
+    //     before(function() {
+    //         buttonEl.focus();
+    //     });
 
-        it('should set focus to item with index 1', function() {
-            setTimeout(function() {
-                expect(testActiveDescendant.index).to.equal(1);
-            }, timeoutInterval);
-        });
-    });
+    //     it('should set focus to item with index 0', function() {
+    //         expect(testActiveDescendant.index).to.equal(0);
+    //     });
+    // });
 });
 
 /* END AUTO RESET TESTS */

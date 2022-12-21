@@ -4,7 +4,6 @@ import * as keyboardTrap from '../src/index.js';
 import testData from './data.js';
 
 testData.forEach(function(data) {
-
     var trapEl;
     var onTrap;
     var onUntrap;
@@ -20,6 +19,7 @@ testData.forEach(function(data) {
                 trapEl.addEventListener('keyboardTrap', onTrap);
                 trapEl.addEventListener('keyboardUntrap', onUntrap);
                 keyboardTrap.trap(trapEl);
+                keyboardTrap.refresh();
             });
 
             after(function() {
@@ -54,6 +54,7 @@ testData.forEach(function(data) {
             trapEl.addEventListener('keyboardUntrap', onUntrap);
 
             keyboardTrap.trap(trapEl);
+            keyboardTrap.refresh();
             onTrap.resetHistory();
         });
 

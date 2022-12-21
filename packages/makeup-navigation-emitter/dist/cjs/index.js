@@ -45,9 +45,7 @@ function findIgnoredByDelegateItems(el, options) {
 }
 function findPreviousNavigableIndex(items, index, wrap) {
   var previousNavigableIndex = -1;
-  if (index === null) {
-    // no-op
-  } else if (atStart(items, index)) {
+  if (index === null || atStart(items, index)) {
     if (wrap === true) {
       previousNavigableIndex = findLastNavigableIndex(items);
     }

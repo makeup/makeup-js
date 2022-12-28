@@ -140,35 +140,37 @@ describe('given a list of 3 aria-disabled items', function() {
 
 /* BEGIN MUTATION TESTS */
 
-// describe('given a list of 3 visible items', function() {
-//     before(function() {
-//         document.body.innerHTML = `
-//             <ul class="widget">
-//                 <li>Item 1</li>
-//                 <li>Item 2</li>
-//                 <li>Item 3</li>
-//             </ul>
-//         `;
+describe('given a list of 3 visible items', function() {
+    before(function() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
 
-//         testEl = document.querySelector('.widget');
-//         onNavigationModelMutation = sinon.spy();
-//         testEl.addEventListener('navigationModelMutation', onNavigationModelMutation.bind(this));
-//         testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
-//     });
+        testEl = document.querySelector('.widget');
+        onNavigationModelMutation = sinon.spy();
+        testEl.addEventListener('navigationModelMutation', onNavigationModelMutation.bind(this));
+        testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
+    });
 
-//     describe('when second item is hidden', function() {
-//         before(function(done) {
-//             testEmitter.model.items[1].hidden = true;
-//             setTimeout(function() {
-//                 done();
-//             }, 1000);
-//         });
+    describe('when second item is hidden', function() {
+        before(function(done) {
+            testEmitter.model.items[1].hidden = true;
+            // a delay is added to wait for a sec for mutation to trigger
+            setTimeout(function() {
+                done();
+            }, 1000);
+        });
 
-//         it('should trigger 1 navigationModelMutation event', function() {
-//             expect(onNavigationModelMutation.called).to.be.true;
-//         });
-//     });
-// });
+        it('should trigger 1 navigationModelMutation event', function() {
+            // eslint-disable-next-line no-unused-expressions
+            expect(onNavigationModelMutation.calledOnce).to.be.true;
+        });
+    });
+});
 
 /* END MUTATION TESTS */
 
@@ -273,6 +275,43 @@ describe('given 3 items with default options', function() {
 
         it('should trigger 0 navigationModelChange events', function() {
             expect(onNavigationModelChange.callCount).to.equal(0);
+        });
+    });
+});
+
+describe('given 3 items with default options', function() {
+    var secondListEl;
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li class="second">Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+        testEl = document.querySelector('.widget');
+        secondListEl = document.querySelector('.second');
+        testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
+
+        onNavigationModelChange = sinon.spy();
+        testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+    }
+
+    before(setup);
+    afterEach(setup);
+
+    describe('when second item is clicked', function() {
+        beforeEach(function() {
+            secondListEl.click();
+        });
+        it('should trigger 1 navigationModelChange events', function() {
+            // eslint-disable-next-line no-unused-expressions
+            expect(onNavigationModelChange.calledOnce).to.be.true;
+        });
+
+        it('should have index value of 1', function() {
+            expect(testEmitter.model.index).to.equal(1);
         });
     });
 });
@@ -665,7 +704,7 @@ describe('given 3 items', function() {
             <ul class="widget">
                 <li>Item 1</li>
                 <li aria-selected="true">Item 2</li>
-                <li>Item 3</li>
+                <li aria-checked ="true">Item 3</li>
             </ul>
         `;
 
@@ -677,9 +716,9 @@ describe('given 3 items', function() {
     before(setup);
     afterEach(setup);
 
-    describe('when autoInit is null', function() {
+    describe('when autoInit is none', function() {
         before(function() {
-            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: null}); // eslint-disable-line
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 'none'}); // eslint-disable-line
         });
 
         it('should trigger navigationModelInit event', function() {
@@ -691,9 +730,9 @@ describe('given 3 items', function() {
         });
     });
 
-    describe('when autoInit is 0', function() {
+    describe('when autoInit is interactive', function() {
         before(function() {
-            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 0}); // eslint-disable-line
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 'interactive'}); // eslint-disable-line
         });
 
         it('should trigger navigationModelInit event once', function() {
@@ -705,17 +744,17 @@ describe('given 3 items', function() {
         });
     });
 
-    describe('when autoInit is 1', function() {
+    describe('when autoInit is ariaChecked', function() {
         before(function() {
-            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 1}); // eslint-disable-line
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 'ariaChecked'}); // eslint-disable-line
         });
 
         it('should trigger navigationModelInit event once', function() {
             expect(onNavigationModelInit.callCount).to.equal(1);
         });
 
-        it('should have index value of 1', function() {
-            expect(testEmitter.model.index).to.equal(1);
+        it('should have index value of 2', function() {
+            expect(testEmitter.model.index).to.equal(2);
         });
     });
 
@@ -730,6 +769,72 @@ describe('given 3 items', function() {
 
         it('should have index value of 1', function() {
             expect(testEmitter.model.index).to.equal(1);
+        });
+    });
+});
+
+describe('given 3 items', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li aria-selected="true">Item 2</li>
+                <li aria-checked ="true">Item 3</li>
+            </ul>
+        `;
+
+        onNavigationModelInit = sinon.spy();
+        testEl = document.querySelector('.widget');
+        testEl.addEventListener('navigationModelInit', onNavigationModelInit);
+    }
+
+    before(setup);
+    afterEach(setup);
+
+    describe('when autoInit is ariaSelectedOrInteractive', function() {
+        before(function() {
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 'ariaSelectedOrInteractive'}); // eslint-disable-line
+        });
+
+        it('should trigger navigationModelInit event once', function() {
+            expect(onNavigationModelInit.callCount).to.equal(1);
+        });
+
+        it('should pick first aria selected element', function() {
+            expect(testEmitter.model.index).to.equal(1);
+        });
+    });
+});
+
+describe('given 3 items', function() {
+    function setup() {
+        document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li aria-checked ="true">Item 3</li>
+            </ul>
+        `;
+
+        onNavigationModelInit = sinon.spy();
+        testEl = document.querySelector('.widget');
+        testEl.addEventListener('navigationModelInit', onNavigationModelInit);
+    }
+
+    before(setup);
+    afterEach(setup);
+
+    describe('when autoInit is ariaSelectedOrInteractive', function() {
+        before(function() {
+            testEmitter = NavigationEmitter.createLinear(testEl, 'li', {autoInit: 'ariaSelectedOrInteractive'}); // eslint-disable-line
+        });
+
+        it('should trigger navigationModelInit event once', function() {
+            expect(onNavigationModelInit.callCount).to.equal(1);
+        });
+
+        it('should pick first interactive element', function() {
+            expect(testEmitter.model.index).to.equal(0);
         });
     });
 });
@@ -752,8 +857,6 @@ describe('given 3 items', function() {
         `;
 
         testEl = document.querySelector('.widget');
-        buttonEl = document.querySelector('button');
-
         onNavigationModelReset = sinon.spy();
         testEl.addEventListener('navigationModelReset', onNavigationModelReset);
     }
@@ -776,6 +879,22 @@ describe('given 3 items', function() {
                 expect(onNavigationModelReset.callCount).to.equal(0);
             });
         });
+
+        describe('when focus exits the widget', function() {
+            before(function() {
+                triggerArrowKeyPress(testEl, 'Down', 1);
+                buttonEl = document.querySelector('button');
+                buttonEl.click();
+            });
+
+            it('should set focus to item with index 1', function() {
+                expect(testEmitter.model.index).to.equal(1);
+            });
+
+            // it('should trigger 1 onNavigationModelReset event', function() {
+            //     expect(onNavigationModelReset.calledOnce).to.be.true;
+            // });
+        });
     });
 
     describe('and autoReset is interactive', function() {
@@ -797,21 +916,6 @@ describe('given 3 items', function() {
                 expect(testEmitter.model.index).to.equal(0);
             });
         });
-
-        // describe('when focus exits the widget', function() {
-        //     before(async function() {
-        //         triggerArrowKeyPress(testEl, 'Down', 1);
-        //         buttonEl.focus();
-        //     });
-
-        //     it('should set focus to item with index 0', function() {
-        //         expect(testEmitter.model.index).to.equal(0);
-        //     });
-
-        //     it('should trigger 1 onNavigationModelReset event', function() {
-        //         expect(onNavigationModelReset.calledOnce).to.be.true;
-        //     });
-        // });
     });
 });
 

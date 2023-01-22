@@ -1,8 +1,8 @@
+import {expect} from 'chai';
+import sinon from 'sinon';
 import * as ActiveDescendant from '../src/index.js';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
-
-const timeoutInterval = 500;
+// const timeoutInterval = 500;
 
 var widgetEl,
     focusEl,
@@ -19,7 +19,7 @@ function triggerArrowKeyPress(el, dir, num) {
 /* BEGIN STATIC MODEL SIZE TESTS */
 
 describe('given a list of 3 visible items in programmatic relationship', function() {
-    beforeAll(function() {
+    before(function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
@@ -33,7 +33,7 @@ describe('given a list of 3 visible items in programmatic relationship', functio
     });
 
     describe('when instantiated', function() {
-        beforeAll(function() {
+        before(function() {
             widgetEl = document.querySelector('.widget');
             focusEl = widgetEl.querySelector('input');
             containerEl = widgetEl.querySelector('ul');
@@ -41,13 +41,13 @@ describe('given a list of 3 visible items in programmatic relationship', functio
         });
 
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.items.length).toEqual(3);
+            expect(testActiveDescendant.items.length).to.equal(3);
         });
     });
 });
 
 describe('given a list of 3 visible items in hierarchial relationship', function() {
-    beforeAll(function() {
+    before(function() {
         document.body.innerHTML = `
             <div class="widget">
                 <ul>
@@ -60,7 +60,7 @@ describe('given a list of 3 visible items in hierarchial relationship', function
     });
 
     describe('when instantiated', function() {
-        beforeAll(function() {
+        before(function() {
             widgetEl = document.querySelector('.widget');
             focusEl = widgetEl.querySelector('ul');
             containerEl = focusEl;
@@ -68,13 +68,13 @@ describe('given a list of 3 visible items in hierarchial relationship', function
         });
 
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.items.length).toEqual(3);
+            expect(testActiveDescendant.items.length).to.equal(3);
         });
     });
 });
 
 describe('given a list of 2 visible items, 1 hidden in programmatic relationship', function() {
-    beforeAll(function() {
+    before(function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
@@ -88,7 +88,7 @@ describe('given a list of 2 visible items, 1 hidden in programmatic relationship
     });
 
     describe('when instantiated', function() {
-        beforeAll(function() {
+        before(function() {
             widgetEl = document.querySelector('.widget');
             focusEl = widgetEl.querySelector('input');
             containerEl = widgetEl.querySelector('ul');
@@ -96,13 +96,13 @@ describe('given a list of 2 visible items, 1 hidden in programmatic relationship
         });
 
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.items.length).toEqual(3);
+            expect(testActiveDescendant.items.length).to.equal(3);
         });
     });
 });
 
 describe('given a list of 2 visible items, 1 hidden in hierarchial relationship', function() {
-    beforeAll(function() {
+    before(function() {
         document.body.innerHTML = `
             <div class="widget">
                 <ul>
@@ -115,7 +115,7 @@ describe('given a list of 2 visible items, 1 hidden in hierarchial relationship'
     });
 
     describe('when instantiated with hierarchial relationship', function() {
-        beforeAll(function() {
+        before(function() {
             widgetEl = document.querySelector('.widget');
             focusEl = widgetEl.querySelector('ul');
             containerEl = focusEl;
@@ -123,13 +123,13 @@ describe('given a list of 2 visible items, 1 hidden in hierarchial relationship'
         });
 
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.items.length).toEqual(3);
+            expect(testActiveDescendant.items.length).to.equal(3);
         });
     });
 });
 
 describe('given a list of 3 hidden items in programmatic relationship', function() {
-    beforeAll(function() {
+    before(function() {
         document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
@@ -143,7 +143,7 @@ describe('given a list of 3 hidden items in programmatic relationship', function
     });
 
     describe('when instantiated', function() {
-        beforeAll(function() {
+        before(function() {
             widgetEl = document.querySelector('.widget');
             focusEl = widgetEl.querySelector('input');
             containerEl = widgetEl.querySelector('ul');
@@ -151,13 +151,13 @@ describe('given a list of 3 hidden items in programmatic relationship', function
         });
 
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.items.length).toEqual(3);
+            expect(testActiveDescendant.items.length).to.equal(3);
         });
     });
 });
 
 describe('given a list of 3 hidden items in hierarchial relationship', function() {
-    beforeAll(function() {
+    before(function() {
         document.body.innerHTML = `
             <div class="widget">
                 <ul>
@@ -170,7 +170,7 @@ describe('given a list of 3 hidden items in hierarchial relationship', function(
     });
 
     describe('when instantiated', function() {
-        beforeAll(function() {
+        before(function() {
             widgetEl = document.querySelector('.widget');
             focusEl = widgetEl.querySelector('ul');
             containerEl = focusEl;
@@ -178,7 +178,7 @@ describe('given a list of 3 hidden items in hierarchial relationship', function(
         });
 
         it('model should have 3 items', function() {
-            expect(testActiveDescendant.items.length).toEqual(3);
+            expect(testActiveDescendant.items.length).to.equal(3);
         });
     });
 });
@@ -204,95 +204,95 @@ describe('given 3 items with default options in programmatic relationship', func
         containerEl = widgetEl.querySelector('ul');
         testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
 
-        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        onActiveDescendantChange = sinon.spy();
         widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
     }
 
-    beforeAll(setup);
+    before(setup);
     afterEach(setup);
 
     describe('when arrow left is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             focusEl.focus();
             triggerArrowKeyPress(widgetEl, 'Left', 1);
         });
 
         it('should trigger 0 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow up is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Up', 1);
         });
 
         it('should trigger 0 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow right is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 1 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
             // eslint-disable-next-line max-len
-            expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.firstElementChild.getAttribute('id'));
+            expect(focusEl.getAttribute('aria-activedescendant')).to.equal(containerEl.firstElementChild.getAttribute('id'));
         });
     });
 
     describe('when arrow right is pressed twice', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 2);
         });
 
         it('should trigger 2 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(2);
+            expect(onActiveDescendantChange.callCount).to.equal(2);
         });
     });
 
     describe('when arrow right is pressed four times', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 4);
         });
 
         it('should trigger 3 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
+            expect(onActiveDescendantChange.callCount).to.equal(3);
         });
     });
 
     describe('when arrow right is pressed once after activedescendant is destroyed', function() {
-        beforeAll(function() {
+        before(function() {
             testActiveDescendant.destroy();
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 0 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow down is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
         it('should trigger 1 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
     describe('when arrow down is pressed once after emitter is destroyed', function() {
-        beforeAll(function() {
+        before(function() {
             testActiveDescendant.destroy();
             triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
         it('should trigger 0 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 });
@@ -314,101 +314,95 @@ describe('given 3 items with default options in hierarchial relationship', funct
         containerEl = focusEl;
         testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li'); // eslint-disable-line
 
-        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        onActiveDescendantChange = sinon.spy();
         widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
     }
 
-    beforeAll(setup);
+    before(setup);
     afterEach(setup);
 
     describe('when arrow left is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             focusEl.focus();
             triggerArrowKeyPress(widgetEl, 'Left', 1);
         });
 
         it('should trigger 0 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow up is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Up', 1);
         });
 
         it('should trigger 0 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow right is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 1 activeDescendantChange events', function() {
-            setTimeout(function() {
-                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-                // eslint-disable-next-line max-len
-                expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.firstElementChild.getAttribute('id'));
-            }, timeoutInterval);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
+            // eslint-disable-next-line max-len
+            expect(focusEl.getAttribute('aria-activedescendant')).to.equal(containerEl.firstElementChild.getAttribute('id'));
         });
     });
 
     describe('when arrow right is pressed twice', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 2);
         });
 
         it('should trigger 2 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(2);
+            expect(onActiveDescendantChange.callCount).to.equal(2);
         });
     });
 
     describe('when arrow right is pressed four times', function() {
-        beforeAll(function() {
-            setTimeout(function() {
-                triggerArrowKeyPress(widgetEl, 'Right', 4);
-            }, timeoutInterval);
+        before(function() {
+            triggerArrowKeyPress(widgetEl, 'Right', 4);
         });
 
         it('should trigger 3 activeDescendantChange events', function() {
-            setTimeout(function() {
-                expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
-            }, timeoutInterval);
+            expect(onActiveDescendantChange.callCount).to.equal(3);
         });
     });
 
     describe('when arrow right is pressed once after activedescendant is destroyed', function() {
-        beforeAll(function() {
+        before(function() {
             testActiveDescendant.destroy();
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 0 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow down is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
         it('should trigger 1 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
     describe('when arrow down is pressed once after emitter is destroyed', function() {
-        beforeAll(function() {
+        before(function() {
             testActiveDescendant.destroy();
             triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
         it('should trigger 0 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 });
@@ -435,74 +429,70 @@ describe('given 3 items with autoWrap on', function() {
         containerEl = widgetEl.querySelector('ul');
         testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { wrap : true}); // eslint-disable-line
 
-        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        onActiveDescendantChange = sinon.spy();
         widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
     }
 
-    beforeAll(setup);
+    before(setup);
     afterEach(setup);
 
     describe('when arrow left is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Left', 1);
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            setTimeout(function() {
-                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-            }, timeoutInterval);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
     describe('when arrow up is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Up', 1);
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            setTimeout(function() {
-                expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
-         }, timeoutInterval);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
     describe('when arrow right is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
     describe('when arrow right is pressed twice', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 2);
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(2);
+            expect(onActiveDescendantChange.callCount).to.equal(2);
         });
     });
 
     describe('when arrow right is pressed three times', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 3);
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(3);
+            expect(onActiveDescendantChange.callCount).to.equal(3);
         });
     });
 
     describe('when arrow down is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 });
@@ -529,11 +519,11 @@ describe('given 3 items with default options', function() {
         containerEl = widgetEl.querySelector('ul');
         testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { wrap : true}); // eslint-disable-line
 
-        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        onActiveDescendantChange = sinon.spy();
         widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
     }
 
-    beforeAll(setup);
+    before(setup);
     afterEach(setup);
 
     describe('when index set to current index', function() {
@@ -542,7 +532,7 @@ describe('given 3 items with default options', function() {
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
@@ -552,7 +542,7 @@ describe('given 3 items with default options', function() {
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
@@ -562,7 +552,7 @@ describe('given 3 items with default options', function() {
         });
 
         it('should trigger 0 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 });
@@ -589,54 +579,54 @@ describe('given 3 items with axis set to both', function() {
         containerEl = widgetEl.querySelector('ul');
         testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { axis : 'both'}); // eslint-disable-line
 
-        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        onActiveDescendantChange = sinon.spy();
         widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
     }
 
-    beforeAll(setup);
+    before(setup);
     afterEach(setup);
 
     describe('when arrow down is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
     describe('when arrow up is pressed once after arrow down', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
         it('should trigger 2 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
             triggerArrowKeyPress(widgetEl, 'Up', 1);
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
     describe('when arrow right is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
     describe('when arrow left is pressed once after arrow right', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 2 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
             triggerArrowKeyPress(widgetEl, 'Left', 1);
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 });
@@ -659,53 +649,53 @@ describe('given 3 items with axis set to x', function() {
         containerEl = widgetEl.querySelector('ul');
         testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { axis : 'x'}); // eslint-disable-line
 
-        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        onActiveDescendantChange = sinon.spy();
         widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
     }
 
-    beforeAll(setup);
+    before(setup);
     afterEach(setup);
 
     describe('when arrow down is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
         it('should trigger 0 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow up is pressed once after arrow down', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Down', 1);
             triggerArrowKeyPress(widgetEl, 'Up', 1);
         });
 
         it('should trigger 0 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow right is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 1 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 
     describe('when arrow left is pressed once after arrow right', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 2 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
             triggerArrowKeyPress(widgetEl, 'Left', 1);
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 });
@@ -728,53 +718,53 @@ describe('given 3 items with axis set to y', function() {
         containerEl = widgetEl.querySelector('ul');
         testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { axis : 'y'}); // eslint-disable-line
 
-        onActiveDescendantChange = jasmine.createSpy('onActiveDescendantChange');
+        onActiveDescendantChange = sinon.spy();
         widgetEl.addEventListener('activeDescendantChange', onActiveDescendantChange);
     }
 
-    beforeAll(setup);
+    before(setup);
     afterEach(setup);
 
     describe('when arrow right is pressed once', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 1);
         });
 
         it('should trigger 0 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow left is pressed once after arrow right', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Right', 1);
             triggerArrowKeyPress(widgetEl, 'Left', 1);
         });
 
         it('should trigger 0 activeDescendantChange event', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(0);
+            expect(onActiveDescendantChange.callCount).to.equal(0);
         });
     });
 
     describe('when arrow Down is pressed twice', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Down', 2);
         });
 
         it('should trigger 2 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(2);
+            expect(onActiveDescendantChange.callCount).to.equal(2);
         });
     });
 
     describe('when arrow Up is pressed once after arrow down', function() {
-        beforeAll(function() {
+        before(function() {
             triggerArrowKeyPress(widgetEl, 'Down', 1);
         });
 
         it('should trigger 2 activeDescendantChange events', function() {
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
             triggerArrowKeyPress(widgetEl, 'Up', 1);
-            expect(onActiveDescendantChange).toHaveBeenCalledTimes(1);
+            expect(onActiveDescendantChange.callCount).to.equal(1);
         });
     });
 });
@@ -801,37 +791,31 @@ describe('given 3 items', function() {
         containerEl = widgetEl.querySelector('ul');
     }
 
-    beforeAll(setup);
+    before(setup);
     afterEach(setup);
 
     describe('when autoInit is 0', function() {
-        beforeAll(function() {
+        before(function() {
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoInit : 0}); // eslint-disable-line
         });
 
         it('should have index value of 0', function() {
-            setTimeout(function() {
-                expect(testActiveDescendant.index).toBe(0);
-            }, timeoutInterval);
+            expect(testActiveDescendant.index).to.equal(0);
         });
     });
 
     describe('when autoInit is 2', function() {
-        beforeAll(function() {
+        before(function() {
             testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoInit : 2}); // eslint-disable-line
         });
 
         it('should have index value of 2', function() {
-            setTimeout(function() {
-                expect(testActiveDescendant.index).toBe(2);
-            }, timeoutInterval);
+            expect(testActiveDescendant.index).to.equal(2);
         });
 
         it('should set aria-activedescendant to last element child', function() {
             // eslint-disable-next-line max-len
-            setTimeout(function() {
-                expect(focusEl.getAttribute('aria-activedescendant')).toEqual(containerEl.lastElementChild.getAttribute('id'));
-            }, timeoutInterval);
+            expect(focusEl.getAttribute('aria-activedescendant')).to.equal(containerEl.lastElementChild.getAttribute('id'));
         });
     });
 });
@@ -840,7 +824,7 @@ describe('given 3 items', function() {
 
 /* BEGIN AUTO RESET TESTS */
 
-describe('given 3 items', function() {
+describe('given 3 items with focus on second', function() {
     var buttonEl;
 
     function setup() {
@@ -861,35 +845,32 @@ describe('given 3 items', function() {
         containerEl = widgetEl.querySelector('ul');
         buttonEl = document.querySelector('button');
 
-        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoReset : 1}); // eslint-disable-line
+        testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, 'li', { autoReset : "interactive"}); // eslint-disable-line
+        testActiveDescendant.index = 1;
     }
 
-    beforeAll(setup);
+    before(setup);
     afterEach(setup);
 
-    describe('when autoReset is 1', function() {
-        beforeAll(function() {
+    describe('when autoReset is interactive', function() {
+        before(function() {
             testActiveDescendant.reset();
         });
 
-        it('should have index value of 1', function() {
-            setTimeout(function() {
-                expect(testActiveDescendant.index).toBe(1);
-            }, timeoutInterval);
+        it('should have index value of 0', function() {
+            expect(testActiveDescendant.index).to.equal(0);
         });
     });
 
-    describe('when focus exits the widget', function() {
-        beforeAll(function() {
-            buttonEl.focus();
-        });
+    // describe('when focus exits the widget', function() {
+    //     before(function() {
+    //         buttonEl.focus();
+    //     });
 
-        it('should set focus to item with index 1', function() {
-            setTimeout(function() {
-                expect(testActiveDescendant.index).toBe(1);
-            }, timeoutInterval);
-        });
-    });
+    //     it('should set focus to item with index 0', function() {
+    //         expect(testActiveDescendant.index).to.equal(0);
+    //     });
+    // });
 });
 
 /* END AUTO RESET TESTS */

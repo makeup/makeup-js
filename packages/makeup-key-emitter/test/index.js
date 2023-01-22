@@ -1,8 +1,10 @@
+import { expect } from 'chai';
+import sinon from 'sinon';
 import * as KeyEmitter from '../src/index.js';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
+var mockCallBack;
 
-describe("makeup-key-emitter", function() {
+describe("Given a list of three items", function() {
     var dom = '<ul class="widget">'
             + '<li><button>Button 1</button></li>'
             + '<li><button>Button 2</button></li>'
@@ -13,55 +15,155 @@ describe("makeup-key-emitter", function() {
 
     var testEl = document.querySelector('.widget');
 
-    describe('when emitter class is imported', function() {
+    describe('when key emitter class is imported', function() {
         it("KeyEmitter module should not be undefined", function() {
-            expect(KeyEmitter).not.toEqual(undefined);
+            expect(KeyEmitter).not.to.be.undefined;
         });
     });
 
-    describe('when emitter is added', function() {
-        beforeAll(function() {
+    describe('when key emitter is added', function() {
+        before(function() {
+            KeyEmitter.add(testEl);
+        });
+
+        afterEach(function() {
+            mockCallBack = null;
+        });
+
+        it("should trigger homeKeyUp event", function() {
+            // execute
+            mockCallBack = sinon.spy();
+            testEl.addEventListener('homeKeyUp', mockCallBack);
+            var keyUpEvent = new Event('keyup');
+            keyUpEvent.keyCode = 40;
+            keyUpEvent.key = 'Home';
+            testEl.dispatchEvent(keyUpEvent);
+            // assert
+            expect(mockCallBack.callCount).to.equal(1);
+        });
+    });
+
+    describe('when key emitter is added with Key Down', function() {
+        before(function() {
             KeyEmitter.addKeyDown(testEl);
         });
 
-        it("should trigger arrowLeftKeyDown event", function(done) {
-            // assert
-            testEl.addEventListener('arrowLeftKeyDown', done());
+        afterEach(function() {
+            mockCallBack = null;
+        });
+
+        it("should trigger arrowLeftKeyDown event", function() {
             // execute
+            mockCallBack = sinon.spy();
+            testEl.addEventListener('arrowLeftKeyDown', mockCallBack);
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 37;
             keyDownEvent.key = 'ArrowLeft';
             testEl.dispatchEvent(keyDownEvent);
+            // assert
+            expect(mockCallBack.callCount).to.equal(1);
         });
 
-        it("should trigger arrowUpKeyDown event", function(done) {
-            // assert
-            testEl.addEventListener('arrowUpKeyDown', done());
+        it("should trigger arrowUpKeyDown event", function() {
             // execute
+            mockCallBack = sinon.spy();
+            testEl.addEventListener('arrowUpKeyDown', mockCallBack);
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 38;
             keyDownEvent.key = 'ArrowUp';
             testEl.dispatchEvent(keyDownEvent);
+            // assert
+            expect(mockCallBack.callCount).to.equal(1);
         });
 
-        it("should trigger arrowRightKeyDown event", function(done) {
-            // assert
-            testEl.addEventListener('arrowRightKeyDown', done());
+        it("should trigger arrowRightKeyDown event", function() {
             // execute
+            mockCallBack = sinon.spy();
+            testEl.addEventListener('arrowRightKeyDown', mockCallBack);
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 39;
             keyDownEvent.key = 'ArrowRight';
             testEl.dispatchEvent(keyDownEvent);
+            // assert
+            expect(mockCallBack.callCount).to.equal(1);
         });
 
-        it("should trigger arrowDownKeyDown event", function(done) {
-            // assert
-            testEl.addEventListener('arrowDownKeyDown', done());
+        it("should trigger arrowDownKeyDown event", function() {
             // execute
+            mockCallBack = sinon.spy();
+            testEl.addEventListener('arrowDownKeyDown', mockCallBack);
             var keyDownEvent = new Event('keydown');
             keyDownEvent.keyCode = 40;
             keyDownEvent.key = 'ArrowDown';
             testEl.dispatchEvent(keyDownEvent);
+            // assert
+            expect(mockCallBack.callCount).to.equal(1);
+        });
+    });
+
+    describe('when key emitter is added with Key Up', function() {
+        before(function() {
+            KeyEmitter.addKeyUp(testEl);
+        });
+
+        afterEach(function() {
+            mockCallBack = null;
+        });
+
+        it("should trigger spaceKeyUp event", function() {
+            // execute
+            mockCallBack = sinon.spy();
+            testEl.addEventListener('spacebarKeyUp', mockCallBack);
+            var keyUpEvent = new Event('keyup');
+            keyUpEvent.keyCode = 32;
+            keyUpEvent.key = ' ';
+            testEl.dispatchEvent(keyUpEvent);
+            // assert
+            expect(mockCallBack.callCount).to.equal(1);
+        });
+
+        it("should not trigger spaceKeyUp event with shiftKey", function() {
+            // execute
+            mockCallBack = sinon.spy();
+            testEl.addEventListener('spacebarKeyUp', mockCallBack);
+            var keyUpEvent = new Event('keyup');
+            keyUpEvent.keyCode = 32;
+            keyUpEvent.key = ' ';
+            keyUpEvent.shiftKey = true;
+            testEl.dispatchEvent(keyUpEvent);
+            // assert
+            expect(mockCallBack.callCount).to.equal(0);
+        });
+    });
+
+    describe('when key emitter is added and removed', function() {
+        before(function() {
+            KeyEmitter.add(testEl);
+        });
+
+        afterEach(function() {
+            mockCallBack = null;
+        });
+
+        it("should not trigger homeKeyUp event", function() {
+            // execute
+            mockCallBack = sinon.spy();
+            testEl.addEventListener('homeKeyUp', mockCallBack);
+
+            var keyUpEvent = new Event('keyup');
+            keyUpEvent.keyCode = 40;
+            keyUpEvent.key = 'Home';
+            testEl.dispatchEvent(keyUpEvent);
+            // assert
+            expect(mockCallBack.callCount).to.equal(1);
+    
+            // reset the spy
+            mockCallBack = sinon.spy();
+            // execute
+            KeyEmitter.remove(testEl);
+            testEl.dispatchEvent(keyUpEvent);
+            // assert
+            expect(mockCallBack.callCount).to.equal(0);
         });
     });
 });

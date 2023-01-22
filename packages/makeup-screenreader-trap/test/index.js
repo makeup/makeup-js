@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+import sinon from 'sinon';
 import * as screenreaderTrap from '../src/index.js';
 import * as util from '../src/util.js';
 import testData from './data.js';
@@ -11,8 +13,8 @@ function doBeforeAll(html) {
 
     trapEl = document.querySelector('.trap');
 
-    onTrap = jasmine.createSpy('onTrap');
-    onUntrap = jasmine.createSpy('onUntrap');
+    onTrap = sinon.spy();
+    onUntrap = sinon.spy();
 
     trapEl.addEventListener('screenreaderTrap', onTrap);
     trapEl.addEventListener('screenreaderUntrap', onUntrap);
@@ -34,20 +36,20 @@ testData.forEach(function(data) {
     describe('Util', function() {
         describe('given test data', function() {
             describe('when DOM is rendered', function() {
-                beforeAll(function() {
+                before(function() {
                     doBeforeAll(data.html);
                 });
 
                 it('should find correct number of siblings', function() {
-                    expect(util.getSiblings(trapEl).length).toBe(data.numSiblings);
+                    expect(util.getSiblings(trapEl).length).to.equal(data.numSiblings);
                 });
 
                 it('should find correct number of ancestors', function() {
-                    expect(util.getAncestors(trapEl).length).toBe(data.numAncestors);
+                    expect(util.getAncestors(trapEl).length).to.equal(data.numAncestors);
                 });
 
                 it('should find correct number of siblings of ancestors', function() {
-                    expect(util.getSiblingsOfAncestors(trapEl).length).toBe(data.numSiblingsOfAncestors);
+                    expect(util.getSiblingsOfAncestors(trapEl).length).to.equal(data.numSiblingsOfAncestors);
                 });
             });
         });
@@ -56,69 +58,57 @@ testData.forEach(function(data) {
     describe('Module', function() {
         describe('given test data', function() {
             describe('when DOM is rendered and trap is activated', function() {
-                beforeAll(function() {
+                before(function() {
                     doBeforeAll(data.html);
                     screenreaderTrap.trap(trapEl);
                 });
 
-                afterAll(function() {
-                    onTrap.calls.reset();
-                    onUntrap.calls.reset();
-                });
-
                 it('should add aria-hidden=false to trapped element', function() {
-                    expect(trapEl.getAttribute('aria-hidden')).toBe('false');
+                    expect(trapEl.getAttribute('aria-hidden')).to.equal("false");
                 });
 
                 it('should find correct number of elements with aria-hidden attribute', function() {
-                    expect(getAriaHiddenElements().length).toBe(data.numAriaHiddenAfterTrap);
+                    expect(getAriaHiddenElements().length).to.equal(data.numAriaHiddenAfterTrap);
                 });
 
                 it('should find correct number of elements with aria-hidden=true attribute', function() {
-                    expect(getAriaHiddenTrueElements().length).toBe(data.numAriaHiddenTrueAfterTrap);
+                    expect(getAriaHiddenTrueElements().length).to.equal(data.numAriaHiddenTrueAfterTrap);
                 });
 
                 it('should find correct number of elements with aria-hidden=false attribute', function() {
-                    expect(getAriaHiddenFalseElements().length).toBe(data.numAriaHiddenFalseAfterTrap);
+                    expect(getAriaHiddenFalseElements().length).to.equal(data.numAriaHiddenFalseAfterTrap);
                 });
 
                 it('should observe one trap event', function() {
-                    expect(onTrap).toHaveBeenCalledTimes(1);
+                    expect(onTrap.callCount).to.equal(1);
                 });
 
                 it('should not observe any untrap event', function() {
-                    expect(onUntrap).toHaveBeenCalledTimes(0);
+                    expect(onUntrap.callCount).to.equal(0);
                 });
             });
 
             describe('when DOM is rendered and trap is activated then deactivated', function() {
-                beforeAll(function() {
+                before(function() {
                     doBeforeAll(data.html);
                     screenreaderTrap.trap(trapEl);
-                    onTrap.calls.reset();
-                    onUntrap.calls.reset();
                     screenreaderTrap.untrap();
                 });
 
-                afterAll(function() {
-                    onTrap.calls.reset();
-                    onUntrap.calls.reset();
-                });
-
                 it('should find correct number of elements with aria-hidden attribute', function() {
-                    expect(getAriaHiddenElements().length).toBe(data.numAriaHiddenAfterUntrap);
+                    expect(getAriaHiddenElements().length).to.equal(data.numAriaHiddenAfterUntrap);
                 });
 
                 it('should find correct number of elements with aria-hidden=true attribute', function() {
-                    expect(getAriaHiddenTrueElements().length).toBe(data.numAriaHiddenTrueAfterUntrap);
+                    expect(getAriaHiddenTrueElements().length).to.equal(data.numAriaHiddenTrueAfterUntrap);
                 });
 
                 it('should find correct number of elements with aria-hidden=false attribute', function() {
-                    expect(getAriaHiddenFalseElements().length).toBe(data.numAriaHiddenFalseAfterUntrap);
+                    expect(getAriaHiddenFalseElements().length).to.equal(data.numAriaHiddenFalseAfterUntrap);
                 });
 
                 it('should observe a single untrap event', function() {
-                    expect(onUntrap).toHaveBeenCalledTimes(1);
+                    expect(onUntrap.callCount).to.equal(1);
                 });
             });
         });

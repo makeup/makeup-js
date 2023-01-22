@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+import sinon from 'sinon';
 import * as modal from '../src/index.js';
 import testData from './data.js';
 
@@ -15,8 +17,8 @@ function doBeforeAll(html) {
     document.querySelector('body').innerHTML = html;
 
     modalEl = document.querySelector('.modal');
-    onModal = jasmine.createSpy('onModal');
-    onUnmodal = jasmine.createSpy('onUnmodal');
+    onModal = sinon.spy();
+    onUnmodal = sinon.spy();
 
     modalEl.addEventListener('makeup-modal', onModal);
     modalEl.addEventListener('makeup-unmodal', onUnmodal);
@@ -25,41 +27,41 @@ function doBeforeAll(html) {
 testData.forEach(function(data) {
     describe('makeup-modal', function() {
         describe('when modal is activated', function() {
-            beforeAll(function() {
+            before(function() {
                 doBeforeAll(data.html);
                 modal.modal(modalEl);
             });
 
-            afterAll(function() {
-                onModal.calls.reset();
-                onUnmodal.calls.reset();
+            after(function() {
+                onModal.resetHistory();
+                onUnmodal.resetHistory();
             });
 
             it('should observe one modal event', function() {
-                expect(onModal).toHaveBeenCalledTimes(1);
+                expect(onModal.callCount).to.equal(1);
             });
             it('should observe zero unmodal events', function() {
-                expect(onUnmodal).toHaveBeenCalledTimes(0);
+                expect(onUnmodal.callCount).to.equal(0);
             });
         });
         describe('when modal is activated then deactivated', function() {
-            beforeAll(function() {
+            before(function() {
                 doBeforeAll(data.html);
                 modal.modal(modalEl);
                 modal.unmodal();
             });
 
-            afterAll(function() {
-                onModal.calls.reset();
-                onUnmodal.calls.reset();
+            after(function() {
+                onModal.resetHistory();
+                onUnmodal.resetHistory();
             });
 
             it('should observe one modal events', function() {
-                expect(onModal).toHaveBeenCalledTimes(1);
+                expect(onModal.callCount).to.equal(1);
             });
 
             it('should observe one unmodal event', function() {
-                expect(onUnmodal).toHaveBeenCalledTimes(1);
+                expect(onUnmodal.callCount).to.equal(1);
             });
         });
     });

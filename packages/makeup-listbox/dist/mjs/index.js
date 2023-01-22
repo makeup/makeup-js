@@ -2,14 +2,20 @@ import * as ActiveDescendant from "makeup-active-descendant";
 import * as PreventScrollKeys from "makeup-prevent-scroll-keys";
 const defaultOptions = {
   activeDescendantClassName: "listbox__option--active",
+  // the classname applied to the current active desdcendant
   autoInit: "ariaSelectedOrInteractive",
   autoReset: "ariaSelectedOrInteractive",
   autoSelect: true,
+  // when true, aria-checked state matches active-descendant
   customElementMode: false,
   focusableElement: null,
+  // used in a combobox/datepicker scenario
   listboxOwnerElement: null,
+  // used in a combobox/datepicker scenario
   multiSelect: false,
+  // todo
   useAriaChecked: true
+  // doubles up on support for aria-selected to announce visible selected/checked state
 };
 function isSpacebarOrEnter(keyCode) {
   return keyCode === 13 || keyCode === 32;

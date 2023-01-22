@@ -166,6 +166,11 @@ function onMutation(e) {
   }));
 }
 class NavigationModel {
+  /**
+   * @param {HTMLElement} el
+   * @param {string} itemSelector
+   * @param {typeof defaultOptions} selectedOptions
+   */
   constructor(el, itemSelector, selectedOptions) {
     this.options = Object.assign({}, defaultOptions, selectedOptions);
     this._el = el;
@@ -173,6 +178,11 @@ class NavigationModel {
   }
 }
 class LinearNavigationModel extends NavigationModel {
+  /**
+   * @param {HTMLElement} el
+   * @param {string} itemSelector
+   * @param {typeof defaultOptions} selectedOptions
+   */
   constructor(el, itemSelector, selectedOptions) {
     super(el, itemSelector, selectedOptions);
     const fromIndex = this._index;
@@ -192,12 +202,16 @@ class LinearNavigationModel extends NavigationModel {
   get currentItem() {
     return this.items[this.index];
   }
+  // todo: code smell as getter abstracts that the query selector re-runs every time getter is accessed
   get items() {
     return [...this._el.querySelectorAll(`${this._itemSelector}`)];
   }
   get index() {
     return this._index;
   }
+  /**
+   * @param {number} toIndex - update index position in this.items (non-interactive indexes fail silently)
+   */
   set index(toIndex) {
     if (toIndex === this.index) {
       return;
@@ -228,6 +242,10 @@ class LinearNavigationModel extends NavigationModel {
   }
 }
 class NavigationEmitter {
+  /**
+   * @param {HTMLElement} el
+   * @param {LinearNavigationModel} model
+   */
   constructor(el, model) {
     this.model = model;
     this.el = el;

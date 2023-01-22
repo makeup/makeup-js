@@ -4,6 +4,7 @@ function doFocusExit(el, fromElement, toElement) {
   el.dispatchEvent(new CustomEvent("focusExit", {
     detail: { fromElement, toElement },
     bubbles: false
+    // mirror the native mouseleave event
   }));
 }
 function onDocumentFocusIn(e) {

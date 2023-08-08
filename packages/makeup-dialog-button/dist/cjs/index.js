@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var defaultOptions = {
+const defaultOptions = {
   customElementMode: false
 };
 class _default {
@@ -58,7 +58,7 @@ class _default {
 }
 exports.default = _default;
 function _onMutation(mutationsList) {
-  for (var mutation of mutationsList) {
+  for (const mutation of mutationsList) {
     if (mutation.type === 'attributes') {
       this._el.dispatchEvent(new CustomEvent('makeup-dialog-button-mutation', {
         detail: {

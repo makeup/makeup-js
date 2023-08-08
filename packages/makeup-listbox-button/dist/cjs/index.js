@@ -7,7 +7,7 @@ exports.default = void 0;
 var _makeupExpander = _interopRequireDefault(require("makeup-expander"));
 var _makeupListbox = _interopRequireDefault(require("makeup-listbox"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var defaultOptions = {
+const defaultOptions = {
   autoSelect: true,
   buttonLabelSelector: '.expand-btn__text',
   collapseTimeout: 150,
@@ -95,7 +95,7 @@ class _default {
     }
   }
   collapse() {
-    var widget = this;
+    const widget = this;
     setTimeout(function () {
       widget._unobserveMutations();
       widget._expander.expanded = false;
@@ -135,7 +135,7 @@ function _onListboxInit(e) {
   }));
 }
 function _onListboxChange(e) {
-  var toValue = e.detail.optionValue;
+  const toValue = e.detail.optionValue;
   if (this._buttonPrefix) {
     this._buttonLabelEl.innerText = this._buttonPrefix + toValue;
   } else {
@@ -154,7 +154,7 @@ function _onListboxChange(e) {
   }));
 }
 function _onMutation(mutationsList) {
-  for (var mutation of mutationsList) {
+  for (const mutation of mutationsList) {
     if (mutation.type === 'attributes') {
       this.el.dispatchEvent(new CustomEvent('makeup-listbox-button-mutation', {
         detail: {

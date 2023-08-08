@@ -6,21 +6,21 @@ Object.defineProperty(exports, "__esModule", {
 exports.trap = trap;
 exports.untrap = untrap;
 var util = _interopRequireWildcard(require("./util.js"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 // the main landmark
-var mainEl;
+let mainEl;
 
 // the element that will be trapped
-var trappedEl;
+let trappedEl;
 
 // collection of elements that get 'dirtied' with aria-hidden attr or hidden prop
-var dirtyObjects;
+let dirtyObjects;
 
 // filter function for svg elements
-var filterSvg = item => item.tagName.toLowerCase() !== 'svg';
+const filterSvg = item => item.tagName.toLowerCase() !== 'svg';
 function showElementPrep(el, useHiddenProperty) {
-  var preparedElement;
+  let preparedElement;
   if (useHiddenProperty === false) {
     preparedElement = prepareElement(el, 'aria-hidden', 'false');
   } else {
@@ -29,7 +29,7 @@ function showElementPrep(el, useHiddenProperty) {
   return preparedElement;
 }
 function hideElementPrep(el, useHiddenProperty) {
-  var preparedElement;
+  let preparedElement;
   if (useHiddenProperty === false) {
     preparedElement = prepareElement(el, 'aria-hidden', 'true');
   } else {
@@ -38,7 +38,7 @@ function hideElementPrep(el, useHiddenProperty) {
   return preparedElement;
 }
 function prepareElement(el, attributeName, dirtyValue) {
-  var isProperty = typeof dirtyValue === 'boolean';
+  const isProperty = typeof dirtyValue === 'boolean';
   return {
     el,
     attributeName,
@@ -83,13 +83,13 @@ function untrap() {
     trappedEl = null;
   }
 }
-var defaultOptions = {
+const defaultOptions = {
   useHiddenProperty: false
 };
 function trap(el, selectedOptions) {
   // ensure current trap is deactivated
   untrap();
-  var options = Object.assign({}, defaultOptions, selectedOptions);
+  const options = Object.assign({}, defaultOptions, selectedOptions);
 
   // update the trapped el reference
   trappedEl = el;
@@ -103,9 +103,9 @@ function trap(el, selectedOptions) {
   }
 
   // cache all ancestors, siblings & siblings of ancestors for trappedEl
-  var ancestors = util.getAncestors(trappedEl);
-  var siblings = util.getSiblings(trappedEl);
-  var siblingsOfAncestors = util.getSiblingsOfAncestors(trappedEl);
+  const ancestors = util.getAncestors(trappedEl);
+  let siblings = util.getSiblings(trappedEl);
+  let siblingsOfAncestors = util.getSiblingsOfAncestors(trappedEl);
 
   // if using hidden property, filter out SVG elements as they do not support this property
   if (options.useHiddenProperty === true) {

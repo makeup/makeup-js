@@ -9,21 +9,21 @@ exports.untrap = untrap;
 var _makeupFocusables = _interopRequireDefault(require("makeup-focusables"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 // for the element that will be trapped
-var trappedEl;
+let trappedEl;
 
 // for the trap boundary/bumper elements
-var topTrap;
-var outerTrapBefore;
-var innerTrapBefore;
-var innerTrapAfter;
-var outerTrapAfter;
-var botTrap;
+let topTrap;
+let outerTrapBefore;
+let innerTrapBefore;
+let innerTrapAfter;
+let outerTrapAfter;
+let botTrap;
 
 // for the first and last focusable element inside the trap
-var firstFocusableElement;
-var lastFocusableElement;
+let firstFocusableElement;
+let lastFocusableElement;
 function createTrapBoundary() {
-  var trapBoundary = document.createElement('div');
+  const trapBoundary = document.createElement('div');
   trapBoundary.setAttribute('aria-hidden', 'true');
   trapBoundary.setAttribute('tabindex', '0');
   trapBoundary.className = 'keyboard-trap-boundary';
@@ -68,7 +68,7 @@ function untrap() {
   return trappedEl;
 }
 function safeDetach(el) {
-  var parent = el.parentNode;
+  const parent = el.parentNode;
   return parent ? parent.removeChild(el) : el;
 }
 function trap(el) {
@@ -81,8 +81,8 @@ function trap(el) {
 
   // when bundled up with isomorphic components on the server, this code is run,
   // so we must check if 'document' is defined.
-  var body = typeof document === 'undefined' ? null : document.body;
-  var focusableElements = (0, _makeupFocusables.default)(trappedEl, true);
+  const body = typeof document === 'undefined' ? null : document.body;
+  const focusableElements = (0, _makeupFocusables.default)(trappedEl, true);
   firstFocusableElement = focusableElements[0];
   lastFocusableElement = focusableElements[focusableElements.length - 1];
   body.insertBefore(topTrap, body.childNodes[0]);
@@ -101,7 +101,7 @@ function trap(el) {
 }
 function refresh() {
   if (topTrap && trappedEl) {
-    var focusableElements = (0, _makeupFocusables.default)(trappedEl, true);
+    let focusableElements = (0, _makeupFocusables.default)(trappedEl, true);
     focusableElements = focusableElements.filter(function (el) {
       return !el.classList.contains('keyboard-trap-boundary');
     });

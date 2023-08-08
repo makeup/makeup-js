@@ -7,7 +7,7 @@ exports.default = void 0;
 var _makeupExpander = _interopRequireDefault(require("makeup-expander"));
 var _makeupMenu = _interopRequireDefault(require("makeup-menu"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var defaultOptions = {
+const defaultOptions = {
   customElementMode: false,
   expandedClass: 'menu-button--expanded',
   menuSelector: '.menu-button__menu',
@@ -89,7 +89,7 @@ class _default {
 }
 exports.default = _default;
 function _onMutation(mutationsList) {
-  for (var mutation of mutationsList) {
+  for (const mutation of mutationsList) {
     if (mutation.type === 'attributes') {
       this.el.dispatchEvent(new CustomEvent('makeup-menu-button-mutation', {
         detail: {
@@ -112,7 +112,7 @@ function _onMenuItemSelect(e) {
   if (this._buttonPrefix && e.detail.el.getAttribute('role') === 'menuitemradio') {
     this._buttonTextEl.innerText = "".concat(this._buttonPrefix, " ").concat(e.detail.el.innerText);
   }
-  var widget = this;
+  const widget = this;
   setTimeout(function () {
     widget._expander.expanded = false;
     widget._buttonEl.focus();

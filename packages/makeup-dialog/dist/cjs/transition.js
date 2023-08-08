@@ -9,8 +9,8 @@ exports.default = transition;
 /**
 * Author: Mr D.Piercey
 */
-var TRANSITION_END = 'transitionend';
-var IMMEDIATE_TRANSITION_REG = /0m?s(?:, )?/g;
+const TRANSITION_END = 'transitionend';
+const IMMEDIATE_TRANSITION_REG = /0m?s(?:, )?/g;
 /**
 * Applies a primer `-init` class before starting a transition
 * to make transitioning properties that are not animatable easier.
@@ -29,12 +29,12 @@ var IMMEDIATE_TRANSITION_REG = /0m?s(?:, )?/g;
 */
 
 function transition(el, baseClass, cb) {
-  var ended;
-  var pending;
-  var ran = 0;
-  var classList = el.classList;
-  var initClass = ''.concat(baseClass, '-init');
-  var cancelFrame = nextFrame(function () {
+  let ended;
+  let pending;
+  let ran = 0;
+  const classList = el.classList;
+  const initClass = ''.concat(baseClass, '-init');
+  let cancelFrame = nextFrame(function () {
     el.addEventListener(TRANSITION_END, listener, true);
     classList.add(baseClass);
     classList.remove(initClass);
@@ -88,8 +88,8 @@ function transition(el, baseClass, cb) {
 */
 
 function getTransitionCount(el) {
-  var count = window.getComputedStyle(el).transitionDuration.replace(IMMEDIATE_TRANSITION_REG, '') ? 1 : 0;
-  var child = el.firstElementChild;
+  let count = window.getComputedStyle(el).transitionDuration.replace(IMMEDIATE_TRANSITION_REG, '') ? 1 : 0;
+  let child = el.firstElementChild;
   while (child) {
     count += getTransitionCount(child);
     child = child.nextElementSibling;
@@ -104,8 +104,8 @@ function getTransitionCount(el) {
 */
 
 function nextFrame(fn) {
-  var frame;
-  var cancelFrame;
+  let frame;
+  let cancelFrame;
   if (window.requestAnimationFrame) {
     frame = requestAnimationFrame(function () {
       frame = requestAnimationFrame(fn);

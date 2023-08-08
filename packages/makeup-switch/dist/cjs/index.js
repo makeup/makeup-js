@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var defaultOptions = {
+const defaultOptions = {
   bem: {
     control: 'switch__control'
   },
@@ -83,7 +83,7 @@ class _default {
     // aria-labelledby cannot resolve element id references that live outside of the Shadow DOM
     // as a workaround we can use aria-label
     if (this._options.customElementMode) {
-      var labellingEl = document.getElementById(this.labelledby);
+      const labellingEl = document.getElementById(this.labelledby);
       if (labellingEl && labellingEl.innerText !== '') {
         this.label = labellingEl.innerText;
       }
@@ -137,7 +137,7 @@ function _onClick() {
   }
 }
 function _onMutation(mutationsList) {
-  for (var mutation of mutationsList) {
+  for (const mutation of mutationsList) {
     if (mutation.type === 'attributes') {
       this.el.dispatchEvent(new CustomEvent('makeup-switch-mutation', {
         detail: {

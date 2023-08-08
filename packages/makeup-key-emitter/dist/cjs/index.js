@@ -14,7 +14,7 @@ function uncapitalizeFirstLetter(str) {
 }
 function onKeyDownOrUp(evt, el, keyEventType) {
   if (!evt.shiftKey) {
-    var key = evt.key;
+    const key = evt.key;
     switch (key) {
       case 'Enter':
       case 'Escape':

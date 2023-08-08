@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var ActiveDescendant = _interopRequireWildcard(require("makeup-active-descendant"));
 var PreventScrollKeys = _interopRequireWildcard(require("makeup-prevent-scroll-keys"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 /**
 * A listbox can be a standalone focusable widget, or controlled by a separate, focusable widget
@@ -16,7 +16,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 * This code has been copied from Skin & MIND Patterns and has not yet been cleaned up.
 */
 
-var defaultOptions = {
+const defaultOptions = {
   activeDescendantClassName: 'listbox__option--active',
   // the classname applied to the current active desdcendant
   autoInit: 'ariaSelectedOrInteractive',
@@ -106,9 +106,9 @@ class _default {
   }
   select(index) {
     this._unobserveMutations();
-    var itemEl = this.items[index];
+    const itemEl = this.items[index];
     if (itemEl && itemEl.getAttribute('aria-disabled') !== 'true') {
-      var matchingItem = this.items[index];
+      const matchingItem = this.items[index];
       matchingItem.setAttribute('aria-selected', 'true');
       if (this._options.useAriaChecked === true) {
         matchingItem.setAttribute('aria-checked', 'true');
@@ -124,9 +124,9 @@ class _default {
   }
   unselect(index) {
     this._unobserveMutations();
-    var itemEl = this.items[index];
+    const itemEl = this.items[index];
     if (itemEl && itemEl.getAttribute('aria-disabled') !== 'true') {
-      var matchingItem = this.items[index];
+      const matchingItem = this.items[index];
       matchingItem.setAttribute('aria-selected', 'false');
       if (this._options.useAriaChecked === true) {
         matchingItem.setAttribute('aria-checked', 'false');
@@ -146,7 +146,7 @@ class _default {
 }
 exports.default = _default;
 function _onKeyDown(e) {
-  var activeDescendantEl = this._activeDescendant.currentItem;
+  const activeDescendantEl = this._activeDescendant.currentItem;
   if (isSpacebarOrEnter(e.keyCode) && (activeDescendantEl === null || activeDescendantEl === void 0 ? void 0 : activeDescendantEl.getAttribute('aria-selected')) !== 'true') {
     // todo: this.select() should take care of unselecting any existing selections
     this.unselect(this.index);
@@ -156,10 +156,10 @@ function _onKeyDown(e) {
 function _onClick(e) {
   // unlike the keyDown event, the click event target can be a child element of the option
   // e.g. <div role="option"><span>Item 1</span></div>
-  var toEl = e.target.closest('[role=option]');
-  var toElIndex = this.items.indexOf(toEl);
-  var isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
-  var isTolElDisabled = toEl.getAttribute('aria-disabled') === 'true';
+  const toEl = e.target.closest('[role=option]');
+  const toElIndex = this.items.indexOf(toEl);
+  const isTolElSelected = toEl.getAttribute('aria-selected') === 'true';
+  const isTolElDisabled = toEl.getAttribute('aria-disabled') === 'true';
   if (!isTolElDisabled && this._options.autoSelect === false && isTolElSelected === false) {
     // todo: this.select() should take care of unselecting any existing selections
     this.unselect(this.index);
@@ -167,13 +167,13 @@ function _onClick(e) {
   }
 }
 function _onActiveDescendantChange(e) {
-  var {
+  const {
     fromIndex,
     toIndex
   } = e.detail;
   if (this._options.autoSelect === true) {
-    var fromEl = this.items[fromIndex];
-    var toEl = this.items[toIndex];
+    const fromEl = this.items[fromIndex];
+    const toEl = this.items[toIndex];
     if (fromEl) {
       // todo: this.select() should take care of unselecting any existing selections
       this.unselect(fromIndex);
@@ -184,7 +184,7 @@ function _onActiveDescendantChange(e) {
   }
 }
 function _onMutation(mutationsList) {
-  for (var mutation of mutationsList) {
+  for (const mutation of mutationsList) {
     if (mutation.type === 'attributes') {
       this.el.dispatchEvent(new CustomEvent('makeup-listbox-mutation', {
         detail: {

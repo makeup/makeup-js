@@ -7,7 +7,7 @@ exports.default = void 0;
 var _makeupExpander = _interopRequireDefault(require("makeup-expander"));
 var _makeupListbox = _interopRequireDefault(require("makeup-listbox"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var defaultOptions = {
+const defaultOptions = {
   autoSelect: true,
   collapseTimeout: 150,
   customElementMode: false
@@ -129,7 +129,7 @@ function _onTextboxKeyDown(e) {
   // for manual selection, ENTER should not submit form when there is an active descendant
   if (this._options.autoSelect === false && e.keyCode === 13 && this._inputEl.getAttribute('aria-activedescendant')) {
     e.preventDefault();
-    var widget = this;
+    const widget = this;
     this._inputEl.value = this._listboxWidget.items[this._listboxWidget._activeDescendant.index].innerText;
     _dispatchChangeEvent(this._el, this._inputEl.value);
     this._listboxWidget._activeDescendant.reset();
@@ -164,9 +164,9 @@ function _onTextboxInput() {
   }
 }
 function _onListboxClick(e) {
-  var widget = this;
-  var element = e.target.closest('[role=option]');
-  var indexData = this._listboxWidget.items.indexOf(element);
+  const widget = this;
+  const element = e.target.closest('[role=option]');
+  const indexData = this._listboxWidget.items.indexOf(element);
   console.log(indexData);
   if (indexData !== undefined) {
     this._inputEl.value = this._listboxWidget.items[indexData].innerText;
@@ -185,7 +185,7 @@ function _onListboxActiveDescendantChange(e) {
   }
 }
 function _onMutation(mutationsList) {
-  for (var mutation of mutationsList) {
+  for (const mutation of mutationsList) {
     if (mutation.type === 'attributes') {
       this._el.dispatchEvent(new CustomEvent('makeup-combobox-mutation', {
         detail: {
@@ -196,12 +196,12 @@ function _onMutation(mutationsList) {
   }
 }
 function _filterSuggestions(value, items) {
-  var numChars = value.length;
-  var currentValue = value.toLowerCase();
-  var matchedItems = items.filter(el => {
+  const numChars = value.length;
+  const currentValue = value.toLowerCase();
+  const matchedItems = items.filter(el => {
     return el.innerText.trim().substring(0, numChars).toLowerCase() === currentValue;
   });
-  var unmatchedItems = items.filter(el => {
+  const unmatchedItems = items.filter(el => {
     return el.innerText.trim().substring(0, numChars).toLowerCase() !== currentValue;
   });
   matchedItems.forEach(el => el.hidden = false);

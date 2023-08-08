@@ -7,7 +7,7 @@ exports.addFocusExit = addFocusExit;
 exports.removeFocusExit = removeFocusExit;
 var _makeupNextId = _interopRequireDefault(require("makeup-next-id"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var focusExitEmitters = {};
+const focusExitEmitters = {};
 function doFocusExit(el, fromElement, toElement) {
   el.dispatchEvent(new CustomEvent('focusExit', {
     detail: {
@@ -19,8 +19,8 @@ function doFocusExit(el, fromElement, toElement) {
 }
 
 function onDocumentFocusIn(e) {
-  var newFocusElement = e.target;
-  var targetIsDescendant = this.el.contains(newFocusElement);
+  const newFocusElement = e.target;
+  const targetIsDescendant = this.el.contains(newFocusElement);
 
   // if focus has moved to a focusable descendant
   if (targetIsDescendant === true) {
@@ -60,7 +60,7 @@ class FocusExitEmitter {
   }
 }
 function addFocusExit(el) {
-  var exitEmitter = null;
+  let exitEmitter = null;
   (0, _makeupNextId.default)(el);
   if (!focusExitEmitters[el.id]) {
     exitEmitter = new FocusExitEmitter(el);
@@ -69,7 +69,7 @@ function addFocusExit(el) {
   return exitEmitter;
 }
 function removeFocusExit(el) {
-  var exitEmitter = focusExitEmitters[el.id];
+  const exitEmitter = focusExitEmitters[el.id];
   if (exitEmitter) {
     exitEmitter.removeEventListeners();
     delete focusExitEmitters[el.id];

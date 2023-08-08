@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _makeupDialog = _interopRequireDefault(require("makeup-dialog"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var defaultSnackbarOptions = {
+const defaultSnackbarOptions = {
   autoDismissTimer: 6000,
   baseClass: 'snackbar-dialog',
   ctaButtonSelector: '.snackbar-dialog__cta',
@@ -14,7 +14,7 @@ var defaultSnackbarOptions = {
 };
 class _default extends _makeupDialog.default {
   constructor(el) {
-    var selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    let selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     super(el, Object.assign({}, defaultSnackbarOptions, selectedOptions));
     this._autoDismissTimeout = null;
   }
@@ -22,7 +22,7 @@ class _default extends _makeupDialog.default {
     var _this = this;
     super._show();
     this._autoDismissTimeout = setTimeout(function () {
-      var widget = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this;
+      let widget = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this;
       return widget.close();
     }, this._options.autoDismissTimer);
   }

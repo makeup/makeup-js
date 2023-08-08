@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _makeupLightboxDialog = _interopRequireDefault(require("makeup-lightbox-dialog"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var defaultOptions = {
+const defaultOptions = {
   baseClass: 'confirm-dialog',
   closeButtonSelector: '.confirm-dialog__close',
   quickDismiss: true,
@@ -17,7 +17,7 @@ var defaultOptions = {
 };
 class _default extends _makeupLightboxDialog.default {
   constructor(el) {
-    var selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    let selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     super(el, Object.assign({}, defaultOptions, selectedOptions));
   }
   _observeEvents() {

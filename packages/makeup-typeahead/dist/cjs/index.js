@@ -5,15 +5,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 function _default() {
-  var timeout;
-  var typeStr = '';
+  let timeout;
+  let typeStr = '';
   return {
-    getIndex: function getIndex(nodeList, char, timeoutLength) {
+    getIndex: function (nodeList, char, timeoutLength) {
       typeStr = typeStr.concat(char);
-      var index;
+      let index;
       // eslint-disable-next-line eqeqeq
       if (nodeList == null) return -1;
-      var lowerTypeStr = typeStr.toLocaleLowerCase();
+      const lowerTypeStr = typeStr.toLocaleLowerCase();
       index = [...nodeList].findIndex(el => el.textContent.toLocaleLowerCase().startsWith(lowerTypeStr));
       if (index === -1) {
         index = [...nodeList].findIndex(el => el.textContent.toLocaleLowerCase().includes(lowerTypeStr));
@@ -27,7 +27,7 @@ function _default() {
       }, timeoutLength);
       return index;
     },
-    destroy: function destroy() {
+    destroy: function () {
       if (timeout) {
         clearTimeout(timeout);
       }

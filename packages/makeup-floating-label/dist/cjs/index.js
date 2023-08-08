@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var defaultOptions = {
+const defaultOptions = {
   labelElementAnimateModifier: 'floating-label__label--animate',
   labelElementInlineModifier: 'floating-label__label--inline',
   labelElementFocusModifier: 'floating-label__label--focus',
@@ -17,7 +17,7 @@ var defaultOptions = {
 // or placeholder for textbox
 function getPlaceHolder(formControlEl) {
   if (isSelect(formControlEl)) {
-    var firstOption = formControlEl.querySelector('option');
+    const firstOption = formControlEl.querySelector('option');
     return !firstOption.value ? firstOption.text : null;
   } else if (formControlEl.hasAttribute('placeholder')) {
     return formControlEl.getAttribute('placeholder');
@@ -29,7 +29,7 @@ function getPlaceHolder(formControlEl) {
 function setPlaceholder(formControlEl, value) {
   if (isSelect(formControlEl)) {
     formControlEl.style['min-width'] = '';
-    var beforeWidth = formControlEl.offsetWidth;
+    const beforeWidth = formControlEl.offsetWidth;
     formControlEl.querySelector('option').text = value;
     if (!value && beforeWidth > formControlEl.offsetWidth) {
       formControlEl.style['min-width'] = "".concat(beforeWidth, "px");
@@ -44,7 +44,7 @@ function setPlaceholder(formControlEl, value) {
 // Called on mutatation. Sets placeholder for current state (focused or unfocused)
 function checkForPlaceholder(formControlEl) {
   if (isSelect(formControlEl)) {
-    var firstOption = formControlEl.querySelector('option');
+    const firstOption = formControlEl.querySelector('option');
     if (!!firstOption.value) {
       // If first option has a value then it is not a placeholder
       return;
@@ -54,9 +54,9 @@ function checkForPlaceholder(formControlEl) {
   return formControlEl.hasAttribute('placeholder');
 }
 function onMutation() {
-  var textboxFocus = isFocused(this.formControlEl);
+  const textboxFocus = isFocused(this.formControlEl);
   this.placeholder = getPlaceHolder(this.formControlEl) || this.placeholder;
-  var placeholderCheck = checkForPlaceholder(this.formControlEl, this.placeholder);
+  const placeholderCheck = checkForPlaceholder(this.formControlEl, this.placeholder);
   if (!!this.placeholder && textboxFocus && !placeholderCheck) {
     // Input has focus, make sure it has "placeholder" option
     setPlaceholder(this.formControlEl, this.placeholder);
@@ -93,7 +93,7 @@ function isAutofilled(input, color) {
   // check for computed background color because of Chrome autofill bug
   // https://stackoverflow.com/questions/35049555/chrome-autofill-autocomplete-no-value-for-password/35783761#35783761
   if (!isSelect(input)) {
-    var bgColor = getComputedStyle(input).backgroundColor;
+    const bgColor = getComputedStyle(input).backgroundColor;
     return Array.isArray(color) ? !color.includes(bgColor) : bgColor !== color;
   }
   return false;

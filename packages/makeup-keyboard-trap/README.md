@@ -9,10 +9,10 @@ It will ignore <em>programmatically</em> focusable items with a tabindex of `-1`
 This module is still in an experimental state, until it reaches v1 you must consider all minor releases as breaking changes.
 
 ```js
-import * as keyboardTrap from 'makeup-keyboard-trap';
+import * as keyboardTrap from "makeup-keyboard-trap";
 
 // trap an element
-keyboardTrap.trap(document.querySelector('el'));
+keyboardTrap.trap(document.querySelector("el"));
 
 // untrap the current trapped element
 keyboardTrap.untrap();
@@ -30,5 +30,5 @@ yarn add makeup-keyboard-trap
 
 ## Events
 
-* keyboardTrap : fired by trapped element when keyboard trap is activated
-* keyboardUntrap : fired by trapped element when keyboard trap is deactivated
+- keyboardTrap : fired by trapped element when keyboard trap is activated
+- keyboardUntrap : fired by trapped element when keyboard trap is deactivated

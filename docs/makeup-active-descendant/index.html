@@ -1,69 +1,73 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>makeup-active-descendant demo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <style>
-            li[aria-disabled="true"] {
-                color: lightgrey;
-            }
-            li[hidden] {
-                display: block;
-                text-decoration: line-through;
-            }
-            li.active-descendant {
-                outline: 1px dotted black;
-            }
-        </style>
-    </head>
-    <body>
-        <main role="main">
-            <h1>makeup-active-descendant demo</h1>
-            <p>Use ARROW keys to move the active descendant.</p>
-            <p>For the purpose of demonstration, aria-disabled items are greyed out; hidden items have strike-through (in the real world they would obviously be actually hidden). Disabled and hidden items are included in indexing, but skipped in navigation.</p>
+  <head>
+    <title>makeup-active-descendant demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      li[aria-disabled="true"] {
+        color: lightgrey;
+      }
+      li[hidden] {
+        display: block;
+        text-decoration: line-through;
+      }
+      li.active-descendant {
+        outline: 1px dotted black;
+      }
+    </style>
+  </head>
+  <body>
+    <main role="main">
+      <h1>makeup-active-descendant demo</h1>
+      <p>Use ARROW keys to move the active descendant.</p>
+      <p>
+        For the purpose of demonstration, aria-disabled items are greyed out; hidden items have strike-through (in the
+        real world they would obviously be actually hidden). Disabled and hidden items are included in indexing, but
+        skipped in navigation.
+      </p>
 
-            <hr />
+      <hr />
 
-            <h2>Example 1 - Hierarchical Relationship</h2>
-            <div class="widget">
-                <ul role="listbox" tabindex="0">
-                    <li role="option">Item 1</li>
-                    <li role="option">Item 2</li>
-                    <li role="option" aria-disabled="true">Item 3</li>
-                    <li role="option">Item 4</li>
-                    <li role="option" hidden>Item 5</li>
-                    <li role="option">Item 6</li>
-                </ul>
-            </div>
+      <h2>Example 1 - Hierarchical Relationship</h2>
+      <div class="widget">
+        <ul role="listbox" tabindex="0">
+          <li role="option">Item 1</li>
+          <li role="option">Item 2</li>
+          <li role="option" aria-disabled="true">Item 3</li>
+          <li role="option">Item 4</li>
+          <li role="option" hidden>Item 5</li>
+          <li role="option">Item 6</li>
+        </ul>
+      </div>
 
-            <hr />
+      <hr />
 
-            <h2>Example 2 - Programmatic Relationship</h2>
-            <div class="widget">
-                <input type="text" role="combobox" aria-owns="listbox1">
-                <input type="button" value="button">
-                <ul id="listbox1" role="listbox">
-                    <li role="option">Item 1</li>
-                    <li role="option">Item 2</li>
-                    <li role="option" aria-disabled="true">Item 3</li>
-                    <li role="option">Item 4</li>
-                    <li role="option" hidden>Item 5</li>
-                    <li role="option">Item 6</li>
-                </ul>
-            </div>
+      <h2>Example 2 - Programmatic Relationship</h2>
+      <div class="widget">
+        <input type="text" role="combobox" aria-owns="listbox1" />
+        <input type="button" value="button" />
+        <ul id="listbox1" role="listbox">
+          <li role="option">Item 1</li>
+          <li role="option">Item 2</li>
+          <li role="option" aria-disabled="true">Item 3</li>
+          <li role="option">Item 4</li>
+          <li role="option" hidden>Item 5</li>
+          <li role="option">Item 6</li>
+        </ul>
+      </div>
 
-            <hr />
+      <hr />
 
-            <fieldset>
-                <legend>Tools</legend>
-                <button id="prepend">Prepend New Item</button>
-                <button id="append">Append New Item</button>
-                <button id="removeFirst">Remove First Item</button>
-                <button id="removeLast">Remove Last Item</button>
-                <button id="disableCurrent" type="button">Disable Current Item</button>
-                <label>Wrap</label><input id="wrap" type="checkbox">
-            </fieldset>
-        </main>
-        <script src="index.min.js"></script>
-    </body>
+      <fieldset>
+        <legend>Tools</legend>
+        <button id="prepend">Prepend New Item</button>
+        <button id="append">Append New Item</button>
+        <button id="removeFirst">Remove First Item</button>
+        <button id="removeLast">Remove Last Item</button>
+        <button id="disableCurrent" type="button">Disable Current Item</button>
+        <label>Wrap</label><input id="wrap" type="checkbox" />
+      </fieldset>
+    </main>
+    <script src="index.min.js"></script>
+  </body>
 </html>

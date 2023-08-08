@@ -7,12 +7,12 @@ exports.default = void 0;
 var _makeupLightboxDialog = _interopRequireDefault(require("makeup-lightbox-dialog"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const defaultDrawerOptions = {
-  baseClass: 'drawer-dialog',
+  baseClass: "drawer-dialog",
   quickDismiss: true,
-  closeButtonSelector: '.drawer-dialog__close',
+  closeButtonSelector: ".drawer-dialog__close",
   focusManagementIndex: 1,
-  resizeButtonSelector: '.drawer-dialog__handle',
-  windowSelector: '.drawer-dialog__window'
+  resizeButtonSelector: ".drawer-dialog__handle",
+  windowSelector: ".drawer-dialog__window"
 };
 class _default extends _makeupLightboxDialog.default {
   constructor(el) {
@@ -23,15 +23,15 @@ class _default extends _makeupLightboxDialog.default {
     super._observeEvents();
     this._resizeButtonEl = this._el.querySelector(this._options.resizeButtonSelector);
     this._onResizeButtonClickListener = _onResizeButtonClick.bind(this);
-    this._resizeButtonEl.addEventListener('click', this._onResizeButtonClickListener);
+    this._resizeButtonEl.addEventListener("click", this._onResizeButtonClickListener);
   }
   _unobserveEvents() {
     super._unobserveEvents();
-    this._resizeButtonEl.removeEventListener('click', this._onResizeButtonClickListener);
+    this._resizeButtonEl.removeEventListener("click", this._onResizeButtonClickListener);
   }
   resize() {
-    this._el.querySelector('.drawer-dialog__window').classList.toggle('drawer-dialog__window--expanded');
-    this._el.dispatchEvent(new CustomEvent('dialog-resize'));
+    this._el.querySelector(".drawer-dialog__window").classList.toggle("drawer-dialog__window--expanded");
+    this._el.dispatchEvent(new CustomEvent("dialog-resize"));
   }
   destroy() {
     super.destroy();

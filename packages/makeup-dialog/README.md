@@ -9,16 +9,16 @@ No CSS is provided.
 ## JavaScript
 
 ```js
-import Dialog from 'makeup-dialog';
+import Dialog from "makeup-dialog";
 
 // non-modal (default)
-document.querySelectorAll('.my-non-modal-dialog').forEach(function(el, i) {
-    const widget = new Dialog(el);
+document.querySelectorAll(".my-non-modal-dialog").forEach(function (el, i) {
+  const widget = new Dialog(el);
 });
 
 // modal
-document.querySelectorAll('.my-modal-dialog').forEach(function(el, i) {
-    const widget = new Dialog(el, { modal: true });
+document.querySelectorAll(".my-modal-dialog").forEach(function (el, i) {
+  const widget = new Dialog(el, { modal: true });
 });
 ```
 

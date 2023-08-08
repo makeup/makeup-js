@@ -17,13 +17,13 @@ const defaultOptions = {
   collapseOnFocusOut: false,
   collapseOnMouseOut: false,
   collapseOnClickOut: false,
-  contentSelector: '.expander__content',
+  contentSelector: ".expander__content",
   expandedClass: null,
   expandOnClick: false,
   expandOnFocus: false,
   expandOnHover: false,
   focusManagement: null,
-  hostSelector: '.expander__host',
+  hostSelector: ".expander__host",
   simulateSpacebarClick: false
 };
 function onHostKeyDown(e) {
@@ -82,12 +82,12 @@ function _onDocumentTouchEnd(e) {
   }
 }
 function manageFocus(focusManagement, contentEl) {
-  if (focusManagement === 'content') {
-    contentEl.setAttribute('tabindex', '-1');
+  if (focusManagement === "content") {
+    contentEl.setAttribute("tabindex", "-1");
     contentEl.focus();
-  } else if (focusManagement === 'focusable') {
+  } else if (focusManagement === "focusable") {
     (0, _makeupFocusables.default)(contentEl)[0].focus();
-  } else if (focusManagement === 'interactive') {
+  } else if (focusManagement === "interactive") {
     (0, _makeupFocusables.default)(contentEl, true)[0].focus();
   } else if (focusManagement !== null) {
     const el = contentEl.querySelector("#".concat(focusManagement));
@@ -114,14 +114,14 @@ class _default {
     this._hostHoverListener = onHostHover.bind(this);
     this._focusExitListener = onFocusExit.bind(this);
     this._mouseLeaveListener = onMouseLeave.bind(this);
-    if (this.hostEl.getAttribute('aria-expanded') === null) {
-      this.hostEl.setAttribute('aria-expanded', 'false');
+    if (this.hostEl.getAttribute("aria-expanded") === null) {
+      this.hostEl.setAttribute("aria-expanded", "false");
     }
     if (this.options.ariaControls === true) {
       // ensure the widget has an id
-      (0, _makeupNextId.default)(this.el, 'expander');
+      (0, _makeupNextId.default)(this.el, "expander");
       this.contentEl.id = this.contentEl.id || "".concat(this.el.id, "-content");
-      this.hostEl.setAttribute('aria-controls', this.contentEl.id);
+      this.hostEl.setAttribute("aria-controls", this.contentEl.id);
     }
     this.expandOnClick = this.options.expandOnClick;
     this.expandOnFocus = this.options.expandOnFocus;
@@ -134,94 +134,94 @@ class _default {
   }
   set expandOnClick(bool) {
     if (bool === true) {
-      this.hostEl.addEventListener('keydown', this._hostKeyDownListener);
-      this.hostEl.addEventListener('mousedown', this._hostMouseDownListener);
-      this.hostEl.addEventListener('click', this._hostClickListener);
+      this.hostEl.addEventListener("keydown", this._hostKeyDownListener);
+      this.hostEl.addEventListener("mousedown", this._hostMouseDownListener);
+      this.hostEl.addEventListener("click", this._hostClickListener);
       if (this.options.autoCollapse === true) {
         this.collapseOnClickOut = true;
         this.collapseOnFocusOut = true;
       }
     } else {
-      this.hostEl.removeEventListener('click', this._hostClickListener);
-      this.hostEl.removeEventListener('mousedown', this._hostMouseDownListener);
-      this.hostEl.removeEventListener('keydown', this._hostKeyDownListener);
+      this.hostEl.removeEventListener("click", this._hostClickListener);
+      this.hostEl.removeEventListener("mousedown", this._hostMouseDownListener);
+      this.hostEl.removeEventListener("keydown", this._hostKeyDownListener);
     }
   }
   set expandOnFocus(bool) {
     if (bool === true) {
-      this.hostEl.addEventListener('focus', this._hostFocusListener);
+      this.hostEl.addEventListener("focus", this._hostFocusListener);
       if (this.options.autoCollapse === true) {
         this.collapseOnClickOut = true;
         this.collapseOnFocusOut = true;
       }
     } else {
-      this.hostEl.removeEventListener('focus', this._hostFocusListener);
+      this.hostEl.removeEventListener("focus", this._hostFocusListener);
     }
   }
   set expandOnHover(bool) {
     if (bool === true) {
-      this.hostEl.addEventListener('mouseenter', this._hostHoverListener);
-      this.contentEl.addEventListener('mouseenter', this._hostHoverListener);
+      this.hostEl.addEventListener("mouseenter", this._hostHoverListener);
+      this.contentEl.addEventListener("mouseenter", this._hostHoverListener);
       if (this.options.autoCollapse === true) {
         this.collapseOnMouseOut = true;
       }
     } else {
-      this.hostEl.removeEventListener('mouseenter', this._hostHoverListener);
-      this.contentEl.removeEventListener('mouseenter', this._hostHoverListener);
+      this.hostEl.removeEventListener("mouseenter", this._hostHoverListener);
+      this.contentEl.removeEventListener("mouseenter", this._hostHoverListener);
     }
   }
   set collapseOnClickOut(bool) {
     if (bool === true) {
-      document.addEventListener('click', this._documentClickListener);
-      document.addEventListener('touchstart', this._documentTouchStartListener);
-      document.addEventListener('touchmove', this._documentTouchMoveListener);
-      document.addEventListener('touchend', this._documentTouchEndListener);
+      document.addEventListener("click", this._documentClickListener);
+      document.addEventListener("touchstart", this._documentTouchStartListener);
+      document.addEventListener("touchmove", this._documentTouchMoveListener);
+      document.addEventListener("touchend", this._documentTouchEndListener);
     } else {
-      document.removeEventListener('click', this._documentClickListener);
-      document.removeEventListener('touchstart', this._documentTouchStartListener);
-      document.removeEventListener('touchmove', this._documentTouchMoveListener);
-      document.removeEventListener('touchend', this._documentTouchEndListener);
+      document.removeEventListener("click", this._documentClickListener);
+      document.removeEventListener("touchstart", this._documentTouchStartListener);
+      document.removeEventListener("touchmove", this._documentTouchMoveListener);
+      document.removeEventListener("touchend", this._documentTouchEndListener);
     }
   }
   set collapseOnFocusOut(bool) {
     if (bool === true) {
-      this.el.addEventListener('focusExit', this._focusExitListener);
+      this.el.addEventListener("focusExit", this._focusExitListener);
     } else {
-      this.el.removeEventListener('focusExit', this._focusExitListener);
+      this.el.removeEventListener("focusExit", this._focusExitListener);
     }
   }
   set collapseOnMouseOut(bool) {
     if (bool === true) {
-      this.el.addEventListener('mouseleave', this._mouseLeaveListener);
-      this.contentEl.addEventListener('mouseleave', this._mouseLeaveListener);
+      this.el.addEventListener("mouseleave", this._mouseLeaveListener);
+      this.contentEl.addEventListener("mouseleave", this._mouseLeaveListener);
     } else {
-      this.el.removeEventListener('mouseleave', this._mouseLeaveListener);
-      this.contentEl.removeEventListener('mouseleave', this._mouseLeaveListener);
+      this.el.removeEventListener("mouseleave", this._mouseLeaveListener);
+      this.contentEl.removeEventListener("mouseleave", this._mouseLeaveListener);
     }
   }
   get expanded() {
-    return this.hostEl.getAttribute('aria-expanded') === 'true';
+    return this.hostEl.getAttribute("aria-expanded") === "true";
   }
   set expanded(bool) {
     if (bool === true && this.expanded === false) {
-      this.hostEl.setAttribute('aria-expanded', 'true');
+      this.hostEl.setAttribute("aria-expanded", "true");
       if (this.options.expandedClass) {
         this.el.classList.add(this.options.expandedClass);
       }
       if (this._expandWasKeyboardClickActivated || this._expandWasMouseClickActivated && this.options.alwaysDoFocusManagement) {
         manageFocus(this.options.focusManagement, this.contentEl);
       }
-      this.el.dispatchEvent(new CustomEvent('expander-expand', {
+      this.el.dispatchEvent(new CustomEvent("expander-expand", {
         bubbles: true,
         detail: this.contentEl
       }));
     }
     if (bool === false && this.expanded === true) {
-      this.hostEl.setAttribute('aria-expanded', 'false');
+      this.hostEl.setAttribute("aria-expanded", "false");
       if (this.options.expandedClass) {
         this.el.classList.remove(this.options.expandedClass);
       }
-      this.el.dispatchEvent(new CustomEvent('expander-collapse', {
+      this.el.dispatchEvent(new CustomEvent("expander-collapse", {
         bubbles: true,
         detail: this.contentEl
       }));

@@ -1,167 +1,177 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>makeup-listbox</title>
-        <link href="index.css" rel="stylesheet" />
-        <link rel="icon" href="../favicon.ico" type="image/x-icon">
-        <style>
-            .listbox {
-                --listbox-background-color: LightYellow;
-                --listbox-option-border-color: LightYellow;
-                --listbox-option-hover-background-color: black;
-                --listbox-option-hover-foreground-color: white;
-                border: 1px solid black;
-                width: 200px;
-            }
-            div[role=option][aria-disabled="true"] {
-                color: lightgrey;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="page">
-            <header>
-                <h1>makeup-listbox</h1>
-                <p>Listbox is headless UI widget and does not come bundled with any CSS. This example is receiving its styles from <a href="https://ebay.github.io/skin/#listbox">eBay Skin</a>.</p>
-                <p>This example is receiving its base markup and styles from <a href="https://ebay.github.io/skin/#listbox">eBay Skin</a>. A subset of style properties are being customized/themed via Skin's CSS Custom Properties.</p>
-                <p>The listbox class is consumed by the following modules: <a href="../makeup-listbox-button">listbox-button</a>, <a href="../makeup-combobox">combobox</a>.</p>
-            </header>
-            <hr />
-            <main>
+  <head>
+    <title>makeup-listbox</title>
+    <link href="index.css" rel="stylesheet" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <style>
+      .listbox {
+        --listbox-background-color: LightYellow;
+        --listbox-option-border-color: LightYellow;
+        --listbox-option-hover-background-color: black;
+        --listbox-option-hover-foreground-color: white;
+        border: 1px solid black;
+        width: 200px;
+      }
+      div[role="option"][aria-disabled="true"] {
+        color: lightgrey;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page">
+      <header>
+        <h1>makeup-listbox</h1>
+        <p>
+          Listbox is headless UI widget and does not come bundled with any CSS. This example is receiving its styles
+          from <a href="https://ebay.github.io/skin/#listbox">eBay Skin</a>.
+        </p>
+        <p>
+          This example is receiving its base markup and styles from
+          <a href="https://ebay.github.io/skin/#listbox">eBay Skin</a>. A subset of style properties are being
+          customized/themed via Skin's CSS Custom Properties.
+        </p>
+        <p>
+          The listbox class is consumed by the following modules: <a href="../makeup-listbox-button">listbox-button</a>,
+          <a href="../makeup-combobox">combobox</a>.
+        </p>
+      </header>
+      <hr />
+      <main>
+        <h2>Manual Selection</h2>
+        <p>ARROW keys move the active descendant. SPACEBAR key is required to manually change the selected state.</p>
 
-                <h2>Manual Selection</h2>
-                <p>ARROW keys move the active descendant. SPACEBAR key is required to manually change the selected state.</p>
+        <h3>Unselected</h3>
 
-                <h3>Unselected</h3>
-
-                <div class="listbox" data-makeup-auto-select="false">
-                    <div aria-label="Color" class="listbox__options" role="listbox" tabindex="0">
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Red</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Blue</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false" aria-disabled="true">
-                            <span class="listbox__value">Yellow</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Green</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-
-                    </div>
-                </div>
-
-                <h3>Selected</h3>
-
-                <div class="listbox" data-makeup-auto-select="false">
-                    <div aria-label="Color" class="listbox__options" role="listbox" tabindex="0">
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Red</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="true">
-                            <span class="listbox__value">Blue</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false" aria-disabled="true">
-                            <span class="listbox__value">Yellow</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Green</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <h2>Automatic Selection</h2>
-                <p>ARROW keys move the active descendant <em>and</em> automatically updated the selected state. This behaviour is similar to a radio button group.</p>
-
-                <h3>Unselected</h3>
-
-                <div class="listbox">
-                    <div aria-label="Color" class="listbox__options" role="listbox">
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Red</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Blue</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false" aria-disabled="true">
-                            <span class="listbox__value">Yellow</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Green</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <h3>Selected</h3>
-
-                <div class="listbox">
-                    <div aria-label="Color" class="listbox__options" role="listbox" tabindex="0">
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Red</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="true">
-                            <span class="listbox__value">Blue</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false" aria-disabled="true">
-                            <span class="listbox__value">Yellow</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                        <div class="listbox__option" role="option" aria-selected="false">
-                            <span class="listbox__value">Green</span>
-                            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                                <use xlink:href="../icon.svg#icon-tick-small"></use>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-            </main>
+        <div class="listbox" data-makeup-auto-select="false">
+          <div aria-label="Color" class="listbox__options" role="listbox" tabindex="0">
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Red</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Blue</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false" aria-disabled="true">
+              <span class="listbox__value">Yellow</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Green</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+          </div>
         </div>
-        <script src="index.min.js"></script>
-    </body>
+
+        <h3>Selected</h3>
+
+        <div class="listbox" data-makeup-auto-select="false">
+          <div aria-label="Color" class="listbox__options" role="listbox" tabindex="0">
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Red</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="true">
+              <span class="listbox__value">Blue</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false" aria-disabled="true">
+              <span class="listbox__value">Yellow</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Green</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <h2>Automatic Selection</h2>
+        <p>
+          ARROW keys move the active descendant <em>and</em> automatically updated the selected state. This behaviour is
+          similar to a radio button group.
+        </p>
+
+        <h3>Unselected</h3>
+
+        <div class="listbox">
+          <div aria-label="Color" class="listbox__options" role="listbox">
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Red</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Blue</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false" aria-disabled="true">
+              <span class="listbox__value">Yellow</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Green</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <h3>Selected</h3>
+
+        <div class="listbox">
+          <div aria-label="Color" class="listbox__options" role="listbox" tabindex="0">
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Red</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="true">
+              <span class="listbox__value">Blue</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false" aria-disabled="true">
+              <span class="listbox__value">Yellow</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+            <div class="listbox__option" role="option" aria-selected="false">
+              <span class="listbox__value">Green</span>
+              <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+                <use xlink:href="../icon.svg#icon-tick-small"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="index.min.js"></script>
+  </body>
 </html>

@@ -8,10 +8,10 @@ import "@ebay/skin/textbox";
 // const InputDialog = require('../../packages/makeup-input-dialog').default;
 
 // IMPORT
-import InputDialog from '../../packages/makeup-input-dialog';
+import InputDialog from "../../packages/makeup-input-dialog";
 
-window.onload = function() {
-    document.querySelectorAll('.lightbox-dialog--input').forEach(function(el, i) {
-        const widget = new InputDialog(el);
-    });
+window.onload = function () {
+  document.querySelectorAll(".lightbox-dialog--input").forEach(function (el, i) {
+    const widget = new InputDialog(el);
+  });
 };

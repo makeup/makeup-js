@@ -74,10 +74,7 @@ class src_default {
   }
   _observeEvents() {
     if (this._destroyed !== true) {
-      this._activeDescendantRootEl.addEventListener(
-        "activeDescendantChange",
-        this._onActiveDescendantChangeListener
-      );
+      this._activeDescendantRootEl.addEventListener("activeDescendantChange", this._onActiveDescendantChangeListener);
       this._listboxEl.addEventListener("keydown", this._onKeyDownListener);
       this._listboxEl.addEventListener("click", this._onClickListener);
     }
@@ -85,10 +82,7 @@ class src_default {
   _unobserveEvents() {
     this._listboxEl.removeEventListener("keydown", this._onKeyDownListener);
     this._listboxEl.removeEventListener("click", this._onClickListener);
-    this._activeDescendantRootEl.removeEventListener(
-      "activeDescendantChange",
-      this._onActiveDescendantChangeListener
-    );
+    this._activeDescendantRootEl.removeEventListener("activeDescendantChange", this._onActiveDescendantChangeListener);
   }
   get index() {
     return this.items.findIndex((el) => el.getAttribute("aria-selected") === "true");
@@ -105,12 +99,14 @@ class src_default {
       if (this._options.useAriaChecked === true) {
         matchingItem.setAttribute("aria-checked", "true");
       }
-      this.el.dispatchEvent(new CustomEvent("makeup-listbox-change", {
-        detail: {
-          optionIndex: index,
-          optionValue: matchingItem.innerText
-        }
-      }));
+      this.el.dispatchEvent(
+        new CustomEvent("makeup-listbox-change", {
+          detail: {
+            optionIndex: index,
+            optionValue: matchingItem.innerText
+          }
+        })
+      );
     }
     this._observeMutations();
   }
@@ -169,11 +165,13 @@ function _onActiveDescendantChange(e) {
 function _onMutation(mutationsList) {
   for (const mutation of mutationsList) {
     if (mutation.type === "attributes") {
-      this.el.dispatchEvent(new CustomEvent("makeup-listbox-mutation", {
-        detail: {
-          attributeName: mutation.attributeName
-        }
-      }));
+      this.el.dispatchEvent(
+        new CustomEvent("makeup-listbox-mutation", {
+          detail: {
+            attributeName: mutation.attributeName
+          }
+        })
+      );
     }
   }
 }

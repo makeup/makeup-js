@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 function _default() {
   let timeout;
-  let typeStr = '';
+  let typeStr = "";
   return {
     getIndex: function (nodeList, char, timeoutLength) {
       typeStr = typeStr.concat(char);
@@ -23,7 +23,7 @@ function _default() {
       }
       setTimeout(() => {
         clearTimeout(timeout);
-        typeStr = '';
+        typeStr = "";
       }, timeoutLength);
       return index;
     },

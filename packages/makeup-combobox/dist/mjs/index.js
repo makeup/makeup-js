@@ -178,11 +178,13 @@ function _onListboxActiveDescendantChange(e) {
 function _onMutation(mutationsList) {
   for (const mutation of mutationsList) {
     if (mutation.type === "attributes") {
-      this._el.dispatchEvent(new CustomEvent("makeup-combobox-mutation", {
-        detail: {
-          attributeName: mutation.attributeName
-        }
-      }));
+      this._el.dispatchEvent(
+        new CustomEvent("makeup-combobox-mutation", {
+          detail: {
+            attributeName: mutation.attributeName
+          }
+        })
+      );
     }
   }
 }
@@ -199,9 +201,11 @@ function _filterSuggestions(value, items) {
   unmatchedItems.forEach((el) => el.hidden = true);
 }
 function _dispatchChangeEvent(el, value) {
-  el.dispatchEvent(new CustomEvent("makeup-combobox-change", {
-    detail: { value }
-  }));
+  el.dispatchEvent(
+    new CustomEvent("makeup-combobox-change", {
+      detail: { value }
+    })
+  );
 }
 export {
   src_default as default

@@ -11,8 +11,8 @@ function onKeyDown(e) {
   }
 }
 function add(el) {
-  el.addEventListener('keydown', onKeyDown);
+  el.addEventListener("keydown", onKeyDown);
 }
 function remove(el) {
-  el.removeEventListener('keydown', onKeyDown);
+  el.removeEventListener("keydown", onKeyDown);
 }

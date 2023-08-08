@@ -11,12 +11,12 @@ class _default {
   constructor(widgetEl, dialog, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this._el = widgetEl;
-    this._el.setAttribute('aria-haspopup', 'dialog');
+    this._el.setAttribute("aria-haspopup", "dialog");
     this._dialog = dialog;
     this._onClickListener = _onClick.bind(this);
     this._onDialogCloseListener = _onDialogClose.bind(this);
     this._onMutationListener = _onMutation.bind(this);
-    this._el.classList.add('dialog-button--js');
+    this._el.classList.add("dialog-button--js");
     if (!this._options.customElementMode) {
       this._mutationObserver = new MutationObserver(this._onMutationListener);
       this._observeMutations();
@@ -39,13 +39,13 @@ class _default {
   }
   _observeEvents() {
     if (this._destroyed !== true) {
-      this._el.addEventListener('click', this._onClickListener);
-      this._dialog._el.addEventListener('dialog-close', this._onDialogCloseListener);
+      this._el.addEventListener("click", this._onClickListener);
+      this._dialog._el.addEventListener("dialog-close", this._onDialogCloseListener);
     }
   }
   _unobserveEvents() {
-    this._el.removeEventListener('click');
-    this._dialog._el.removeEventListener('dialog-close', this._onDialogCloseListener);
+    this._el.removeEventListener("click");
+    this._dialog._el.removeEventListener("dialog-close", this._onDialogCloseListener);
   }
   destroy() {
     this._destroyed = true;
@@ -59,8 +59,8 @@ class _default {
 exports.default = _default;
 function _onMutation(mutationsList) {
   for (const mutation of mutationsList) {
-    if (mutation.type === 'attributes') {
-      this._el.dispatchEvent(new CustomEvent('makeup-dialog-button-mutation', {
+    if (mutation.type === "attributes") {
+      this._el.dispatchEvent(new CustomEvent("makeup-dialog-button-mutation", {
         detail: {
           attributeName: mutation.attributeName
         }

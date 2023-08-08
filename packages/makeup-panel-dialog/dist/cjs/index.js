@@ -7,12 +7,12 @@ exports.default = void 0;
 var _makeupLightboxDialog = _interopRequireDefault(require("makeup-lightbox-dialog"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const defaultPanelOptions = {
-  baseClass: 'panel-dialog',
+  baseClass: "panel-dialog",
   quickDismiss: true,
-  closeButtonSelector: '.panel-dialog__close',
-  doneButtonSelector: '.panel-dialog__done',
-  windowSelector: '.panel-dialog__window',
-  transitionsModifier: 'mask-fade-slow'
+  closeButtonSelector: ".panel-dialog__close",
+  doneButtonSelector: ".panel-dialog__done",
+  windowSelector: ".panel-dialog__window",
+  transitionsModifier: "mask-fade-slow"
 };
 class _default extends _makeupLightboxDialog.default {
   constructor(el) {

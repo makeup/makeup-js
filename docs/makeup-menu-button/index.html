@@ -1,283 +1,315 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>makeup-menu-button</title>
-        <link href="index.css" rel="stylesheet" />
-        <link rel="icon" href="../favicon.ico" type="image/x-icon">
-        <style>
-            .stateful-label {
-                min-width: 150px;
-            }
-            .menu-button {
-                --menu-button-menu-background-color: LightYellow;
-                --menu-button-menuitem-border-color: LightYellow;
-                --menu-button-menuitem-hover-background-color: black;
-                --menu-button-menuitem-hover-foreground-color: white;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="page">
-            <header>
-                <h1>makeup-menu-button</h1>
-                <p>Menu-Button is headless UI widget and does not come bundled with any CSS. This example is receiving its styles from <a href="https://ebay.github.io/skin/#menu-button">eBay Skin</a>.</p>
-            </header>
-            <hr />
-            <main>
-                <h2 id="menu-button-1">Stateless Menu Button</h2>
-                <span class="menu-button">
-                    <button class="expand-btn" aria-haspopup="true" type="button">
-                        <span class="expand-btn__cell">
-                            <span class="expand-btn__text">Button</span>
-                            <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../icon.svg#icon-dropdown"></use>
-                            </svg>
-                        </span>
-                    </button>
-                    <div class="menu-button__menu" hidden>
-                        <div class="menu-button__items" role="menu">
-                            <div class="menu-button__item" role="menuitem">
-                                <span>Menu Item 1</span>
-                            </div>
-                            <div class="menu-button__item" role="menuitem">
-                                <span>Menu Item 2</span>
-                            </div>
-                            <div class="menu-button__item" role="menuitem" aria-disabled="true">
-                                <span>Menu Item 3</span>
-                            </div>
-                            <div class="menu-button__item" role="menuitem">
-                                <span>Menu Item 3</span>
-                            </div>
-                        </div>
-                    </div>
-                </span>
+  <head>
+    <title>makeup-menu-button</title>
+    <link href="index.css" rel="stylesheet" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <style>
+      .stateful-label {
+        min-width: 150px;
+      }
+      .menu-button {
+        --menu-button-menu-background-color: LightYellow;
+        --menu-button-menuitem-border-color: LightYellow;
+        --menu-button-menuitem-hover-background-color: black;
+        --menu-button-menuitem-hover-foreground-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page">
+      <header>
+        <h1>makeup-menu-button</h1>
+        <p>
+          Menu-Button is headless UI widget and does not come bundled with any CSS. This example is receiving its styles
+          from <a href="https://ebay.github.io/skin/#menu-button">eBay Skin</a>.
+        </p>
+      </header>
+      <hr />
+      <main>
+        <h2 id="menu-button-1">Stateless Menu Button</h2>
+        <span class="menu-button">
+          <button class="expand-btn" aria-haspopup="true" type="button">
+            <span class="expand-btn__cell">
+              <span class="expand-btn__text">Button</span>
+              <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
+                <use xlink:href="../icon.svg#icon-dropdown"></use>
+              </svg>
+            </span>
+          </button>
+          <div class="menu-button__menu" hidden>
+            <div class="menu-button__items" role="menu">
+              <div class="menu-button__item" role="menuitem">
+                <span>Menu Item 1</span>
+              </div>
+              <div class="menu-button__item" role="menuitem">
+                <span>Menu Item 2</span>
+              </div>
+              <div class="menu-button__item" role="menuitem" aria-disabled="true">
+                <span>Menu Item 3</span>
+              </div>
+              <div class="menu-button__item" role="menuitem">
+                <span>Menu Item 3</span>
+              </div>
+            </div>
+          </div>
+        </span>
 
-                <hr />
+        <hr />
 
-                <h2 id="menu-button-2A">Single-Select Menu Button (no default)</h2>
-                <span class="menu-button">
-                    <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
-                        <span class="expand-btn__cell">
-                            <span class="expand-btn__text">Button</span>
-                            <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../icon.svg#icon-dropdown"></use>
-                            </svg>
-                        </span>
-                    </button>
-                    <div class="menu-button__menu">
-                        <div class="menu-button__items" role="menu">
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
-                                <span>Menu Item 1</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
-                                <span>Menu Item 2</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort" aria-disabled="true">
-                                <span>Menu Item 3</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
-                                <span>Menu Item 4</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </span>
+        <h2 id="menu-button-2A">Single-Select Menu Button (no default)</h2>
+        <span class="menu-button">
+          <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
+            <span class="expand-btn__cell">
+              <span class="expand-btn__text">Button</span>
+              <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
+                <use xlink:href="../icon.svg#icon-dropdown"></use>
+              </svg>
+            </span>
+          </button>
+          <div class="menu-button__menu">
+            <div class="menu-button__items" role="menu">
+              <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
+                <span>Menu Item 1</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
+                <span>Menu Item 2</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div
+                class="menu-button__item"
+                role="menuitemradio"
+                aria-checked="false"
+                data-makeup-group="sort"
+                aria-disabled="true"
+              >
+                <span>Menu Item 3</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
+                <span>Menu Item 4</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </span>
 
-                <hr />
+        <hr />
 
-                <h2 id="menu-button-2B">Single-Select Menu Button</h2>
-                <span class="menu-button">
-                    <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
-                        <span class="expand-btn__cell">
-                            <span class="expand-btn__text">Button</span>
-                            <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../icon.svg#icon-dropdown"></use>
-                            </svg>
-                        </span>
-                    </button>
-                    <div class="menu-button__menu">
-                        <div class="menu-button__items" role="menu">
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="true" data-makeup-group="sort">
-                                <span>Menu Item 1</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
-                                <span>Menu Item 2</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort" aria-disabled="true">
-                                <span>Menu Item 3</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
-                                <span>Menu Item 4</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </span>
+        <h2 id="menu-button-2B">Single-Select Menu Button</h2>
+        <span class="menu-button">
+          <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
+            <span class="expand-btn__cell">
+              <span class="expand-btn__text">Button</span>
+              <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
+                <use xlink:href="../icon.svg#icon-dropdown"></use>
+              </svg>
+            </span>
+          </button>
+          <div class="menu-button__menu">
+            <div class="menu-button__items" role="menu">
+              <div class="menu-button__item" role="menuitemradio" aria-checked="true" data-makeup-group="sort">
+                <span>Menu Item 1</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
+                <span>Menu Item 2</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div
+                class="menu-button__item"
+                role="menuitemradio"
+                aria-checked="false"
+                data-makeup-group="sort"
+                aria-disabled="true"
+              >
+                <span>Menu Item 3</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
+                <span>Menu Item 4</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </span>
 
-                <hr />
+        <hr />
 
-                <h2 id="menu-button-2C">Single-Select Menu Button with Stateful Label</h2>
+        <h2 id="menu-button-2C">Single-Select Menu Button with Stateful Label</h2>
 
-                <span class="menu-button">
-                    <button class="expand-btn stateful-label" type="button" data-makeup-menu-button-prefix="Sort:">
-                        <span class="expand-btn__text">Sort: Name</span>
-                        <svg focusable="false" height="8" width="8" aria-hidden="true">
-                            <use xlink:href="../icon.svg#icon-dropdown"></use>
-                        </svg>
-                    </button>
-                    <div class="menu-button__menu" hidden>
-                        <div class="menu-button__items" role="menu">
-                            <div class="menu-button__item" role="menuitemradio" data-makeup-group="sort" aria-checked="true">
-                                <span>Name</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" data-makeup-group="sort" aria-checked="false">
-                                <span>Date</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" data-makeup-group="sort" aria-checked="false" aria-disabled="true">
-                                <span>Price</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" data-makeup-group="sort" aria-checked="false">
-                                <span>Time Left</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </span>
+        <span class="menu-button">
+          <button class="expand-btn stateful-label" type="button" data-makeup-menu-button-prefix="Sort:">
+            <span class="expand-btn__text">Sort: Name</span>
+            <svg focusable="false" height="8" width="8" aria-hidden="true">
+              <use xlink:href="../icon.svg#icon-dropdown"></use>
+            </svg>
+          </button>
+          <div class="menu-button__menu" hidden>
+            <div class="menu-button__items" role="menu">
+              <div class="menu-button__item" role="menuitemradio" data-makeup-group="sort" aria-checked="true">
+                <span>Name</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemradio" data-makeup-group="sort" aria-checked="false">
+                <span>Date</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div
+                class="menu-button__item"
+                role="menuitemradio"
+                data-makeup-group="sort"
+                aria-checked="false"
+                aria-disabled="true"
+              >
+                <span>Price</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemradio" data-makeup-group="sort" aria-checked="false">
+                <span>Time Left</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </span>
 
-                <hr />
+        <hr />
 
-                <h2 id="menu-button-3">Multi-Select Menu Button</h2>
-                <span class="menu-button">
-                    <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
-                        <span class="expand-btn__cell">
-                            <span class="expand-btn__text">Button</span>
-                            <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../icon.svg#icon-dropdown"></use>
-                            </svg>
-                        </span>
-                    </button>
-                    <div class="menu-button__menu">
-                        <div class="menu-button__items" role="menu">
-                            <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
-                                <span>Menu Item 1</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
-                                <span>Menu Item 2</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="false" aria-disabled="true">
-                                <span>Menu Item 3</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="false">
-                                <span>Menu Item 4</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </span>
+        <h2 id="menu-button-3">Multi-Select Menu Button</h2>
+        <span class="menu-button">
+          <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
+            <span class="expand-btn__cell">
+              <span class="expand-btn__text">Button</span>
+              <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
+                <use xlink:href="../icon.svg#icon-dropdown"></use>
+              </svg>
+            </span>
+          </button>
+          <div class="menu-button__menu">
+            <div class="menu-button__items" role="menu">
+              <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
+                <span>Menu Item 1</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
+                <span>Menu Item 2</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div
+                class="menu-button__item"
+                role="menuitemcheckbox"
+                data-makeup-group="filter"
+                aria-checked="false"
+                aria-disabled="true"
+              >
+                <span>Menu Item 3</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="false">
+                <span>Menu Item 4</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </span>
 
-                <hr />
+        <hr />
 
-                <h2 id="menu-button-4">Grouped Menu Button</h2>
-                <span class="menu-button">
-                    <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
-                        <span class="expand-btn__cell">
-                            <span class="expand-btn__text">Button</span>
-                            <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-                                <use xlink:href="../icon.svg#icon-dropdown"></use>
-                            </svg>
-                        </span>
-                    </button>
-                    <div class="menu-button__menu">
-                        <div class="menu-button__items" role="menu">
-                            <div class="menu-button__item" role="menuitem">
-                                <span>Menu Item A1</span>
-                            </div>
+        <h2 id="menu-button-4">Grouped Menu Button</h2>
+        <span class="menu-button">
+          <button class="expand-btn" aria-expanded="false" aria-haspopup="true" type="button">
+            <span class="expand-btn__cell">
+              <span class="expand-btn__text">Button</span>
+              <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
+                <use xlink:href="../icon.svg#icon-dropdown"></use>
+              </svg>
+            </span>
+          </button>
+          <div class="menu-button__menu">
+            <div class="menu-button__items" role="menu">
+              <div class="menu-button__item" role="menuitem">
+                <span>Menu Item A1</span>
+              </div>
 
-                            <hr class="menu-button__separator" role="separator" />
+              <hr class="menu-button__separator" role="separator" />
 
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="true" data-makeup-group="sort">
-                                <span>Menu Item B1</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort" aria-disabled="true">
-                                <span>Menu Item B2</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
-                                <span>Menu Item B3</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
+              <div class="menu-button__item" role="menuitemradio" aria-checked="true" data-makeup-group="sort">
+                <span>Menu Item B1</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div
+                class="menu-button__item"
+                role="menuitemradio"
+                aria-checked="false"
+                data-makeup-group="sort"
+                aria-disabled="true"
+              >
+                <span>Menu Item B2</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
+                <span>Menu Item B3</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
 
-                            <hr class="menu-button__separator" role="separator" />
+              <hr class="menu-button__separator" role="separator" />
 
-                            <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
-                                <span>Menu Item C1</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                            <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
-                                <span>Menu Item C2</span>
-                                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-                                    <use xlink:href="../icon.svg#icon-tick-small"></use>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </span>
-
-            </main>
-        </div>
-        <script src="index.min.js"></script>
-    </body>
+              <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
+                <span>Menu Item C1</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
+                <span>Menu Item C2</span>
+                <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
+                  <use xlink:href="../icon.svg#icon-tick-small"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </span>
+      </main>
+    </div>
+    <script src="index.min.js"></script>
+  </body>
 </html>

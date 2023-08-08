@@ -1,11 +1,13 @@
 import nextID from "makeup-next-id";
 const focusExitEmitters = {};
 function doFocusExit(el, fromElement, toElement) {
-  el.dispatchEvent(new CustomEvent("focusExit", {
-    detail: { fromElement, toElement },
-    bubbles: false
-    // mirror the native mouseleave event
-  }));
+  el.dispatchEvent(
+    new CustomEvent("focusExit", {
+      detail: { fromElement, toElement },
+      bubbles: false
+      // mirror the native mouseleave event
+    })
+  );
 }
 function onDocumentFocusIn(e) {
   const newFocusElement = e.target;

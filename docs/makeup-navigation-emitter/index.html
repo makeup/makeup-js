@@ -1,63 +1,73 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>makeup-navigation-emitter demo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <style>
-            li[aria-disabled="true"] {
-                color: lightgrey;
-            }
-            li[hidden] {
-                display: block;
-                text-decoration: line-through;
-            }
-        </style>
-    </head>
-    <body>
-        <main role="main">
-            <h1>makeup-(keyboard)-navigation-emitter demo</h1>
-            <p><strong>TIP</strong>: open developer console to see events!</p> 
-            <p>This module <strong>does not</strong> do any keyboard focus management, it only models state and triggers events. It is the job of consumers, such as <a href="https://github.com/makeup-js/makeup-roving-tabindex">makeup-roving-tabindex</a> and <a href="https://github.com/makeup-js/makeup-active-descendant">makeup-active-descendant</a> to do focus management based on the model and the events it emits. You probably don't ever need to use this module directly!</p>
-            <p>Set keyboard focus inside on any of the focusable "widgets", then use ARROW keys to update model. For the purpose of demonstration/testing, aria-disabled items are greyed out. Hidden items have strike-through. Disabled and hidden items are included in indexing, but skipped in navigation.</p>
+  <head>
+    <title>makeup-navigation-emitter demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      li[aria-disabled="true"] {
+        color: lightgrey;
+      }
+      li[hidden] {
+        display: block;
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <main role="main">
+      <h1>makeup-(keyboard)-navigation-emitter demo</h1>
+      <p><strong>TIP</strong>: open developer console to see events!</p>
+      <p>
+        This module <strong>does not</strong> do any keyboard focus management, it only models state and triggers
+        events. It is the job of consumers, such as
+        <a href="https://github.com/makeup-js/makeup-roving-tabindex">makeup-roving-tabindex</a> and
+        <a href="https://github.com/makeup-js/makeup-active-descendant">makeup-active-descendant</a> to do focus
+        management based on the model and the events it emits. You probably don't ever need to use this module directly!
+      </p>
+      <p>
+        Set keyboard focus inside on any of the focusable "widgets", then use ARROW keys to update model. For the
+        purpose of demonstration/testing, aria-disabled items are greyed out. Hidden items have strike-through. Disabled
+        and hidden items are included in indexing, but skipped in navigation.
+      </p>
 
-            <h2>Example 1 - Item-Based Relationship</h2>
-            <div class="widget">
-                <ul>
-                    <li tabindex="0">Item 1</li>
-                    <li>Item 2</li>
-                    <li aria-disabled="true">Item 3</li>
-                    <li>Item 4</li>
-                    <li hidden>Item 5</li>
-                    <li>Item 6</li>
-                </ul>
-            </div>
+      <h2>Example 1 - Item-Based Relationship</h2>
+      <div class="widget">
+        <ul>
+          <li tabindex="0">Item 1</li>
+          <li>Item 2</li>
+          <li aria-disabled="true">Item 3</li>
+          <li>Item 4</li>
+          <li hidden>Item 5</li>
+          <li>Item 6</li>
+        </ul>
+      </div>
 
-            <h2>Example 2 - Container-Based Relationship</h2>
-            <div class="widget" tabindex="0">
-                <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li aria-disabled="true">Item 3</li>
-                    <li>Item 4</li>
-                    <li hidden>Item 5</li>
-                    <li>Item 6</li>
-                </ul>
-            </div>
+      <h2>Example 2 - Container-Based Relationship</h2>
+      <div class="widget" tabindex="0">
+        <ul>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li aria-disabled="true">Item 3</li>
+          <li>Item 4</li>
+          <li hidden>Item 5</li>
+          <li>Item 6</li>
+        </ul>
+      </div>
 
-            <h2>Example 3 - External-Based Relationship</h2>
-            <div class="widget">
-                <input />
-                <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li aria-disabled="true">Item 3</li>
-                    <li>Item 4</li>
-                    <li hidden>Item 5</li>
-                    <li>Item 6</li>
-                </ul>
-            </div>
+      <h2>Example 3 - External-Based Relationship</h2>
+      <div class="widget">
+        <input />
+        <ul>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li aria-disabled="true">Item 3</li>
+          <li>Item 4</li>
+          <li hidden>Item 5</li>
+          <li>Item 6</li>
+        </ul>
+      </div>
 
-            <!--
+      <!--
 
             <h2>Example 1b - Nested</h2>
             <div class="widget">
@@ -88,12 +98,12 @@
             </div>
             -->
 
-            <fieldset>
-                <legend>Tools</legend>
-                <button id="appender">Append New Items</button>
-                <label>Wrap</label><input id="wrap" type="checkbox">
-            </fieldset>
-        </main>
-        <script src="index.min.js"></script>
-    </body>
+      <fieldset>
+        <legend>Tools</legend>
+        <button id="appender">Append New Items</button>
+        <label>Wrap</label><input id="wrap" type="checkbox" />
+      </fieldset>
+    </main>
+    <script src="index.min.js"></script>
+  </body>
 </html>

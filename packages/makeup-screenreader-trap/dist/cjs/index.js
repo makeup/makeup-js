@@ -18,27 +18,27 @@ let trappedEl;
 let dirtyObjects;
 
 // filter function for svg elements
-const filterSvg = item => item.tagName.toLowerCase() !== 'svg';
+const filterSvg = item => item.tagName.toLowerCase() !== "svg";
 function showElementPrep(el, useHiddenProperty) {
   let preparedElement;
   if (useHiddenProperty === false) {
-    preparedElement = prepareElement(el, 'aria-hidden', 'false');
+    preparedElement = prepareElement(el, "aria-hidden", "false");
   } else {
-    preparedElement = prepareElement(el, 'hidden', false);
+    preparedElement = prepareElement(el, "hidden", false);
   }
   return preparedElement;
 }
 function hideElementPrep(el, useHiddenProperty) {
   let preparedElement;
   if (useHiddenProperty === false) {
-    preparedElement = prepareElement(el, 'aria-hidden', 'true');
+    preparedElement = prepareElement(el, "aria-hidden", "true");
   } else {
-    preparedElement = prepareElement(el, 'hidden', true);
+    preparedElement = prepareElement(el, "hidden", true);
   }
   return preparedElement;
 }
 function prepareElement(el, attributeName, dirtyValue) {
-  const isProperty = typeof dirtyValue === 'boolean';
+  const isProperty = typeof dirtyValue === "boolean";
   return {
     el,
     attributeName,
@@ -73,11 +73,11 @@ function untrap() {
 
     // 're-enable' the main landmark
     if (mainEl) {
-      mainEl.setAttribute('role', 'main');
+      mainEl.setAttribute("role", "main");
     }
 
     // let observers know the screenreader is now untrapped
-    trappedEl.dispatchEvent(new CustomEvent('screenreaderUntrap', {
+    trappedEl.dispatchEvent(new CustomEvent("screenreaderUntrap", {
       bubbles: true
     }));
     trappedEl = null;
@@ -99,7 +99,7 @@ function trap(el, selectedOptions) {
 
   // we must remove the main landmark to avoid issues on voiceover iOS
   if (mainEl) {
-    mainEl.setAttribute('role', 'presentation');
+    mainEl.setAttribute("role", "presentation");
   }
 
   // cache all ancestors, siblings & siblings of ancestors for trappedEl
@@ -120,7 +120,7 @@ function trap(el, selectedOptions) {
   dirtyObjects.forEach(item => dirtyElement(item));
 
   // let observers know the screenreader is now trapped
-  trappedEl.dispatchEvent(new CustomEvent('screenreaderTrap', {
+  trappedEl.dispatchEvent(new CustomEvent("screenreaderTrap", {
     bubbles: true
   }));
 }

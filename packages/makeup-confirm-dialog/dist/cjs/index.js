@@ -7,13 +7,13 @@ exports.default = void 0;
 var _makeupLightboxDialog = _interopRequireDefault(require("makeup-lightbox-dialog"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const defaultOptions = {
-  baseClass: 'confirm-dialog',
-  closeButtonSelector: '.confirm-dialog__close',
+  baseClass: "confirm-dialog",
+  closeButtonSelector: ".confirm-dialog__close",
   quickDismiss: true,
-  confirmButtonSelector: '.confirm-dialog__confirm',
+  confirmButtonSelector: ".confirm-dialog__confirm",
   focusManagementIndex: 1,
-  rejectButtonSelector: '.confirm-dialog__reject',
-  windowSelector: '.confirm-dialog__window'
+  rejectButtonSelector: ".confirm-dialog__reject",
+  windowSelector: ".confirm-dialog__window"
 };
 class _default extends _makeupLightboxDialog.default {
   constructor(el) {
@@ -26,21 +26,21 @@ class _default extends _makeupLightboxDialog.default {
     this._rejectButtonEl = this._el.querySelector(this._options.rejectButtonSelector);
     this._onConfirmButtonClickListener = _onConfirmButtonClick.bind(this);
     this._onRejectButtonClickListener = _onRejectButtonClick.bind(this);
-    this._confirmButtonEl.addEventListener('click', this._onConfirmButtonClickListener);
-    this._rejectButtonEl.addEventListener('click', this._onRejectButtonClickListener);
+    this._confirmButtonEl.addEventListener("click", this._onConfirmButtonClickListener);
+    this._rejectButtonEl.addEventListener("click", this._onRejectButtonClickListener);
   }
   _unobserveEvents() {
     super._unobserveEvents();
-    this._confirmButtonEl.removeEventListener('click', this._onConfirmButtonClickListener);
-    this._rejectButtonEl.removeEventListener('click', this._onRejectButtonClickListener);
+    this._confirmButtonEl.removeEventListener("click", this._onConfirmButtonClickListener);
+    this._rejectButtonEl.removeEventListener("click", this._onRejectButtonClickListener);
   }
   confirm() {
     this._hide();
-    this._el.dispatchEvent(new CustomEvent('dialog-confirm'));
+    this._el.dispatchEvent(new CustomEvent("dialog-confirm"));
   }
   reject() {
     this._hide();
-    this._el.dispatchEvent(new CustomEvent('dialog-reject'));
+    this._el.dispatchEvent(new CustomEvent("dialog-reject"));
   }
   destroy() {
     super.destroy();

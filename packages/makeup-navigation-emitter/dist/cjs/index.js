@@ -9,14 +9,14 @@ var ExitEmitter = _interopRequireWildcard(require("makeup-exit-emitter"));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 const defaultOptions = {
-  axis: 'both',
-  autoInit: 'interactive',
-  autoReset: 'current',
+  axis: "both",
+  autoInit: "interactive",
+  autoReset: "current",
   ignoreByDelegateSelector: null,
   wrap: false
 };
 function isItemNavigable(el) {
-  return !el.hidden && el.getAttribute('aria-disabled') !== 'true';
+  return !el.hidden && el.getAttribute("aria-disabled") !== "true";
 }
 function isIndexNavigable(items, index) {
   return index >= 0 && index < items.length ? isItemNavigable(items[index]) : false;
@@ -35,10 +35,10 @@ function findIndexByAttribute(items, attribute, value) {
   return items.findIndex(item => isItemNavigable(item) && item.getAttribute(attribute) === value);
 }
 function findFirstNavigableAriaCheckedIndex(items) {
-  return findIndexByAttribute(items, 'aria-checked', 'true');
+  return findIndexByAttribute(items, "aria-checked", "true");
 }
 function findFirstNavigableAriaSelectedIndex(items) {
-  return findIndexByAttribute(items, 'aria-selected', 'true');
+  return findIndexByAttribute(items, "aria-selected", "true");
 }
 function findIgnoredByDelegateItems(el, options) {
   return options.ignoreByDelegateSelector !== null ? [...el.querySelectorAll(options.ignoreByDelegateSelector)] : [];
@@ -84,27 +84,27 @@ function findNextNavigableIndex(items, index, wrap) {
 function findIndexPositionByType(typeOrNum, items, currentIndex) {
   let index = -1;
   switch (typeOrNum) {
-    case 'none':
+    case "none":
       index = null;
       break;
-    case 'current':
+    case "current":
       index = currentIndex;
       break;
-    case 'interactive':
+    case "interactive":
       index = findFirstNavigableIndex(items);
       break;
-    case 'ariaChecked':
+    case "ariaChecked":
       index = findFirstNavigableAriaCheckedIndex(items);
       break;
-    case 'ariaSelected':
+    case "ariaSelected":
       index = findFirstNavigableAriaSelectedIndex(items);
       break;
-    case 'ariaSelectedOrInteractive':
+    case "ariaSelectedOrInteractive":
       index = findFirstNavigableAriaSelectedIndex(items);
       index = index === -1 ? findFirstNavigableIndex(items) : index;
       break;
     default:
-      index = typeof typeOrNum === 'number' || typeOrNum === null ? typeOrNum : -1;
+      index = typeof typeOrNum === "number" || typeOrNum === null ? typeOrNum : -1;
   }
   return index;
 }
@@ -168,19 +168,19 @@ function onMutation(e) {
     target,
     type
   } = e[0];
-  if (type === 'attributes') {
+  if (type === "attributes") {
     if (target === this.currentItem) {
-      if (attributeName === 'aria-disabled') {
+      if (attributeName === "aria-disabled") {
         // current item was disabled - keep it as current index (until a keyboard navigation happens)
         toIndex = this.index;
-      } else if (attributeName === 'hidden') {
+      } else if (attributeName === "hidden") {
         // current item was hidden and focus is lost - reset index to first interactive element
         toIndex = findFirstNavigableIndex(this.items);
       }
     } else {
       toIndex = this.index;
     }
-  } else if (type === 'childList') {
+  } else if (type === "childList") {
     if (removedNodes.length > 0 && [...removedNodes].includes(this._cachedElement)) {
       // current item was removed and focus is lost - reset index to first interactive element
       toIndex = findFirstNavigableIndex(this.items);
@@ -190,7 +190,7 @@ function onMutation(e) {
     }
   }
   this._index = toIndex;
-  this._el.dispatchEvent(new CustomEvent('navigationModelMutation', {
+  this._el.dispatchEvent(new CustomEvent("navigationModelMutation", {
     bubbles: false,
     detail: {
       fromIndex,
@@ -232,7 +232,7 @@ class LinearNavigationModel extends NavigationModel {
     // always keep an element reference to the last item (for use in mutation observer)
     // todo: convert index to Tuple to store last/current values instead?
     this._cachedElement = this.items[toIndex];
-    this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
+    this._el.dispatchEvent(new CustomEvent("navigationModelInit", {
       bubbles: false,
       detail: {
         firstInteractiveIndex: this.firstNavigableIndex,
@@ -267,7 +267,7 @@ class LinearNavigationModel extends NavigationModel {
       // update cached element reference (for use in mutation observer if DOM node gets removed)
       this._cachedElement = this.items[toIndex];
       this._index = toIndex;
-      this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
+      this._el.dispatchEvent(new CustomEvent("navigationModelChange", {
         bubbles: false,
         detail: {
           fromIndex,
@@ -285,7 +285,7 @@ class LinearNavigationModel extends NavigationModel {
     if (toIndex !== fromIndex) {
       // do not use setter as it will trigger a navigationModelChange event
       this._index = toIndex;
-      this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
+      this._el.dispatchEvent(new CustomEvent("navigationModelReset", {
         bubbles: false,
         detail: {
           fromIndex,
@@ -325,22 +325,22 @@ class NavigationEmitter {
     KeyEmitter.addKeyDown(this.el);
     ExitEmitter.addFocusExit(this.el);
     const axis = model.options.axis;
-    if (axis === 'both' || axis === 'x') {
-      this.el.addEventListener('arrowLeftKeyDown', this._keyPrevListener);
-      this.el.addEventListener('arrowRightKeyDown', this._keyNextListener);
+    if (axis === "both" || axis === "x") {
+      this.el.addEventListener("arrowLeftKeyDown", this._keyPrevListener);
+      this.el.addEventListener("arrowRightKeyDown", this._keyNextListener);
     }
-    if (axis === 'both' || axis === 'y') {
-      this.el.addEventListener('arrowUpKeyDown', this._keyPrevListener);
-      this.el.addEventListener('arrowDownKeyDown', this._keyNextListener);
+    if (axis === "both" || axis === "y") {
+      this.el.addEventListener("arrowUpKeyDown", this._keyPrevListener);
+      this.el.addEventListener("arrowDownKeyDown", this._keyNextListener);
     }
-    this.el.addEventListener('homeKeyDown', this._keyHomeListener);
-    this.el.addEventListener('endKeyDown', this._keyEndListener);
-    this.el.addEventListener('click', this._clickListener);
-    this.el.addEventListener('focusExit', this._focusExitListener);
+    this.el.addEventListener("homeKeyDown", this._keyHomeListener);
+    this.el.addEventListener("endKeyDown", this._keyEndListener);
+    this.el.addEventListener("click", this._clickListener);
+    this.el.addEventListener("focusExit", this._focusExitListener);
     this._observer.observe(this.el, {
       childList: true,
       subtree: true,
-      attributeFilter: ['aria-disabled', 'hidden'],
+      attributeFilter: ["aria-disabled", "hidden"],
       attributes: true,
       attributeOldValue: true
     });
@@ -348,14 +348,14 @@ class NavigationEmitter {
   destroy() {
     KeyEmitter.removeKeyDown(this.el);
     ExitEmitter.removeFocusExit(this.el);
-    this.el.removeEventListener('arrowLeftKeyDown', this._keyPrevListener);
-    this.el.removeEventListener('arrowRightKeyDown', this._keyNextListener);
-    this.el.removeEventListener('arrowUpKeyDown', this._keyPrevListener);
-    this.el.removeEventListener('arrowDownKeyDown', this._keyNextListener);
-    this.el.removeEventListener('homeKeyDown', this._keyHomeListener);
-    this.el.removeEventListener('endKeyDown', this._keyEndListener);
-    this.el.removeEventListener('click', this._clickListener);
-    this.el.removeEventListener('focusExit', this._focusExitListener);
+    this.el.removeEventListener("arrowLeftKeyDown", this._keyPrevListener);
+    this.el.removeEventListener("arrowRightKeyDown", this._keyNextListener);
+    this.el.removeEventListener("arrowUpKeyDown", this._keyPrevListener);
+    this.el.removeEventListener("arrowDownKeyDown", this._keyNextListener);
+    this.el.removeEventListener("homeKeyDown", this._keyHomeListener);
+    this.el.removeEventListener("endKeyDown", this._keyEndListener);
+    this.el.removeEventListener("click", this._clickListener);
+    this.el.removeEventListener("focusExit", this._focusExitListener);
     this._observer.disconnect();
   }
 }

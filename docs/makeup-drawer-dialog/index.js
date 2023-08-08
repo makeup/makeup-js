@@ -8,10 +8,10 @@ import "@ebay/skin/drawer-dialog";
 // const DrawerDialog = require('../../packages/makeup-drawer-dialog').default;
 
 // IMPORT
-import DrawerDialog from '../../packages/makeup-drawer-dialog';
+import DrawerDialog from "../../packages/makeup-drawer-dialog";
 
-window.onload = function() {
-    document.querySelectorAll('.drawer-dialog').forEach(function(el, i) {
-        const widget = new DrawerDialog(el);
-    });
+window.onload = function () {
+  document.querySelectorAll(".drawer-dialog").forEach(function (el, i) {
+    const widget = new DrawerDialog(el);
+  });
 };

@@ -1,5 +1,3 @@
 {
-   "*.{css,html,js,json,md,yml}": [
-     "prettier --write '!package.json'"
-   ]
+  "*.{css,html,js,json,md,yml}": ["prettier --write '!package.json'"]
 }

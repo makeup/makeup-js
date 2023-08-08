@@ -7,11 +7,11 @@ exports.default = void 0;
 var _makeupLightboxDialog = _interopRequireDefault(require("makeup-lightbox-dialog"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const defaultAlertOptions = {
-  baseClass: 'alert-dialog',
-  baseClassModifier: 'alert',
+  baseClass: "alert-dialog",
+  baseClassModifier: "alert",
   quickDismiss: false,
-  acknowledgeButtonSelector: '.alert-dialog__acknowledge',
-  windowSelector: '.alert-dialog__window'
+  acknowledgeButtonSelector: ".alert-dialog__acknowledge",
+  windowSelector: ".alert-dialog__window"
 };
 class _default extends _makeupLightboxDialog.default {
   constructor(el) {
@@ -22,15 +22,15 @@ class _default extends _makeupLightboxDialog.default {
     super._observeEvents();
     this._acknowledgeButtonEl = this._el.querySelector(this._options.acknowledgeButtonSelector);
     this._onAcknowledgeButtonClickListener = _onAcknowledgeButtonClick.bind(this);
-    this._acknowledgeButtonEl.addEventListener('click', this._onAcknowledgeButtonClickListener);
+    this._acknowledgeButtonEl.addEventListener("click", this._onAcknowledgeButtonClickListener);
   }
   _unobserveEvents() {
     super._unobserveEvents();
-    this._acknowledgeButtonEl.removeEventListener('click', this._onAcknowledgeButtonClickListener);
+    this._acknowledgeButtonEl.removeEventListener("click", this._onAcknowledgeButtonClickListener);
   }
   acknowledge() {
     this._hide();
-    this._el.dispatchEvent(new CustomEvent('dialog-acknowledge'));
+    this._el.dispatchEvent(new CustomEvent("dialog-acknowledge"));
   }
   destroy() {
     super.destroy();

@@ -15,15 +15,15 @@ const defaultOptions = {
   wrap: false
 };
 const tags = {
-  SCRIPT: 'script',
-  LINK: 'link'
+  SCRIPT: "script",
+  LINK: "link"
 };
 let modalEl;
 let hoistedPlaceholderEl;
 let inertContentEl;
 let originalPositionIndexes = [];
 function isRootLevel(el) {
-  return el.parentNode.tagName.toLowerCase() === 'body';
+  return el.parentNode.tagName.toLowerCase() === "body";
 }
 function unhoist() {
   if (hoistedPlaceholderEl) {
@@ -33,16 +33,16 @@ function unhoist() {
 }
 function hoist() {
   if (!hoistedPlaceholderEl && !isRootLevel(modalEl)) {
-    hoistedPlaceholderEl = document.createElement('div');
-    hoistedPlaceholderEl.setAttribute('data-makeup-modal', 'placeholder');
+    hoistedPlaceholderEl = document.createElement("div");
+    hoistedPlaceholderEl.setAttribute("data-makeup-modal", "placeholder");
     modalEl.parentElement.insertBefore(hoistedPlaceholderEl, modalEl);
     document.body.appendChild(modalEl);
   }
 }
 function wrap() {
   if (!inertContentEl && isRootLevel(modalEl)) {
-    inertContentEl = document.createElement('div');
-    inertContentEl.setAttribute('data-makeup-modal', 'inert');
+    inertContentEl = document.createElement("div");
+    inertContentEl.setAttribute("data-makeup-modal", "inert");
     [...document.body.children].forEach((child, index) => {
       // checking for the script and link tags is necessary because moving them could cause issues.
       // for example, moving a script to the top of the body could freeze the page while the script loads.
@@ -77,9 +77,9 @@ function unmodal() {
     screenreaderTrap.untrap(modalEl);
     unwrap();
     unhoist();
-    document.body.removeAttribute('data-makeup-modal');
-    modalEl.removeAttribute('data-makeup-modal');
-    modalEl.dispatchEvent(new CustomEvent('makeup-unmodal', {
+    document.body.removeAttribute("data-makeup-modal");
+    modalEl.removeAttribute("data-makeup-modal");
+    modalEl.dispatchEvent(new CustomEvent("makeup-unmodal", {
       bubbles: false
     }));
     modalEl = null;
@@ -102,9 +102,9 @@ function modal(el, options) {
   if (!_options.useHiddenProperty) {
     keyboardTrap.trap(modalEl);
   }
-  document.body.setAttribute('data-makeup-modal', 'true');
-  modalEl.setAttribute('data-makeup-modal', 'widget');
-  modalEl.dispatchEvent(new CustomEvent('makeup-modal', {
+  document.body.setAttribute("data-makeup-modal", "true");
+  modalEl.setAttribute("data-makeup-modal", "widget");
+  modalEl.dispatchEvent(new CustomEvent("makeup-modal", {
     bubbles: false
   }));
   return modalEl;

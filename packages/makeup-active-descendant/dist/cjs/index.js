@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -10,11 +10,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 const defaultOptions = {
-  activeDescendantClassName: 'active-descendant',
-  autoInit: 'none',
-  autoReset: 'none',
+  activeDescendantClassName: "active-descendant",
+  autoInit: "none",
+  autoReset: "none",
   autoScroll: false,
-  axis: 'both',
+  axis: "both",
   wrap: false
 };
 function onModelInit(e) {
@@ -25,9 +25,9 @@ function onModelInit(e) {
   const itemEl = items[toIndex];
   if (itemEl) {
     itemEl.classList.add(this._options.activeDescendantClassName);
-    this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
+    this._focusEl.setAttribute("aria-activedescendant", itemEl.id);
   }
-  this._el.dispatchEvent(new CustomEvent('activeDescendantInit', {
+  this._el.dispatchEvent(new CustomEvent("activeDescendantInit", {
     detail: e.detail
   }));
 }
@@ -43,12 +43,12 @@ function onModelChange(e) {
   }
   if (toItem) {
     toItem.classList.add(this._options.activeDescendantClassName);
-    this._focusEl.setAttribute('aria-activedescendant', toItem.id);
+    this._focusEl.setAttribute("aria-activedescendant", toItem.id);
     if (this._options.autoScroll && this._containerEl) {
       this._containerEl.scrollTop = toItem.offsetTop - this._containerEl.offsetHeight / 2;
     }
   }
-  this._el.dispatchEvent(new CustomEvent('activeDescendantChange', {
+  this._el.dispatchEvent(new CustomEvent("activeDescendantChange", {
     detail: e.detail
   }));
 }
@@ -61,11 +61,11 @@ function onModelReset(e) {
   if (toIndex !== null && toIndex !== -1) {
     const itemEl = this.items[toIndex];
     itemEl.classList.add(activeClassName);
-    this._focusEl.setAttribute('aria-activedescendant', itemEl.id);
+    this._focusEl.setAttribute("aria-activedescendant", itemEl.id);
   } else {
-    this._focusEl.removeAttribute('aria-activedescendant');
+    this._focusEl.removeAttribute("aria-activedescendant");
   }
-  this._el.dispatchEvent(new CustomEvent('activeDescendantReset', {
+  this._el.dispatchEvent(new CustomEvent("activeDescendantReset", {
     detail: e.detail
   }));
 }
@@ -82,7 +82,7 @@ function onModelMutation(e) {
       item.classList.add(activeDescendantClassName);
     }
   });
-  this._el.dispatchEvent(new CustomEvent('activeDescendantMutation', {
+  this._el.dispatchEvent(new CustomEvent("activeDescendantMutation", {
     detail: e.detail
   }));
 }
@@ -93,16 +93,16 @@ class ActiveDescendant {
     this._onChangeListener = onModelChange.bind(this);
     this._onResetListener = onModelReset.bind(this);
     this._onInitListener = onModelInit.bind(this);
-    this._el.addEventListener('navigationModelMutation', this._onMutationListener);
-    this._el.addEventListener('navigationModelChange', this._onChangeListener);
-    this._el.addEventListener('navigationModelReset', this._onResetListener);
-    this._el.addEventListener('navigationModelInit', this._onInitListener);
+    this._el.addEventListener("navigationModelMutation", this._onMutationListener);
+    this._el.addEventListener("navigationModelChange", this._onChangeListener);
+    this._el.addEventListener("navigationModelReset", this._onResetListener);
+    this._el.addEventListener("navigationModelInit", this._onInitListener);
   }
   destroy() {
-    this._el.removeEventListener('navigationModelMutation', this._onMutationListener);
-    this._el.removeEventListener('navigationModelChange', this._onChangeListener);
-    this._el.removeEventListener('navigationModelReset', this._onResetListener);
-    this._el.removeEventListener('navigationModelInit', this._onInitListener);
+    this._el.removeEventListener("navigationModelMutation", this._onMutationListener);
+    this._el.removeEventListener("navigationModelChange", this._onChangeListener);
+    this._el.removeEventListener("navigationModelReset", this._onResetListener);
+    this._el.removeEventListener("navigationModelInit", this._onInitListener);
   }
 }
 class LinearActiveDescendant extends ActiveDescendant {
@@ -118,7 +118,7 @@ class LinearActiveDescendant extends ActiveDescendant {
 
     // if programmatic relationship set aria-owns
     if (this._itemContainerEl !== this._focusEl) {
-      focusEl.setAttribute('aria-owns', this._itemContainerEl.id);
+      focusEl.setAttribute("aria-owns", this._itemContainerEl.id);
     }
     this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
       autoInit: this._options.autoInit,

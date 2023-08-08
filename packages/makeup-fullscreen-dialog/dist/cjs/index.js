@@ -7,11 +7,11 @@ exports.default = void 0;
 var _makeupDialog = _interopRequireDefault(require("makeup-dialog"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const defaultFullscreenOptions = {
-  baseClass: 'fullscreen-dialog',
+  baseClass: "fullscreen-dialog",
   quickDismiss: false,
-  closeButtonSelector: '.fullscreen-dialog__close',
-  transitionsModifier: 'transition',
-  windowSelector: '.fullscreen-dialog__window'
+  closeButtonSelector: ".fullscreen-dialog__close",
+  transitionsModifier: "transition",
+  windowSelector: ".fullscreen-dialog__window"
 };
 class _default extends _makeupDialog.default {
   constructor(el) {

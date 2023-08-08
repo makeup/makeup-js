@@ -7,11 +7,11 @@ exports.default = void 0;
 var _makeupDialog = _interopRequireDefault(require("makeup-dialog"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const defaultLightboxOptions = {
-  baseClass: 'lightbox-dialog',
-  baseClassModifier: '',
+  baseClass: "lightbox-dialog",
+  baseClassModifier: "",
   quickDismiss: true,
-  closeButtonSelector: '.lightbox-dialog__close',
-  windowSelector: '.lightbox-dialog__window'
+  closeButtonSelector: ".lightbox-dialog__close",
+  windowSelector: ".lightbox-dialog__window"
 };
 class _default extends _makeupDialog.default {
   constructor(el) {
@@ -23,11 +23,11 @@ class _default extends _makeupDialog.default {
   _observeEvents() {
     super._observeEvents();
     this._onClickListener = _onClick.bind(this);
-    this._el.addEventListener('click', this._onClickListener);
+    this._el.addEventListener("click", this._onClickListener);
   }
   _unobserveEvents() {
     super._unobserveEvents();
-    this._el.removeEventListener('click', this._onClickListener);
+    this._el.removeEventListener("click", this._onClickListener);
   }
   destroy() {
     super.destroy();

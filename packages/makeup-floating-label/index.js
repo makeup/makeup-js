@@ -1,32 +1,48 @@
-'use strict';
+"use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
 
 var defaultOptions = {
-  labelElementAnimateModifier: 'floating-label__label--animate',
-  labelElementInlineModifier: 'floating-label__label--inline',
-  labelElementFocusModifier: 'floating-label__label--focus',
-  labelElementInvalidModifier: 'floating-label__label--invalid',
-  labelElementDisabledModifier: 'floating-label__label--disabled',
-  textboxElementBackgroundRGB: ['rgb(255, 255, 255)', 'rgb(245, 245, 245)', 'rgb(230, 32, 72)', 'rgb(254, 245, 246)']
+  labelElementAnimateModifier: "floating-label__label--animate",
+  labelElementInlineModifier: "floating-label__label--inline",
+  labelElementFocusModifier: "floating-label__label--focus",
+  labelElementInvalidModifier: "floating-label__label--invalid",
+  labelElementDisabledModifier: "floating-label__label--disabled",
+  textboxElementBackgroundRGB: ["rgb(255, 255, 255)", "rgb(245, 245, 245)", "rgb(230, 32, 72)", "rgb(254, 245, 246)"],
 };
 
 function onMutation() {
   var textboxFocus = isFocused(this.textboxEl);
 
-  if (this.textboxEl.hasAttribute('placeholder')) {
-    this.placeholder = this.textboxEl.getAttribute('placeholder');
+  if (this.textboxEl.hasAttribute("placeholder")) {
+    this.placeholder = this.textboxEl.getAttribute("placeholder");
   }
 
-  if (!!this.placeholder && textboxFocus && !this.textboxEl.hasAttribute('placeholder')) {
+  if (!!this.placeholder && textboxFocus && !this.textboxEl.hasAttribute("placeholder")) {
     // Input has focus, make sure it has placeholder
-    this.textboxEl.setAttribute('placeholder', this.placeholder);
-  } else if (!textboxFocus && this.textboxEl.hasAttribute('placeholder')) {
-    this.textboxEl.removeAttribute('placeholder');
+    this.textboxEl.setAttribute("placeholder", this.placeholder);
+  } else if (!textboxFocus && this.textboxEl.hasAttribute("placeholder")) {
+    this.textboxEl.removeAttribute("placeholder");
   }
 
   if (isInvalid(this.textboxEl)) {
@@ -51,11 +67,11 @@ function hasValue(input) {
 }
 
 function isDisabled(input) {
-  return input.hasAttribute('disabled');
+  return input.hasAttribute("disabled");
 }
 
 function isInvalid(input) {
-  return input.hasAttribute('aria-invalid') && input.getAttribute('aria-invalid') === 'true';
+  return input.hasAttribute("aria-invalid") && input.getAttribute("aria-invalid") === "true";
 }
 
 function isAutofilled(input, color) {
@@ -76,7 +92,7 @@ function _onBlur() {
     this.labelEl.classList.add(this.options.labelElementInvalidModifier);
   }
 
-  this.textboxEl.removeAttribute('placeholder');
+  this.textboxEl.removeAttribute("placeholder");
 }
 
 function _onFocus() {
@@ -86,23 +102,23 @@ function _onFocus() {
   this.labelEl.classList.remove(this.options.labelElementInvalidModifier);
 
   if (this.placeholder) {
-    this.textboxEl.setAttribute('placeholder', this.placeholder);
+    this.textboxEl.setAttribute("placeholder", this.placeholder);
   }
 }
 
-module.exports = /*#__PURE__*/function () {
+module.exports = /*#__PURE__*/ (function () {
   function _class(el, userOptions) {
     _classCallCheck(this, _class);
 
     this.options = Object.assign({}, defaultOptions, userOptions);
     this._observer = new MutationObserver(onMutation.bind(this));
     this.rootEl = el;
-    this.labelEl = this.rootEl.querySelector('label');
-    this.textboxEl = this.rootEl.querySelector('input,textarea,select');
+    this.labelEl = this.rootEl.querySelector("label");
+    this.textboxEl = this.rootEl.querySelector("input,textarea,select");
     this._onBlurListener = _onBlur.bind(this);
     this._onFocusListener = _onFocus.bind(this);
-    this.textboxEl.addEventListener('blur', this._onBlurListener);
-    this.textboxEl.addEventListener('focus', this._onFocusListener);
+    this.textboxEl.addEventListener("blur", this._onBlurListener);
+    this.textboxEl.addEventListener("focus", this._onFocusListener);
 
     if (!hasValue(this.textboxEl) && !isAutofilled(this.textboxEl, this.options.textboxElementBackgroundRGB)) {
       this.labelEl.classList.add(this.options.labelElementInlineModifier);
@@ -117,30 +133,33 @@ module.exports = /*#__PURE__*/function () {
     this._observer.observe(this.textboxEl, {
       childList: false,
       subtree: false,
-      attributeFilter: ['disabled', 'aria-invalid', 'placeholder', 'value'],
-      attributes: true
+      attributeFilter: ["disabled", "aria-invalid", "placeholder", "value"],
+      attributes: true,
     });
   }
 
-  _createClass(_class, [{
-    key: "destroy",
-    value: function destroy() {
-      this._observer.disconnect();
-    }
-  }, {
-    key: "refresh",
-    value: function refresh() {
-      if (hasValue(this.textboxEl) || isAutofilled(this.textboxEl, this.options.textboxElementBackgroundRGB)) {
-        this.labelEl.classList.remove(this.options.labelElementInlineModifier);
-      } else {
-        this.labelEl.classList.add(this.options.labelElementInlineModifier);
-      }
+  _createClass(_class, [
+    {
+      key: "destroy",
+      value: function destroy() {
+        this._observer.disconnect();
+      },
+    },
+    {
+      key: "refresh",
+      value: function refresh() {
+        if (hasValue(this.textboxEl) || isAutofilled(this.textboxEl, this.options.textboxElementBackgroundRGB)) {
+          this.labelEl.classList.remove(this.options.labelElementInlineModifier);
+        } else {
+          this.labelEl.classList.add(this.options.labelElementInlineModifier);
+        }
 
-      if (isFocused(this.textboxEl)) {
-        this.labelEl.classList.add(this.options.labelElementFocusModifier);
-      }
-    }
-  }]);
+        if (isFocused(this.textboxEl)) {
+          this.labelEl.classList.add(this.options.labelElementFocusModifier);
+        }
+      },
+    },
+  ]);
 
   return _class;
-}();
+})();

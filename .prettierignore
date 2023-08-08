@@ -1,0 +1,7 @@
+coverage
+dist*
+index.compiled.js
+index.min.js
+package-lock.json
+package.json
+packages/*/dist

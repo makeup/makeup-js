@@ -7,18 +7,18 @@ exports.getAncestors = getAncestors;
 exports.getSiblings = getSiblings;
 exports.getSiblingsOfAncestors = getSiblingsOfAncestors;
 // filter function for ancestor elements
-var filterAncestor = item => item.nodeType === 1 && item.tagName.toLowerCase() !== 'body' && item.tagName.toLowerCase() !== 'html';
+const filterAncestor = item => item.nodeType === 1 && item.tagName.toLowerCase() !== "body" && item.tagName.toLowerCase() !== "html";
 
 // filter function for sibling elements
-var filterSibling = item => item.nodeType === 1 && item.tagName.toLowerCase() !== 'script';
+const filterSibling = item => item.nodeType === 1 && item.tagName.toLowerCase() !== "script";
 
 // reducer to flatten arrays
-var flattenArrays = (a, b) => a.concat(b);
+const flattenArrays = (a, b) => a.concat(b);
 
 // recursive function to get previous sibling nodes of given element
 function getPreviousSiblings(el) {
-  var siblings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-  var previousSibling = el.previousSibling;
+  let siblings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  const previousSibling = el.previousSibling;
   if (!previousSibling) {
     return siblings;
   }
@@ -28,8 +28,8 @@ function getPreviousSiblings(el) {
 
 // recursive function to get next sibling nodes of given element
 function getNextSiblings(el) {
-  var siblings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-  var nextSibling = el.nextSibling;
+  let siblings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  const nextSibling = el.nextSibling;
   if (!nextSibling) {
     return siblings;
   }
@@ -39,14 +39,14 @@ function getNextSiblings(el) {
 
 // returns all sibling element nodes of given element
 function getSiblings(el) {
-  var allSiblings = getPreviousSiblings(el).concat(getNextSiblings(el));
+  const allSiblings = getPreviousSiblings(el).concat(getNextSiblings(el));
   return allSiblings.filter(filterSibling);
 }
 
 // recursive function to get all ancestor nodes of given element
 function getAllAncestors(el) {
-  var ancestors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-  var nextAncestor = el.parentNode;
+  let ancestors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  const nextAncestor = el.parentNode;
   if (!nextAncestor) {
     return ancestors;
   }

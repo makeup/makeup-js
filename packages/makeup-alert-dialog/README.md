@@ -9,20 +9,27 @@ JavaScript class representing an [alert dialog](https://ebay.gitbook.io/mindpatt
 The following markup structure and classnames are required. Any SVG icons can be used.
 
 ```html
-<div class="alert-dialog alert-dialog--mask-fade" role="alertdialog" aria-labelledby="alert-dialog-title" aria-modal="true">
-    <div class="alert-dialog__window alert-dialog__window--fade">
-        <div class="alert-dialog__header">
-            <h2 id="alert-dialog-title">
-                <!-- dialog title -->
-            </h2>
-        </div>
-        <div class="alert-dialog__main">
-            <p id="alert-dialog-description">Dialog description</p>
-        </div>
-        <div class="alert-dialog__footer">
-            <button class="btn btn--primary alert-dialog__acknowledge" aria-describedby="alert-dialog-description">Yes</button>
-        </div>
+<div
+  class="alert-dialog alert-dialog--mask-fade"
+  role="alertdialog"
+  aria-labelledby="alert-dialog-title"
+  aria-modal="true"
+>
+  <div class="alert-dialog__window alert-dialog__window--fade">
+    <div class="alert-dialog__header">
+      <h2 id="alert-dialog-title">
+        <!-- dialog title -->
+      </h2>
     </div>
+    <div class="alert-dialog__main">
+      <p id="alert-dialog-description">Dialog description</p>
+    </div>
+    <div class="alert-dialog__footer">
+      <button class="btn btn--primary alert-dialog__acknowledge" aria-describedby="alert-dialog-description">
+        Yes
+      </button>
+    </div>
+  </div>
 </div>
 ```
 
@@ -33,10 +40,10 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import AlertDialog from 'makeup-alert-dialog';
+import AlertDialog from "makeup-alert-dialog";
 
-document.querySelectorAll('.alert-dialog').forEach(function(el, i) {
-    const widget = new AlertDialog(el, config);
+document.querySelectorAll(".alert-dialog").forEach(function (el, i) {
+  const widget = new AlertDialog(el, config);
 });
 ```
 

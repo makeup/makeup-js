@@ -160,10 +160,12 @@ function onMutation(e) {
     }
   }
   this._index = toIndex;
-  this._el.dispatchEvent(new CustomEvent("navigationModelMutation", {
-    bubbles: false,
-    detail: { fromIndex, toIndex }
-  }));
+  this._el.dispatchEvent(
+    new CustomEvent("navigationModelMutation", {
+      bubbles: false,
+      detail: { fromIndex, toIndex }
+    })
+  );
 }
 class NavigationModel {
   /**
@@ -189,15 +191,17 @@ class LinearNavigationModel extends NavigationModel {
     const toIndex = findIndexPositionByType(this.options.autoInit, this.items, this.index);
     this._index = toIndex;
     this._cachedElement = this.items[toIndex];
-    this._el.dispatchEvent(new CustomEvent("navigationModelInit", {
-      bubbles: false,
-      detail: {
-        firstInteractiveIndex: this.firstNavigableIndex,
-        fromIndex,
-        items: this.items,
-        toIndex
-      }
-    }));
+    this._el.dispatchEvent(
+      new CustomEvent("navigationModelInit", {
+        bubbles: false,
+        detail: {
+          firstInteractiveIndex: this.firstNavigableIndex,
+          fromIndex,
+          items: this.items,
+          toIndex
+        }
+      })
+    );
   }
   get currentItem() {
     return this.items[this.index];
@@ -220,10 +224,12 @@ class LinearNavigationModel extends NavigationModel {
       const fromIndex = this.index;
       this._cachedElement = this.items[toIndex];
       this._index = toIndex;
-      this._el.dispatchEvent(new CustomEvent("navigationModelChange", {
-        bubbles: false,
-        detail: { fromIndex, toIndex }
-      }));
+      this._el.dispatchEvent(
+        new CustomEvent("navigationModelChange", {
+          bubbles: false,
+          detail: { fromIndex, toIndex }
+        })
+      );
     }
   }
   indexOf(element) {
@@ -234,10 +240,12 @@ class LinearNavigationModel extends NavigationModel {
     const toIndex = findIndexPositionByType(this.options.autoReset, this.items, this.index);
     if (toIndex !== fromIndex) {
       this._index = toIndex;
-      this._el.dispatchEvent(new CustomEvent("navigationModelReset", {
-        bubbles: false,
-        detail: { fromIndex, toIndex }
-      }));
+      this._el.dispatchEvent(
+        new CustomEvent("navigationModelReset", {
+          bubbles: false,
+          detail: { fromIndex, toIndex }
+        })
+      );
     }
   }
 }

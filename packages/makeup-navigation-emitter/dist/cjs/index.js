@@ -6,17 +6,17 @@ Object.defineProperty(exports, "__esModule", {
 exports.createLinear = createLinear;
 var KeyEmitter = _interopRequireWildcard(require("makeup-key-emitter"));
 var ExitEmitter = _interopRequireWildcard(require("makeup-exit-emitter"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-var defaultOptions = {
-  axis: 'both',
-  autoInit: 'interactive',
-  autoReset: 'current',
+const defaultOptions = {
+  axis: "both",
+  autoInit: "interactive",
+  autoReset: "current",
   ignoreByDelegateSelector: null,
   wrap: false
 };
 function isItemNavigable(el) {
-  return !el.hidden && el.getAttribute('aria-disabled') !== 'true';
+  return !el.hidden && el.getAttribute("aria-disabled") !== "true";
 }
 function isIndexNavigable(items, index) {
   return index >= 0 && index < items.length ? isItemNavigable(items[index]) : false;
@@ -35,22 +35,22 @@ function findIndexByAttribute(items, attribute, value) {
   return items.findIndex(item => isItemNavigable(item) && item.getAttribute(attribute) === value);
 }
 function findFirstNavigableAriaCheckedIndex(items) {
-  return findIndexByAttribute(items, 'aria-checked', 'true');
+  return findIndexByAttribute(items, "aria-checked", "true");
 }
 function findFirstNavigableAriaSelectedIndex(items) {
-  return findIndexByAttribute(items, 'aria-selected', 'true');
+  return findIndexByAttribute(items, "aria-selected", "true");
 }
 function findIgnoredByDelegateItems(el, options) {
   return options.ignoreByDelegateSelector !== null ? [...el.querySelectorAll(options.ignoreByDelegateSelector)] : [];
 }
 function findPreviousNavigableIndex(items, index, wrap) {
-  var previousNavigableIndex = -1;
+  let previousNavigableIndex = -1;
   if (index === null || atStart(items, index)) {
     if (wrap === true) {
       previousNavigableIndex = findLastNavigableIndex(items);
     }
   } else {
-    var i = index;
+    let i = index;
     while (--i >= 0) {
       if (isItemNavigable(items[i])) {
         previousNavigableIndex = i;
@@ -61,7 +61,7 @@ function findPreviousNavigableIndex(items, index, wrap) {
   return previousNavigableIndex;
 }
 function findNextNavigableIndex(items, index, wrap) {
-  var nextNavigableIndex = -1;
+  let nextNavigableIndex = -1;
   if (index === null) {
     nextNavigableIndex = findFirstNavigableIndex(items);
   } else if (atEnd(items, index)) {
@@ -69,7 +69,7 @@ function findNextNavigableIndex(items, index, wrap) {
       nextNavigableIndex = findFirstNavigableIndex(items);
     }
   } else {
-    var i = index;
+    let i = index;
     while (++i < items.length) {
       if (isItemNavigable(items[i])) {
         nextNavigableIndex = i;
@@ -82,29 +82,29 @@ function findNextNavigableIndex(items, index, wrap) {
 
 // returning -1 means not found
 function findIndexPositionByType(typeOrNum, items, currentIndex) {
-  var index = -1;
+  let index = -1;
   switch (typeOrNum) {
-    case 'none':
+    case "none":
       index = null;
       break;
-    case 'current':
+    case "current":
       index = currentIndex;
       break;
-    case 'interactive':
+    case "interactive":
       index = findFirstNavigableIndex(items);
       break;
-    case 'ariaChecked':
+    case "ariaChecked":
       index = findFirstNavigableAriaCheckedIndex(items);
       break;
-    case 'ariaSelected':
+    case "ariaSelected":
       index = findFirstNavigableAriaSelectedIndex(items);
       break;
-    case 'ariaSelectedOrInteractive':
+    case "ariaSelectedOrInteractive":
       index = findFirstNavigableAriaSelectedIndex(items);
       index = index === -1 ? findFirstNavigableIndex(items) : index;
       break;
     default:
-      index = typeof typeOrNum === 'number' || typeOrNum === null ? typeOrNum : -1;
+      index = typeof typeOrNum === "number" || typeOrNum === null ? typeOrNum : -1;
   }
   return index;
 }
@@ -115,7 +115,7 @@ function atEnd(items, index) {
   return index === findLastNavigableIndex(items);
 }
 function onKeyPrev(e) {
-  var ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+  const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
 
   // todo: update KeyEmitter to deal with ignored items?
   if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
@@ -123,7 +123,7 @@ function onKeyPrev(e) {
   }
 }
 function onKeyNext(e) {
-  var ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+  const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
 
   // todo: update KeyEmitter to deal with ignored items?
   if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
@@ -131,13 +131,13 @@ function onKeyNext(e) {
   }
 }
 function onClick(e) {
-  var itemIndex = this.indexOf(e.target.closest(this._itemSelector));
+  const itemIndex = this.indexOf(e.target.closest(this._itemSelector));
   if (isIndexNavigable(this.items, itemIndex)) {
     this.index = itemIndex;
   }
 }
 function onKeyHome(e) {
-  var ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+  const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
 
   // todo: update KeyEmitter to deal with ignored items?
   if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
@@ -145,7 +145,7 @@ function onKeyHome(e) {
   }
 }
 function onKeyEnd(e) {
-  var ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
+  const ignoredByDelegateItems = findIgnoredByDelegateItems(this._el, this.options);
 
   // todo: update KeyEmitter to deal with ignored items?
   if (ignoredByDelegateItems.length === 0 || !ignoredByDelegateItems.includes(e.detail.target)) {
@@ -158,29 +158,29 @@ function onFocusExit() {
   }
 }
 function onMutation(e) {
-  var fromIndex = this.index;
-  var toIndex = this.index;
+  const fromIndex = this.index;
+  let toIndex = this.index;
   // https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord
-  var {
+  const {
     addedNodes,
     attributeName,
     removedNodes,
     target,
     type
   } = e[0];
-  if (type === 'attributes') {
+  if (type === "attributes") {
     if (target === this.currentItem) {
-      if (attributeName === 'aria-disabled') {
+      if (attributeName === "aria-disabled") {
         // current item was disabled - keep it as current index (until a keyboard navigation happens)
         toIndex = this.index;
-      } else if (attributeName === 'hidden') {
+      } else if (attributeName === "hidden") {
         // current item was hidden and focus is lost - reset index to first interactive element
         toIndex = findFirstNavigableIndex(this.items);
       }
     } else {
       toIndex = this.index;
     }
-  } else if (type === 'childList') {
+  } else if (type === "childList") {
     if (removedNodes.length > 0 && [...removedNodes].includes(this._cachedElement)) {
       // current item was removed and focus is lost - reset index to first interactive element
       toIndex = findFirstNavigableIndex(this.items);
@@ -190,7 +190,7 @@ function onMutation(e) {
     }
   }
   this._index = toIndex;
-  this._el.dispatchEvent(new CustomEvent('navigationModelMutation', {
+  this._el.dispatchEvent(new CustomEvent("navigationModelMutation", {
     bubbles: false,
     detail: {
       fromIndex,
@@ -223,8 +223,8 @@ class LinearNavigationModel extends NavigationModel {
    */
   constructor(el, itemSelector, selectedOptions) {
     super(el, itemSelector, selectedOptions);
-    var fromIndex = this._index;
-    var toIndex = findIndexPositionByType(this.options.autoInit, this.items, this.index);
+    const fromIndex = this._index;
+    const toIndex = findIndexPositionByType(this.options.autoInit, this.items, this.index);
 
     // do not use setter as it will trigger a change event
     this._index = toIndex;
@@ -232,7 +232,7 @@ class LinearNavigationModel extends NavigationModel {
     // always keep an element reference to the last item (for use in mutation observer)
     // todo: convert index to Tuple to store last/current values instead?
     this._cachedElement = this.items[toIndex];
-    this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
+    this._el.dispatchEvent(new CustomEvent("navigationModelInit", {
       bubbles: false,
       detail: {
         firstInteractiveIndex: this.firstNavigableIndex,
@@ -263,11 +263,11 @@ class LinearNavigationModel extends NavigationModel {
     } else if (!isIndexNavigable(this.items, toIndex)) {
       // no-op. throw exception?
     } else {
-      var fromIndex = this.index;
+      const fromIndex = this.index;
       // update cached element reference (for use in mutation observer if DOM node gets removed)
       this._cachedElement = this.items[toIndex];
       this._index = toIndex;
-      this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
+      this._el.dispatchEvent(new CustomEvent("navigationModelChange", {
         bubbles: false,
         detail: {
           fromIndex,
@@ -280,12 +280,12 @@ class LinearNavigationModel extends NavigationModel {
     return this.items.indexOf(element);
   }
   reset() {
-    var fromIndex = this.index;
-    var toIndex = findIndexPositionByType(this.options.autoReset, this.items, this.index);
+    const fromIndex = this.index;
+    const toIndex = findIndexPositionByType(this.options.autoReset, this.items, this.index);
     if (toIndex !== fromIndex) {
       // do not use setter as it will trigger a navigationModelChange event
       this._index = toIndex;
-      this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
+      this._el.dispatchEvent(new CustomEvent("navigationModelReset", {
         bubbles: false,
         detail: {
           fromIndex,
@@ -324,23 +324,23 @@ class NavigationEmitter {
     this._observer = new MutationObserver(onMutation.bind(model));
     KeyEmitter.addKeyDown(this.el);
     ExitEmitter.addFocusExit(this.el);
-    var axis = model.options.axis;
-    if (axis === 'both' || axis === 'x') {
-      this.el.addEventListener('arrowLeftKeyDown', this._keyPrevListener);
-      this.el.addEventListener('arrowRightKeyDown', this._keyNextListener);
+    const axis = model.options.axis;
+    if (axis === "both" || axis === "x") {
+      this.el.addEventListener("arrowLeftKeyDown", this._keyPrevListener);
+      this.el.addEventListener("arrowRightKeyDown", this._keyNextListener);
     }
-    if (axis === 'both' || axis === 'y') {
-      this.el.addEventListener('arrowUpKeyDown', this._keyPrevListener);
-      this.el.addEventListener('arrowDownKeyDown', this._keyNextListener);
+    if (axis === "both" || axis === "y") {
+      this.el.addEventListener("arrowUpKeyDown", this._keyPrevListener);
+      this.el.addEventListener("arrowDownKeyDown", this._keyNextListener);
     }
-    this.el.addEventListener('homeKeyDown', this._keyHomeListener);
-    this.el.addEventListener('endKeyDown', this._keyEndListener);
-    this.el.addEventListener('click', this._clickListener);
-    this.el.addEventListener('focusExit', this._focusExitListener);
+    this.el.addEventListener("homeKeyDown", this._keyHomeListener);
+    this.el.addEventListener("endKeyDown", this._keyEndListener);
+    this.el.addEventListener("click", this._clickListener);
+    this.el.addEventListener("focusExit", this._focusExitListener);
     this._observer.observe(this.el, {
       childList: true,
       subtree: true,
-      attributeFilter: ['aria-disabled', 'hidden'],
+      attributeFilter: ["aria-disabled", "hidden"],
       attributes: true,
       attributeOldValue: true
     });
@@ -348,19 +348,19 @@ class NavigationEmitter {
   destroy() {
     KeyEmitter.removeKeyDown(this.el);
     ExitEmitter.removeFocusExit(this.el);
-    this.el.removeEventListener('arrowLeftKeyDown', this._keyPrevListener);
-    this.el.removeEventListener('arrowRightKeyDown', this._keyNextListener);
-    this.el.removeEventListener('arrowUpKeyDown', this._keyPrevListener);
-    this.el.removeEventListener('arrowDownKeyDown', this._keyNextListener);
-    this.el.removeEventListener('homeKeyDown', this._keyHomeListener);
-    this.el.removeEventListener('endKeyDown', this._keyEndListener);
-    this.el.removeEventListener('click', this._clickListener);
-    this.el.removeEventListener('focusExit', this._focusExitListener);
+    this.el.removeEventListener("arrowLeftKeyDown", this._keyPrevListener);
+    this.el.removeEventListener("arrowRightKeyDown", this._keyNextListener);
+    this.el.removeEventListener("arrowUpKeyDown", this._keyPrevListener);
+    this.el.removeEventListener("arrowDownKeyDown", this._keyNextListener);
+    this.el.removeEventListener("homeKeyDown", this._keyHomeListener);
+    this.el.removeEventListener("endKeyDown", this._keyEndListener);
+    this.el.removeEventListener("click", this._clickListener);
+    this.el.removeEventListener("focusExit", this._focusExitListener);
     this._observer.disconnect();
   }
 }
 function createLinear(el, itemSelector, selectedOptions) {
-  var model = new LinearNavigationModel(el, itemSelector, selectedOptions);
+  const model = new LinearNavigationModel(el, itemSelector, selectedOptions);
   return new NavigationEmitter(el, model);
 }
 

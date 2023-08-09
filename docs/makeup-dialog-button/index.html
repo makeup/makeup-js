@@ -1,122 +1,189 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>makeup-dialog-button</title>
-        <link href="index.css" rel="stylesheet" />
-        <link rel="icon" href="../favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <div id="page">
-            <header>
-                <h1>makeup-dialog-button</h1>
-                <p>Dialog-Button is headless UI widget and does not come bundled with any CSS.</p>
-                <p>This example is receiving its base styles from <a href="https://ebay.github.io/skin">eBay Skin</a>. A subset of style properties are being customized/themed via Skin's CSS Custom Properties.</p>
-                <p>This page was loaded with all dialogs in a non-open state. To see an example of a dialog open on page load, visit the  <a href="../makeup-lightbox-dialog">makeup-lightbox-dialog</a> page.</p>
-            </header>
-            <hr/ >
-            <main>
-                <button data-makeup-for="dialog-lightbox" class="btn dialog-button" type="button" aria-haspopup="dialog">Lightbox</button>
+  <head>
+    <title>makeup-dialog-button</title>
+    <link href="index.css" rel="stylesheet" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div id="page">
+      <header>
+        <h1>makeup-dialog-button</h1>
+        <p>Dialog-Button is headless UI widget and does not come bundled with any CSS.</p>
+        <p>
+          This example is receiving its base styles from <a href="https://ebay.github.io/skin">eBay Skin</a>. A subset
+          of style properties are being customized/themed via Skin's CSS Custom Properties.
+        </p>
+        <p>
+          This page was loaded with all dialogs in a non-open state. To see an example of a dialog open on page load,
+          visit the <a href="../makeup-lightbox-dialog">makeup-lightbox-dialog</a> page.
+        </p>
+      </header>
+      <hr />
+      <main>
+        <button data-makeup-for="dialog-lightbox" class="btn dialog-button" type="button" aria-haspopup="dialog">
+          Lightbox
+        </button>
 
-                <div class="lightbox-dialog lightbox-dialog--mask-fade" id="dialog-lightbox" role="dialog" aria-labelledby="lightbox-dialog-title" aria-modal="true" hidden>
-                    <div class="lightbox-dialog__window lightbox-dialog__window--fade">
-                        <div class="lightbox-dialog__header">
-                            <h2 id="lightbox-dialog-title">Lightbox Dialog</h2>
-                            <button aria-label="Close dialog" class="icon-btn lightbox-dialog__close" type="button">
-                                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
-                                    <use xlink:href="../icon.svg#icon-close"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="lightbox-dialog__main">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            <p><a href="http://www.ebay.com">www.ebay.com</a></p>
-                        </div>
-                    </div>
-                </div>
+        <div
+          class="lightbox-dialog lightbox-dialog--mask-fade"
+          id="dialog-lightbox"
+          role="dialog"
+          aria-labelledby="lightbox-dialog-title"
+          aria-modal="true"
+          hidden
+        >
+          <div class="lightbox-dialog__window lightbox-dialog__window--fade">
+            <div class="lightbox-dialog__header">
+              <h2 id="lightbox-dialog-title">Lightbox Dialog</h2>
+              <button aria-label="Close dialog" class="icon-btn lightbox-dialog__close" type="button">
+                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
+                  <use xlink:href="../icon.svg#icon-close"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="lightbox-dialog__main">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+              <p><a href="http://www.ebay.com">www.ebay.com</a></p>
+            </div>
+          </div>
+        </div>
 
-                <button class="btn dialog-button" type="button" data-makeup-for="dialog-alert" aria-haspopup="dialog">Alert</button>
+        <button class="btn dialog-button" type="button" data-makeup-for="dialog-alert" aria-haspopup="dialog">
+          Alert
+        </button>
 
-                <div class="alert-dialog alert-dialog--mask-fade" id="dialog-alert" role="alertdialog" aria-labelledby="alert-dialog-title" aria-modal="true" hidden>
-                    <div class="alert-dialog__window alert-dialog__window--fade">
-                        <div class="alert-dialog__header">
-                            <h2 class="alert-dialog__title" id="alert-dialog-title">Alert!</h2>
-                        </div>
-                        <div class="alert-dialog__main">
-                            <p id="alert-dialog-description">You must acknowledge this alert to continue.</p>
-                        </div>
-                        <div class="alert-dialog__footer">
-                            <button class="btn btn--primary alert-dialog__acknowledge" aria-describedby="alert-dialog-description">OK</button>
-                        </div>
-                    </div>
-                </div>
+        <div
+          class="alert-dialog alert-dialog--mask-fade"
+          id="dialog-alert"
+          role="alertdialog"
+          aria-labelledby="alert-dialog-title"
+          aria-modal="true"
+          hidden
+        >
+          <div class="alert-dialog__window alert-dialog__window--fade">
+            <div class="alert-dialog__header">
+              <h2 class="alert-dialog__title" id="alert-dialog-title">Alert!</h2>
+            </div>
+            <div class="alert-dialog__main">
+              <p id="alert-dialog-description">You must acknowledge this alert to continue.</p>
+            </div>
+            <div class="alert-dialog__footer">
+              <button class="btn btn--primary alert-dialog__acknowledge" aria-describedby="alert-dialog-description">
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
 
-                <button class="btn dialog-button" type="button" data-makeup-for="dialog-confirm" aria-haspopup="dialog">Confirm</button>
+        <button class="btn dialog-button" type="button" data-makeup-for="dialog-confirm" aria-haspopup="dialog">
+          Confirm
+        </button>
 
-                <div class="confirm-dialog confirm-dialog--mask-fade" id="dialog-confirm" role="dialog" aria-labelledby="confirm-dialog-title" aria-modal="true" hidden>
-                    <div class="confirm-dialog__window confirm-dialog__window--fade">
-                        <div class="confirm-dialog__header">
-                            <h2 class="confirm-dialog__title" id="confirm-dialog-title">Delete Address?</h2>
-                        </div>
-                        <div class="confirm-dialog__main">
-                            <p id="confirm-dialog-description-0">You will permanently lose this address.</p>
-                        </div>
-                        <div class="confirm-dialog__footer">
-                            <button class="btn confirm-dialog__reject">Cancel</button>
-                            <button class="btn btn--primary confirm-dialog__confirm" aria-describedby="confirm-dialog-description">Delete</button>
-                        </div>
-                    </div>
-                </div>
+        <div
+          class="confirm-dialog confirm-dialog--mask-fade"
+          id="dialog-confirm"
+          role="dialog"
+          aria-labelledby="confirm-dialog-title"
+          aria-modal="true"
+          hidden
+        >
+          <div class="confirm-dialog__window confirm-dialog__window--fade">
+            <div class="confirm-dialog__header">
+              <h2 class="confirm-dialog__title" id="confirm-dialog-title">Delete Address?</h2>
+            </div>
+            <div class="confirm-dialog__main">
+              <p id="confirm-dialog-description-0">You will permanently lose this address.</p>
+            </div>
+            <div class="confirm-dialog__footer">
+              <button class="btn confirm-dialog__reject">Cancel</button>
+              <button class="btn btn--primary confirm-dialog__confirm" aria-describedby="confirm-dialog-description">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
 
-                <button class="btn dialog-button" type="button" data-makeup-for="dialog-input" aria-haspopup="dialog">Input</button>
+        <button class="btn dialog-button" type="button" data-makeup-for="dialog-input" aria-haspopup="dialog">
+          Input
+        </button>
 
-                <div class="lightbox-dialog lightbox-dialog--input lightbox-dialog--mask-fade" id="dialog-input" role="dialog" hidden aria-labelledby="input-dialog-title" aria-modal="true">
-                    <div class="lightbox-dialog__window lightbox-dialog__window--fade">
-                        <form action="index.html" method="get">
-                            <div class="lightbox-dialog__header">
-                                <h2 class="lightbox-dialog__title" id="input-dialog-title">Enter Your Bid</h2>
-                            </div>
-                            <div class="lightbox-dialog__main">
-                                <p>
-                                    <label for="input-dialog-input">Bid Amount:</label>
-                                    <span class="textbox">
-                                        <input autofocus class="lightbox-dialog__input textbox__control" id="input-dialog-input" type="text" name="bid" />
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="lightbox-dialog__footer">
-                                <button class="btn lightbox-dialog__cancel" type="button">Cancel</button>
-                                <button class="btn btn--primary lightbox-dialog__submit" type="submit">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+        <div
+          class="lightbox-dialog lightbox-dialog--input lightbox-dialog--mask-fade"
+          id="dialog-input"
+          role="dialog"
+          hidden
+          aria-labelledby="input-dialog-title"
+          aria-modal="true"
+        >
+          <div class="lightbox-dialog__window lightbox-dialog__window--fade">
+            <form action="index.html" method="get">
+              <div class="lightbox-dialog__header">
+                <h2 class="lightbox-dialog__title" id="input-dialog-title">Enter Your Bid</h2>
+              </div>
+              <div class="lightbox-dialog__main">
+                <p>
+                  <label for="input-dialog-input">Bid Amount:</label>
+                  <span class="textbox">
+                    <input
+                      autofocus
+                      class="lightbox-dialog__input textbox__control"
+                      id="input-dialog-input"
+                      type="text"
+                      name="bid"
+                    />
+                  </span>
+                </p>
+              </div>
+              <div class="lightbox-dialog__footer">
+                <button class="btn lightbox-dialog__cancel" type="button">Cancel</button>
+                <button class="btn btn--primary lightbox-dialog__submit" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
 
-                <button class="btn dialog-button" type="button" data-makeup-for="dialog-panel" aria-haspopup="dialog">Panel</button>
+        <button class="btn dialog-button" type="button" data-makeup-for="dialog-panel" aria-haspopup="dialog">
+          Panel
+        </button>
 
-                <div class="panel-dialog panel-dialog--mask-fade-slow" id="dialog-panel" role="dialog" aria-labelledby="panel-dialog-title" aria-modal="true" hidden>
-                    <div class="panel-dialog__window panel-dialog__window--slide">
-                        <div class="panel-dialog__header">
-                            <h2 id="panel-dialog-title">Heading</h2>
-                            <button aria-label="Close dialog" class="icon-btn panel-dialog__close" type="button">
-                                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
-                                    <use xlink:href="../icon.svg#icon-close"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="panel-dialog__main">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            <p><a href="http://www.ebay.com">www.ebay.com</a></p>
-                        </div>
-                    </div>
-                </div>
+        <div
+          class="panel-dialog panel-dialog--mask-fade-slow"
+          id="dialog-panel"
+          role="dialog"
+          aria-labelledby="panel-dialog-title"
+          aria-modal="true"
+          hidden
+        >
+          <div class="panel-dialog__window panel-dialog__window--slide">
+            <div class="panel-dialog__header">
+              <h2 id="panel-dialog-title">Heading</h2>
+              <button aria-label="Close dialog" class="icon-btn panel-dialog__close" type="button">
+                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
+                  <use xlink:href="../icon.svg#icon-close"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="panel-dialog__main">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+              <p><a href="http://www.ebay.com">www.ebay.com</a></p>
+            </div>
+          </div>
+        </div>
 
-                <!--
+        <!--
                 <button class="btn dialog-button" type="button" data-makeup-for="dialog-filter" aria-haspopup="dialog">Filter</button>
 
                 <div class="panel-dialog panel-dialog--filter panel-dialog--mask-fade-slow" id="dialog-filter" role="dialog" aria-labelledby="filter-dialog-title" aria-modal="true" hidden>
@@ -163,107 +230,164 @@
                     </div>
                 </div>
                 -->
-                <button class="btn dialog-button" type="button" data-makeup-for="dialog-snackbar" aria-haspopup="dialog">Snackbar</button>
+        <button class="btn dialog-button" type="button" data-makeup-for="dialog-snackbar" aria-haspopup="dialog">
+          Snackbar
+        </button>
 
-                <aside class="snackbar-dialog snackbar-dialog--transition" id="dialog-snackbar" role="dialog" aria-label="Notification" aria-live="polite" aria-modal="false" hidden>
-                    <div class="snackbar-dialog__window">
-                        <div class="snackbar-dialog__main">
-                            <p>1 item deleted from watch list.</p>
-                        </div>
-                        <div class="snackbar-dialog__actions">
-                            <button accesskey="u" class="fake-link snackbar-dialog__cta">Undo<span class="clipped"> - Access Key: U</span></button>
-                        </div>
-                    </div>
-                </aside>
+        <aside
+          class="snackbar-dialog snackbar-dialog--transition"
+          id="dialog-snackbar"
+          role="dialog"
+          aria-label="Notification"
+          aria-live="polite"
+          aria-modal="false"
+          hidden
+        >
+          <div class="snackbar-dialog__window">
+            <div class="snackbar-dialog__main">
+              <p>1 item deleted from watch list.</p>
+            </div>
+            <div class="snackbar-dialog__actions">
+              <button accesskey="u" class="fake-link snackbar-dialog__cta">
+                Undo<span class="clipped"> - Access Key: U</span>
+              </button>
+            </div>
+          </div>
+        </aside>
 
-                <button class="btn dialog-button" type="button" data-makeup-for="dialog-toast" aria-haspopup="dialog">Toast</button>
+        <button class="btn dialog-button" type="button" data-makeup-for="dialog-toast" aria-haspopup="dialog">
+          Toast
+        </button>
 
-                <aside id="dialog-toast" class="toast-dialog toast-dialog--transition" role="dialog" aria-label="Notification" aria-live="polite" aria-modal="false" hidden>
-                    <div class="toast-dialog__window">
-                        <div class="toast-dialog__header">
-                            <h2 class="toast-dialog__title">User Privacy Preferences</h2>
-                            <button class="icon-btn icon-btn--transparent toast-dialog__close" type="button" aria-label="Close notification dialog">
-                                <svg class="icon icon--close" focusable="false" height="24" width="24">
-                                    <use xlink:href="../icon.svg#icon-close"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="toast-dialog__main">
-                            <p>We detected something unusual about a recent sign-in to your eBay account. To help keep you safe, we recommend you change the password.</p>
-                        </div>
-                        <div class="toast-dialog__footer">
-                            <button accesskey="v" class="btn btn--primary toast-dialog__cta">View Account</button>
-                        </div>
-                    </div>
-                </aside>
+        <aside
+          id="dialog-toast"
+          class="toast-dialog toast-dialog--transition"
+          role="dialog"
+          aria-label="Notification"
+          aria-live="polite"
+          aria-modal="false"
+          hidden
+        >
+          <div class="toast-dialog__window">
+            <div class="toast-dialog__header">
+              <h2 class="toast-dialog__title">User Privacy Preferences</h2>
+              <button
+                class="icon-btn icon-btn--transparent toast-dialog__close"
+                type="button"
+                aria-label="Close notification dialog"
+              >
+                <svg class="icon icon--close" focusable="false" height="24" width="24">
+                  <use xlink:href="../icon.svg#icon-close"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="toast-dialog__main">
+              <p>
+                We detected something unusual about a recent sign-in to your eBay account. To help keep you safe, we
+                recommend you change the password.
+              </p>
+            </div>
+            <div class="toast-dialog__footer">
+              <button accesskey="v" class="btn btn--primary toast-dialog__cta">View Account</button>
+            </div>
+          </div>
+        </aside>
 
-                <button class="btn dialog-button" data-makeup-for="drawer-dialog" type="button">Drawer</button>
+        <button class="btn dialog-button" data-makeup-for="drawer-dialog" type="button">Drawer</button>
 
-                <div class="drawer-dialog drawer-dialog--mask-fade" id="drawer-dialog" role="dialog" aria-labelledby="drawer-dialog-title" aria-modal="true" hidden>
-                    <div class="drawer-dialog__window drawer-dialog__window--slide">
-                        <button class="drawer-dialog__handle" type="button"></button>
-                        <div class="drawer-dialog__header">
-                            <h2 id="drawer-dialog-title" class="large-text-1 bold-text">Drawer Dialog</h2>
-                            <button aria-label="Close dialog" class="icon-btn drawer-dialog__close" type="button">
-                                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
-                                    <use xlink:href="../icon.svg#icon-close"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="drawer-dialog__main">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            </p>
-                            <p><a href="http://www.ebay.com">www.ebay.com</a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn dialog-button" data-makeup-for="dialog-fullscreen" type="button">Fullscreen</button>
-
-                <div class="fullscreen-dialog fullscreen-dialog--transition" id="dialog-fullscreen" role="dialog" aria-labelledby="fullscreen-dialog-title" aria-modal="true" hidden>
-                    <div class="fullscreen-dialog__window fullscreen-dialog__window--slide">
-                        <div class="fullscreen-dialog__header">
-                            <button aria-label="Close dialog" class="icon-btn fullscreen-dialog__close" type="button">
-                                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
-                                    <use xlink:href="../icon.svg#icon-close"></use>
-                                </svg>
-                            </button>
-                            <h2 id="fullscreen-dialog-title">Fullscreen Dialog</h2>
-                        </div>
-                        <div class="fullscreen-dialog__main">
-                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            <p><a href="http://www.ebay.com">www.ebay.com</a></p>
-                        </div>
-                    </div>
-                </div>
-
-            </main>
+        <div
+          class="drawer-dialog drawer-dialog--mask-fade"
+          id="drawer-dialog"
+          role="dialog"
+          aria-labelledby="drawer-dialog-title"
+          aria-modal="true"
+          hidden
+        >
+          <div class="drawer-dialog__window drawer-dialog__window--slide">
+            <button class="drawer-dialog__handle" type="button"></button>
+            <div class="drawer-dialog__header">
+              <h2 id="drawer-dialog-title" class="large-text-1 bold-text">Drawer Dialog</h2>
+              <button aria-label="Close dialog" class="icon-btn drawer-dialog__close" type="button">
+                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
+                  <use xlink:href="../icon.svg#icon-close"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="drawer-dialog__main">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur.
+              </p>
+              <p><a href="http://www.ebay.com">www.ebay.com</a></p>
+            </div>
+          </div>
         </div>
-        <script src="index.min.js"></script>
-    </body>
+
+        <button class="btn dialog-button" data-makeup-for="dialog-fullscreen" type="button">Fullscreen</button>
+
+        <div
+          class="fullscreen-dialog fullscreen-dialog--transition"
+          id="dialog-fullscreen"
+          role="dialog"
+          aria-labelledby="fullscreen-dialog-title"
+          aria-modal="true"
+          hidden
+        >
+          <div class="fullscreen-dialog__window fullscreen-dialog__window--slide">
+            <div class="fullscreen-dialog__header">
+              <button aria-label="Close dialog" class="icon-btn fullscreen-dialog__close" type="button">
+                <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
+                  <use xlink:href="../icon.svg#icon-close"></use>
+                </svg>
+              </button>
+              <h2 id="fullscreen-dialog-title">Fullscreen Dialog</h2>
+            </div>
+            <div class="fullscreen-dialog__main">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+              <p><a href="http://www.ebay.com">www.ebay.com</a></p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="index.min.js"></script>
+  </body>
 </html>

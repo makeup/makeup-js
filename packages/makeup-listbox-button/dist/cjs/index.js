@@ -7,22 +7,22 @@ exports.default = void 0;
 var _makeupExpander = _interopRequireDefault(require("makeup-expander"));
 var _makeupListbox = _interopRequireDefault(require("makeup-listbox"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var defaultOptions = {
+const defaultOptions = {
   autoSelect: true,
-  buttonLabelSelector: '.expand-btn__text',
+  buttonLabelSelector: ".expand-btn__text",
   collapseTimeout: 150,
   customElementMode: false,
-  listboxSelector: '.listbox-button__listbox',
-  floatingLabelSelector: '.expand-btn__floating-label',
-  floatingLabelInline: 'expand-btn__floating-label--inline',
-  floatingLabelAnimate: 'expand-btn__floating-label--animate'
+  listboxSelector: ".listbox-button__listbox",
+  floatingLabelSelector: ".expand-btn__floating-label",
+  floatingLabelInline: "expand-btn__floating-label--inline",
+  floatingLabelAnimate: "expand-btn__floating-label--animate"
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
     var _this$_buttonEl$datas;
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
-    this._buttonEl = this.el.querySelector('button');
+    this._buttonEl = this.el.querySelector("button");
     this._buttonLabelEl = widgetEl.querySelector(this._options.buttonLabelSelector);
     this._buttonFloatingLabelEl = widgetEl.querySelector(this._options.floatingLabelSelector);
     this._buttonPrefix = (_this$_buttonEl$datas = this._buttonEl.dataset) === null || _this$_buttonEl$datas === void 0 ? void 0 : _this$_buttonEl$datas.listboxButtonPrefix;
@@ -39,8 +39,8 @@ class _default {
       this._observeEvents();
     }
     this.listbox = new _makeupListbox.default(this._listboxEl, {
-      activeDescendantClassName: 'listbox-button__option--active',
-      autoReset: 'ariaSelectedOrInteractive',
+      activeDescendantClassName: "listbox-button__option--active",
+      autoReset: "ariaSelectedOrInteractive",
       autoSelect: this._options.autoSelect
     });
     this._expander = new _makeupExpander.default(this.el, {
@@ -49,12 +49,12 @@ class _default {
       collapseOnClickOut: true,
       collapseOnFocusOut: true,
       contentSelector: this._options.listboxSelector,
-      expandedClass: 'listbox-button--expanded',
+      expandedClass: "listbox-button--expanded",
       expandOnClick: true,
-      focusManagement: 'focusable',
-      hostSelector: 'button'
+      focusManagement: "focusable",
+      hostSelector: "button"
     });
-    this.el.classList.add('listbox-button--js');
+    this.el.classList.add("listbox-button--js");
     if (this._buttonFloatingLabelEl) {
       if (!this._buttonLabelEl.innerText) {
         this._buttonFloatingLabelEl.classList.add(this._options.floatingLabelInline);
@@ -64,7 +64,7 @@ class _default {
   _observeMutations() {
     if (!this._options.customElementMode) {
       this._mutationObserver.observe(this._buttonEl, {
-        attributeFilter: ['aria-expanded'],
+        attributeFilter: ["aria-expanded"],
         attributes: true,
         childList: false,
         subtree: false
@@ -77,25 +77,25 @@ class _default {
     }
   }
   _unobserveEvents() {
-    this._buttonEl.removeEventListener('click', this._onButtonFirstClickListener);
-    this._listboxEl.removeEventListener('click', this._onListboxClickListener);
-    this._listboxEl.removeEventListener('keydown', this._onListboxKeyDownListener);
-    this._listboxEl.removeEventListener('makeup-listbox-init', this._onListboxInitListener);
-    this._listboxEl.removeEventListener('makeup-listbox-change', this._onListboxChangeListener);
+    this._buttonEl.removeEventListener("click", this._onButtonFirstClickListener);
+    this._listboxEl.removeEventListener("click", this._onListboxClickListener);
+    this._listboxEl.removeEventListener("keydown", this._onListboxKeyDownListener);
+    this._listboxEl.removeEventListener("makeup-listbox-init", this._onListboxInitListener);
+    this._listboxEl.removeEventListener("makeup-listbox-change", this._onListboxChangeListener);
   }
   _observeEvents() {
     if (this._destroyed !== true) {
-      this._buttonEl.addEventListener('click', this._onButtonFirstClickListener, {
+      this._buttonEl.addEventListener("click", this._onButtonFirstClickListener, {
         once: true
       });
-      this._listboxEl.addEventListener('click', this._onListboxClickListener);
-      this._listboxEl.addEventListener('keydown', this._onListboxKeyDownListener);
-      this._listboxEl.addEventListener('makeup-listbox-init', this._onListboxInitListener);
-      this._listboxEl.addEventListener('makeup-listbox-change', this._onListboxChangeListener);
+      this._listboxEl.addEventListener("click", this._onListboxClickListener);
+      this._listboxEl.addEventListener("keydown", this._onListboxKeyDownListener);
+      this._listboxEl.addEventListener("makeup-listbox-init", this._onListboxInitListener);
+      this._listboxEl.addEventListener("makeup-listbox-change", this._onListboxChangeListener);
     }
   }
   collapse() {
-    var widget = this;
+    const widget = this;
     setTimeout(function () {
       widget._unobserveMutations();
       widget._expander.expanded = false;
@@ -130,12 +130,12 @@ function _onListboxClick() {
   this.collapse();
 }
 function _onListboxInit(e) {
-  this.el.dispatchEvent(new CustomEvent('makeup-listbox-button-init', {
+  this.el.dispatchEvent(new CustomEvent("makeup-listbox-button-init", {
     detail: e.detail
   }));
 }
 function _onListboxChange(e) {
-  var toValue = e.detail.optionValue;
+  const toValue = e.detail.optionValue;
   if (this._buttonPrefix) {
     this._buttonLabelEl.innerText = this._buttonPrefix + toValue;
   } else {
@@ -149,14 +149,14 @@ function _onListboxChange(e) {
       this._buttonFloatingLabelEl.classList.add(this._options.floatingLabelInline);
     }
   }
-  this.el.dispatchEvent(new CustomEvent('makeup-listbox-button-change', {
+  this.el.dispatchEvent(new CustomEvent("makeup-listbox-button-change", {
     detail: e.detail
   }));
 }
 function _onMutation(mutationsList) {
-  for (var mutation of mutationsList) {
-    if (mutation.type === 'attributes') {
-      this.el.dispatchEvent(new CustomEvent('makeup-listbox-button-mutation', {
+  for (const mutation of mutationsList) {
+    if (mutation.type === "attributes") {
+      this.el.dispatchEvent(new CustomEvent("makeup-listbox-button-mutation", {
         detail: {
           attributeName: mutation.attributeName
         }

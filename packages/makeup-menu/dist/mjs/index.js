@@ -90,11 +90,13 @@ class src_default {
 function _onMutation(mutationsList) {
   for (const mutation of mutationsList) {
     if (mutation.type === "attributes") {
-      this.el.dispatchEvent(new CustomEvent("makeup-menu-mutation", {
-        detail: {
-          attributeName: mutation.attributeName
-        }
-      }));
+      this.el.dispatchEvent(
+        new CustomEvent("makeup-menu-mutation", {
+          detail: {
+            attributeName: mutation.attributeName
+          }
+        })
+      );
     }
   }
 }
@@ -116,28 +118,29 @@ function _onClick(e) {
   }
 }
 function _selectMenuItem(widgetEl, menuItemEl) {
-  widgetEl.dispatchEvent(new CustomEvent("makeup-menu-select", {
-    detail: {
-      el: menuItemEl,
-      value: menuItemEl.innerText
-    }
-  }));
+  widgetEl.dispatchEvent(
+    new CustomEvent("makeup-menu-select", {
+      detail: {
+        el: menuItemEl,
+        value: menuItemEl.innerText
+      }
+    })
+  );
 }
 function _selectMenuItemCheckbox(widgetEl, menuItemEl) {
   if (menuItemEl.getAttribute("aria-disabled") !== "true") {
     const groupName = menuItemEl.dataset.makeupGroup;
-    menuItemEl.setAttribute(
-      "aria-checked",
-      menuItemEl.getAttribute("aria-checked") === "true" ? "false" : "true"
+    menuItemEl.setAttribute("aria-checked", menuItemEl.getAttribute("aria-checked") === "true" ? "false" : "true");
+    widgetEl.dispatchEvent(
+      new CustomEvent("makeup-menu-change", {
+        detail: {
+          el: menuItemEl,
+          checked: menuItemEl.getAttribute("aria-checked"),
+          group: groupName,
+          value: menuItemEl.innerText
+        }
+      })
     );
-    widgetEl.dispatchEvent(new CustomEvent("makeup-menu-change", {
-      detail: {
-        el: menuItemEl,
-        checked: menuItemEl.getAttribute("aria-checked"),
-        group: groupName,
-        value: menuItemEl.innerText
-      }
-    }));
   }
 }
 function _selectMenuItemRadio(widgetEl, menuItemEl) {
@@ -149,13 +152,15 @@ function _selectMenuItemRadio(widgetEl, menuItemEl) {
     }
     if (checkedEl !== menuItemEl) {
       menuItemEl.setAttribute("aria-checked", "true");
-      widgetEl.dispatchEvent(new CustomEvent("makeup-menu-change", {
-        detail: {
-          el: menuItemEl,
-          group: groupName,
-          value: menuItemEl.innerText
-        }
-      }));
+      widgetEl.dispatchEvent(
+        new CustomEvent("makeup-menu-change", {
+          detail: {
+            el: menuItemEl,
+            group: groupName,
+            value: menuItemEl.innerText
+          }
+        })
+      );
     }
   }
 }

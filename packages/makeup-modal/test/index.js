@@ -1,7 +1,7 @@
-import { expect } from 'chai';
-import sinon from 'sinon';
-import * as modal from '../src/index.js';
-import testData from './data.js';
+import { expect } from "chai";
+import sinon from "sinon";
+import * as modal from "../src/index.js";
+import testData from "./data.js";
 
 var modalEl;
 var onModal;
@@ -14,57 +14,57 @@ var hoistEl;
 */
 
 function doBeforeAll(html) {
-    document.querySelector('body').innerHTML = html;
+  document.querySelector("body").innerHTML = html;
 
-    modalEl = document.querySelector('.modal');
-    onModal = sinon.spy();
-    onUnmodal = sinon.spy();
+  modalEl = document.querySelector(".modal");
+  onModal = sinon.spy();
+  onUnmodal = sinon.spy();
 
-    modalEl.addEventListener('makeup-modal', onModal);
-    modalEl.addEventListener('makeup-unmodal', onUnmodal);
+  modalEl.addEventListener("makeup-modal", onModal);
+  modalEl.addEventListener("makeup-unmodal", onUnmodal);
 }
 
-testData.forEach(function(data) {
-    describe('makeup-modal', function() {
-        describe('when modal is activated', function() {
-            before(function() {
-                doBeforeAll(data.html);
-                modal.modal(modalEl);
-            });
+testData.forEach(function (data) {
+  describe("makeup-modal", function () {
+    describe("when modal is activated", function () {
+      before(function () {
+        doBeforeAll(data.html);
+        modal.modal(modalEl);
+      });
 
-            after(function() {
-                onModal.resetHistory();
-                onUnmodal.resetHistory();
-            });
+      after(function () {
+        onModal.resetHistory();
+        onUnmodal.resetHistory();
+      });
 
-            it('should observe one modal event', function() {
-                expect(onModal.callCount).to.equal(1);
-            });
-            it('should observe zero unmodal events', function() {
-                expect(onUnmodal.callCount).to.equal(0);
-            });
-        });
-        describe('when modal is activated then deactivated', function() {
-            before(function() {
-                doBeforeAll(data.html);
-                modal.modal(modalEl);
-                modal.unmodal();
-            });
-
-            after(function() {
-                onModal.resetHistory();
-                onUnmodal.resetHistory();
-            });
-
-            it('should observe one modal events', function() {
-                expect(onModal.callCount).to.equal(1);
-            });
-
-            it('should observe one unmodal event', function() {
-                expect(onUnmodal.callCount).to.equal(1);
-            });
-        });
+      it("should observe one modal event", function () {
+        expect(onModal.callCount).to.equal(1);
+      });
+      it("should observe zero unmodal events", function () {
+        expect(onUnmodal.callCount).to.equal(0);
+      });
     });
+    describe("when modal is activated then deactivated", function () {
+      before(function () {
+        doBeforeAll(data.html);
+        modal.modal(modalEl);
+        modal.unmodal();
+      });
+
+      after(function () {
+        onModal.resetHistory();
+        onUnmodal.resetHistory();
+      });
+
+      it("should observe one modal events", function () {
+        expect(onModal.callCount).to.equal(1);
+      });
+
+      it("should observe one unmodal event", function () {
+        expect(onUnmodal.callCount).to.equal(1);
+      });
+    });
+  });
 });
 
 /* following test removed as { hoist: true} is not being passed (and fails when is) */

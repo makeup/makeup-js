@@ -1,39 +1,60 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>makeup-toast-dialog</title>
-        <link href="index.css" rel="stylesheet" />
-        <link rel="icon" href="../favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <div id="page">
-            <header>
-                <h1>makeup-toast-dialog</h1>
-                <p>Toast-Dialog is headless UI widget and does not come bundled with any CSS.</p>
-                <p>This example is receiving its base styles from <a href="https://ebay.github.io/skin/#toast-dialog">eBay Skin</a>. A subset of style properties are being customized/themed via Skin's CSS Custom Properties.</p>
-                <p>This page was loaded with the dialog in an "open" state. To see examples of dialogs opened by button click, visit the  <a href="../makeup-dialog-button">makeup-dialog-button</a> page.</p>
-            </header>
-            <main>
-                <aside id="dialog-toast" class="toast-dialog toast-dialog--transition" role="dialog" aria-label="Notification" aria-live="polite" aria-modal="false">
-                    <div class="toast-dialog__window">
-                        <div class="toast-dialog__header">
-                            <h2 class="toast-dialog__title">User Privacy Preferences</h2>
-                            <button class="icon-btn icon-btn--transparent toast-dialog__close" type="button" aria-label="Close notification dialog">
-                                <svg class="icon icon--close" focusable="false" height="24" width="24">
-                                    <use xlink:href="../icon.svg#icon-close"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="toast-dialog__main">
-                            <p>We detected something unusual about a recent sign-in to your eBay account. To help keep you safe, we recommend you change the password.</p>
-                        </div>
-                        <div class="toast-dialog__footer">
-                            <button accesskey="v" class="btn btn--primary toast-dialog__cta">View Account</button>
-                        </div>
-                    </div>
-                </aside>
-            </main>
-        </div>
-        <script src="index.min.js"></script>
-    </body>
+  <head>
+    <title>makeup-toast-dialog</title>
+    <link href="index.css" rel="stylesheet" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div id="page">
+      <header>
+        <h1>makeup-toast-dialog</h1>
+        <p>Toast-Dialog is headless UI widget and does not come bundled with any CSS.</p>
+        <p>
+          This example is receiving its base styles from
+          <a href="https://ebay.github.io/skin/#toast-dialog">eBay Skin</a>. A subset of style properties are being
+          customized/themed via Skin's CSS Custom Properties.
+        </p>
+        <p>
+          This page was loaded with the dialog in an "open" state. To see examples of dialogs opened by button click,
+          visit the <a href="../makeup-dialog-button">makeup-dialog-button</a> page.
+        </p>
+      </header>
+      <main>
+        <aside
+          id="dialog-toast"
+          class="toast-dialog toast-dialog--transition"
+          role="dialog"
+          aria-label="Notification"
+          aria-live="polite"
+          aria-modal="false"
+        >
+          <div class="toast-dialog__window">
+            <div class="toast-dialog__header">
+              <h2 class="toast-dialog__title">User Privacy Preferences</h2>
+              <button
+                class="icon-btn icon-btn--transparent toast-dialog__close"
+                type="button"
+                aria-label="Close notification dialog"
+              >
+                <svg class="icon icon--close" focusable="false" height="24" width="24">
+                  <use xlink:href="../icon.svg#icon-close"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="toast-dialog__main">
+              <p>
+                We detected something unusual about a recent sign-in to your eBay account. To help keep you safe, we
+                recommend you change the password.
+              </p>
+            </div>
+            <div class="toast-dialog__footer">
+              <button accesskey="v" class="btn btn--primary toast-dialog__cta">View Account</button>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script src="index.min.js"></script>
+  </body>
 </html>

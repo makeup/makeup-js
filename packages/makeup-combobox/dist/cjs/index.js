@@ -7,7 +7,7 @@ exports.default = void 0;
 var _makeupExpander = _interopRequireDefault(require("makeup-expander"));
 var _makeupListbox = _interopRequireDefault(require("makeup-listbox"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var defaultOptions = {
+const defaultOptions = {
   autoSelect: true,
   collapseTimeout: 150,
   customElementMode: false
@@ -16,14 +16,14 @@ class _default {
   constructor(widgetEl, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this._el = widgetEl;
-    this._inputEl = this._el.querySelector('input');
-    this._listboxEl = this._el.querySelector('.combobox__listbox');
-    this._autocompleteType = this._inputEl.getAttribute('aria-autocomplete');
-    this._inputEl.setAttribute('autocomplete', 'off');
-    this._inputEl.setAttribute('role', 'combobox');
+    this._inputEl = this._el.querySelector("input");
+    this._listboxEl = this._el.querySelector(".combobox__listbox");
+    this._autocompleteType = this._inputEl.getAttribute("aria-autocomplete");
+    this._inputEl.setAttribute("autocomplete", "off");
+    this._inputEl.setAttribute("role", "combobox");
     this._listboxEl.hidden = false;
     this._listboxWidget = new _makeupListbox.default(this._listboxEl, {
-      activeDescendantClassName: 'combobox__option--active',
+      activeDescendantClassName: "combobox__option--active",
       autoReset: -1,
       autoSelect: this._options.autoSelect,
       focusableElement: this._inputEl,
@@ -32,10 +32,10 @@ class _default {
     this._expander = new _makeupExpander.default(this._el, {
       collapseOnClickOut: true,
       collapseOnFocusOut: true,
-      contentSelector: '.combobox__listbox',
-      expandedClass: 'combobox--expanded',
+      contentSelector: ".combobox__listbox",
+      expandedClass: "combobox--expanded",
       expandOnFocus: true,
-      hostSelector: 'input'
+      hostSelector: "input"
     });
     this._destroyed = false;
     this._onInputFocusListener = _onInputFocus.bind(this);
@@ -45,7 +45,7 @@ class _default {
     this._onTextboxInputListener = _onTextboxInput.bind(this);
     this._onTextboxClickListener = _onTextboxClick.bind(this);
     this._onMutationListener = _onMutation.bind(this);
-    this._el.classList.add('combobox--js');
+    this._el.classList.add("combobox--js");
     if (!this._options.customElementMode) {
       this._mutationObserver = new MutationObserver(this._onMutationListener);
       this._observeMutations();
@@ -72,21 +72,21 @@ class _default {
   }
   _observeEvents() {
     if (this._destroyed !== true) {
-      this._listboxEl.addEventListener('click', this._onListboxClickListener);
-      this._listboxWidget._activeDescendantRootEl.addEventListener('activeDescendantChange', this._onListboxActiveDescendantChangeListener);
-      this._inputEl.addEventListener('focus', this._onInputFocusListener);
-      this._inputEl.addEventListener('keydown', this._onTextboxKeyDownListener);
-      this._inputEl.addEventListener('input', this._onTextboxInputListener);
-      this._inputEl.addEventListener('click', this._onTextboxClickListener);
+      this._listboxEl.addEventListener("click", this._onListboxClickListener);
+      this._listboxWidget._activeDescendantRootEl.addEventListener("activeDescendantChange", this._onListboxActiveDescendantChangeListener);
+      this._inputEl.addEventListener("focus", this._onInputFocusListener);
+      this._inputEl.addEventListener("keydown", this._onTextboxKeyDownListener);
+      this._inputEl.addEventListener("input", this._onTextboxInputListener);
+      this._inputEl.addEventListener("click", this._onTextboxClickListener);
     }
   }
   _unobserveEvents() {
-    this._listboxEl.removeEventListener('click', this._onListboxClickListener);
-    this._listboxWidget._activeDescendantRootEl.removeEventListener('activeDescendantChange', this._onListboxActiveDescendantChangeListener);
-    this._inputEl.removeEventListener('focus', this._onInputFocusListener);
-    this._inputEl.removeEventListener('keydown', this._onTextboxKeyDownListener);
-    this._inputEl.removeEventListener('input', this._onTextboxInputListener);
-    this._inputEl.removeEventListener('click', this._onTextboxClickListener);
+    this._listboxEl.removeEventListener("click", this._onListboxClickListener);
+    this._listboxWidget._activeDescendantRootEl.removeEventListener("activeDescendantChange", this._onListboxActiveDescendantChangeListener);
+    this._inputEl.removeEventListener("focus", this._onInputFocusListener);
+    this._inputEl.removeEventListener("keydown", this._onTextboxKeyDownListener);
+    this._inputEl.removeEventListener("input", this._onTextboxInputListener);
+    this._inputEl.removeEventListener("click", this._onTextboxClickListener);
   }
   destroy() {
     this._destroyed = true;
@@ -127,15 +127,15 @@ function _onTextboxKeyDown(e) {
   }
 
   // for manual selection, ENTER should not submit form when there is an active descendant
-  if (this._options.autoSelect === false && e.keyCode === 13 && this._inputEl.getAttribute('aria-activedescendant')) {
+  if (this._options.autoSelect === false && e.keyCode === 13 && this._inputEl.getAttribute("aria-activedescendant")) {
     e.preventDefault();
-    var widget = this;
+    const widget = this;
     this._inputEl.value = this._listboxWidget.items[this._listboxWidget._activeDescendant.index].innerText;
     _dispatchChangeEvent(this._el, this._inputEl.value);
     this._listboxWidget._activeDescendant.reset();
     setTimeout(function () {
       widget._expander.expanded = false;
-      if (widget._autocompleteType === 'list') {
+      if (widget._autocompleteType === "list") {
         if (widget._inputEl.value.length === 0) {
           widget.resetFilter();
         } else {
@@ -154,7 +154,7 @@ function _onTextboxInput() {
   if (this._expander.expanded === false) {
     this._expander.expanded = true;
   }
-  if (this._autocompleteType === 'list') {
+  if (this._autocompleteType === "list") {
     this._listboxWidget._activeDescendant.reset();
     if (this._inputEl.value.length === 0) {
       this.resetFilter();
@@ -164,9 +164,9 @@ function _onTextboxInput() {
   }
 }
 function _onListboxClick(e) {
-  var widget = this;
-  var element = e.target.closest('[role=option]');
-  var indexData = this._listboxWidget.items.indexOf(element);
+  const widget = this;
+  const element = e.target.closest("[role=option]");
+  const indexData = this._listboxWidget.items.indexOf(element);
   console.log(indexData);
   if (indexData !== undefined) {
     this._inputEl.value = this._listboxWidget.items[indexData].innerText;
@@ -185,9 +185,9 @@ function _onListboxActiveDescendantChange(e) {
   }
 }
 function _onMutation(mutationsList) {
-  for (var mutation of mutationsList) {
-    if (mutation.type === 'attributes') {
-      this._el.dispatchEvent(new CustomEvent('makeup-combobox-mutation', {
+  for (const mutation of mutationsList) {
+    if (mutation.type === "attributes") {
+      this._el.dispatchEvent(new CustomEvent("makeup-combobox-mutation", {
         detail: {
           attributeName: mutation.attributeName
         }
@@ -196,19 +196,19 @@ function _onMutation(mutationsList) {
   }
 }
 function _filterSuggestions(value, items) {
-  var numChars = value.length;
-  var currentValue = value.toLowerCase();
-  var matchedItems = items.filter(el => {
+  const numChars = value.length;
+  const currentValue = value.toLowerCase();
+  const matchedItems = items.filter(el => {
     return el.innerText.trim().substring(0, numChars).toLowerCase() === currentValue;
   });
-  var unmatchedItems = items.filter(el => {
+  const unmatchedItems = items.filter(el => {
     return el.innerText.trim().substring(0, numChars).toLowerCase() !== currentValue;
   });
   matchedItems.forEach(el => el.hidden = false);
   unmatchedItems.forEach(el => el.hidden = true);
 }
 function _dispatchChangeEvent(el, value) {
-  el.dispatchEvent(new CustomEvent('makeup-combobox-change', {
+  el.dispatchEvent(new CustomEvent("makeup-combobox-change", {
     detail: {
       value
     }

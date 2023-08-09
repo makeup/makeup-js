@@ -12,32 +12,32 @@ The following markup structure and classnames are required. Any SVG icons can be
 
 ```html
 <div class="listbox" data-auto-select="true">
-    <div class="listbox__options" role="listbox" tabindex="0">
-        <div class="listbox__option" role="option" aria-selected="false">
-            <span class="listbox__value">Option 1</span>
-            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                    <use xlink:href="icon.svg#icon-tick-small"></use>
-                </svg>
-            </svg>
-        </div>
-        <div class="listbox__option" role="option" aria-selected="false">
-            <span class="listbox__value">Option 2</span>
-            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                    <use xlink:href="icon.svg#icon-tick-small"></use>
-                </svg>
-            </svg>
-        </div>
-        <div class="listbox__option" role="option" aria-selected="false">
-            <span class="listbox__value">Option 3</span>
-            <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-                    <use xlink:href="icon.svg#icon-tick-small"></use>
-                </svg>
-            </svg>
-        </div>
+  <div class="listbox__options" role="listbox" tabindex="0">
+    <div class="listbox__option" role="option" aria-selected="false">
+      <span class="listbox__value">Option 1</span>
+      <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+        <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+          <use xlink:href="icon.svg#icon-tick-small"></use>
+        </svg>
+      </svg>
     </div>
+    <div class="listbox__option" role="option" aria-selected="false">
+      <span class="listbox__value">Option 2</span>
+      <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+        <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+          <use xlink:href="icon.svg#icon-tick-small"></use>
+        </svg>
+      </svg>
+    </div>
+    <div class="listbox__option" role="option" aria-selected="false">
+      <span class="listbox__value">Option 3</span>
+      <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+        <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
+          <use xlink:href="icon.svg#icon-tick-small"></use>
+        </svg>
+      </svg>
+    </div>
+  </div>
 </div>
 ```
 
@@ -48,14 +48,14 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import Listbox from 'makeup-listbox';
+import Listbox from "makeup-listbox";
 
-document.querySelectorAll('.listbox').forEach(function(el, i) {
-    const widget = new Listbox(el, config);
+document.querySelectorAll(".listbox").forEach(function (el, i) {
+  const widget = new Listbox(el, config);
 
-    el.addEventListener('makeup-listbox-change', function(e) {
-        console.log(e.type, e.detail);
-    });
+  el.addEventListener("makeup-listbox-change", function (e) {
+    console.log(e.type, e.detail);
+  });
 });
 ```
 
@@ -71,5 +71,5 @@ todo
 
 Fired when the selected option changes.
 
-* `optionIndex`: the index position of the selected option
-* `optionValue`: the value of the selected option
+- `optionIndex`: the index position of the selected option
+- `optionValue`: the value of the selected option

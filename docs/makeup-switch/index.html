@@ -1,43 +1,60 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>makeup-switch</title>
-        <link href="index.css" rel="stylesheet" />
-        <link rel="icon" href="../favicon.ico" type="image/x-icon">
-        <style>
-            .switch {
-                --switch-unchecked-background-color: black;
-                --switch-checked-background-color: green;
-                --switch-foreground-color: white;
-                --switch-disabled-background-color: #eee;
-                margin-right: 8px;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="page">
-            <header>
-                <h1>makeup-switch</h1>
-                <p>Switch is headless UI widget and does not come bundled with any CSS.</p>
-                <p>This example is receiving its base markup and styles from <a href="https://ebay.github.io/skin/#switch">eBay Skin</a>. A subset of style properties are being customized/themed via Skin's CSS Custom Properties.</p>
-            </header>
-            <hr/ >
-            <main>
-                <span class="switch">
-                  <span class="switch__control" role="switch" tabindex="0" aria-checked="false" aria-labelledby="label-1"></span>
-                  <span class="switch__button"></span>
-                </span>
-                <span id="label-1">Enabled Switch</span>
+  <head>
+    <title>makeup-switch</title>
+    <link href="index.css" rel="stylesheet" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <style>
+      .switch {
+        --switch-unchecked-background-color: black;
+        --switch-checked-background-color: green;
+        --switch-foreground-color: white;
+        --switch-disabled-background-color: #eee;
+        margin-right: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page">
+      <header>
+        <h1>makeup-switch</h1>
+        <p>Switch is headless UI widget and does not come bundled with any CSS.</p>
+        <p>
+          This example is receiving its base markup and styles from
+          <a href="https://ebay.github.io/skin/#switch">eBay Skin</a>. A subset of style properties are being
+          customized/themed via Skin's CSS Custom Properties.
+        </p>
+      </header>
+      <hr />
+      <main>
+        <span class="switch">
+          <span
+            class="switch__control"
+            role="switch"
+            tabindex="0"
+            aria-checked="false"
+            aria-labelledby="label-1"
+          ></span>
+          <span class="switch__button"></span>
+        </span>
+        <span id="label-1">Enabled Switch</span>
 
-                <hr/ >
+        <hr />
 
-                <span class="switch">
-                  <span class="switch__control" role="switch" tabindex="0" aria-checked="false" aria-disabled="true" aria-labelledby="label-2"></span>
-                  <span class="switch__button"></span>
-                </span>
-                <span id="label-2">Disabled Switch</span>
-            </main>
-        </div>
-        <script src="index.min.js"></script>
-    </body>
+        <span class="switch">
+          <span
+            class="switch__control"
+            role="switch"
+            tabindex="0"
+            aria-checked="false"
+            aria-disabled="true"
+            aria-labelledby="label-2"
+          ></span>
+          <span class="switch__button"></span>
+        </span>
+        <span id="label-2">Disabled Switch</span>
+      </main>
+    </div>
+    <script src="index.min.js"></script>
+  </body>
 </html>

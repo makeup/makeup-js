@@ -1,6 +1,6 @@
-import MakeupSwitch from '../src/index.js';
-import { expect } from 'chai';
-import sinon from 'sinon';
+import MakeupSwitch from "../src/index.js";
+import { expect } from "chai";
+import sinon from "sinon";
 
 const defaultMarkup = `<span class="switch">
   <span class="switch__control" role="switch" tabindex="0"></span>
@@ -17,58 +17,58 @@ const disabledMarkup = `<span class="switch">
   <span class="switch__button"></span>
 </span>`;
 
-describe('given a switch with default markup', function() {
-    document.body.innerHTML = defaultMarkup;
+describe("given a switch with default markup", function () {
+  document.body.innerHTML = defaultMarkup;
 
-    const switch1 = new MakeupSwitch(document.querySelector('.switch'));
+  const switch1 = new MakeupSwitch(document.querySelector(".switch"));
 
-    it('then it should not be disabled', function() {
-        expect(switch1.disabled).to.be.false;
-    });
+  it("then it should not be disabled", function () {
+    expect(switch1.disabled).to.be.false;
+  });
 
-    it('then it should not be checked', function() {
-        expect(switch1.checked).to.be.false;
-    });
+  it("then it should not be checked", function () {
+    expect(switch1.checked).to.be.false;
+  });
 });
 
-describe('given a switch with aria-checked="true"', function() {
-    document.body.innerHTML = checkedMarkup;
+describe('given a switch with aria-checked="true"', function () {
+  document.body.innerHTML = checkedMarkup;
 
-    const switch1 = new MakeupSwitch(document.querySelector('.switch'));
+  const switch1 = new MakeupSwitch(document.querySelector(".switch"));
 
-    it('it should be programmatically checked', function() {
-        expect(switch1.checked).to.be.true;
-    });
+  it("it should be programmatically checked", function () {
+    expect(switch1.checked).to.be.true;
+  });
 });
 
-describe('given a switch with aria-disabled="true"', function() {
-    document.body.innerHTML = disabledMarkup;
+describe('given a switch with aria-disabled="true"', function () {
+  document.body.innerHTML = disabledMarkup;
 
-    const switch1 = new MakeupSwitch(document.querySelector('.switch'));
+  const switch1 = new MakeupSwitch(document.querySelector(".switch"));
 
-    it('then it should be programmatically disabled', function() {
-        expect(switch1.disabled).to.be.true;
-    });
+  it("then it should be programmatically disabled", function () {
+    expect(switch1.disabled).to.be.true;
+  });
 });
 
-describe('given a switch that is unchecked', function() {
-    document.body.innerHTML = defaultMarkup;
-    const switchEl = document.querySelector('.switch');
+describe("given a switch that is unchecked", function () {
+  document.body.innerHTML = defaultMarkup;
+  const switchEl = document.querySelector(".switch");
 
-    let onToggle = sinon.spy();
-    switchEl.addEventListener('makeup-switch-toggle', onToggle);
+  let onToggle = sinon.spy();
+  switchEl.addEventListener("makeup-switch-toggle", onToggle);
 
-    const switch1 = new MakeupSwitch(switchEl);
+  const switch1 = new MakeupSwitch(switchEl);
 
-    describe('when switch is clicked', function() {
-        document.querySelector('.switch__control').click();
+  describe("when switch is clicked", function () {
+    document.querySelector(".switch__control").click();
 
-        it('then it should be checked', function() {
-            expect(switch1.checked).to.be.true;
-        });
-
-        it('then it should trigger one toggle event', function() {
-            expect(onToggle.callCount).to.equal(1);
-        });
+    it("then it should be checked", function () {
+      expect(switch1.checked).to.be.true;
     });
+
+    it("then it should trigger one toggle event", function () {
+      expect(onToggle.callCount).to.equal(1);
+    });
+  });
 });

@@ -9,21 +9,28 @@ JavaScript class representing a [confirm dialog](https://ebay.gitbook.io/mindpat
 The following markup structure and classnames are required. Any SVG icons can be used.
 
 ```html
-<div class="confirm-dialog confirm-dialog--mask-fade" role="dialog" aria-labelledby="dialog-confirm-title" aria-modal="true">
-    <div class="confirm-dialog__window lightbox-dialog__window--fade">
-        <div class="confirm-dialog__header">
-            <h2 id="dialog-confirm-title">
-                <!-- dialog title -->
-            </h2>
-        </div>
-        <div class="confirm-dialog__main">
-            <p id="confirm-dialog-description">Dialog description</p>
-        </div>
-        <div class="confirm-dialog__footer">
-            <button class="btn confirm-dialog__reject">No</button>
-            <button class="btn btn--primary confirm-dialog__confirm" aria-describedby="confirm-dialog-description">Yes</button>
-        </div>
+<div
+  class="confirm-dialog confirm-dialog--mask-fade"
+  role="dialog"
+  aria-labelledby="dialog-confirm-title"
+  aria-modal="true"
+>
+  <div class="confirm-dialog__window lightbox-dialog__window--fade">
+    <div class="confirm-dialog__header">
+      <h2 id="dialog-confirm-title">
+        <!-- dialog title -->
+      </h2>
     </div>
+    <div class="confirm-dialog__main">
+      <p id="confirm-dialog-description">Dialog description</p>
+    </div>
+    <div class="confirm-dialog__footer">
+      <button class="btn confirm-dialog__reject">No</button>
+      <button class="btn btn--primary confirm-dialog__confirm" aria-describedby="confirm-dialog-description">
+        Yes
+      </button>
+    </div>
+  </div>
 </div>
 ```
 
@@ -34,10 +41,10 @@ No CSS is provided. However, the class is fully compatible with [eBay Skin](http
 ## JavaScript
 
 ```js
-import ConfirmDialog from 'makeup-confirm-dialog';
+import ConfirmDialog from "makeup-confirm-dialog";
 
-document.querySelectorAll('.confirm-dialog').forEach(function(el, i) {
-    const widget = new ConfirmDialog(el, config);
+document.querySelectorAll(".confirm-dialog").forEach(function (el, i) {
+  const widget = new ConfirmDialog(el, config);
 });
 ```
 

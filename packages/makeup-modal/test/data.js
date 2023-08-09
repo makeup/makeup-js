@@ -1,5 +1,5 @@
 export default [
-    {
-        html: '<div class="modal"></div>'
-    }
+  {
+    html: '<div class="modal"></div>',
+  },
 ];

@@ -6,17 +6,17 @@ import "@ebay/skin/listbox-button";
 // const ListboxButton = require('../../packages/makeup-listbox-button').default;
 
 // IMPORT
-import ListboxButton from '../../packages/makeup-listbox-button';
+import ListboxButton from "../../packages/makeup-listbox-button";
 
 const widgets = [];
-const log = e => console.log(e.type, e.detail);
+const log = (e) => console.log(e.type, e.detail);
 
-window.onload = function() {
-    document.querySelectorAll('.listbox-button').forEach(function(el, i) {
-        el.addEventListener('makeup-listbox-button-init', log);
-        el.addEventListener('makeup-listbox-button-change', log);
-        el.addEventListener('makeup-listbox-button-mutation', log);
+window.onload = function () {
+  document.querySelectorAll(".listbox-button").forEach(function (el, i) {
+    el.addEventListener("makeup-listbox-button-init", log);
+    el.addEventListener("makeup-listbox-button-change", log);
+    el.addEventListener("makeup-listbox-button-mutation", log);
 
-        widgets.push(new ListboxButton(el, { autoSelect: (el.dataset.makeupAutoSelect === 'false') ? false : true }));
-    });
+    widgets.push(new ListboxButton(el, { autoSelect: el.dataset.makeupAutoSelect === "false" ? false : true }));
+  });
 };

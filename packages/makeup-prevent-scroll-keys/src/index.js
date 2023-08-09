@@ -1,18 +1,15 @@
 function onKeyDown(e) {
-    if (e.keyCode >= 32 && e.keyCode <= 40) {
-        e.preventDefault();
-    }
+  if (e.keyCode >= 32 && e.keyCode <= 40) {
+    e.preventDefault();
+  }
 }
 
 function add(el) {
-    el.addEventListener('keydown', onKeyDown);
+  el.addEventListener("keydown", onKeyDown);
 }
 
 function remove(el) {
-    el.removeEventListener('keydown', onKeyDown);
+  el.removeEventListener("keydown", onKeyDown);
 }
 
-export {
-    add,
-    remove
-};
+export { add, remove };

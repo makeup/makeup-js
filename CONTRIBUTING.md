@@ -10,15 +10,15 @@ Every class will have a `defaultOptions` object.
 
 ```js
 const defaultOptions = {
-    bem: {
-        control: 'switch__control'
-    },
-    customElementMode: false
+  bem: {
+    control: "switch__control",
+  },
+  customElementMode: false,
 };
 ```
 
-* `bem`: If using different class names than [Skin](https://github.com/eBay/skin), you can specify the main hooks here.
-* `customElementMode`: Set this to `true` if using this as the model for the [makeup-web-component](https://github.com/makeup/makeup-web-components).
+- `bem`: If using different class names than [Skin](https://github.com/eBay/skin), you can specify the main hooks here.
+- `customElementMode`: Set this to `true` if using this as the model for the [makeup-web-component](https://github.com/makeup/makeup-web-components).
 
 Plus whatever options are relevant to that user interface module.
 

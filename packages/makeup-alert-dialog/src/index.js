@@ -1,45 +1,45 @@
-import Lightbox from 'makeup-lightbox-dialog';
+import Lightbox from "makeup-lightbox-dialog";
 
 const defaultAlertOptions = {
-    baseClass: 'alert-dialog',
-    baseClassModifier: 'alert',
-    quickDismiss: false,
-    acknowledgeButtonSelector: '.alert-dialog__acknowledge',
-    windowSelector: '.alert-dialog__window'
+  baseClass: "alert-dialog",
+  baseClassModifier: "alert",
+  quickDismiss: false,
+  acknowledgeButtonSelector: ".alert-dialog__acknowledge",
+  windowSelector: ".alert-dialog__window",
 };
 
 export default class extends Lightbox {
-    constructor(el, selectedOptions = {}) {
-        super(el, Object.assign({}, defaultAlertOptions, selectedOptions));
-    }
+  constructor(el, selectedOptions = {}) {
+    super(el, Object.assign({}, defaultAlertOptions, selectedOptions));
+  }
 
-    _observeEvents() {
-        super._observeEvents();
+  _observeEvents() {
+    super._observeEvents();
 
-        this._acknowledgeButtonEl = this._el.querySelector(this._options.acknowledgeButtonSelector);
-        this._onAcknowledgeButtonClickListener = _onAcknowledgeButtonClick.bind(this);
-        this._acknowledgeButtonEl.addEventListener('click', this._onAcknowledgeButtonClickListener);
-    }
+    this._acknowledgeButtonEl = this._el.querySelector(this._options.acknowledgeButtonSelector);
+    this._onAcknowledgeButtonClickListener = _onAcknowledgeButtonClick.bind(this);
+    this._acknowledgeButtonEl.addEventListener("click", this._onAcknowledgeButtonClickListener);
+  }
 
-    _unobserveEvents() {
-        super._unobserveEvents();
+  _unobserveEvents() {
+    super._unobserveEvents();
 
-        this._acknowledgeButtonEl.removeEventListener('click', this._onAcknowledgeButtonClickListener);
-    }
+    this._acknowledgeButtonEl.removeEventListener("click", this._onAcknowledgeButtonClickListener);
+  }
 
-    acknowledge() {
-        this._hide();
+  acknowledge() {
+    this._hide();
 
-        this._el.dispatchEvent(new CustomEvent('dialog-acknowledge'));
-    }
+    this._el.dispatchEvent(new CustomEvent("dialog-acknowledge"));
+  }
 
-    destroy() {
-        super.destroy();
+  destroy() {
+    super.destroy();
 
-        this._onAcknowledgeButtonClickListener = null;
-    }
+    this._onAcknowledgeButtonClickListener = null;
+  }
 }
 
 function _onAcknowledgeButtonClick() {
-    this.acknowledge();
+  this.acknowledge();
 }

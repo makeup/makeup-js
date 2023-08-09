@@ -1,34 +1,34 @@
 /* eslint-disable indent */
 
 /**
-* Author: Mr D.Piercey
-*/
-const TRANSITION_END = 'transitionend';
+ * Author: Mr D.Piercey
+ */
+const TRANSITION_END = "transitionend";
 const IMMEDIATE_TRANSITION_REG = /0m?s(?:, )?/g;
 /**
-* Applies a primer `-init` class before starting a transition
-* to make transitioning properties that are not animatable easier.
-*
-* **Order**
-* 1. Add class: "$name-init"
-* 2. Wait one frame.
-* 3. Remove class "$name-init".
-* 4. Add class "$name".
-* 5. Wait for animation to finish.
-* 6. Remove class "$name".
-*
-* @param {HTMLElement} el The root element that contains the animation.
-* @param {string} name The base className to use for the transition.
-* @param {Function} cb A callback called after the transition as ended.
-*/
+ * Applies a primer `-init` class before starting a transition
+ * to make transitioning properties that are not animatable easier.
+ *
+ * **Order**
+ * 1. Add class: "$name-init"
+ * 2. Wait one frame.
+ * 3. Remove class "$name-init".
+ * 4. Add class "$name".
+ * 5. Wait for animation to finish.
+ * 6. Remove class "$name".
+ *
+ * @param {HTMLElement} el The root element that contains the animation.
+ * @param {string} name The base className to use for the transition.
+ * @param {Function} cb A callback called after the transition as ended.
+ */
 
 export default function transition(el, baseClass, cb) {
   let ended;
   let pending;
   let ran = 0;
   const classList = el.classList;
-  const initClass = ''.concat(baseClass, '-init');
-  let cancelFrame = nextFrame(function() {
+  const initClass = "".concat(baseClass, "-init");
+  let cancelFrame = nextFrame(function () {
     el.addEventListener(TRANSITION_END, listener, true);
     classList.add(baseClass);
     classList.remove(initClass);
@@ -42,8 +42,8 @@ export default function transition(el, baseClass, cb) {
   classList.add(initClass);
   return cancel;
   /**
-  * Cancels the current transition and resets the className.
-  */
+   * Cancels the current transition and resets the className.
+   */
 
   function cancel() {
     if (ended) {
@@ -61,9 +61,9 @@ export default function transition(el, baseClass, cb) {
     }
   }
   /**
-  * Handles a single transition end event.
-  * Once all child transitions have ended the overall animation is completed.
-  */
+   * Handles a single transition end event.
+   * Once all child transitions have ended the overall animation is completed.
+   */
 
   function listener() {
     if (++ran === pending) {
@@ -79,14 +79,14 @@ export default function transition(el, baseClass, cb) {
 }
 
 /**
-* Walks the tree of an element and counts how many transitions have been applied.
-*
-* @param {HTMLElement} el
-* @return {number}
-*/
+ * Walks the tree of an element and counts how many transitions have been applied.
+ *
+ * @param {HTMLElement} el
+ * @return {number}
+ */
 
 function getTransitionCount(el) {
-  let count = window.getComputedStyle(el).transitionDuration.replace(IMMEDIATE_TRANSITION_REG, '') ? 1 : 0;
+  let count = window.getComputedStyle(el).transitionDuration.replace(IMMEDIATE_TRANSITION_REG, "") ? 1 : 0;
   let child = el.firstElementChild;
 
   while (child) {
@@ -97,18 +97,18 @@ function getTransitionCount(el) {
   return count;
 }
 /**
-* Runs a function during the next animation frame.
-*
-* @param {function} fn a function to run on the next animation frame.
-* @return {function} a function to cancel the callback.
-*/
+ * Runs a function during the next animation frame.
+ *
+ * @param {function} fn a function to run on the next animation frame.
+ * @return {function} a function to cancel the callback.
+ */
 
 function nextFrame(fn) {
   let frame;
   let cancelFrame;
 
   if (window.requestAnimationFrame) {
-    frame = requestAnimationFrame(function() {
+    frame = requestAnimationFrame(function () {
       frame = requestAnimationFrame(fn);
     });
     cancelFrame = cancelAnimationFrame;
@@ -118,7 +118,7 @@ function nextFrame(fn) {
     cancelFrame = clearTimeout;
   }
 
-  return function() {
+  return function () {
     if (frame) {
       cancelFrame(frame);
       frame = undefined;

@@ -9,10 +9,10 @@ This module is still in an experimental state, until it reaches v1 you must cons
 ## Example
 
 ```js
-import * as scrollKeyPreventer from 'makeup-prevent-scroll-keys';
+import * as scrollKeyPreventer from "makeup-prevent-scroll-keys";
 
 // get element reference
-const widgetEl = document.querySelector('.widget');
+const widgetEl = document.querySelector(".widget");
 
 // execute
 scrollKeyPreventer.add(el);

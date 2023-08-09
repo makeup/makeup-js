@@ -7,11 +7,11 @@ import "@ebay/skin/toast-dialog";
 // const ToastDialog = require('../../packages/makeup-toast-dialog').default;
 
 // IMPORT
-import ToastDialog from '../../packages/makeup-toast-dialog';
+import ToastDialog from "../../packages/makeup-toast-dialog";
 
-window.onload = function() {
-    document.querySelectorAll('.toast-dialog').forEach(function(el, i) {
-        const widget = new ToastDialog(el);
-        console.log(widget, el);
-    });
+window.onload = function () {
+  document.querySelectorAll(".toast-dialog").forEach(function (el, i) {
+    const widget = new ToastDialog(el);
+    console.log(widget, el);
+  });
 };

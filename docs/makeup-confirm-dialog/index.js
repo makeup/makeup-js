@@ -7,10 +7,10 @@ import "@ebay/skin/confirm-dialog";
 // const ConfirmDialog = require('../../packages/makeup-confirm-dialog');
 
 // IMPORT
-import ConfirmDialog from '../../packages/makeup-confirm-dialog';
+import ConfirmDialog from "../../packages/makeup-confirm-dialog";
 
-window.onload = function() {
-    document.querySelectorAll('.confirm-dialog').forEach(function(el, i) {
-        const widget = new ConfirmDialog(el);
-    });
+window.onload = function () {
+  document.querySelectorAll(".confirm-dialog").forEach(function (el, i) {
+    const widget = new ConfirmDialog(el);
+  });
 };

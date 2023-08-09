@@ -8,22 +8,22 @@ var Modal = _interopRequireWildcard(require("makeup-modal"));
 var _makeupFocusables = _interopRequireDefault(require("makeup-focusables"));
 var _transition = _interopRequireDefault(require("./transition.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-var defaultDialogOptions = {
-  baseClass: 'dialog',
-  closeButtonSelector: '.dialog__close',
+const defaultDialogOptions = {
+  baseClass: "dialog",
+  closeButtonSelector: ".dialog__close",
   focusManagementIndex: 0,
   modal: false,
   quickDismiss: true,
-  transitionsModifier: 'mask-fade'
+  transitionsModifier: "mask-fade"
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
     this._options = Object.assign({}, defaultDialogOptions, selectedOptions);
     this._el = widgetEl;
     if (this._options.modal === true) {
-      this._el.setAttribute('aria-modal', 'true');
+      this._el.setAttribute("aria-modal", "true");
     }
     this._windowEl = this._el.querySelector(this._options.windowSelector);
     this._closeButtonEl = this._el.querySelector(this._options.closeButtonSelector);
@@ -44,18 +44,18 @@ class _default {
     return (0, _makeupFocusables.default)(this._windowEl);
   }
   get modal() {
-    return this._el.getAttribute('aria-modal') === 'true';
+    return this._el.getAttribute("aria-modal") === "true";
   }
   get hidden() {
     return this._el.hidden;
   }
   open() {
     this._show();
-    this._el.dispatchEvent(new CustomEvent('dialog-open'));
+    this._el.dispatchEvent(new CustomEvent("dialog-open"));
   }
   close() {
     this._hide();
-    this._el.dispatchEvent(new CustomEvent('dialog-close'));
+    this._el.dispatchEvent(new CustomEvent("dialog-close"));
   }
   _show() {
     if (this._hasTransitions) {
@@ -87,16 +87,16 @@ class _default {
     this._unobserveEvents();
   }
   _observeEvents() {
-    document.addEventListener('keydown', this._onKeyDownListener);
+    document.addEventListener("keydown", this._onKeyDownListener);
     if (this._closeButtonEl) {
-      this._closeButtonEl.addEventListener('click', this._onCloseButtonClickListener);
+      this._closeButtonEl.addEventListener("click", this._onCloseButtonClickListener);
     }
   }
   _unobserveEvents() {
-    this._el.removeEventListener('click', this._onCloseButtonClickListener);
-    document.removeEventListener('keydown', this._onKeyDownListener);
+    this._el.removeEventListener("click", this._onCloseButtonClickListener);
+    document.removeEventListener("keydown", this._onKeyDownListener);
     if (this._closeButtonEl) {
-      this._closeButtonEl.addEventListener('click', this._onCloseButtonClickListener);
+      this._closeButtonEl.addEventListener("click", this._onCloseButtonClickListener);
     }
   }
   destroy() {
@@ -111,7 +111,7 @@ class _default {
 }
 exports.default = _default;
 function _doModalFocusManagement(dialogWidget) {
-  var autoFocusEl = dialogWidget._el.querySelector('[autofocus]');
+  const autoFocusEl = dialogWidget._el.querySelector("[autofocus]");
   if (autoFocusEl) {
     autoFocusEl.focus();
   } else {

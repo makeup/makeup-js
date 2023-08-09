@@ -14,24 +14,24 @@ function uncapitalizeFirstLetter(str) {
 }
 function onKeyDownOrUp(evt, el, keyEventType) {
   if (!evt.shiftKey) {
-    var key = evt.key;
+    const key = evt.key;
     switch (key) {
-      case 'Enter':
-      case 'Escape':
-      case 'PageUp':
-      case 'PageDown':
-      case 'End':
-      case 'Home':
-      case 'ArrowLeft':
-      case 'ArrowUp':
-      case 'ArrowRight':
-      case 'ArrowDown':
+      case "Enter":
+      case "Escape":
+      case "PageUp":
+      case "PageDown":
+      case "End":
+      case "Home":
+      case "ArrowLeft":
+      case "ArrowUp":
+      case "ArrowRight":
+      case "ArrowDown":
         el.dispatchEvent(new CustomEvent(uncapitalizeFirstLetter("".concat(key, "Key").concat(keyEventType)), {
           detail: evt,
           bubbles: true
         }));
         break;
-      case ' ':
+      case " ":
         el.dispatchEvent(new CustomEvent("spacebarKey".concat(keyEventType), {
           detail: evt,
           bubbles: true
@@ -43,22 +43,22 @@ function onKeyDownOrUp(evt, el, keyEventType) {
   }
 }
 function onKeyDown(e) {
-  onKeyDownOrUp(e, this, 'Down');
+  onKeyDownOrUp(e, this, "Down");
 }
 function onKeyUp(e) {
-  onKeyDownOrUp(e, this, 'Up');
+  onKeyDownOrUp(e, this, "Up");
 }
 function addKeyDown(el) {
-  el.addEventListener('keydown', onKeyDown);
+  el.addEventListener("keydown", onKeyDown);
 }
 function addKeyUp(el) {
-  el.addEventListener('keyup', onKeyUp);
+  el.addEventListener("keyup", onKeyUp);
 }
 function removeKeyDown(el) {
-  el.removeEventListener('keydown', onKeyDown);
+  el.removeEventListener("keydown", onKeyDown);
 }
 function removeKeyUp(el) {
-  el.removeEventListener('keyup', onKeyUp);
+  el.removeEventListener("keyup", onKeyUp);
 }
 function add(el) {
   addKeyDown(el);

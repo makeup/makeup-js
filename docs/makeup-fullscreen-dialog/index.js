@@ -8,10 +8,10 @@ import "@ebay/skin/fullscreen-dialog";
 // const FullscreenDialog = require('../../packages/makeup-fullscreen-dialog').default;
 
 // IMPORT
-import FullscreenDialog from '../../packages/makeup-fullscreen-dialog';
+import FullscreenDialog from "../../packages/makeup-fullscreen-dialog";
 
-window.onload = function() {
-    document.querySelectorAll('.fullscreen-dialog').forEach(function(el, i) {
-        const widget = new FullscreenDialog(el);
-    });
+window.onload = function () {
+  document.querySelectorAll(".fullscreen-dialog").forEach(function (el, i) {
+    const widget = new FullscreenDialog(el);
+  });
 };

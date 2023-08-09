@@ -53,11 +53,13 @@ class src_default {
 function _onMutation(mutationsList) {
   for (const mutation of mutationsList) {
     if (mutation.type === "attributes") {
-      this._el.dispatchEvent(new CustomEvent("makeup-dialog-button-mutation", {
-        detail: {
-          attributeName: mutation.attributeName
-        }
-      }));
+      this._el.dispatchEvent(
+        new CustomEvent("makeup-dialog-button-mutation", {
+          detail: {
+            attributeName: mutation.attributeName
+          }
+        })
+      );
     }
   }
 }

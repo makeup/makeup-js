@@ -1,6 +1,8 @@
 import "../docs.css";
+import "@ebay/skin/tokens";
 import "@ebay/skin/global";
 import "@ebay/skin/button";
+import "@ebay/skin/icon-button";
 import "@ebay/skin/toast-dialog";
 
 // REQUIRE

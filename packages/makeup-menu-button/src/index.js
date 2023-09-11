@@ -5,7 +5,7 @@ const defaultOptions = {
   customElementMode: false,
   expandedClass: "menu-button--expanded",
   menuSelector: ".menu-button__menu",
-  buttonTextSelector: `.expand-btn__text`,
+  buttonTextSelector: `.btn__text`,
 };
 
 export default class {

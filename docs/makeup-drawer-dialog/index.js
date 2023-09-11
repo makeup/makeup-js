@@ -1,4 +1,5 @@
 import "../docs.css";
+import "@ebay/skin/tokens";
 import "@ebay/skin/global";
 import "@ebay/skin/icon";
 import "@ebay/skin/icon-button";

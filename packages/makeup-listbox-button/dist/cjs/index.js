@@ -9,13 +9,13 @@ var _makeupListbox = _interopRequireDefault(require("makeup-listbox"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const defaultOptions = {
   autoSelect: true,
-  buttonLabelSelector: ".expand-btn__text",
+  buttonLabelSelector: ".btn__text",
   collapseTimeout: 150,
   customElementMode: false,
   listboxSelector: ".listbox-button__listbox",
-  floatingLabelSelector: ".expand-btn__floating-label",
-  floatingLabelInline: "expand-btn__floating-label--inline",
-  floatingLabelAnimate: "expand-btn__floating-label--animate"
+  floatingLabelSelector: ".btn__floating-label",
+  floatingLabelInline: "btn__floating-label--inline",
+  floatingLabelAnimate: "btn__floating-label--animate"
 };
 class _default {
   constructor(widgetEl, selectedOptions) {

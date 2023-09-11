@@ -4,6 +4,194 @@
   width: 100%;
 }
 
+:root {
+    --border-radius-50: 8px;
+    --border-radius-100: 16px;
+    --color-neutral-0: #fff;
+    --color-neutral-1: #f7f7f7;
+    --color-neutral-2: #e5e5e5;
+    --color-neutral-3: #c7c7c7;
+    --color-neutral-4: #8f8f8f;
+    --color-neutral-5: #707070;
+    --color-neutral-6: #363636;
+    --color-neutral-7: #191919;
+    --color-neutral-8: #000;
+    --color-orange-1: #ffdec7;
+    --color-orange-2: #feb786;
+    --color-orange-3: #ff8559;
+    --color-orange-4: #ff6932;
+    --color-orange-5: #db3c07;
+    --color-orange-6: #b03005;
+    --color-orange-7: #5c1b05;
+    --color-red-1: #ffd1dd;
+    --color-red-2: #ffa2b6;
+    --color-red-3: #ff6383;
+    --color-red-4: #e0103a;
+    --color-red-5: #c4003a;
+    --color-red-6: #a00739;
+    --color-red-7: #680226;
+    --color-magenta-1: #fad8f0;
+    --color-magenta-2: #f5a0d9;
+    --color-magenta-3: #ea5fbc;
+    --color-magenta-4: #d11da4;
+    --color-magenta-5: #a60d8a;
+    --color-magenta-6: #82187c;
+    --color-magenta-7: #500750;
+    --color-blue-1: #c5e5fb;
+    --color-blue-2: #93c9ff;
+    --color-blue-3: #659eff;
+    --color-blue-4: #3665f3;
+    --color-blue-5: #382aef;
+    --color-blue-6: #2b0eaf;
+    --color-blue-7: #121258;
+    --color-green-1: #ccfdce;
+    --color-green-2: #9ef4a6;
+    --color-green-3: #5ee471;
+    --color-green-4: #28a443;
+    --color-green-5: #1bab49;
+    --color-green-6: #05823f;
+    --color-green-7: #07522c;
+    --color-yellow-1: #fcf2bd;
+    --color-yellow-2: #f7e376;
+    --color-yellow-3: #fbcd25;
+    --color-yellow-4: #f7b100;
+    --color-yellow-5: #e58c02;
+    --color-yellow-6: #aa5404;
+    --color-yellow-7: #592e13;
+    --color-teal-1: #c2f2ef;
+    --color-teal-2: #71e3e2;
+    --color-teal-3: #1dcbca;
+    --color-teal-4: #02a2ac;
+    --color-teal-5: #01718f;
+    --color-teal-6: #0e4a6c;
+    --color-teal-7: #003147;
+    --color-lime-1: #f4fabe;
+    --color-lime-2: #e9f577;
+    --color-lime-3: #c9e43b;
+    --color-lime-4: #accf02;
+    --color-lime-5: #86b300;
+    --color-lime-6: #4b7d06;
+    --color-lime-7: #364f03;
+}
+
+:root {
+    --color-background-primary: var(--color-neutral-0);
+    --color-background-secondary: var(--color-neutral-1);
+    --color-background-disabled: var(--color-neutral-3);
+    --color-background-inverse: var(--color-neutral-6);
+    --color-background-attention: var(--color-red-4);
+    --color-background-confirmation: var(--color-green-6);
+    --color-background-information: var(--color-blue-4);
+    --color-background-accent: var(--color-blue-4);
+    --color-background-invalid: var(--color-red-1);
+    --color-foreground-primary: var(--color-neutral-7);
+    --color-foreground-secondary: var(--color-neutral-5);
+    --color-foreground-disabled: var(--color-neutral-3);
+    --color-foreground-attention: var(--color-red-4);
+    --color-foreground-confirmation: var(--color-green-6);
+    --color-foreground-information: var(--color-blue-4);
+    --color-foreground-accent: var(--color-blue-4);
+    --color-foreground-visited: var(--color-magenta-6);
+    --color-foreground-on-primary: var(--color-neutral-7);
+    --color-foreground-on-secondary: var(--color-neutral-7);
+    --color-foreground-on-disabled: var(--color-neutral-2);
+    --color-foreground-on-inverse: var(--color-neutral-0);
+    --color-foreground-on-accent: var(--color-neutral-0);
+    --color-foreground-on-attention: var(--color-neutral-0);
+    --color-foreground-on-confirmation: var(--color-neutral-0);
+    --color-foreground-on-information: var(--color-neutral-0);
+    --color-stroke-default: var(--color-neutral-4);
+    --color-stroke-accent: var(--color-blue-4);
+    --color-stroke-attention: var(--color-red-4);
+    --color-stroke-confirmation: var(--color-green-6);
+    --color-stroke-information: var(--color-blue-4);
+    --color-stroke-disabled: var(--color-neutral-3);
+    --color-stroke-strong: var(--color-neutral-7);
+    --color-stroke-subtle: var(--color-neutral-2);
+    --color-state-visited: var(--color-magenta-6);
+    --color-state-primary-hover: #f5f5f5;
+    --color-state-primary-active: #ebebeb;
+    --color-state-secondary-hover: #ededed;
+    --color-state-secondary-active: #e3e3e3;
+    --color-state-inverse-hover: #343434;
+    --color-state-inverse-active: #323232;
+    --color-state-accent-hover: #2854d9;
+    --color-state-hover-foreground-on-secondary: #3461e9;
+    --color-state-accent-active: #254fd2;
+    --color-state-active-foreground-on-secondary: #3461e9;
+    --color-state-attention-hover: #d70f38;
+    --color-state-attention-active: #d70f38;
+    --color-state-hover-foreground-on-secondary-desctructive: #d70f38;
+    --color-state-active-foreground-on-secondary-desctructive: #d70f38;
+    --color-data-viz-grid: var(--color-neutral-2);
+    --color-data-viz-labels: var(--color-neutral-7);
+    --color-data-viz-legend: var(--color-neutral-5);
+    --color-data-viz-legend-inactive: var(--color-neutral-3);
+    --color-data-viz-legend-hover: var(--color-neutral-7);
+    --color-data-viz-line-chart-primary: var(--color-blue-4);
+    --color-data-viz-line-chart-secondary: var(--color-blue-7);
+    --color-data-viz-line-chart-tertiary: var(--color-teal-5);
+    --color-data-viz-line-chart-queternary: var(--color-magenta-6);
+    --color-data-viz-line-chart-quinary: var(--color-magenta-3);
+    --color-data-viz-trend-positive: var(--color-green-6);
+    --color-data-viz-trend-negative: var(--color-red-4);
+    --color-data-viz-chart-primary: var(--color-blue-4);
+    --color-data-viz-chart-secondary: var(--color-blue-7);
+    --color-data-viz-chart-tertiary-background: var(--color-blue-1);
+    --color-data-viz-chart-tertiary-stroke: var(--color-blue-4);
+    --color-data-viz-chart-quaternary-background: var(--color-teal-2);
+    --color-data-viz-chart-quaternary-stroke: var(--color-teal-5);
+    --color-data-viz-chart-quinary-background: var(--color-teal-1);
+    --color-data-viz-chart-quinary-stroke: var(--color-teal-5);
+    --color-data-viz-tooltip-shadow-primary: #00000026;
+    --color-data-viz-tooltip-shadow-secondary: #0000002b;
+    --color-scrim-image: rgba(0, 0, 0, 0.04);
+    --color-scrim-background: rgba(0, 0, 0, 0.32);
+    --color-marketing-lime-foreground-4: var(--color-lime-7);
+    --color-marketing-lime-background-4: var(--color-lime-4);
+    --color-marketing-green-foreground-3: var(--color-green-7);
+    --color-marketing-green-background-3: var(--color-green-3);
+    --color-marketing-teal-foreground-3: var(--color-teal-7);
+    --color-marketing-teal-background-3: var(--color-teal-3);
+    --color-marketing-teal-foreground-5: var(--color-neutral-0);
+    --color-marketing-teal-background-5: var(--color-teal-5);
+    --color-marketing-yellow-foreground-3: var(--color-yellow-7);
+    --color-marketing-yellow-background-3: var(--color-yellow-3);
+    --color-marketing-orange-foreground-3: var(--color-orange-7);
+    --color-marketing-orange-background-3: var(--color-orange-3);
+    --color-marketing-magenta-foreground-4: var(--color-neutral-0);
+    --color-marketing-magenta-background-4: var(--color-magenta-4);
+}
+
+body {
+  background-color: var(--color-background-primary);
+  color: var(--color-foreground-primary);
+  font-family: "Market Sans", Arial, sans-serif;
+  font-size: 0.875rem;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  -webkit-text-size-adjust: 100%;
+}
+fieldset {
+  border: 0;
+  padding: 0;
+}
+legend {
+  margin-bottom: 8px;
+}
+a {
+  color: var(--link-foreground-color-default, var(--color-foreground-primary));
+}
+a:visited {
+  color: var(--link-foreground-color-visited, var(--color-foreground-visited));
+}
+a:hover {
+  color: var(--link-foreground-color-hover, var(--color-foreground-secondary));
+}
+a:not([href]),
+a[aria-disabled="true"] {
+  color: var(--link-forground-color-disabled, var(--color-foreground-disabled));
+}
+
 .combobox {
   box-sizing: border-box;
   line-height: normal;
@@ -22,18 +210,16 @@ span.combobox {
 .combobox__options--fix-width[role="listbox"] {
   width: 100%;
 }
-.combobox__options--reverse[role="listbox"] {
-  right: 0;
-}
 .combobox__listbox {
-  background-color: var(--combobox-listbox-background-color, var(--color-background-default, #fff));
-  border-color: var(--combobox-listbox-border-color, var(--color-dropdown-border, #f7f7f7));
-  border-radius: var(--combobox-listbox-border-radius, var(--border-radius-dropdown, 8px));
+  background-color: var(--combobox-listbox-background-color, var(--color-background-primary));
+  border-color: var(--combobox-listbox-border-color, var(--color-stroke-default));
+  border-radius: var(--combobox-listbox-border-radius, var(--border-radius-50));
   border-style: solid;
   border-width: 1px;
-  box-shadow: var(--combobox-listbox-box-shadow, var(--box-shadow-dropdown, 0 5px 15px rgba(0, 0, 0, 0.07)));
+  box-shadow: var(--combobox-listbox-box-shadow, var(--dropdown-box-shadow));
   box-sizing: border-box;
   display: none;
+  left: 0;
   max-height: 400px;
   min-width: 100%;
   overflow-y: auto;
@@ -41,6 +227,18 @@ span.combobox {
   top: calc(100% + 4px);
   width: auto;
   z-index: 2;
+}
+[dir="rtl"] .combobox__listbox {
+  left: unset;
+  right: 0;
+}
+.combobox__listbox--reverse {
+  left: unset;
+  right: 0;
+}
+[dir="rtl"] .combobox__listbox--reverse {
+  left: 0;
+  right: unset;
 }
 .combobox__option[role^="option"] {
   background-color: transparent;
@@ -52,8 +250,8 @@ span.combobox {
   justify-content: space-between;
   padding: 8px 15px;
   width: 100%;
-  border-color: var(--listbox-option-border-color, var(--color-background-default, #fff));
-  color: var(--listbox-option-foreground-color, var(--color-text-default, #111820));
+  border-color: var(--listbox-option-border-color, var(--color-background-primary));
+  color: var(--listbox-option-foreground-color, var(--color-foreground-primary));
   cursor: default;
   position: relative;
 }
@@ -67,46 +265,53 @@ span.combobox {
   display: none;
 }
 .combobox__option[role^="option"]:hover {
-  background-color: var(--listbox-option-hover-background-color, var(--color-selection-list-item-hover-background, #e5e5e5));
-  color: var(--listbox-option-hover-foreground-color, var(--color-selection-list-item-hover-foreground, #111820));
+  background-color: var(--color-state-primary-hover);
+  color: var(--listbox-option-hover-foreground-color, var(--color-foreground-primary));
 }
 .combobox__option[role^="option"]:active {
   font-weight: bold;
 }
+.combobox__option[role^="option"]:disabled,
+.combobox__option[role^="option"][aria-disabled="true"] {
+  color: var(--listbox-option-disabled-foreground-color, var(--color-foreground-disabled));
+  background-color: unset;
+  font-weight: unset;
+}
 .combobox__option[role^="option"]:first-child {
-  border-top-left-radius: var(--border-radius-dropdown, 8px);
-  border-top-right-radius: var(--border-radius-dropdown, 8px);
+  border-top-left-radius: var(--combobox-listbox-border-radius, var(--border-radius-50));
+  border-top-right-radius: var(--combobox-listbox-border-radius, var(--border-radius-50));
 }
 .combobox__option[role^="option"]:last-child {
-  border-bottom-left-radius: var(--border-radius-dropdown, 8px);
-  border-bottom-right-radius: var(--border-radius-dropdown, 8px);
+  border-bottom-left-radius: var(--combobox-listbox-border-radius, var(--border-radius-50));
+  border-bottom-right-radius: var(--combobox-listbox-border-radius, var(--border-radius-50));
 }
 .combobox__option[role^="option"]:not(:last-child) {
   margin-bottom: 1px;
 }
 .combobox__option[role^="option"]:hover {
-  background-color: var(--combobox-option-hover-background-color, var(--color-selection-list-item-hover-background, #e5e5e5));
+  background-color: var(--color-state-primary-hover);
 }
 .combobox__option[role^="option"] svg.icon {
   align-self: center;
   fill: currentColor;
-  height: 10px;
   margin: 0 auto;
   opacity: 0;
   stroke: currentColor;
   stroke-width: 0;
-  width: 14px;
 }
 .combobox__option--active[role^="option"] {
-  background-color: var(--combobox-option-hover-background-color, var(--color-selection-list-item-hover-background, #e5e5e5));
+  background-color: var(--color-state-primary-active);
 }
 .combobox__option--active[role^="option"] svg.icon {
   opacity: 1;
 }
 .combobox__control button.icon-btn {
+  height: 38px;
   padding: 0;
   position: absolute;
-  right: 0;
+  right: 1px;
+  top: 1px;
+  width: 38px;
 }
 .combobox__control button.icon-btn svg {
   left: 0;
@@ -116,28 +321,28 @@ span.combobox {
 .combobox--expanded .combobox__listbox {
   display: block;
 }
-.combobox--expanded svg.icon--dropdown {
+.combobox--expanded svg.icon--chevron-down-12 {
   transform: rotate(180deg);
 }
-.combobox__control > svg.icon--dropdown {
-  color: var(--combobox-textbox-icon-color, var(--color-textbox-icon, #111820));
+.combobox__control > svg.icon--chevron-down-12 {
+  color: var(--combobox-textbox-icon-color, var(--color-foreground-primary));
   margin-left: 8px;
   pointer-events: none;
   position: absolute;
   right: 17px;
-  top: calc(50% - 4px);
+  top: calc(50% - 8px);
 }
 .combobox__control > input {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background-color: var(--combobox-textbox-background-color, var(--color-form-control-background, #f7f7f7));
-  border-color: var(--combobox-textbox-border-color, var(--color-form-control-border, #949494));
-  border-radius: var(--combobox-textbox-border-radius, var(--border-radius-form-control, 8px));
+  background-color: var(--combobox-textbox-background-color, var(--color-background-secondary));
+  border-color: var(--combobox-textbox-border-color, var(--color-stroke-default));
+  border-radius: var(--combobox-textbox-border-radius, var(--border-radius-50));
   border-style: solid;
   border-width: 1px;
   box-sizing: border-box;
-  color: var(--combobox-textbox-foreground-color, var(--color-text-default, #111820));
+  color: var(--combobox-textbox-foreground-color, var(--color-foreground-on-secondary));
   font-family: inherit;
   font-size: inherit;
   height: 40px;
@@ -146,30 +351,30 @@ span.combobox {
   padding: 0 32px 0 16px;
 }
 .combobox__control > input[readonly] {
-  color: var(--combobox-textbox-foreground-color, var(--color-text-default, #111820));
+  color: var(--combobox-textbox-foreground-color, var(--color-foreground-primary));
   cursor: default;
   text-shadow: 0 0 0 inherit;
   -webkit-user-select: none;
 }
 .combobox__control > input[readonly]::-moz-selection,
 .combobox__control > input[readonly]::selection {
-  background-color: var(--combobox-textbox-readonly-selection-background, var(--color-background-default, #fff));
+  background-color: var(--combobox-textbox-readonly-selection-background, var(--color-background-primary));
 }
 .combobox__control > input[disabled],
 .combobox__control > input[aria-disabled="true"] {
-  border-color: var(--combobox-disabled-border-color, var(--color-disabled, #c7c7c7));
-  color: var(--combobox-textbox-disabled-foreground-color, var(--color-disabled, #c7c7c7));
+  border-color: var(--combobox-textbox-disabled-border-color, var(--color-background-disabled));
+  color: var(--combobox-textbox-disabled-foreground-color, var(--color-foreground-disabled));
 }
 .combobox__control > input[disabled][readonly],
 .combobox__control > input[aria-disabled="true"][readonly] {
-  text-shadow: 0 0 0 #c7c7c7;
+  text-shadow: 0 0 0 var(--color-foreground-disabled);
 }
 .combobox__control > input[disabled] + svg,
 .combobox__control > input[aria-disabled="true"] + svg {
   opacity: 0.5;
 }
 .combobox__control > input[aria-invalid="true"] {
-  border-color: var(--combobox-invalid-foreground-color, var(--color-status-attention, #e0103a));
+  border-color: var(--combobox-textbox-invalid-foreground-color, var(--color-stroke-attention));
 }
 .combobox__control > input::-ms-clear {
   display: none;
@@ -180,8 +385,8 @@ span.combobox {
   padding-left: 0;
 }
 .combobox__control > input:focus {
-  background-color: var(--combobox-textbox-focus-background-color, var(--color-background-default, #fff));
-  border-color: var(--combobox-focus-border-color, var(--color-form-control-focus-border, #000));
+  background-color: var(--combobox-textbox-focus-background-color, var(--color-background-primary));
+  border-color: var(--combobox-textbox-focus-border-color, var(--color-foreground-primary));
   outline: 0;
 }
 .combobox__control--borderless > input:focus {
@@ -199,10 +404,10 @@ span.combobox {
   height: 48px;
 }
 .combobox__control > input[disabled] {
-  background-color: var(--combobox-textbox-disabled-background-color, var(--color-form-control-disabled-background, #f7f7f7));
+  background-color: var(--combobox-textbox-disabled-background-color, var(--color-background-secondary));
 }
 .combobox__option--active[role="option"] {
-  color: var(--combobox-option-hover-foreground-color, var(--color-selection-list-item-hover-foreground, #111820));
+  color: var(--combobox-listbox-option-hover-foreground-color, var(--color-foreground-primary));
   font-weight: bold;
 }
 @media all and (-ms-high-contrast: active), all and (-ms-high-contrast: none) {
@@ -226,6 +431,10 @@ span.combobox {
 }
 [dir="rtl"] .combobox__control > button {
   left: 0;
+}
+[dir="rtl"] .combobox__control button.icon-btn {
+  left: 1px;
+  right: inherit;
 }
 
 

@@ -1,5 +1,7 @@
 import "../docs.css";
-import "@ebay/skin/expand-button";
+import "@ebay/skin/tokens";
+import "@ebay/skin/global";
+import "@ebay/skin/button";
 import "@ebay/skin/listbox-button";
 
 // REQUIRE

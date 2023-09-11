@@ -2,13 +2,13 @@ import Expander from "makeup-expander";
 import Listbox from "makeup-listbox";
 const defaultOptions = {
   autoSelect: true,
-  buttonLabelSelector: ".expand-btn__text",
+  buttonLabelSelector: ".btn__text",
   collapseTimeout: 150,
   customElementMode: false,
   listboxSelector: ".listbox-button__listbox",
-  floatingLabelSelector: ".expand-btn__floating-label",
-  floatingLabelInline: "expand-btn__floating-label--inline",
-  floatingLabelAnimate: "expand-btn__floating-label--animate"
+  floatingLabelSelector: ".btn__floating-label",
+  floatingLabelInline: "btn__floating-label--inline",
+  floatingLabelAnimate: "btn__floating-label--animate"
 };
 class src_default {
   constructor(widgetEl, selectedOptions) {

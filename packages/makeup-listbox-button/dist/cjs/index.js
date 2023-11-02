@@ -15,7 +15,8 @@ const defaultOptions = {
   listboxSelector: ".listbox-button__listbox",
   floatingLabelSelector: ".btn__floating-label",
   floatingLabelInline: "btn__floating-label--inline",
-  floatingLabelAnimate: "btn__floating-label--animate"
+  floatingLabelAnimate: "btn__floating-label--animate",
+  valueSelector: ".listbox-button__value"
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
@@ -41,7 +42,8 @@ class _default {
     this.listbox = new _makeupListbox.default(this._listboxEl, {
       activeDescendantClassName: "listbox-button__option--active",
       autoReset: "ariaSelectedOrInteractive",
-      autoSelect: this._options.autoSelect
+      autoSelect: this._options.autoSelect,
+      valueSelector: this._options.valueSelector
     });
     this._expander = new _makeupExpander.default(this.el, {
       alwaysDoFocusManagement: true,

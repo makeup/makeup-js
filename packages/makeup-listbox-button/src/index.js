@@ -10,6 +10,7 @@ const defaultOptions = {
   floatingLabelSelector: ".btn__floating-label",
   floatingLabelInline: "btn__floating-label--inline",
   floatingLabelAnimate: "btn__floating-label--animate",
+  valueSelector: ".listbox-button__value",
 };
 
 export default class {
@@ -39,6 +40,7 @@ export default class {
       activeDescendantClassName: "listbox-button__option--active",
       autoReset: "ariaSelectedOrInteractive",
       autoSelect: this._options.autoSelect,
+      valueSelector: this._options.valueSelector
     });
 
     this._expander = new Expander(this.el, {

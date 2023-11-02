@@ -19,6 +19,7 @@ const defaultOptions = {
   listboxOwnerElement: null, // used in a combobox/datepicker scenario
   multiSelect: false, // todo
   useAriaChecked: true, // doubles up on support for aria-selected to announce visible selected/checked state
+  valueSelector: ".listbox__value", // Selector to get value from
 };
 
 function isSpacebarOrEnter(keyCode) {
@@ -119,6 +120,7 @@ export default class {
 
     if (itemEl && itemEl.getAttribute("aria-disabled") !== "true") {
       const matchingItem = this.items[index];
+      let optionValue;
 
       matchingItem.setAttribute("aria-selected", "true");
 
@@ -126,11 +128,23 @@ export default class {
         matchingItem.setAttribute("aria-checked", "true");
       }
 
+      optionValue = matchingItem.innerText;
+
+      // Check if value selector is present and use that to get innerText instead
+      // If its not present, will default to innerText of the whole item
+      if (this._options.valueSelector) {
+        const valueSelector = matchingItem.querySelector(this._options.valueSelector);
+        if (valueSelector) {
+          optionValue = valueSelector.innerText;
+        }
+
+      }
+
       this.el.dispatchEvent(
         new CustomEvent("makeup-listbox-change", {
           detail: {
             optionIndex: index,
-            optionValue: matchingItem.innerText,
+            optionValue
           },
         }),
       );

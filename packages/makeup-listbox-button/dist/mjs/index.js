@@ -8,7 +8,8 @@ const defaultOptions = {
   listboxSelector: ".listbox-button__listbox",
   floatingLabelSelector: ".btn__floating-label",
   floatingLabelInline: "btn__floating-label--inline",
-  floatingLabelAnimate: "btn__floating-label--animate"
+  floatingLabelAnimate: "btn__floating-label--animate",
+  valueSelector: ".listbox-button__value"
 };
 class src_default {
   constructor(widgetEl, selectedOptions) {
@@ -33,7 +34,8 @@ class src_default {
     this.listbox = new Listbox(this._listboxEl, {
       activeDescendantClassName: "listbox-button__option--active",
       autoReset: "ariaSelectedOrInteractive",
-      autoSelect: this._options.autoSelect
+      autoSelect: this._options.autoSelect,
+      valueSelector: this._options.valueSelector
     });
     this._expander = new Expander(this.el, {
       alwaysDoFocusManagement: true,

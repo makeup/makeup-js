@@ -7,7 +7,9 @@
 :root {
     --border-radius-50: 8px;
     --border-radius-100: 16px;
+    --border-radius-150: 24px;
     --color-neutral-0: #fff;
+    --color-neutral-0-rgb: 255, 255, 255;
     --color-neutral-1: #f7f7f7;
     --color-neutral-2: #e5e5e5;
     --color-neutral-3: #c7c7c7;
@@ -16,6 +18,7 @@
     --color-neutral-6: #363636;
     --color-neutral-7: #191919;
     --color-neutral-8: #000;
+    --color-neutral-8-rgb: 0, 0, 0;
     --color-orange-1: #ffdec7;
     --color-orange-2: #feb786;
     --color-orange-3: #ff8559;
@@ -72,16 +75,71 @@
     --color-lime-5: #86b300;
     --color-lime-6: #4b7d06;
     --color-lime-7: #364f03;
+    --color-ai-solid-green-strong: #4ee04b;
+    --color-ai-solid-green-subtle: #f1fdf1;
+    --color-ai-solid-green-subtle-dark: #112611;
+    --color-ai-solid-blue-strong: #0968f6;
+    --color-ai-solid-blue-subtle: #f0f6fe;
+    --color-ai-solid-blue-subtle-dark: #112c31;
+    --color-ai-solid-purple-strong: #993ee0;
+    --color-ai-solid-purple-subtle: #f9f3fd;
+    --color-ai-solid-purple-subtle-dark: #20172f;
+    --color-ai-solid-red-strong: #ff4242;
+    --color-ai-solid-red-subtle: #fff4f4;
+    --color-ai-solid-red-subtle-dark: #321919;
+    --color-ai-solid-yellow-strong: #ffd80e;
+    --opacity-50: 0.04;
+    --opacity-100: 0.08;
+    --opacity-150: 0.12;
+    --opacity-200: 0.16;
+    --font-size-10: 0.625rem;
+    --font-size-12: 0.75rem;
+    --font-size-14: 0.875rem;
+    --font-size-16: 1rem;
+    --font-size-18: 1.125rem;
+    --font-size-20: 1.25rem;
+    --font-size-24: 1.5rem;
+    --font-size-30: 1.875rem;
+    --font-size-36: 2.25rem;
+    --font-size-46: 2.875rem;
+    --font-size-64: 4rem;
+    --font-size-smallest: var(--font-size-10);
+    --font-size-small: var(--font-size-12);
+    --font-size-default: var(--font-size-14);
+    --font-size-medium: var(--font-size-16);
+    --font-size-large-1: var(--font-size-20);
+    --font-size-large-2: var(--font-size-24);
+    --font-size-giant-1: var(--font-size-30);
+    --font-size-giant-2: var(--font-size-36);
+    --font-size-giant-3: var(--font-size-46);
+    --font-size-giant-4: var(--font-size-64);
+    --font-weight-regular: 500;
+    --font-weight-bold: 700;
+    --spacing-25: 2px;
+    --spacing-50: 4px;
+    --spacing-75: 6px;
+    --spacing-100: 8px;
+    --spacing-125: 10px;
+    --spacing-150: 12px;
+    --spacing-200: 16px;
+    --spacing-250: 20px;
+    --spacing-300: 24px;
+    --spacing-400: 32px;
+    --spacing-450: 36px;
+    --spacing-600: 48px;
+    --spacing-800: 64px;
 }
 
 :root {
     --color-background-primary: var(--color-neutral-0);
     --color-background-secondary: var(--color-neutral-1);
+    --color-background-tertiary: var(--color-neutral-2);
     --color-background-disabled: var(--color-neutral-3);
     --color-background-inverse: var(--color-neutral-6);
     --color-background-attention: var(--color-red-4);
     --color-background-confirmation: var(--color-green-6);
     --color-background-information: var(--color-blue-4);
+    --color-background-education: #ecf7fe;
     --color-background-accent: var(--color-blue-4);
     --color-background-invalid: var(--color-red-1);
     --color-foreground-primary: var(--color-neutral-7);
@@ -109,6 +167,7 @@
     --color-stroke-strong: var(--color-neutral-7);
     --color-stroke-subtle: var(--color-neutral-2);
     --color-state-visited: var(--color-magenta-6);
+    --color-state-focus-stroke: #005fcc;
     --color-state-primary-hover: #f5f5f5;
     --color-state-primary-active: #ebebeb;
     --color-state-secondary-hover: #ededed;
@@ -161,13 +220,59 @@
     --color-marketing-orange-background-3: var(--color-orange-3);
     --color-marketing-magenta-foreground-4: var(--color-neutral-0);
     --color-marketing-magenta-background-4: var(--color-magenta-4);
+    --state-layer-focus: rgba(var(--color-neutral-8-rgb), var(--opacity-100));
+    --state-layer-hover: rgba(var(--color-neutral-8-rgb), var(--opacity-100));
+    --state-layer-pressed: rgba(var(--color-neutral-8-rgb), var(--opacity-150));
+    --state-layer-drag: rgba(var(--color-neutral-8-rgb), var(--opacity-200));
+    --color-ai-gradient-full-spectrum: linear-gradient(
+        223deg,
+        var(--color-ai-solid-yellow-strong) 9.79%,
+        var(--color-ai-solid-red-strong) 26.69%,
+        var(--color-ai-solid-purple-strong) 41.82%,
+        var(--color-ai-solid-blue-strong) 56.17%,
+        var(--color-ai-solid-green-strong) 78.48%
+    );
+    --color-ai-gradient-green-strong: linear-gradient(
+        270deg,
+        var(--color-ai-solid-green-strong) 0%,
+        #44cf63 25%,
+        var(--color-ai-solid-blue-strong) 100%
+    );
+    --color-ai-gradient-blue-strong: linear-gradient(
+        270deg,
+        var(--color-ai-solid-green-strong) 0%,
+        var(--color-ai-solid-blue-strong) 55.62%,
+        #5751ea 75.7%,
+        var(--color-ai-solid-purple-strong) 100%
+    );
+    --color-ai-gradient-purple-strong: linear-gradient(
+        270deg,
+        var(--color-ai-solid-purple-strong) 0%,
+        var(--color-ai-solid-red-strong) 100%
+    );
+    --color-ai-gradient-purple-subtle: linear-gradient(
+        270deg,
+        var(--color-ai-solid-purple-subtle) 0%,
+        var(--color-ai-solid-red-subtle) 100%
+    );
+    --color-ai-gradient-blue-subtle: linear-gradient(
+        270deg,
+        var(--color-ai-solid-green-subtle) -36%,
+        var(--color-ai-solid-blue-subtle) -46.87%,
+        var(--color-ai-solid-purple-subtle) 113%
+    );
+    --color-ai-gradient-green-subtle: linear-gradient(
+        270deg,
+        var(--color-ai-solid-green-subtle) 0%,
+        var(--color-ai-solid-blue-subtle) 154.5%
+    );
 }
 
 body {
   background-color: var(--color-background-primary);
   color: var(--color-foreground-primary);
   font-family: "Market Sans", Arial, sans-serif;
-  font-size: 0.875rem;
+  font-size: var(--font-size-default);
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   -webkit-text-size-adjust: 100%;
 }
@@ -176,7 +281,7 @@ fieldset {
   padding: 0;
 }
 legend {
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-100);
 }
 a {
   color: var(--link-foreground-color-default, var(--color-foreground-primary));
@@ -205,7 +310,7 @@ a.fake-btn {
   border-radius: var(--btn-border-radius, calc(40px / 2));
   color: inherit;
   display: inline-block;
-  font-size: 0.875rem;
+  font-size: var(--font-size-default);
   min-height: 40px;
   min-width: 88px;
   padding: 9.5px 20px;
@@ -265,8 +370,8 @@ button.btn--slim,
 a.fake-btn--slim {
   height: 40px;
   min-width: auto;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--spacing-100);
+  padding-right: var(--spacing-100);
 }
 a.fake-btn:visited {
   color: inherit;
@@ -312,11 +417,13 @@ a.fake-btn svg.icon {
 }
 button.btn svg.icon:first-child,
 a.fake-btn svg.icon:first-child {
-  margin-right: 8px;
+  -webkit-margin-end: 8px;
+          margin-inline-end: 8px;
 }
 button.btn svg.icon:last-child,
 a.fake-btn svg.icon:last-child {
-  margin-left: 8px;
+  -webkit-margin-start: 8px;
+          margin-inline-start: 8px;
 }
 button.btn svg.icon:only-child,
 a.fake-btn svg.icon:only-child {
@@ -528,14 +635,14 @@ button.btn--tertiary.btn--destructive .progress-spinner {
 button.btn--large,
 a.fake-btn--large {
   border-radius: var(--btn-border-radius, calc(48px / 2));
-  font-size: 1rem;
+  font-size: var(--font-size-medium);
   min-height: 48px;
   padding: 13px 20px;
 }
 button.btn--small,
 a.fake-btn--small {
   border-radius: var(--btn-border-radius, calc(32px / 2));
-  font-size: 0.875rem;
+  font-size: var(--font-size-default);
   min-height: 32px;
   padding: 6px 16px;
 }
@@ -592,7 +699,7 @@ a.fake-btn--truncated span {
 }
 button.btn--large-truncated,
 a.fake-btn--large-truncated {
-  font-size: 1rem;
+  font-size: var(--font-size-medium);
   height: 48px;
   min-height: 48px;
   padding: 13px 20px;
@@ -665,21 +772,6 @@ button.btn--floating-label .btn__floating-label--inline {
   position: unset;
   transform: translate(0, -6px);
 }
-[dir="rtl"] button.btn svg.icon--chevron-down-12:first-child,
-[dir="rtl"] a.fake-btn svg.icon--chevron-down-12:first-child {
-  margin-left: 8px;
-  margin-right: 0;
-}
-[dir="rtl"] button.btn svg.icon--chevron-down-12:last-child,
-[dir="rtl"] a.fake-btn svg.icon--chevron-down-12:last-child {
-  margin-left: 0;
-  margin-right: 8px;
-}
-[dir="rtl"] button.btn svg.icon--chevron-down-12:only-child,
-[dir="rtl"] a.fake-btn svg.icon--chevron-down-12:only-child {
-  margin-left: 0;
-  margin-right: 0;
-}
 [dir="rtl"] button.btn--split-start,
 [dir="rtl"] a.fake-btn--split-start {
   border-radius: 0 24px 24px 0;
@@ -705,11 +797,6 @@ button.btn--floating-label .btn__floating-label--inline {
 [dir="rtl"] a.fake-btn.fake-btn--primary.fake-btn--split-end:focus {
   border-left-color: var(--btn-primary-border-color, var(--color-stroke-accent));
   border-right-color: var(--primary-border-split-color, var(--color-stroke-subtle));
-}
-[dir="rtl"] button.btn svg.icon,
-[dir="rtl"] a.fake-btn svg.icon {
-  margin-left: 8px;
-  margin-right: 0;
 }
 
 :root {
@@ -741,25 +828,25 @@ button.btn--floating-label .btn__floating-label--inline {
   flex-direction: column;
   min-height: 55px;
   will-change: opacity, transform;
-  border-radius: var(--lightbox-border-radius, var(--border-radius-100));
-  margin: auto;
+  border-radius: var(--lightbox-border-radius, var(--border-radius-150));
+  margin: auto auto 16px;
   max-height: 90%;
   max-width: calc(100% - 32px);
   min-width: 208px;
-  margin-left: 16px;
-  margin-right: 16px;
-  padding: 16px;
+  margin-left: var(--spacing-200);
+  margin-right: var(--spacing-200);
+  padding: var(--spacing-200);
   text-align: center;
 }
 .confirm-dialog__title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: var(--font-size-large-1);
+  font-weight: var(--font-weight-bold);
   line-height: 28px;
   margin: 0;
 }
 .confirm-dialog__main {
-  margin: 16px 0;
-  min-height: 16px;
+  margin: var(--spacing-200) 0;
+  min-height: var(--spacing-200);
 }
 .confirm-dialog__main > :first-child {
   margin-top: 0;
@@ -769,7 +856,7 @@ button.btn--floating-label .btn__floating-label--inline {
 }
 a.confirm-dialog__confirm,
 button.confirm-dialog__confirm {
-  margin-left: 8px;
+  margin-left: var(--spacing-100);
 }
 .confirm-dialog--show.confirm-dialog--mask-fade,
 .confirm-dialog--hide.confirm-dialog--mask-fade {
@@ -817,7 +904,9 @@ button.confirm-dialog__confirm {
 }
 @media (min-width: 768px) {
   .confirm-dialog__window {
-    max-width: calc(88% - 32px);
+    margin: auto;
+    border-radius: var(--lightbox-border-radius, var(--border-radius-100));
+    max-width: calc(88% - var(--spacing-400));
   }
 }
 @media (min-width: 1024px) {

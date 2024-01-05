@@ -23,7 +23,7 @@ class _default {
       autoReset: "interactive"
     });
     this._buttonPrefix = (_this$_buttonEl$datas = this._buttonEl.dataset) === null || _this$_buttonEl$datas === void 0 ? void 0 : _this$_buttonEl$datas.makeupMenuButtonPrefix;
-    this._buttonTextEl = this._buttonEl.querySelector(defaultOptions.buttonTextSelector);
+    this._buttonTextEl = this._buttonEl.querySelector(this._options.buttonTextSelector);
     this._expander = new _makeupExpander.default(widgetEl, {
       alwaysDoFocusManagement: true,
       collapseOnClick: true,

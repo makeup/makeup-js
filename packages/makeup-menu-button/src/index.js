@@ -122,7 +122,7 @@ function _onMenuKeyDown(e) {
 
 function _onMenuItemSelect(e) {
   if (e.detail.el.getAttribute("role") === "menuitemradio") {
-    if (this._options.valueTypeHTML) {
+    if (this._options.valueTypeHTML && this._options.valueSelector) {
       this._buttonTextEl.innerHTML = e.detail.el.querySelector(this._options.valueSelector).innerHTML;
     } else {
       this._buttonTextEl.innerText = this._buttonPrefix

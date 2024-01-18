@@ -3,7 +3,11 @@ import * as PreventScrollKeys from "makeup-prevent-scroll-keys";
 const defaultOptions = {
   customElementMode: false,
   autoInit: "interactive",
-  autoReset: "interactive"
+  autoReset: "interactive",
+  valueSelector: ".menu__item-value",
+  // Selector to get value from
+  valueTypeHTML: false
+  // If true, will get innerHTML of valueSelector, otherwise will get innerText
 };
 class src_default {
   constructor(widgetEl, selectedOptions) {
@@ -32,7 +36,7 @@ class src_default {
         _selectMenuItemCheckbox(this.el, el);
         break;
       case "menuitemradio":
-        _selectMenuItemRadio(this.el, el);
+        _selectMenuItemRadio(this.el, el, this._options);
         break;
       default:
         _selectMenuItem(this.el, el);
@@ -143,12 +147,19 @@ function _selectMenuItemCheckbox(widgetEl, menuItemEl) {
     );
   }
 }
-function _selectMenuItemRadio(widgetEl, menuItemEl) {
+function _selectMenuItemRadio(widgetEl, menuItemEl, options) {
   if (menuItemEl.getAttribute("aria-disabled") !== "true") {
     const groupName = menuItemEl.dataset.makeupGroup;
     const checkedEl = widgetEl.querySelector(`[data-makeup-group=${groupName}][aria-checked=true]`);
     if (checkedEl) {
       checkedEl.setAttribute("aria-checked", "false");
+    }
+    let value = menuItemEl.innerText;
+    if (options.valueSelector) {
+      const valueSelector = menuItemEl.querySelector(options.valueSelector);
+      if (valueSelector) {
+        value = options.valueTypeHTML ? valueSelector.innerHTML : valueSelector.innerText;
+      }
     }
     if (checkedEl !== menuItemEl) {
       menuItemEl.setAttribute("aria-checked", "true");
@@ -157,7 +168,7 @@ function _selectMenuItemRadio(widgetEl, menuItemEl) {
           detail: {
             el: menuItemEl,
             group: groupName,
-            value: menuItemEl.innerText
+            value
           }
         })
       );

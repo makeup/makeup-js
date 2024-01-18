@@ -6,6 +6,8 @@ const defaultOptions = {
   expandedClass: "menu-button--expanded",
   menuSelector: ".menu-button__menu",
   buttonTextSelector: `.btn__text`,
+  valueSelector: ".menu-button__item-value", // Selector to get value from
+  valueTypeHTML: false, // If true, will get innerHTML of valueSelector, otherwise will get innerText
 };
 
 export default class {
@@ -15,6 +17,8 @@ export default class {
     this._buttonEl = widgetEl.querySelector("button");
     this.menu = new Menu(widgetEl.querySelector(this._options.menuSelector), {
       autoReset: "interactive",
+      valueSelector: this._options.valueSelector,
+      valueTypeHTML: this._options.valueTypeHTML,
     });
     this._buttonPrefix = this._buttonEl.dataset?.makeupMenuButtonPrefix;
     this._buttonTextEl = this._buttonEl.querySelector(this._options.buttonTextSelector);
@@ -117,8 +121,14 @@ function _onMenuKeyDown(e) {
 }
 
 function _onMenuItemSelect(e) {
-  if (this._buttonPrefix && e.detail.el.getAttribute("role") === "menuitemradio") {
-    this._buttonTextEl.innerText = `${this._buttonPrefix} ${e.detail.el.innerText}`;
+  if (e.detail.el.getAttribute("role") === "menuitemradio") {
+    if (this._options.valueTypeHTML) {
+      this._buttonTextEl.innerHTML = e.detail.el.querySelector(this._options.valueSelector).innerHTML;
+    } else {
+      this._buttonTextEl.innerText = this._buttonPrefix
+        ? `${this._buttonPrefix} ${e.detail.el.innerText}`
+        : e.detail.el.innerText;
+    }
   }
 
   const widget = this;

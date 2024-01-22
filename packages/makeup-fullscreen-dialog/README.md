@@ -21,7 +21,7 @@ The following markup structure and classnames are required. Any SVG icons can be
     <div class="fullscreen-dialog__header">
       <button aria-label="Close dialog" class="icon-btn fullscreen-dialog__close" type="button">
         <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
-          <use xlink:href="../icon.svg#icon-close"></use>
+          <use href="../icon.svg#icon-close"></use>
         </svg>
       </button>
       <h2 id="fullscreen-dialog-title">Fullscreen Dialog</h2>

@@ -23,7 +23,7 @@ The following markup structure and classnames are required. Any SVG icons can be
       <h2 id="drawer-dialog-title">Heading</h2>
       <button aria-label="Close dialog" class="icon-btn drawer-dialog__close" type="button">
         <svg aria-hidden="true" class="icon icon--close" focusable="false" height="16" width="16">
-          <use xlink:href="../icon.svg#icon-close"></use>
+          <use href="../icon.svg#icon-close"></use>
         </svg>
       </button>
     </div>

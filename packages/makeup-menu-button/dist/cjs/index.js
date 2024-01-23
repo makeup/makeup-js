@@ -16,7 +16,6 @@ const defaultOptions = {
   // Selector to get value from
   valueTypeHTML: false // If true, will get innerHTML of valueSelector, otherwise will get innerText
 };
-
 class _default {
   constructor(widgetEl, selectedOptions) {
     var _this$_buttonEl$datas;
@@ -115,16 +114,19 @@ function _onMenuKeyDown(e) {
   }
 }
 function _onMenuItemSelect(e) {
-  if (e.detail.el.getAttribute("role") === "menuitemradio") {
-    if (this._options.valueTypeHTML) {
-      this._buttonTextEl.innerHTML = e.detail.el.querySelector(this._options.valueSelector).innerHTML;
-    } else {
-      this._buttonTextEl.innerText = this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(e.detail.el.innerText) : e.detail.el.innerText;
-    }
-  }
   const widget = this;
   setTimeout(function () {
     widget._expander.expanded = false;
     widget._buttonEl.focus();
   }, 150);
+  if (e.detail.el.getAttribute("role") !== "menuitemradio") {
+    return;
+  }
+  const valueSelector = e.detail.el.querySelector(this._options.valueSelector);
+  if (valueSelector) {
+    const valueType = this._options.valueTypeHTML ? "innerHTML" : "innerText";
+    this._buttonTextEl[valueType] = valueSelector[valueType];
+  } else if (this._buttonPrefix) {
+    this._buttonTextEl.innerText = "".concat(this._buttonPrefix, " ").concat(e.detail.el.innerText);
+  }
 }

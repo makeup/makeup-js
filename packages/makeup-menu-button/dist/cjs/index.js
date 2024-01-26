@@ -22,6 +22,7 @@ class _default {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
     this._buttonEl = widgetEl.querySelector("button");
+    this._buttonEl.setAttribute("aria-haspopup", "true");
     this.menu = new _makeupMenu.default(widgetEl.querySelector(this._options.menuSelector), {
       autoReset: "interactive"
     });

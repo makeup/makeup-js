@@ -15,6 +15,7 @@ export default class {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
     this._buttonEl = widgetEl.querySelector("button");
+    this._buttonEl.setAttribute("aria-haspopup", "true");
     this.menu = new Menu(widgetEl.querySelector(this._options.menuSelector), {
       autoReset: "interactive",
     });

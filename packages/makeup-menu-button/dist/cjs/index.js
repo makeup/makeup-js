@@ -12,9 +12,9 @@ const defaultOptions = {
   expandedClass: "menu-button--expanded",
   menuSelector: ".menu-button__menu",
   buttonTextSelector: ".btn__text",
-  valueSelector: ".menu-button__item-value",
-  // Selector to get value from
-  valueTypeHTML: false // If true, will get innerHTML of valueSelector, otherwise will get innerText
+  buttonValueType: "text",
+  // ["text", "icon", "both"],
+  iconSelector: ".icon"
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
@@ -23,9 +23,7 @@ class _default {
     this.el = widgetEl;
     this._buttonEl = widgetEl.querySelector("button");
     this.menu = new _makeupMenu.default(widgetEl.querySelector(this._options.menuSelector), {
-      autoReset: "interactive",
-      valueSelector: this._options.valueSelector,
-      valueTypeHTML: this._options.valueTypeHTML
+      autoReset: "interactive"
     });
     this._buttonPrefix = (_this$_buttonEl$datas = this._buttonEl.dataset) === null || _this$_buttonEl$datas === void 0 ? void 0 : _this$_buttonEl$datas.makeupMenuButtonPrefix;
     this._buttonTextEl = this._buttonEl.querySelector(this._options.buttonTextSelector);
@@ -122,11 +120,22 @@ function _onMenuItemSelect(e) {
   if (e.detail.el.getAttribute("role") !== "menuitemradio") {
     return;
   }
-  const valueSelector = e.detail.el.querySelector(this._options.valueSelector);
-  if (valueSelector) {
-    const valueType = this._options.valueTypeHTML ? "innerHTML" : "innerText";
-    this._buttonTextEl[valueType] = valueSelector[valueType];
-  } else if (this._buttonPrefix) {
-    this._buttonTextEl.innerText = "".concat(this._buttonPrefix, " ").concat(e.detail.el.innerText);
+  const icon = e.detail.el.querySelector(this._options.iconSelector);
+  const text = e.detail.el.innerText.trim();
+  let content = this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(text) : text;
+  if (icon) {
+    switch (this._options.buttonValueType) {
+      case "both":
+        content = "".concat(icon.outerHTML, " <span>").concat(content, "</span>");
+        break;
+      case "icon":
+        icon.setAttribute("aria-label", text);
+        icon.removeAttribute("aria-hidden");
+        content = icon.outerHTML;
+        break;
+      default:
+        break;
+    }
   }
+  this._buttonTextEl.innerHTML = content;
 }

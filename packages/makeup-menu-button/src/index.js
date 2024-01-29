@@ -6,6 +6,8 @@ const defaultOptions = {
   expandedClass: "menu-button--expanded",
   menuSelector: ".menu-button__menu",
   buttonTextSelector: `.btn__text`,
+  buttonValueType: "text", // ["text", "icon", "both"],
+  iconSelector: ".icon",
 };
 
 export default class {
@@ -13,6 +15,7 @@ export default class {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
     this._buttonEl = widgetEl.querySelector("button");
+    this._buttonEl.setAttribute("aria-haspopup", "true");
     this.menu = new Menu(widgetEl.querySelector(this._options.menuSelector), {
       autoReset: "interactive",
     });
@@ -117,14 +120,35 @@ function _onMenuKeyDown(e) {
 }
 
 function _onMenuItemSelect(e) {
-  if (this._buttonPrefix && e.detail.el.getAttribute("role") === "menuitemradio") {
-    this._buttonTextEl.innerText = `${this._buttonPrefix} ${e.detail.el.innerText}`;
-  }
-
   const widget = this;
 
   setTimeout(function () {
     widget._expander.expanded = false;
     widget._buttonEl.focus();
   }, 150);
+
+  if (e.detail.el.getAttribute("role") !== "menuitemradio") {
+    return;
+  }
+
+  const icon = e.detail.el.querySelector(this._options.iconSelector);
+  const text = e.detail.el.innerText.trim();
+  let content = this._buttonPrefix ? `${this._buttonPrefix} ${text}` : text;
+  
+  if (icon) {
+    switch (this._options.buttonValueType) {
+      case "both":
+        content = `${icon.outerHTML} <span>${content}</span>`;
+        break;
+      case "icon":
+        icon.setAttribute("aria-label", text);
+        icon.removeAttribute("aria-hidden");
+        content = icon.outerHTML;
+        break;
+      default:
+        break;
+    }
+  }
+
+  this._buttonTextEl.innerHTML = content;
 }

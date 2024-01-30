@@ -16,7 +16,7 @@ The following markup structure and classnames are required. Any SVG icons can be
     <span class="expand-btn__cell">
       <span class="expand-btn__text">Button</span>
       <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-        <use xlink:href="icon.svg#icon-dropdown"></use>
+        <use href="icon.svg#icon-dropdown"></use>
       </svg>
     </span>
   </button>
@@ -44,7 +44,7 @@ The following markup structure and classnames are required. Any SVG icons can be
     <span class="expand-btn__cell">
       <span class="expand-btn__text">Button</span>
       <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-        <use xlink:href="icon.svg#icon-dropdown"></use>
+        <use href="icon.svg#icon-dropdown"></use>
       </svg>
     </span>
   </button>
@@ -53,19 +53,19 @@ The following markup structure and classnames are required. Any SVG icons can be
       <div class="menu-button__item" role="menuitemradio" aria-checked="true" data-makeup-group="sort">
         <span>Menu Item 1</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
       <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
         <span>Menu Item 2</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
       <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
         <span>Menu Item 3</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
     </div>
@@ -81,7 +81,7 @@ The following markup structure and classnames are required. Any SVG icons can be
     <span class="expand-btn__cell">
       <span class="expand-btn__text">Button</span>
       <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-        <use xlink:href="icon.svg#icon-dropdown"></use>
+        <use href="icon.svg#icon-dropdown"></use>
       </svg>
     </span>
   </button>
@@ -90,19 +90,19 @@ The following markup structure and classnames are required. Any SVG icons can be
       <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
         <span>Menu Item 1</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
       <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
         <span>Menu Item 2</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
       <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="false">
         <span>Menu Item 3</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
     </div>
@@ -118,7 +118,7 @@ The following markup structure and classnames are required. Any SVG icons can be
     <span class="expand-btn__cell">
       <span class="expand-btn__text">Button</span>
       <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-        <use xlink:href="icon.svg#icon-dropdown"></use>
+        <use href="icon.svg#icon-dropdown"></use>
       </svg>
     </span>
   </button>
@@ -133,19 +133,19 @@ The following markup structure and classnames are required. Any SVG icons can be
       <div class="menu-button__item" role="menuitemradio" aria-checked="true" data-makeup-group="sort">
         <span>Menu Item B1</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
       <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
         <span>Menu Item B2</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
       <div class="menu-button__item" role="menuitemradio" aria-checked="false" data-makeup-group="sort">
         <span>Menu Item B3</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
 
@@ -154,13 +154,13 @@ The following markup structure and classnames are required. Any SVG icons can be
       <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
         <span>Menu Item C1</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
       <div class="menu-button__item" role="menuitemcheckbox" data-makeup-group="filter" aria-checked="true">
         <span>Menu Item C2</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8" aria-hidden="true">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
     </div>

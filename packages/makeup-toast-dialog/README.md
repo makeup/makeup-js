@@ -23,7 +23,7 @@ The following markup structure and classnames are required. Any SVG icons can be
       <h2 class="toast-dialog__title">User Privacy Preferences</h2>
       <button class="icon-btn toast-dialog__close" type="button" aria-label="Close notification dialog">
         <svg class="icon icon--close" focusable="false" height="24" width="24">
-          <use xlink:href="../icon.svg#icon-close"></use>
+          <use href="../icon.svg#icon-close"></use>
         </svg>
       </button>
     </div>

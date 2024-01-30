@@ -22,7 +22,7 @@ The following markup structure and classnames are required. Any SVG icons can be
       aria-owns="listbox1"
     />
     <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-      <use xlink:href="../style/icon.svg#icon-dropdown"></use>
+      <use href="../style/icon.svg#icon-dropdown"></use>
     </svg>
   </span>
   <div class="combobox__listbox">

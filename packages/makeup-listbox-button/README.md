@@ -14,7 +14,7 @@ The following markup structure and classnames are required. Any SVG icons can be
     <span class="expand-btn__cell">
       <span class="expand-btn__text">Option 1</span>
       <svg class="icon icon--dropdown" focusable="false" height="8" width="8" aria-hidden="true">
-        <use xlink:href="icon.svg#icon-dropdown"></use>
+        <use href="icon.svg#icon-dropdown"></use>
       </svg>
     </span>
   </button>
@@ -23,19 +23,19 @@ The following markup structure and classnames are required. Any SVG icons can be
       <div class="listbox-button__option" role="option">
         <span class="listbox-button__value">Option 1</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
       <div class="listbox-button__option" role="option">
         <span class="listbox-button__value">Option 2</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
       <div class="listbox-button__option" role="option">
         <span class="listbox-button__value">Option 3</span>
         <svg class="icon icon--tick-small" focusable="false" height="8" width="8">
-          <use xlink:href="icon.svg#icon-tick-small"></use>
+          <use href="icon.svg#icon-tick-small"></use>
         </svg>
       </div>
     </div>

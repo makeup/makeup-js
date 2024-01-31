@@ -112,7 +112,7 @@ function _onMenuItemSelect(e) {
   if (e.detail.el.getAttribute("role") !== "menuitemradio") {
     return;
   }
-  const icon = e.detail.el.querySelector(this._options.iconSelector);
+  const icon = e.detail.el.querySelector(this._options.iconSelector).cloneNode(true);
   const text = e.detail.el.innerText.trim();
   let content = this._buttonPrefix ? `${this._buttonPrefix} ${text}` : text;
   if (icon) {
@@ -121,7 +121,7 @@ function _onMenuItemSelect(e) {
         content = `${icon.outerHTML} <span>${content}</span>`;
         break;
       case "icon":
-        icon.setAttribute("aria-label", text);
+        icon.setAttribute("aria-label", content);
         icon.removeAttribute("aria-hidden");
         content = icon.outerHTML;
         break;

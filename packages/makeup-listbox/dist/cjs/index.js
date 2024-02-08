@@ -34,7 +34,6 @@ const defaultOptions = {
   // doubles up on support for aria-selected to announce visible selected/checked state
   valueSelector: ".listbox__value" // Selector to get value from
 };
-
 function isSpacebarOrEnter(keyCode) {
   return keyCode === 13 || keyCode === 32;
 }
@@ -128,6 +127,7 @@ class _default {
       }
       this.el.dispatchEvent(new CustomEvent("makeup-listbox-change", {
         detail: {
+          el: matchingItem,
           optionIndex: index,
           optionValue
         }

@@ -143,6 +143,7 @@ export default class {
       this.el.dispatchEvent(
         new CustomEvent("makeup-listbox-change", {
           detail: {
+            el: matchingItem,
             optionIndex: index,
             optionValue
           },

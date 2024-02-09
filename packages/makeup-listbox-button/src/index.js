@@ -11,6 +11,8 @@ const defaultOptions = {
   floatingLabelInline: "btn__floating-label--inline",
   floatingLabelAnimate: "btn__floating-label--animate",
   valueSelector: ".listbox-button__value",
+  buttonValueType: "text", // ["text", "icon", "both"],
+  iconSelector: ".icon",
 };
 
 export default class {
@@ -146,12 +148,24 @@ function _onListboxInit(e) {
 
 function _onListboxChange(e) {
   const toValue = e.detail.optionValue;
+  const icon = e.detail.el.querySelector(this._options.iconSelector).cloneNode(true);
+  let content = this._buttonPrefix ? `${this._buttonPrefix} ${toValue}` : toValue;
 
-  if (this._buttonPrefix) {
-    this._buttonLabelEl.innerText = this._buttonPrefix + toValue;
-  } else {
-    this._buttonLabelEl.innerText = toValue;
+  if (icon) {
+    switch (this._options.buttonValueType) {
+      case "both":
+        content = `${icon.outerHTML} <span>${content}</span>`;
+        break;
+      case "icon":
+        icon.setAttribute("aria-label", content);
+        icon.removeAttribute("aria-hidden");
+        content = icon.outerHTML;
+        break;
+      default:
+        break;
+    }
   }
+  this._buttonLabelEl.innerHTML = content;
 
   if (this._buttonFloatingLabelEl) {
     if (toValue) {

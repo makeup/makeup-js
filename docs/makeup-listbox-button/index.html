@@ -1,286 +1,120 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>makeup-listbox-button</title>
-    <link href="index.css" rel="stylesheet" />
-    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
-  </head>
-  <body>
-    <div id="page">
-      <header>
-        <h1>makeup-listbox-button</h1>
-        <p>
-          Listbox-Button is headless UI widget and does not come bundled with any CSS. This example is receiving its
-          styles from <a href="https://ebay.github.io/skin/#listbox-button">eBay Skin</a>.
-        </p>
-        <p>
-          This example is receiving its base markup and styles from
-          <a href="https://ebay.github.io/skin/#listbox-button">eBay Skin</a>. A subset of style properties are being
-          customized/themed via Skin's CSS Custom Properties.
-        </p>
-        <p>Listbox-Button uses <a href="../makeup-listbox">makeup-listbox</a>.</p>
-      </header>
-      <hr />
-      <main>
-        <h2>Manual Selection</h2>
 
-        <p>ARROW KEYS move the active descendant. SPACEBAR key is required to manually change the selected state.</p>
+<head>
+  <title>makeup-listbox-button</title>
+  <link href="index.css" rel="stylesheet" />
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+</head>
 
-        <h3>Unselected</h3>
+<body>
+  <div id="page">
+    <header>
+      <h1>makeup-listbox-button</h1>
+      <p>
+        Listbox-Button is headless UI widget and does not come bundled with any CSS. This example is receiving its
+        styles from <a href="https://ebay.github.io/skin/#listbox-button">eBay Skin</a>.
+      </p>
+      <p>
+        This example is receiving its base markup and styles from
+        <a href="https://ebay.github.io/skin/#listbox-button">eBay Skin</a>. A subset of style properties are being
+        customized/themed via Skin's CSS Custom Properties.
+      </p>
+      <p>Listbox-Button uses <a href="../makeup-listbox">makeup-listbox</a>.</p>
+    </header>
+    <hr />
+    <main>
+      <h2>Manual Selection</h2>
 
-        <div class="listbox-button" data-makeup-auto-select="false">
-          <button
-            class="btn btn--form"
-            style="min-width: 175px"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            data-listbox-button-prefix="Color: "
-          >
-            <span class="btn__cell">
-              <span class="btn__text">Color: -</span>
-              <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
-                <use href="../icons.svg#icon-chevron-down-12"></use>
+      <p>ARROW KEYS move the active descendant. SPACEBAR key is required to manually change the selected state.</p>
+
+      <h3>Unselected</h3>
+
+      <div class="listbox-button" data-makeup-auto-select="false">
+        <button class="btn btn--form" style="min-width: 175px" aria-expanded="false" aria-haspopup="listbox"
+          data-listbox-button-prefix="Color: ">
+          <span class="btn__cell">
+            <span class="btn__text">Color: -</span>
+            <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="listbox-button__listbox" hidden>
+          <div class="listbox-button__options" role="listbox">
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Red</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
               </svg>
-            </span>
-          </button>
-          <div class="listbox-button__listbox" hidden>
-            <div class="listbox-button__options" role="listbox">
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Red</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Blue</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option" aria-disabled="true">
-                <span class="listbox-button__value">Yellow</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Green</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Blue</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option" aria-disabled="true">
+              <span class="listbox-button__value">Yellow</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Green</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
             </div>
           </div>
         </div>
+      </div>
 
-        <h3>Selected</h3>
+      <h3>Selected</h3>
 
-        <div class="listbox-button" data-makeup-auto-select="false">
-          <button
-            class="btn btn--form"
-            style="min-width: 175px"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            data-listbox-button-prefix="Color: "
-          >
-            <span class="btn__cell">
-              <span class="btn__text">Color: Blue</span>
-              <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
-                <use href="../icons.svg#icon-chevron-down-12"></use>
+      <div class="listbox-button" data-makeup-auto-select="false">
+        <button class="btn btn--form" style="min-width: 175px" aria-expanded="false" aria-haspopup="listbox"
+          data-listbox-button-prefix="Color: ">
+          <span class="btn__cell">
+            <span class="btn__text">Color: Blue</span>
+            <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="listbox-button__listbox" hidden>
+          <div class="listbox-button__options" role="listbox">
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Red</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
               </svg>
-            </span>
-          </button>
-          <div class="listbox-button__listbox" hidden>
-            <div class="listbox-button__options" role="listbox">
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Red</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option" aria-selected="true">
-                <span class="listbox-button__value">Blue</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option" aria-disabled="true">
-                <span class="listbox-button__value">Yellow</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Green</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
             </div>
-          </div>
-          <h3>Unselected, Floating label</h3>
-
-        <div class="listbox-button" data-makeup-auto-select="false">
-          <button
-            class="btn btn--form btn--floating-label"
-            style="min-width: 175px"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-          >
-            <span class="btn__cell">
-              <span class="btn__floating-label">Color</span>
-              <span class="btn__text"></span>
-              <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
-                <use href="../icons.svg#icon-chevron-down-12"></use>
+            <div class="listbox-button__option" role="option" aria-selected="true">
+              <span class="listbox-button__value">Blue</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
               </svg>
-            </span>
-          </button>
-          <div class="listbox-button__listbox" hidden>
-            <div class="listbox-button__options" role="listbox">
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value"></span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Red</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Blue</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option" aria-disabled="true">
-                <span class="listbox-button__value">Yellow</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Green</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
+            </div>
+            <div class="listbox-button__option" role="option" aria-disabled="true">
+              <span class="listbox-button__value">Yellow</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Green</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
             </div>
           </div>
         </div>
-        </div>
-
-        <h2>Automatic Selection</h2>
-        <p>
-          ARROW keys move the active descendant <em>and</em> automatically updated the selected state. This behaviour is
-          similar to a radio button group.
-        </p>
-
-        <h3>Unselected</h3>
-
-        <div class="listbox-button" data-makeup-auto-select="true">
-          <button
-            class="btn btn--form"
-            style="min-width: 175px"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            data-listbox-button-prefix="Color: "
-          >
-            <span class="btn__cell">
-              <span class="btn__text">Color: -</span>
-              <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
-                <use href="../icons.svg#icon-chevron-down-12"></use>
-              </svg>
-            </span>
-          </button>
-          <div class="listbox-button__listbox" hidden>
-            <div class="listbox-button__options" role="listbox">
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Red</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Blue</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option" aria-disabled="true">
-                <span class="listbox-button__value">Yellow</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Green</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <h3>Selected</h3>
-
-        <div class="listbox-button" data-makeup-auto-select="true">
-          <button
-            class="btn btn--form"
-            style="min-width: 175px"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            data-listbox-button-prefix="Color: "
-          >
-            <span class="btn__cell">
-              <span class="btn__text">Color: Blue</span>
-              <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
-                <use href="../icons.svg#icon-chevron-down-12"></use>
-              </svg>
-            </span>
-          </button>
-          <div class="listbox-button__listbox" hidden>
-            <div class="listbox-button__options" role="listbox">
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Red</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option" aria-selected="true">
-                <span class="listbox-button__value">Blue</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option" aria-disabled="true">
-                <span class="listbox-button__value">Yellow</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Green</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <h3>Unselected, Floating label</h3>
 
-        <div class="listbox-button" data-makeup-auto-select="true">
-          <button
-            class="btn btn--form btn--floating-label"
-            style="min-width: 175px"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-          >
+        <div class="listbox-button" data-makeup-auto-select="false">
+          <button class="btn btn--form btn--floating-label" style="min-width: 175px" aria-expanded="false"
+            aria-haspopup="listbox">
             <span class="btn__cell">
               <span class="btn__floating-label">Color</span>
               <span class="btn__text"></span>
@@ -324,59 +158,310 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <h3>Unselected - with descripton</h3>
+      <h2>Automatic Selection</h2>
+      <p>
+        ARROW keys move the active descendant <em>and</em> automatically updated the selected state. This behaviour is
+        similar to a radio button group.
+      </p>
 
-        <div class="listbox-button" data-makeup-auto-select="false">
-          <button
-            class="btn btn--form"
-            style="min-width: 175px"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            data-listbox-button-prefix="Color: "
-          >
-            <span class="btn__cell">
-              <span class="btn__text">Color: -</span>
-              <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
-                <use href="../icons.svg#icon-chevron-down-12"></use>
+      <h3>Unselected</h3>
+
+      <div class="listbox-button" data-makeup-auto-select="true">
+        <button class="btn btn--form" style="min-width: 175px" aria-expanded="false" aria-haspopup="listbox"
+          data-listbox-button-prefix="Color: ">
+          <span class="btn__cell">
+            <span class="btn__text">Color: -</span>
+            <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="listbox-button__listbox" hidden>
+          <div class="listbox-button__options" role="listbox">
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Red</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
               </svg>
-            </span>
-          </button>
-          <div class="listbox-button__listbox" hidden>
-            <div class="listbox-button__options" role="listbox">
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Red</span>
-                <span class="listbox-button__description"><span class="clipped">.</span>More information about Red</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Blue</span>
-                <span class="listbox-button__description"><span class="clipped">.</span>More information about Blue</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option" aria-disabled="true">
-                <span class="listbox-button__value">Yellow</span>
-                <span class="listbox-button__description"><span class="clipped">.</span>More information about Yellow</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
-              <div class="listbox-button__option" role="option">
-                <span class="listbox-button__value">Green</span>
-                <span class="listbox-button__description"><span class="clipped">.</span>More information about Green</span>
-                <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
-                  <use href="../icons.svg#icon-tick-16"></use>
-                </svg>
-              </div>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Blue</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option" aria-disabled="true">
+              <span class="listbox-button__value">Yellow</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Green</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
             </div>
           </div>
         </div>
-      </main>
-    </div>
-    <script src="index.min.js"></script>
-  </body>
+      </div>
+
+      <h3>Selected</h3>
+
+      <div class="listbox-button" data-makeup-auto-select="true">
+        <button class="btn btn--form" style="min-width: 175px" aria-expanded="false" aria-haspopup="listbox"
+          data-listbox-button-prefix="Color: ">
+          <span class="btn__cell">
+            <span class="btn__text">Color: Blue</span>
+            <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="listbox-button__listbox" hidden>
+          <div class="listbox-button__options" role="listbox">
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Red</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option" aria-selected="true">
+              <span class="listbox-button__value">Blue</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option" aria-disabled="true">
+              <span class="listbox-button__value">Yellow</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Green</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Unselected, Floating label</h3>
+
+      <div class="listbox-button" data-makeup-auto-select="true">
+        <button class="btn btn--form btn--floating-label" style="min-width: 175px" aria-expanded="false"
+          aria-haspopup="listbox">
+          <span class="btn__cell">
+            <span class="btn__floating-label">Color</span>
+            <span class="btn__text"></span>
+            <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="listbox-button__listbox" hidden>
+          <div class="listbox-button__options" role="listbox">
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value"></span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Red</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Blue</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option" aria-disabled="true">
+              <span class="listbox-button__value">Yellow</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Green</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Unselected - with descripton</h3>
+
+      <div class="listbox-button" data-makeup-auto-select="false">
+        <button class="btn btn--form" style="min-width: 175px" aria-expanded="false" aria-haspopup="listbox"
+          data-listbox-button-prefix="Color: ">
+          <span class="btn__cell">
+            <span class="btn__text">Color: -</span>
+            <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="listbox-button__listbox" hidden>
+          <div class="listbox-button__options" role="listbox">
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Red</span>
+              <span class="listbox-button__description"><span class="clipped">.</span>More information about Red</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Blue</span>
+              <span class="listbox-button__description"><span class="clipped">.</span>More information about Blue</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option" aria-disabled="true">
+              <span class="listbox-button__value">Yellow</span>
+              <span class="listbox-button__description"><span class="clipped">.</span>More information about
+                Yellow</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">Green</span>
+              <span class="listbox-button__description"><span class="clipped">.</span>More information about
+                Green</span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>With Icons</h3>
+
+      <div class="listbox-button listbox-button-with-icon" data-makeup-auto-select="true">
+        <button class="btn btn--form" aria-expanded="false" aria-haspopup="listbox">
+          <span class="btn__cell">
+            <span class="btn__text">
+              <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30"
+                aria-label="Card Type: AMEX">
+                <use href="../icons.svg#icon-amex-18-colored"></use>
+              </svg>
+            </span>
+            <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="listbox-button__listbox" hidden>
+          <div class="listbox-button__options" role="listbox">
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">
+                <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                  <use href="../icons.svg#icon-amex-18-colored"></use>
+                </svg>
+                <span>AMEX</span>
+              </span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">
+                <svg class="icon icon--visa-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                  <use href="../icons.svg#icon-visa-18-colored"></use>
+                </svg>
+                <span>VISA</span>
+              </span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">
+                <svg class="icon icon--mastercard-18-colored" focusable="false" height="18" width="30"
+                  aria-hidden="true">
+                  <use href="../icons.svg#icon-mastercard-18-colored"></use>
+                </svg>
+                <span>Mastercard</span>
+              </span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>With Icons & Text</h3>
+
+      <div class="listbox-button listbox-button-with-iconText" data-makeup-auto-select="true">
+        <button class="btn btn--form" style="min-width: 175px" aria-expanded="false" aria-haspopup="listbox">
+          <span class="btn__cell">
+            <span class="btn__text">
+              <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30"
+              aria-hidden="true">
+                <use href="../icons.svg#icon-amex-18-colored"></use>
+              </svg>
+              <span>AMEX</span>
+            </span>
+            <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="listbox-button__listbox" hidden>
+          <div class="listbox-button__options" role="listbox">
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">
+                <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                  <use href="../icons.svg#icon-amex-18-colored"></use>
+                </svg>
+                <span>AMEX</span>
+              </span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">
+                <svg class="icon icon--visa-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                  <use href="../icons.svg#icon-visa-18-colored"></use>
+                </svg>
+                <span>VISA</span>
+              </span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">
+                <svg class="icon icon--mastercard-18-colored" focusable="false" height="18" width="30"
+                  aria-hidden="true">
+                  <use href="../icons.svg#icon-mastercard-18-colored"></use>
+                </svg>
+                <span>Mastercard</span>
+              </span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="index.min.js"></script>
+</body>
+
 </html>

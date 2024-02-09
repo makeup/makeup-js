@@ -16,10 +16,15 @@ const log = (e) => console.log(e.type, e.detail);
 
 window.onload = function () {
   document.querySelectorAll(".listbox-button").forEach(function (el, i) {
+    const buttonValueType = el.classList.contains("listbox-button-with-iconText")
+      ? "both"
+      : el.classList.contains("listbox-button-with-icon")
+        ? "icon"
+        : "text";
     el.addEventListener("makeup-listbox-button-init", log);
     el.addEventListener("makeup-listbox-button-change", log);
     el.addEventListener("makeup-listbox-button-mutation", log);
 
-    widgets.push(new ListboxButton(el, { autoSelect: el.dataset.makeupAutoSelect === "false" ? false : true }));
+    widgets.push(new ListboxButton(el, { autoSelect: el.dataset.makeupAutoSelect === "false" ? false : true, buttonValueType }));
   });
 };

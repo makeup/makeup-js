@@ -112,6 +112,7 @@ class src_default {
       this.el.dispatchEvent(
         new CustomEvent("makeup-listbox-change", {
           detail: {
+            el: matchingItem,
             optionIndex: index,
             optionValue
           }

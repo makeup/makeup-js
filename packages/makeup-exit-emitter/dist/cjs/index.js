@@ -17,7 +17,6 @@ function doFocusExit(el, fromElement, toElement) {
     bubbles: false // mirror the native mouseleave event
   }));
 }
-
 function onDocumentFocusIn(e) {
   const newFocusElement = e.target;
   const targetIsDescendant = this.el.contains(newFocusElement);

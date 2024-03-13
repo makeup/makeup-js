@@ -7,7 +7,8 @@ const defaultOptions = {
   menuSelector: ".menu-button__menu",
   buttonTextSelector: `.btn__text`,
   buttonValueType: "text", // ["text", "icon", "both"],
-  iconSelector: ".icon",
+  menuItemIconSelector: ".icon",
+  menuItemButtonLabelSelector: null,
 };
 
 export default class {
@@ -131,8 +132,10 @@ function _onMenuItemSelect(e) {
     return;
   }
 
-  const icon = e.detail.el.querySelector(this._options.iconSelector).cloneNode(true);
-  const text = e.detail.el.innerText.trim();
+  const icon = e.detail.el.querySelector(this._options.menuItemIconSelector).cloneNode(true);
+  const text = this._options.menuItemButtonLabelSelector
+    ? e.detail.el.querySelector(this._options.menuItemButtonLabelSelector)?.innerText.trim()
+    : e.detail.el.innerText.trim();
   let content = this._buttonPrefix ? `${this._buttonPrefix} ${text}` : text;
   
   if (icon) {

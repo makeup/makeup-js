@@ -14,7 +14,8 @@ const defaultOptions = {
   buttonTextSelector: ".btn__text",
   buttonValueType: "text",
   // ["text", "icon", "both"],
-  iconSelector: ".icon"
+  menuItemIconSelector: ".icon",
+  menuItemButtonLabelSelector: null
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
@@ -113,6 +114,7 @@ function _onMenuKeyDown(e) {
   }
 }
 function _onMenuItemSelect(e) {
+  var _e$detail$el$querySel;
   const widget = this;
   setTimeout(function () {
     widget._expander.expanded = false;
@@ -121,8 +123,8 @@ function _onMenuItemSelect(e) {
   if (e.detail.el.getAttribute("role") !== "menuitemradio") {
     return;
   }
-  const icon = e.detail.el.querySelector(this._options.iconSelector).cloneNode(true);
-  const text = e.detail.el.innerText.trim();
+  const icon = e.detail.el.querySelector(this._options.menuItemIconSelector).cloneNode(true);
+  const text = this._options.menuItemButtonLabelSelector ? (_e$detail$el$querySel = e.detail.el.querySelector(this._options.menuItemButtonLabelSelector)) === null || _e$detail$el$querySel === void 0 ? void 0 : _e$detail$el$querySel.innerText.trim() : e.detail.el.innerText.trim();
   let content = this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(text) : text;
   if (icon) {
     switch (this._options.buttonValueType) {

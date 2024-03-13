@@ -8,7 +8,7 @@ const defaultOptions = {
   buttonValueType: "text",
   // ["text", "icon", "both"],
   menuItemIconSelector: ".icon",
-  menuItemButtonLabelSelector: null
+  menuItemButtonAriaLabelSelector: null
 };
 class src_default {
   constructor(widgetEl, selectedOptions) {
@@ -106,31 +106,39 @@ function _onMenuKeyDown(e) {
 }
 function _onMenuItemSelect(e) {
   const widget = this;
+  const { el } = e.detail;
   setTimeout(function() {
     widget._expander.expanded = false;
     widget._buttonEl.focus();
   }, 150);
-  if (e.detail.el.getAttribute("role") !== "menuitemradio") {
+  if (el.getAttribute("role") !== "menuitemradio") {
     return;
   }
-  const icon = e.detail.el.querySelector(this._options.menuItemIconSelector).cloneNode(true);
-  const text = this._options.menuItemButtonLabelSelector ? e.detail.el.querySelector(this._options.menuItemButtonLabelSelector)?.innerText.trim() : e.detail.el.innerText.trim();
-  let content = this._buttonPrefix ? `${this._buttonPrefix} ${text}` : text;
+  const { menuItemIconSelector, menuItemButtonAriaLabelSelector, buttonValueType } = this._options;
+  const icon = el.querySelector(menuItemIconSelector).cloneNode(true);
+  const text = el.innerText.trim();
+  let btnContent = this._buttonPrefix ? `${this._buttonPrefix} ${text}` : text;
   if (icon) {
-    switch (this._options.buttonValueType) {
+    switch (buttonValueType) {
       case "both":
-        content = `${icon.outerHTML} <span>${content}</span>`;
+        btnContent = `${icon.outerHTML} <span>${btnContent}</span>`;
         break;
       case "icon":
-        icon.setAttribute("aria-label", content);
-        icon.removeAttribute("aria-hidden");
-        content = icon.outerHTML;
+        this._buttonEl.setAttribute("aria-label", btnContent);
+        btnContent = icon.outerHTML;
         break;
       default:
         break;
     }
   }
-  this._buttonTextEl.innerHTML = content;
+  if (menuItemButtonAriaLabelSelector) {
+    const selectorText = el.querySelector(menuItemButtonAriaLabelSelector)?.innerText.trim();
+    this._buttonEl.setAttribute(
+      "aria-label",
+      this._buttonPrefix ? `${this._buttonPrefix} ${selectorText}` : selectorText
+    );
+  }
+  this._buttonTextEl.innerHTML = btnContent;
 }
 export {
   src_default as default

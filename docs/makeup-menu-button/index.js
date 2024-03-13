@@ -25,11 +25,11 @@ window.onload = function () {
       buttonValueType = "text";
     }
 
-    const menuItemButtonLabelSelector = hasCustomLabel ? ".menu-button__item-value span" : null;
+    const menuItemButtonAriaLabelSelector = hasCustomLabel ? ".menu-button__item-value span" : null;
 
     const widget = new MenuButton(el, {
       buttonValueType,
-      menuItemButtonLabelSelector,
+      menuItemButtonAriaLabelSelector,
     });
 
     widget.menu.el.addEventListener("makeup-menu-select", (e) => console.log(e.type, e.detail));

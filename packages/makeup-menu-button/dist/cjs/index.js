@@ -15,7 +15,7 @@ const defaultOptions = {
   buttonValueType: "text",
   // ["text", "icon", "both"],
   menuItemIconSelector: ".icon",
-  menuItemButtonLabelSelector: null
+  menuItemButtonAriaLabelSelector: null
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
@@ -114,31 +114,42 @@ function _onMenuKeyDown(e) {
   }
 }
 function _onMenuItemSelect(e) {
-  var _e$detail$el$querySel;
   const widget = this;
+  const {
+    el
+  } = e.detail;
   setTimeout(function () {
     widget._expander.expanded = false;
     widget._buttonEl.focus();
   }, 150);
-  if (e.detail.el.getAttribute("role") !== "menuitemradio") {
+  if (el.getAttribute("role") !== "menuitemradio") {
     return;
   }
-  const icon = e.detail.el.querySelector(this._options.menuItemIconSelector).cloneNode(true);
-  const text = this._options.menuItemButtonLabelSelector ? (_e$detail$el$querySel = e.detail.el.querySelector(this._options.menuItemButtonLabelSelector)) === null || _e$detail$el$querySel === void 0 ? void 0 : _e$detail$el$querySel.innerText.trim() : e.detail.el.innerText.trim();
-  let content = this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(text) : text;
+  const {
+    menuItemIconSelector,
+    menuItemButtonAriaLabelSelector,
+    buttonValueType
+  } = this._options;
+  const icon = el.querySelector(menuItemIconSelector).cloneNode(true);
+  const text = el.innerText.trim();
+  let btnContent = this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(text) : text;
   if (icon) {
-    switch (this._options.buttonValueType) {
+    switch (buttonValueType) {
       case "both":
-        content = "".concat(icon.outerHTML, " <span>").concat(content, "</span>");
+        btnContent = "".concat(icon.outerHTML, " <span>").concat(btnContent, "</span>");
         break;
       case "icon":
-        icon.setAttribute("aria-label", content);
-        icon.removeAttribute("aria-hidden");
-        content = icon.outerHTML;
+        this._buttonEl.setAttribute("aria-label", btnContent);
+        btnContent = icon.outerHTML;
         break;
       default:
         break;
     }
   }
-  this._buttonTextEl.innerHTML = content;
+  if (menuItemButtonAriaLabelSelector) {
+    var _el$querySelector;
+    const selectorText = (_el$querySelector = el.querySelector(menuItemButtonAriaLabelSelector)) === null || _el$querySelector === void 0 ? void 0 : _el$querySelector.innerText.trim();
+    this._buttonEl.setAttribute("aria-label", this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(selectorText) : selectorText);
+  }
+  this._buttonTextEl.innerHTML = btnContent;
 }

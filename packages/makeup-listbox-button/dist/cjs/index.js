@@ -19,7 +19,8 @@ const defaultOptions = {
   valueSelector: ".listbox-button__value",
   buttonValueType: "text",
   // ["text", "icon", "both"],
-  iconSelector: ".icon"
+  listboxOptionIconSelector: ".icon",
+  listboxOptionAriaLabelSelector: null
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
@@ -141,29 +142,40 @@ function _onListboxInit(e) {
 }
 function _onListboxChange(e) {
   const toValue = e.detail.optionValue;
-  const icon = e.detail.el.querySelector(this._options.iconSelector).cloneNode(true);
-  let content = this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(toValue) : toValue;
+  const {
+    listboxOptionIconSelector,
+    listboxOptionAriaLabelSelector,
+    buttonValueType,
+    floatingLabelAnimate,
+    floatingLabelInline
+  } = this._options;
+  const icon = e.detail.el.querySelector(listboxOptionIconSelector).cloneNode(true);
+  let btnContent = this._buttonPrefix ? "".concat(this._buttonPrefix).concat(toValue) : toValue;
   if (icon) {
-    switch (this._options.buttonValueType) {
+    switch (buttonValueType) {
       case "both":
-        content = "".concat(icon.outerHTML, " <span>").concat(content, "</span>");
+        btnContent = "".concat(icon.outerHTML, " <span>").concat(btnContent, "</span>");
         break;
       case "icon":
-        icon.setAttribute("aria-label", content);
-        icon.removeAttribute("aria-hidden");
-        content = icon.outerHTML;
+        this._buttonEl.setAttribute("aria-label", btnContent);
+        btnContent = icon.outerHTML;
         break;
       default:
         break;
     }
   }
-  this._buttonLabelEl.innerHTML = content;
+  if (listboxOptionAriaLabelSelector) {
+    var _e$detail$el$querySel;
+    const selectorText = (_e$detail$el$querySel = e.detail.el.querySelector(listboxOptionAriaLabelSelector)) === null || _e$detail$el$querySel === void 0 ? void 0 : _e$detail$el$querySel.innerText.trim();
+    this._buttonEl.setAttribute("aria-label", this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(selectorText) : selectorText);
+  }
+  this._buttonLabelEl.innerHTML = btnContent;
   if (this._buttonFloatingLabelEl) {
     if (toValue) {
-      this._buttonFloatingLabelEl.classList.add(this._options.floatingLabelAnimate);
-      this._buttonFloatingLabelEl.classList.remove(this._options.floatingLabelInline);
+      this._buttonFloatingLabelEl.classList.add(floatingLabelAnimate);
+      this._buttonFloatingLabelEl.classList.remove(floatingLabelInline);
     } else {
-      this._buttonFloatingLabelEl.classList.add(this._options.floatingLabelInline);
+      this._buttonFloatingLabelEl.classList.add(floatingLabelInline);
     }
   }
   this.el.dispatchEvent(new CustomEvent("makeup-listbox-button-change", {

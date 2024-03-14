@@ -12,7 +12,8 @@ const defaultOptions = {
   floatingLabelAnimate: "btn__floating-label--animate",
   valueSelector: ".listbox-button__value",
   buttonValueType: "text", // ["text", "icon", "both"],
-  iconSelector: ".icon",
+  listboxOptionIconSelector: ".icon",
+  listboxOptionAriaLabelSelector: null,
 };
 
 export default class {
@@ -42,7 +43,7 @@ export default class {
       activeDescendantClassName: "listbox-button__option--active",
       autoReset: "ariaSelectedOrInteractive",
       autoSelect: this._options.autoSelect,
-      valueSelector: this._options.valueSelector
+      valueSelector: this._options.valueSelector,
     });
 
     this._expander = new Expander(this.el, {
@@ -148,31 +149,46 @@ function _onListboxInit(e) {
 
 function _onListboxChange(e) {
   const toValue = e.detail.optionValue;
-  const icon = e.detail.el.querySelector(this._options.iconSelector).cloneNode(true);
-  let content = this._buttonPrefix ? `${this._buttonPrefix} ${toValue}` : toValue;
+  const {
+    listboxOptionIconSelector,
+    listboxOptionAriaLabelSelector,
+    buttonValueType,
+    floatingLabelAnimate,
+    floatingLabelInline,
+  } = this._options;
+  const icon = e.detail.el.querySelector(listboxOptionIconSelector).cloneNode(true);
+  let btnContent = this._buttonPrefix ? `${this._buttonPrefix}${toValue}` : toValue;
 
   if (icon) {
-    switch (this._options.buttonValueType) {
+    switch (buttonValueType) {
       case "both":
-        content = `${icon.outerHTML} <span>${content}</span>`;
+        btnContent = `${icon.outerHTML} <span>${btnContent}</span>`;
         break;
       case "icon":
-        icon.setAttribute("aria-label", content);
-        icon.removeAttribute("aria-hidden");
-        content = icon.outerHTML;
+        this._buttonEl.setAttribute("aria-label", btnContent);
+        btnContent = icon.outerHTML;
         break;
       default:
         break;
     }
   }
-  this._buttonLabelEl.innerHTML = content;
+
+  if (listboxOptionAriaLabelSelector) {
+    const selectorText = e.detail.el.querySelector(listboxOptionAriaLabelSelector)?.innerText.trim();
+    this._buttonEl.setAttribute(
+      "aria-label",
+      this._buttonPrefix ? `${this._buttonPrefix} ${selectorText}` : selectorText,
+    );
+  }
+
+  this._buttonLabelEl.innerHTML = btnContent;
 
   if (this._buttonFloatingLabelEl) {
     if (toValue) {
-      this._buttonFloatingLabelEl.classList.add(this._options.floatingLabelAnimate);
-      this._buttonFloatingLabelEl.classList.remove(this._options.floatingLabelInline);
+      this._buttonFloatingLabelEl.classList.add(floatingLabelAnimate);
+      this._buttonFloatingLabelEl.classList.remove(floatingLabelInline);
     } else {
-      this._buttonFloatingLabelEl.classList.add(this._options.floatingLabelInline);
+      this._buttonFloatingLabelEl.classList.add(floatingLabelInline);
     }
   }
 

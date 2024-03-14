@@ -350,11 +350,10 @@
       <h3>With Icons</h3>
 
       <div class="listbox-button listbox-button-with-icon" data-makeup-auto-select="true">
-        <button class="btn btn--form" aria-expanded="false" aria-haspopup="listbox">
+        <button class="btn btn--form" aria-expanded="false" aria-haspopup="listbox" aria-label="Card Type: AMEX" data-listbox-button-prefix="Card Type: ">
           <span class="btn__cell">
             <span class="btn__text">
-              <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30"
-                aria-label="Card Type: AMEX">
+              <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
                 <use href="../icons.svg#icon-amex-18-colored"></use>
               </svg>
             </span>
@@ -394,6 +393,64 @@
                   <use href="../icons.svg#icon-mastercard-18-colored"></use>
                 </svg>
                 <span>Mastercard</span>
+              </span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>With Icons & custom aria-label</h3>
+
+      <div class="listbox-button listbox-button-with-icon-label" data-makeup-auto-select="true">
+        <button class="btn btn--form" aria-expanded="false" aria-haspopup="listbox" aria-label="Card Type: AMEX" data-listbox-button-prefix="Card Type: ">
+          <span class="btn__cell">
+            <span class="btn__text">
+              <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                <use href="../icons.svg#icon-amex-18-colored"></use>
+              </svg>
+            </span>
+            <svg class="icon icon--chevron-down-12" focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="listbox-button__listbox" hidden>
+          <div class="listbox-button__options" role="listbox">
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">
+                <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                  <use href="../icons.svg#icon-amex-18-colored"></use>
+                </svg>
+                <span>AMEX</span>
+                <span>Extra text</span>
+              </span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">
+                <svg class="icon icon--visa-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                  <use href="../icons.svg#icon-visa-18-colored"></use>
+                </svg>
+                <span>VISA</span>
+                <span>Extra text</span>
+              </span>
+              <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
+                <use href="../icons.svg#icon-tick-16"></use>
+              </svg>
+            </div>
+            <div class="listbox-button__option" role="option">
+              <span class="listbox-button__value">
+                <svg class="icon icon--mastercard-18-colored" focusable="false" height="18" width="30"
+                  aria-hidden="true">
+                  <use href="../icons.svg#icon-mastercard-18-colored"></use>
+                </svg>
+                <span>Mastercard</span>
+                <span>Extra text</span>
               </span>
               <svg class="icon icon--tick-16" focusable="false" height="10" width="14">
                 <use href="../icons.svg#icon-tick-16"></use>

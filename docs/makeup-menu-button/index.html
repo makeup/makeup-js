@@ -192,9 +192,9 @@
         <h2 id="menu-button-2D">Single-Select Menu Button with Icons</h2>
 
         <span class="menu-button menu-button-with-icon">
-          <button class="btn" type="button" data-makeup-menu-button-prefix="Card Type:">
+          <button class="btn" type="button" data-makeup-menu-button-prefix="Card Type:" aria-label="Card Type: AMEX">
             <span class="btn__text">
-              <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30" aria-label="Card Type: AMEX">
+              <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
                 <use href="../icons.svg#icon-amex-18-colored"></use>
               </svg>
             </span>
@@ -243,7 +243,64 @@
 
         <hr />
 
-        <h2 id="menu-button-2E">Single-Select Menu Button with Icons and Text</h2>
+        <h2 id="menu-button-2E">Single-Select Menu Button with Icon and custom aria-Label</h2>
+
+        <span class="menu-button menu-button-with-icon-customText">
+          <button class="btn" type="button" data-makeup-menu-button-prefix="Card Type:" aria-label="Card Type: AMEX">
+            <span class="btn__text">
+              <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                <use href="../icons.svg#icon-amex-18-colored"></use>
+              </svg>
+            </span>
+            <svg focusable="false" height="10" width="14" aria-hidden="true">
+              <use href="../icons.svg#icon-chevron-down-12"></use>
+            </svg>
+          </button>
+          <div class="menu-button__menu" hidden>
+            <div class="menu-button__items" role="menu">
+              <div class="menu-button__item" role="menuitemradio" data-makeup-group="credit-card" aria-checked="true">
+                <div class="menu-button__item-value">
+                  <svg class="icon icon--amex-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                    <use href="../icons.svg#icon-amex-18-colored"></use>
+                  </svg>
+                  <span>AMEX</span>
+                  <span>Extra Info</span>
+                </div>
+                <svg class="icon icon--tick-16" focusable="false" height="10" width="14" aria-hidden="true">
+                  <use href="../icons.svg#icon-tick-16"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemradio" data-makeup-group="credit-card" aria-checked="false">
+                <div class="menu-button__item-value">
+                  <svg class="icon icon--visa-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                    <use href="../icons.svg#icon-visa-18-colored"></use>
+                  </svg>
+                  <span>VISA</span>
+                  <span>Extra Info</span>
+                </div>
+                <svg class="icon icon--tick-16" focusable="false" height="10" width="14" aria-hidden="true">
+                  <use href="../icons.svg#icon-tick-16"></use>
+                </svg>
+              </div>
+              <div class="menu-button__item" role="menuitemradio" data-makeup-group="credit-card" aria-checked="false">
+                <div class="menu-button__item-value">
+                  <svg class="icon icon--mastercard-18-colored" focusable="false" height="18" width="30" aria-hidden="true">
+                    <use href="../icons.svg#icon-mastercard-18-colored"></use>
+                  </svg>
+                  <span>Master Card</span>
+                  <span>Extra Info</span>
+                </div>
+                <svg class="icon icon--tick-16" focusable="false" height="10" width="14" aria-hidden="true">
+                  <use href="../icons.svg#icon-tick-16"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </span>
+
+        <hr />
+
+        <h2 id="menu-button-2F">Single-Select Menu Button with Icons and Text</h2>
 
         <span class="menu-button menu-button-with-iconText">
           <button class="btn" type="button">

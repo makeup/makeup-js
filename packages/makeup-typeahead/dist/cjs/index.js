@@ -11,7 +11,6 @@ function _default() {
     getIndex: function (nodeList, char, timeoutLength) {
       typeStr = typeStr.concat(char);
       let index;
-      // eslint-disable-next-line eqeqeq
       if (nodeList == null) return -1;
       const lowerTypeStr = typeStr.toLocaleLowerCase();
       index = [...nodeList].findIndex(el => el.textContent.toLocaleLowerCase().startsWith(lowerTypeStr));

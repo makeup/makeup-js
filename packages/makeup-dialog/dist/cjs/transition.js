@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = transition;
-/* eslint-disable indent */
-
 /**
  * Author: Mr D.Piercey
  */

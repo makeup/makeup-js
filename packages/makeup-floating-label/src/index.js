@@ -46,6 +46,7 @@ function setPlaceholder(formControlEl, value) {
 function checkForPlaceholder(formControlEl) {
   if (isSelect(formControlEl)) {
     const firstOption = formControlEl.querySelector("option");
+    // eslint-disable-next-line  no-extra-boolean-cast
     if (!!firstOption.value) {
       // If first option has a value then it is not a placeholder
       return;

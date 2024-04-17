@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-
 /**
  * Author: Mr D.Piercey
  */

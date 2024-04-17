@@ -143,6 +143,7 @@
     --color-background-education: #ecf7fe;
     --color-background-accent: var(--color-blue-4);
     --color-background-invalid: var(--color-red-1);
+    --color-background-elevated: var(--color-neutral-0);
     --color-foreground-primary: var(--color-neutral-7);
     --color-foreground-secondary: var(--color-neutral-5);
     --color-foreground-disabled: var(--color-neutral-3);
@@ -729,7 +730,6 @@ a.fake-btn--secondary[aria-disabled="true"] {
 }
 button.btn--tertiary,
 a.fake-btn--tertiary {
-  border-width: 2px;
   border-color: var(--btn-tertiary-border-color, var(--color-stroke-default));
 }
 button.btn--tertiary:not([disabled], [aria-disabled="true"]):focus,
@@ -791,14 +791,14 @@ a.fake-btn--form {
   border-radius: var(--expand-btn-border-radius, var(--border-radius-50));
   max-width: 100%;
 }
-button.btn--form:hover,
-a.fake-btn--form:hover,
-button.btn--form:focus,
-a.fake-btn--form:focus {
+button.btn--form:not([disabled], [aria-disabled="true"]):hover,
+a.fake-btn--form:not([href]):hover,
+button.btn--form:not([disabled], [aria-disabled="true"]):focus,
+a.fake-btn--form:not([href]):focus {
   background-color: var(--color-state-primary-hover);
 }
-button.btn--form:active,
-a.fake-btn--form:active {
+button.btn--form:not([disabled], [aria-disabled="true"]):active,
+a.fake-btn--form:not([href]):active {
   background-color: var(--color-state-primary-active);
 }
 button.btn--form.btn--large {

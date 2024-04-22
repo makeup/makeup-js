@@ -1,11 +1,9 @@
 {
     "name": "root",
     "private": true,
-    "workspaces": {
-        "packages": [
-            "packages/*"
-        ]
-    },
+    "workspaces": [
+        "packages/*"
+    ],
     "scripts": {
         "build": "npm run lint && npm run compile && npm run bundle",
         "bundle": "webpack",
@@ -17,7 +15,9 @@
         "server": "browser-sync start -s --ss docs --index docs/index.html --files docs/**/index.html docs/**/index.min.js",
         "start": "npm run build && run-p server watch",
         "test": "karma start --autoWatch false --singleRun true",
-        "watch": "onchange packages/**/src/*.js docs/**/index.js -- npm run build"
+        "watch": "run-p watch:docs watch:packages",
+        "watch:packages": "lerna watch -- 'lerna run compile --scope=$LERNA_PACKAGE_NAME --include-dependents && npm run bundle'",
+        "watch:docs": "onchange docs/**/index.js -- run-s compile:docs bundle"
     },
     "devDependencies": {
         "@babel/cli": "^7.24.1",

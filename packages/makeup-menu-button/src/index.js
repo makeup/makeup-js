@@ -145,7 +145,7 @@ function _onMenuItemSelect(e) {
         break;
       case "icon":
         this._buttonEl.setAttribute("aria-label", btnContent);
-        btnContent = icon.outerHTML;   
+        btnContent = icon.outerHTML;
         break;
       default:
         break;

@@ -56,11 +56,13 @@ module.exports = {
       },
       {
         test: /\.(svg)$/,
-        use: [{
-          loader: "file-loader",
-          options: { name: "[name].[ext]" }
-        }],
-      }
+        use: [
+          {
+            loader: "file-loader",
+            options: { name: "[name].[ext]" },
+          },
+        ],
+      },
     ],
   },
 };

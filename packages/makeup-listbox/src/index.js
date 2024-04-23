@@ -137,7 +137,6 @@ export default class {
         if (valueSelector) {
           optionValue = valueSelector.innerText;
         }
-
       }
 
       this.el.dispatchEvent(
@@ -145,7 +144,7 @@ export default class {
           detail: {
             el: matchingItem,
             optionIndex: index,
-            optionValue
+            optionValue,
           },
         }),
       );

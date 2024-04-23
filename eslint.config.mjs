@@ -8,13 +8,13 @@ export default [
       ecmaVersion: 2020,
       sourceType: "module",
       globals: {
-        ...globals.browser
-      }
+        ...globals.browser,
+      },
     },
-  rules: {
+    rules: {
       "prefer-arrow-callback": 0,
       "arrow-body-style": 0,
-      "no-console": 0
-    }
-  }
+      "no-console": 0,
+    },
+  },
 ];

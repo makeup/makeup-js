@@ -1,7 +1,11 @@
+# Committed but dynamically generated files
 coverage
 dist*
 index.compiled.js
-index.min.js
 package-lock.json
-package.json
 packages/*/dist
+*.min.js
+*.map
+
+# CSS files nested deeply under docs are auto generated (but not docs/docs.css)
+docs/*/*.css

@@ -43,7 +43,7 @@ We use ESLint with most out of the box defaults (we will be reviewing the existi
 
 ### Commit Message Format
 
-Please manually follow [commitlint](https://commitlint.js.org) format for commit messages. We shall be integrating this tool soon for automatic linting of commit messages.
+Please manually follow [commitlint conventional configuration](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional0) format for commit messages. We shall be integrating this tool soon for automatic linting of commit messages.
 
 ## Core Modules Style Guide
 

@@ -17,7 +17,8 @@
     "test": "karma start --autoWatch false --singleRun true",
     "watch": "run-p watch:docs watch:packages",
     "watch:packages": "lerna watch -- 'lerna run compile --scope=$LERNA_PACKAGE_NAME --include-dependents && npm run bundle'",
-    "watch:docs": "onchange docs/**/index.js -- run-s compile:docs bundle"
+    "watch:docs": "onchange docs/**/index.js -- run-s compile:docs bundle",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.1",
@@ -61,5 +62,8 @@
   },
   "browserslist": [
     "extends @ebay/browserslist-config"
-  ]
+  ],
+  "lint-staged": {
+    "*.{html,js,json,md}": "prettier --write"
+  }
 }

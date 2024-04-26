@@ -6,14 +6,14 @@ Before writing any code, please submit a new issue to GitHub. Or, if you want to
 
 Here is a rough overview of steps required when contributing code:
 
-* GitHub team members must create a new branch in this repo. Non-team members can create their own fork.
-* Add or update the corresponding README files
-* Add or update the corresponding docs files
-* Add or update the corresponding unit tests
-* After making your local changes, ensure that:
-    * `npm test` runs without errors
-    * `npm start` runs without introducing new ESlint warnings or errors
-* Squash any non-atomic local commits (e.g. any "work in progress" type commits) before pushing up your PR
+- GitHub team members must create a new branch in this repo. Non-team members can create their own fork.
+- Add or update the corresponding README files
+- Add or update the corresponding docs files
+- Add or update the corresponding unit tests
+- After making your local changes, ensure that:
+  - `npm test` runs without errors
+  - `npm start` runs without introducing new ESlint warnings or errors
+- Squash any non-atomic local commits (e.g. any "work in progress" type commits) before pushing up your PR
 
 ## Project Organisation
 
@@ -31,9 +31,9 @@ A top level `/docs` folder contains the src files for the static website (served
 
 Babel is used to compile all src files under `/packages` and `/docs`. For packages, src files are compiled as both commonjs and esm under the `/dist` subdirectory. For docs, the compiled output file is called `index.compiled.js`.
 
-For documentation only, Webpack is used to bundle and minify all compiled files. For core modules, webpack outputs  `index.min.js` and `index.min.map` files. For UI modules, webpack outputs additional `index.css` and `index.css.map` files (this CSS is extracted from the imports found in `index.js`).
+For documentation only, Webpack is used to bundle and minify all compiled files. For core modules, webpack outputs `index.min.js` and `index.min.map` files. For UI modules, webpack outputs additional `index.css` and `index.css.map` files (this CSS is extracted from the imports found in `index.js`).
 
-### Code Formatting 
+### Code Formatting
 
 We use Prettier with all out of the box defaults except one override for printWidth (we find the default of 80 too small).
 
@@ -43,7 +43,7 @@ We use ESLint with most out of the box defaults (we will be reviewing the existi
 
 ### Commit Message Format
 
-Please manually follow [commitlint conventional configuration](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional0) format for commit messages. We shall be integrating this tool soon for automatic linting of commit messages.
+We use [commitlint conventional configuration](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional0) format for commit messages.
 
 ## Core Modules Style Guide
 

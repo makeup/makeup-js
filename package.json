@@ -24,6 +24,8 @@
     "@babel/cli": "^7.24.1",
     "@babel/core": "^7.24.4",
     "@babel/preset-env": "^7.24.4",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@ebay/browserslist-config": "^2.8.0",
     "@ebay/skin": "^17.3.0",
     "browser-sync": "^3.0.2",
@@ -65,5 +67,8 @@
   ],
   "lint-staged": {
     "*.{html,js,json,md}": "prettier --write"
+  },
+  "commitlint": {
+    "extends": "@commitlint/config-conventional"
   }
 }

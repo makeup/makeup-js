@@ -46,5 +46,6 @@ We are currently in the process of converting all [eBay MIND Patterns](https://e
 - [makeup-panel-dialog](packages/makeup-panel-dialog)
 - [makeup-snackbar-dialog](packages/makeup-snackbar-dialog)
 - [makeup-switch](packages/makeup-switch)
+- [makeup-tabs](packages/makeup-tabs)
 - [makeup-toast-dialog](packages/makeup-toast-dialog)
 - More to come...

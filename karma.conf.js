@@ -127,6 +127,11 @@ module.exports = function (config) {
           {
             test: /\.js$/,
             use: { loader: "coverage-istanbul-loader", options: { esModules: true } },
+            include: path.resolve("packages/makeup-tabs/src"),
+          },
+          {
+            test: /\.js$/,
+            use: { loader: "coverage-istanbul-loader", options: { esModules: true } },
             include: path.resolve("packages/makeup-typeahead/src"),
           },
         ],

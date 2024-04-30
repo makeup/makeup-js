@@ -32,6 +32,7 @@ module.exports = {
     "makeup-screenreader-trap": "./docs/makeup-screenreader-trap/index.compiled.js",
     "makeup-snackbar-dialog": "./docs/makeup-snackbar-dialog/index.compiled.js",
     "makeup-switch": "./docs/makeup-switch/index.compiled.js",
+    "makeup-tabs": "./docs/makeup-tabs/index.compiled.js",
     "makeup-toast-dialog": "./docs/makeup-toast-dialog/index.compiled.js",
     "makeup-typeahead": "./docs/makeup-typeahead/index.compiled.js",
   },

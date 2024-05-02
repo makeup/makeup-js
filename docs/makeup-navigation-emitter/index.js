@@ -1,8 +1,8 @@
 // REQUIRE
-//const NavigationEmitter = require('../../packages/makeup-navigation-emitter');
+//const NavigationEmitter = require('../../packages/core/makeup-navigation-emitter');
 
 // IMPORT
-import * as NavigationEmitter from "../../packages/makeup-navigation-emitter";
+import * as NavigationEmitter from "../../packages/core/makeup-navigation-emitter";
 
 const emitters = [];
 const appender = document.getElementById("appender");

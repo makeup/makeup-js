@@ -1,8 +1,8 @@
 // REQUIRE
-// const FloatingLabel = require('../../packages/makeup-floating-label').default;
+// const FloatingLabel = require('../../packages/ui/makeup-floating-label').default;
 
 // IMPORT
-import FloatingLabel from "../../packages/makeup-floating-label";
+import FloatingLabel from "../../packages/ui/makeup-floating-label";
 
 document.addEventListener("DOMContentLoaded", function () {
   const widgetEls = document.querySelectorAll(".floating-label");

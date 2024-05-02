@@ -6,10 +6,10 @@ import "@ebay/skin/button";
 import "@ebay/skin/alert-dialog";
 
 // REQUIRE
-//const AlertDialog = require('../../packages/makeup-alert-dialog');
+//const AlertDialog = require('../../packages/ui/makeup-alert-dialog');
 
 // IMPORT
-import AlertDialog from "../../packages/makeup-alert-dialog";
+import AlertDialog from "../../packages/ui/makeup-alert-dialog";
 
 window.onload = function () {
   document.querySelectorAll(".alert-dialog").forEach(function (el, i) {

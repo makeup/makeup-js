@@ -4,10 +4,10 @@ import "@ebay/skin/global";
 import "@ebay/skin/combobox";
 
 // REQUIRE
-// const Combobox = require('../../packages/makeup-combobox').default;
+// const Combobox = require('../../packages/ui/makeup-combobox').default;
 
 // IMPORT
-import Combobox from "../../packages/makeup-combobox";
+import Combobox from "../../packages/ui/makeup-combobox";
 
 window.onload = function () {
   document.querySelectorAll(".combobox").forEach(function (el, i) {

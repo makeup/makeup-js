@@ -5,10 +5,10 @@ import "@ebay/skin/button";
 import "@ebay/skin/menu-button";
 
 // REQUIRE
-// const MenuButton = require('../../packages/makeup-menu-button').default;
+// const MenuButton = require('../../packages/ui/makeup-menu-button').default;
 
 // IMPORT
-import MenuButton from "../../packages/makeup-menu-button";
+import MenuButton from "../../packages/ui/makeup-menu-button";
 
 window.onload = function () {
   document.querySelectorAll(".menu-button").forEach(function (el, i) {

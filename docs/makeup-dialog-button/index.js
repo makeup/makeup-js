@@ -18,29 +18,29 @@ import "@ebay/skin/toast-dialog";
 
 // REQUIRE
 /*
-const DialogButton = require('../../packages/makeup-dialog-button');
-const LightboxDialog = require('../../packages/makeup-lightbox-dialog');
-const AlertDialog = require('../../packages/makeup-alert-dialog');
-const ConfirmDialog = require('../../packages/makeup-confirm-dialog');
-const DrawerDialog = require('../../packages/makeup-drawer-dialog');
-const FullscreenDialog = require('../../packages/makeup-fullscreen-dialog');
-const InputDialog = require('../../packages/makeup-input-dialog');
-const PanelDialog = require('../../packages/makeup-panel-dialog');
-const SnackbarDialog = require('../../packages/makeup-snackbar-dialog');
-const ToastDialog = require('../../packages/makeup-toast-dialog');
+const DialogButton = require('../../packages/ui/makeup-dialog-button');
+const LightboxDialog = require('../../packages/ui/makeup-lightbox-dialog');
+const AlertDialog = require('../../packages/ui/makeup-alert-dialog');
+const ConfirmDialog = require('../../packages/ui/makeup-confirm-dialog');
+const DrawerDialog = require('../../packages/ui/makeup-drawer-dialog');
+const FullscreenDialog = require('../../packages/ui/makeup-fullscreen-dialog');
+const InputDialog = require('../../packages/ui/makeup-input-dialog');
+const PanelDialog = require('../../packages/ui/makeup-panel-dialog');
+const SnackbarDialog = require('../../packages/ui/makeup-snackbar-dialog');
+const ToastDialog = require('../../packages/ui/makeup-toast-dialog');
 */
 
 // IMPORT
-import DialogButton from "../../packages/makeup-dialog-button";
-import LightboxDialog from "../../packages/makeup-lightbox-dialog";
-import AlertDialog from "../../packages/makeup-alert-dialog";
-import ConfirmDialog from "../../packages/makeup-confirm-dialog";
-import DrawerDialog from "../../packages/makeup-drawer-dialog";
-import FullscreenDialog from "../../packages/makeup-fullscreen-dialog";
-import InputDialog from "../../packages/makeup-input-dialog";
-import PanelDialog from "../../packages/makeup-panel-dialog";
-import SnackbarDialog from "../../packages/makeup-snackbar-dialog";
-import ToastDialog from "../../packages/makeup-toast-dialog";
+import DialogButton from "../../packages/ui/makeup-dialog-button";
+import LightboxDialog from "../../packages/ui/makeup-lightbox-dialog";
+import AlertDialog from "../../packages/ui/makeup-alert-dialog";
+import ConfirmDialog from "../../packages/ui/makeup-confirm-dialog";
+import DrawerDialog from "../../packages/ui/makeup-drawer-dialog";
+import FullscreenDialog from "../../packages/ui/makeup-fullscreen-dialog";
+import InputDialog from "../../packages/ui/makeup-input-dialog";
+import PanelDialog from "../../packages/ui/makeup-panel-dialog";
+import SnackbarDialog from "../../packages/ui/makeup-snackbar-dialog";
+import ToastDialog from "../../packages/ui/makeup-toast-dialog";
 
 const log = (e) => console.log(e); // eslint-disable-line no-console
 

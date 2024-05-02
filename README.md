@@ -13,7 +13,6 @@ The following modules assist with common accessibility logic (e.g. maintaining a
 - [makeup-active-descendant](packages/makeup-active-descendant)
 - [makeup-exit-emitter](packages/makeup-exit-emitter)
 - [makeup-expander](packages/makeup-expander)
-- [makeup-floating-label](packages/makeup-floating-label)
 - [makeup-focusables](packages/makeup-focusables)
 - [makeup-key-emitter](packages/makeup-key-emitter)
 - [makeup-keyboard-trap](packages/makeup-keyboard-trap)
@@ -36,6 +35,7 @@ We are currently in the process of converting all [eBay MIND Patterns](https://e
 - [makeup-confirm-dialog](packages/makeup-confirm-dialog)
 - [makeup-dialog](packages/makeup-dialog) (abstract class)
 - [makeup-dialog-button](packages/makeup-dialog-button)
+- [makeup-floating-label](packages/makeup-floating-label)
 - [makeup-fullscreen-dialog](packages/makeup-fullscreen-dialog)
 - [makeup-input-dialog](packages/makeup-input-dialog)
 - [makeup-lightbox-dialog](packages/makeup-lightbox-dialog)
@@ -47,4 +47,3 @@ We are currently in the process of converting all [eBay MIND Patterns](https://e
 - [makeup-snackbar-dialog](packages/makeup-snackbar-dialog)
 - [makeup-switch](packages/makeup-switch)
 - [makeup-toast-dialog](packages/makeup-toast-dialog)
-- More to come...

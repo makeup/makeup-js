@@ -1,8 +1,8 @@
 // REQUIRE
-// const Expander = require('../../packages/makeup-expander').default;
+// const Expander = require('../../packages/core/makeup-expander').default;
 
 // IMPORT
-import Expander from "../../packages/makeup-expander";
+import Expander from "../../packages/core/makeup-expander";
 
 const clickExpanderEls = document.querySelectorAll(".expander--click-only");
 const focusExpanderEls = document.querySelectorAll(".expander--focus-only");

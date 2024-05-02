@@ -1,8 +1,8 @@
 // REQUIRE
-//const ActiveDescendant = require('../../packages/makeup-active-descendant');
+//const ActiveDescendant = require('../../packages/core/makeup-active-descendant');
 
 // IMPORT
-import * as ActiveDescendant from "../../packages/makeup-active-descendant";
+import * as ActiveDescendant from "../../packages/core/makeup-active-descendant";
 
 const navs = [];
 const append = document.getElementById("append");

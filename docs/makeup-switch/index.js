@@ -4,10 +4,10 @@ import "@ebay/skin/global";
 import "@ebay/skin/switch";
 
 // REQUIRE
-//const MakeupSwitch = require('../../packages/makeup-switch').default;
+//const MakeupSwitch = require('../../packages/ui/makeup-switch').default;
 
 // IMPORT
-import MakeupSwitch from "../../packages/makeup-switch";
+import MakeupSwitch from "../../packages/ui/makeup-switch";
 
 window.onload = function () {
   document.querySelectorAll(".switch").forEach(function (el, i) {

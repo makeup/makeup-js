@@ -1,8 +1,8 @@
 // REQUIRE
-//const focusables = require('../../packages/makeup-focusables').default;
+//const focusables = require('../../packages/core/makeup-focusables').default;
 
 // IMPORT
-import focusables from "../../packages/makeup-focusables";
+import focusables from "../../packages/core/makeup-focusables";
 
 const listEl = document.getElementById("list");
 const appender1 = document.getElementById("appender1");

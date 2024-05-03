@@ -38,5 +38,5 @@ const defaultMarkup = `
 describe("given tabs with default markup", function () {
   document.body.innerHTML = defaultMarkup;
 
-  const tabs1 = new Listbox(document.querySelector(".tabs"));
+  const tabs1 = new Tabs(document.querySelector(".tabs"));
 });

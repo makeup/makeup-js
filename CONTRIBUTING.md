@@ -15,15 +15,25 @@ Here is a rough overview of steps required when contributing code:
   - `npm start` runs without introducing new ESlint warnings or errors
 - Squash any non-atomic local commits (e.g. any "work in progress" type commits) before pushing up your PR
 
+## Getting started for local development
+
+1. Clone the repo: `git clone git@github.com:makeup/makeup-js.git`
+2. Change into the project directory: `cd makeup-js`
+3. Run `npm i`
+4. Run `npm start` to start the development server
+
+This should perform a full build and launch your default browser and navigate to http://localhost:3000/, pointing to the
+documentation root. Any changes you make to the source files should trigger a rebuild and refresh the browser.
+
 ## Project Organisation
 
 The project is a mono-repo organised into 3 distinct groups of packages, in the following hierarchy:
 
 1. Core Modules
 2. UI Modules
-3. HTMLElement Modules (aka Web Components) - coming soon
+3. Custom Elements (a.k.a. Web Components) - coming soon
 
-UI inherits from Core, and HTMLElements inherit from UI.
+UI inherits from Core, and Custom Elements inherit from UI.
 
 A top level `/docs` folder contains the src files for the static website (served via GitHub Pages).
 

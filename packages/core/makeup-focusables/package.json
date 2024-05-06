@@ -10,7 +10,7 @@
       "require": "./dist/cjs/index.js"
     }
   },
-  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-focusables",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-focusables",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {

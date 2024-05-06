@@ -36,7 +36,6 @@ module.exports = function (config) {
       "packages/core/makeup-active-descendant/test/index.js": "webpack",
       "packages/core/makeup-exit-emitter/test/index.js": "webpack",
       "packages/core/makeup-expander/test/index.js": "webpack",
-      "packages/core/makeup-floating-label/test/index.js": "webpack",
       "packages/core/makeup-focusables/test/index.js": "webpack",
       "packages/core/makeup-key-emitter/test/index.js": "webpack",
       "packages/core/makeup-keyboard-trap/test/index.js": "webpack",
@@ -47,6 +46,7 @@ module.exports = function (config) {
       "packages/core/makeup-roving-tabindex/test/index.js": "webpack",
       "packages/core/makeup-screenreader-trap/test/index.js": "webpack",
       "packages/core/makeup-typeahead/test/index.js": "webpack",
+      "packages/ui/makeup-floating-label/test/index.js": "webpack",
       "packages/ui/makeup-switch/test/index.js": "webpack",
       "packages/ui/makeup-tabs/test/index.js": "webpack",
     },
@@ -70,11 +70,6 @@ module.exports = function (config) {
             test: /\.js$/,
             use: { loader: "coverage-istanbul-loader", options: { esModules: true } },
             include: path.resolve("packages/core/makeup-expander/src"),
-          },
-          {
-            test: /\.js$/,
-            use: { loader: "coverage-istanbul-loader", options: { esModules: true } },
-            include: path.resolve("packages/core/makeup-floating-label/src"),
           },
           {
             test: /\.js$/,
@@ -125,6 +120,11 @@ module.exports = function (config) {
             test: /\.js$/,
             use: { loader: "coverage-istanbul-loader", options: { esModules: true } },
             include: path.resolve("packages/core/makeup-typeahead/src"),
+          },
+          {
+            test: /\.js$/,
+            use: { loader: "coverage-istanbul-loader", options: { esModules: true } },
+            include: path.resolve("packages/ui/makeup-floating-label/src"),
           },
           {
             test: /\.js$/,

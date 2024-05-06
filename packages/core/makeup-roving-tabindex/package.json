@@ -10,7 +10,7 @@
       "require": "./dist/cjs/index.js"
     }
   },
-  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-roving-tabindex",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-roving-tabindex",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {

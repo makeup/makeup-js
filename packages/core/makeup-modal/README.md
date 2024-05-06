@@ -1,6 +1,6 @@
 # makeup-modal
 
-Sets an element to a modal state using [makeup-keyboard-trap](https://github.com/makeup/makeup-js/tree/master/packages/makeup-keyboard-trap) and [makeup-screenreader-trap](https://github.com/makeup/makeup-js/tree/master/packages/makeup-screenreader-trap). All other elements become "inert".
+Sets an element to a modal state using [makeup-keyboard-trap](https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-keyboard-trap) and [makeup-screenreader-trap](https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-screenreader-trap). All other elements become "inert".
 
 ## Experimental
 

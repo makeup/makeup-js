@@ -10,7 +10,7 @@
       "require": "./dist/cjs/index.js"
     }
   },
-  "repository": "https://github.com/makeup-js/makeup-js/tree/master/packages/makeup-panel-dialog",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/ui/makeup-panel-dialog",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {

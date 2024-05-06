@@ -17,7 +17,6 @@ module.exports = {
     "makeup-listbox-button": "./docs/ui/makeup-listbox-button/index.compiled.js",
     "makeup-menu": "./docs/ui/makeup-menu/index.compiled.js",
     "makeup-menu-button": "./docs/ui/makeup-menu-button/index.compiled.js",
-    "makeup-modal": "./docs/ui/makeup-modal/index.compiled.js",
     "makeup-panel-dialog": "./docs/ui/makeup-panel-dialog/index.compiled.js",
     "makeup-snackbar-dialog": "./docs/ui/makeup-snackbar-dialog/index.compiled.js",
     "makeup-switch": "./docs/ui/makeup-switch/index.compiled.js",

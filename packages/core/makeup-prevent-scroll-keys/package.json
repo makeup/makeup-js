@@ -10,7 +10,7 @@
       "require": "./dist/cjs/index.js"
     }
   },
-  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-prevent-scroll-keys",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-prevent-scroll-keys",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {

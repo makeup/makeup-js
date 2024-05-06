@@ -130,6 +130,6 @@ Set the following properties to true or false to enable or disable the behaviour
 
 ## Dependencies
 
-- [makeup-exit-emitter](https://github.com/makeup/makeup-js/tree/master/packages/makeup-exit-emitter)
-- [makeup-focusables](https://github.com/makeup/makeup-js/tree/master/packages/makeup-focusables)
-- [makeup-next-id](https://github.com/makeup/makeup-js/tree/master/packages/makeup-next-id)
+- [makeup-exit-emitter](https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-exit-emitter)
+- [makeup-focusables](https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-focusables)
+- [makeup-next-id](https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-next-id)

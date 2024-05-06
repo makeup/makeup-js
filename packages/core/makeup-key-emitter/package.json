@@ -10,7 +10,7 @@
       "require": "./dist/cjs/index.js"
     }
   },
-  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-key-emitter",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-key-emitter",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",
   "scripts": {

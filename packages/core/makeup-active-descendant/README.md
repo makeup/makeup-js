@@ -201,5 +201,5 @@ Use CSS to style the active descendant however you wish:
 
 ## Dependencies
 
-- [makeup-navigation-emitter](https://github.com/makeup/makeup-js/tree/master/packages/makeup-navigation-emitter)
-- [makeup-next-id](https://github.com/makeup/makeup-js/tree/master/packages/makeup-next-id)
+- [makeup-navigation-emitter](https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-navigation-emitter)
+- [makeup-next-id](https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-next-id)

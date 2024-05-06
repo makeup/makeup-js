@@ -10,7 +10,7 @@
       "require": "./dist/cjs/index.js"
     }
   },
-  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/makeup-typeahead",
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-typeahead",
   "author": "Austin Gardner <gardneraustin@protonmail.com>",
   "license": "MIT",
   "scripts": {

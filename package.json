@@ -2,16 +2,16 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*/*"
   ],
   "scripts": {
     "build": "npm run lint && npm run compile && npm run bundle",
-    "bundle": "webpack",
+    "bundle": "webpack --config webpack.config.core.js && webpack --config webpack.config.ui.js",
     "compile": "npm run compile:modules && npm run compile:docs",
     "compile:docs": "babel docs --out-dir docs --out-file-extension .compiled.js --ignore 'docs/**/*.compiled.js','docs/**/*.min.js'",
     "compile:modules": "lerna run compile",
     "format": "prettier --write .",
-    "lint": "eslint packages/**/src/*.js",
+    "lint": "eslint packages/*/*/src/*.js",
     "server": "browser-sync start -s --ss docs --index docs/index.html --files docs/**/index.html docs/**/index.min.js",
     "start": "npm run build && run-p server watch",
     "test": "karma start --autoWatch false --singleRun true",

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>makeup-input-dialog</title>
+    <link href="index.css" rel="stylesheet" />
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon" />
+    <style>
+      /* override some lightbox styles until input dialig becomes an actual skin module */
+      form {
+        margin: 0;
+        padding: 0;
+      }
+      .lightbox-dialog {
+        text-align: center;
+      }
+      .lightbox-dialog__window .lightbox-dialog__footer {
+        padding-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page">
+      <header>
+        <h1>makeup-input-dialog</h1>
+        <p>Input-Dialog is headless UI widget and does not come bundled with any CSS.</p>
+        <p>
+          This example is receiving its base styles from
+          <a href="https://ebay.github.io/skin/#lightbox-dialog">eBay Skin</a>. A subset of style properties are being
+          customized/themed via Skin's CSS Custom Properties.
+        </p>
+        <p>
+          This page was loaded with the dialog in an "open" state. To see examples of dialogs opened by button click,
+          visit the <a href="../makeup-dialog-button">makeup-dialog-button</a> page.
+        </p>
+      </header>
+      <main>
+        <div
+          class="lightbox-dialog lightbox-dialog--input lightbox-dialog--mask-fade"
+          id="dialog-input"
+          role="dialog"
+          aria-labelledby="input-dialog-title"
+          aria-modal="true"
+        >
+          <div class="lightbox-dialog__window lightbox-dialog__window--fade">
+            <form action="index.html" method="get">
+              <div class="lightbox-dialog__header">
+                <h2 class="lightbox-dialog__title" id="input-dialog-title">Enter Your Bid</h2>
+              </div>
+              <div class="lightbox-dialog__main">
+                <p>
+                  <label for="input-dialog-input">Bid Amount:</label>
+                  <span class="textbox">
+                    <input
+                      autofocus
+                      class="lightbox-dialog__input textbox__control"
+                      id="input-dialog-input"
+                      type="text"
+                      name="bid"
+                    />
+                  </span>
+                </p>
+              </div>
+              <div class="lightbox-dialog__footer">
+                <button class="btn lightbox-dialog__cancel" type="button">Cancel</button>
+                <button class="btn btn--primary lightbox-dialog__submit" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="index.min.js"></script>
+  </body>
+</html>

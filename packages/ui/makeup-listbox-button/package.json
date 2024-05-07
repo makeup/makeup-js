@@ -1,0 +1,35 @@
+{
+  "name": "makeup-listbox-button",
+  "description": "A JavaScript class representing an ARIA listbox button",
+  "version": "0.4.3",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/ui/makeup-listbox-button",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "npm run compile:mjs && npm run compile:cjs",
+    "compile:mjs": "esbuild src/index.js --outfile=dist/mjs/index.js --format=esm",
+    "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js",
+    "clean": "rimraf *.log .DS_Store"
+  },
+  "dependencies": {
+    "makeup-expander": "~0.10.1",
+    "makeup-listbox": "~0.3.2"
+  },
+  "files": [
+    "browser.json",
+    "dist/cjs/index.js",
+    "dist/mjs/index.js",
+    "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

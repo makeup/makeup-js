@@ -8,4 +8,4 @@ packages/*/dist
 *.map
 
 # CSS files nested deeply under docs are auto generated (but not docs/docs.css)
-docs/*/*.css
+docs/*/*/*.css

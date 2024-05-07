@@ -1,0 +1,33 @@
+{
+  "name": "makeup-fullscreen-dialog",
+  "description": "JavaScript class representing a generic fullscreen dialog",
+  "version": "0.1.0",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "repository": "https://github.com/makeup/makeup-js/tree/master/packages/ui/makeup-fullscreen-dialog",
+  "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "npm run compile:mjs && npm run compile:cjs",
+    "compile:mjs": "esbuild src/index.js --outfile=dist/mjs/index.js --format=esm",
+    "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js"
+  },
+  "dependencies": {
+    "makeup-dialog": "^0.4.0"
+  },
+  "files": [
+    "browser.json",
+    "dist/cjs/index.js",
+    "dist/mjs/index.js",
+    "package-lock.json"
+  ],
+  "browserslist": [
+    "extends @ebay/browserslist-config"
+  ]
+}

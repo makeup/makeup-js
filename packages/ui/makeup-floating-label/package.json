@@ -1,7 +1,7 @@
 {
   "name": "makeup-floating-label",
   "description": "Module for creating an accessible, progressively enhanced floating label",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {

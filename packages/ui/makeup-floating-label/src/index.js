@@ -30,8 +30,11 @@ function setPlaceholder(formControlEl, value) {
   if (isSelect(formControlEl)) {
     formControlEl.style["min-width"] = "";
     const beforeWidth = formControlEl.offsetWidth;
+    const firstOption = formControlEl.querySelector("option");
+    if (!firstOption.value) {
+      firstOption.text = value;
+    }
 
-    formControlEl.querySelector("option").text = value;
     if (!value && beforeWidth > formControlEl.offsetWidth) {
       formControlEl.style["min-width"] = `${beforeWidth}px`;
     }

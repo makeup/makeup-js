@@ -2,6 +2,8 @@
 
 JavaScript class representing a generic [fullscreen dialog](https://ebay.gitbook.io/mindpatterns/disclosure/fullscreen-dialog). No CSS provided.
 
+NOTE: Fullscreen dialog is an adaptive pattern with its roots in mobile app architecture. For a fully responsive web pattern we recommend lightbox-dialog instead.
+
 [View Demo](https://makeup.github.io/makeup-js/makeup-fullscreen-dialog/index.html).
 
 ## HTML

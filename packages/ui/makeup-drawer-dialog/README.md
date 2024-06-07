@@ -2,6 +2,8 @@
 
 JavaScript class representing a [drawer dialog](https://ebay.gitbook.io/mindpatterns/disclosure/drawer-dialog). No CSS provided.
 
+NOTE: Drawer dialog is an adaptive pattern with its roots in mobile app architecture. For a fully responsive web pattern we recommend lightbox-dialog instead.
+
 [View Demo](https://makeup.github.io/makeup-js/makeup-drawer-dialog/index.html).
 
 ## HTML

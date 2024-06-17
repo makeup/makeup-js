@@ -26,7 +26,7 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-navigation-emitter": "~0.6.0",
+    "makeup-navigation-emitter": "~0.6.1",
     "makeup-next-id": "~0.4.0"
   },
   "files": [

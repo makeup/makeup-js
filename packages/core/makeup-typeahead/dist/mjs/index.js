@@ -5,8 +5,7 @@ function src_default() {
     getIndex: function(nodeList, char, timeoutLength) {
       typeStr = typeStr.concat(char);
       let index;
-      if (nodeList == null)
-        return -1;
+      if (nodeList == null) return -1;
       const lowerTypeStr = typeStr.toLocaleLowerCase();
       index = [...nodeList].findIndex((el) => el.textContent.toLocaleLowerCase().startsWith(lowerTypeStr));
       if (index === -1) {

@@ -5,10 +5,10 @@ import "@ebay/skin/button";
 import "@ebay/skin/confirm-dialog";
 
 // REQUIRE
-// const ConfirmDialog = require('../../../packages/ui/makeup-confirm-dialog');
+// const ConfirmDialog = require('makeup-confirm-dialog');
 
 // IMPORT
-import ConfirmDialog from "../../../packages/ui/makeup-confirm-dialog";
+import ConfirmDialog from "makeup-confirm-dialog";
 
 window.onload = function () {
   document.querySelectorAll(".confirm-dialog").forEach(function (el, i) {

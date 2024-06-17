@@ -5,10 +5,10 @@ import "@ebay/skin/utility";
 import "@ebay/skin/tabs";
 
 // REQUIRE
-// const Tabs = require('../../../packages/ui/makeup-tabs').default;
+// const Tabs = require('makeup-tabs').default;
 
 // IMPORT
-import Tabs from "../../../packages/ui/makeup-tabs";
+import Tabs from "makeup-tabs";
 
 const log = (e) => console.log(e.type, e.detail);
 const widgets = [];

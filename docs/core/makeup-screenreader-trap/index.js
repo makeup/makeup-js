@@ -1,8 +1,8 @@
 // REQUIRE
-// const screenreaderTrap = require('../../../packages/core/makeup-screenreader-trap');
+// const screenreaderTrap = require('makeup-screenreader-trap');
 
 // IMPORT
-import * as screenreaderTrap from "../../../packages/core/makeup-screenreader-trap";
+import * as screenreaderTrap from "makeup-screenreader-trap";
 
 document.querySelectorAll(".trap").forEach(function (item) {
   item.addEventListener("click", function () {

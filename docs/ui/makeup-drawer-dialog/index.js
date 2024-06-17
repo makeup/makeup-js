@@ -6,10 +6,10 @@ import "@ebay/skin/icon-button";
 import "@ebay/skin/drawer-dialog";
 
 // REQUIRE
-// const DrawerDialog = require('../../../packages/ui/makeup-drawer-dialog').default;
+// const DrawerDialog = require('makeup-drawer-dialog').default;
 
 // IMPORT
-import DrawerDialog from "../../../packages/ui/makeup-drawer-dialog";
+import DrawerDialog from "makeup-drawer-dialog";
 
 window.onload = function () {
   document.querySelectorAll(".drawer-dialog").forEach(function (el, i) {

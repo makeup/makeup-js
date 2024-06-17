@@ -4,10 +4,10 @@ import "@ebay/skin/global";
 import "@ebay/skin/menu";
 
 // REQUIRE
-// const Menu = require('../../../packages/ui/makeup-menu').default;
+// const Menu = require('makeup-menu').default;
 
 // IMPORT
-import Menu from "../../../packages/ui/makeup-menu";
+import Menu from "makeup-menu";
 
 const log = (e) => console.log(e.type, e.detail);
 

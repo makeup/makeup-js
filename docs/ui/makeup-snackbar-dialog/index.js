@@ -6,10 +6,10 @@ import "@ebay/skin/link";
 import "@ebay/skin/snackbar-dialog";
 
 // REQUIRE
-// const SnackbarDialog = require('../../../packages/ui/makeup-snackbar-dialog').default;
+// const SnackbarDialog = require('makeup-snackbar-dialog').default;
 
 // IMPORT
-import SnackbarDialog from "../../../packages/ui/makeup-snackbar-dialog";
+import SnackbarDialog from "makeup-snackbar-dialog";
 
 window.onload = function () {
   document.querySelectorAll(".snackbar-dialog").forEach(function (el, i) {

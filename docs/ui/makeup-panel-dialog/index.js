@@ -5,10 +5,10 @@ import "@ebay/skin/icon-button";
 import "@ebay/skin/panel-dialog";
 
 // REQUIRE
-// const PanelDialog = require('../../../packages/ui/makeup-panel-dialog');
+// const PanelDialog = require('makeup-panel-dialog');
 
 // IMPORT
-import PanelDialog from "../../../packages/ui/makeup-panel-dialog";
+import PanelDialog from "makeup-panel-dialog";
 
 window.onload = function () {
   document.querySelectorAll(".panel-dialog").forEach(function (el, i) {

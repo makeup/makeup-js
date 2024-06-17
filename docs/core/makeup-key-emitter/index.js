@@ -1,8 +1,8 @@
 // REQUIRE
-//const KeyEmitter = require('../../../packages/core/makeup-key-emitter');
+//const KeyEmitter = require('makeup-key-emitter');
 
 // IMPORT
-import * as KeyEmitter from "../../../packages/core/makeup-key-emitter";
+import * as KeyEmitter from "makeup-key-emitter";
 
 const widgetEl1 = document.getElementById("widget-1");
 const widget2ButtonEls = document.querySelectorAll("#widget-2 button");

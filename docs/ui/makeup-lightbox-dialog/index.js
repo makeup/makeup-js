@@ -1,8 +1,8 @@
 // REQUIRE
-// const LightboxDialog = require('../../../packages/ui/makeup-lightbox-dialog').default;
+// const LightboxDialog = require('makeup-lightbox-dialog').default;
 
 // IMPORT
-import LightboxDialog from "../../../packages/ui/makeup-lightbox-dialog";
+import LightboxDialog from "makeup-lightbox-dialog";
 import "../../docs.css";
 import "@ebay/skin/tokens";
 import "@ebay/skin/global";

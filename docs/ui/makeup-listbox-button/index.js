@@ -6,10 +6,10 @@ import "@ebay/skin/button";
 import "@ebay/skin/listbox-button";
 
 // REQUIRE
-// const ListboxButton = require('../../../packages/ui/makeup-listbox-button').default;
+// const ListboxButton = require('makeup-listbox-button').default;
 
 // IMPORT
-import ListboxButton from "../../../packages/ui/makeup-listbox-button";
+import ListboxButton from "makeup-listbox-button";
 
 const widgets = [];
 const log = (e) => console.log(e.type, e.detail);

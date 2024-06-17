@@ -5,10 +5,10 @@ import "@ebay/skin/utility";
 import "@ebay/skin/listbox";
 
 // REQUIRE
-// const Listbox = require('../../../packages/ui/makeup-listbox').default;
+// const Listbox = require('makeup-listbox').default;
 
 // IMPORT
-import Listbox from "../../../packages/ui/makeup-listbox";
+import Listbox from "makeup-listbox";
 
 const log = (e) => console.log(e.type, e.detail);
 const widgets = [];

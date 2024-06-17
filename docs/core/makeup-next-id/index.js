@@ -1,8 +1,8 @@
 // REQUIRE
-//const nextId = require('../../../packages/core/makeup-next-id').default;
+//const nextId = require('makeup-next-id').default;
 
 // IMPORT
-import nextId from "../../../packages/core/makeup-next-id";
+import nextId from "makeup-next-id";
 
 const listEl = document.getElementById("list");
 const testForm = document.getElementById("testForm");

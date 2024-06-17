@@ -55,6 +55,16 @@ We use ESLint with most out of the box defaults (we will be reviewing the existi
 
 We use [commitlint conventional configuration](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional) format for commit messages.
 
+## Publishing
+
+This repo uses [Lerna](https://lerna.js.org) to manage the [versioning](https://github.com/lerna/lerna/tree/main/libs/commands/version/README.md) and [publishing](https://github.com/lerna/lerna/blob/main/libs/commands/publish/README.md) of all packages.
+
+If you need to publish new patch versions of all modules that have changed since the last publish (e.g. after regenerating all modules with a newer version of Babel), run `lerna version patch --no-push --no-commit-hooks`. This creates a local "Publish" commit, containing all of the updated `package.json` and `package.json.lock` files.
+
+If things look good, run `lerna publish from-git`. All packages identified in the commit will be published to NPM.
+
+Don't forget to push your local commit up to the git remote!
+
 ## Core Modules Style Guide
 
 (TODO)

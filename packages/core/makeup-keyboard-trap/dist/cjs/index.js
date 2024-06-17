@@ -7,7 +7,7 @@ exports.refresh = refresh;
 exports.trap = trap;
 exports.untrap = untrap;
 var _makeupFocusables = _interopRequireDefault(require("makeup-focusables"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // for the element that will be trapped
 let trappedEl;
 

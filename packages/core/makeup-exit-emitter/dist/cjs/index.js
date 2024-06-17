@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.addFocusExit = addFocusExit;
 exports.removeFocusExit = removeFocusExit;
 var _makeupNextId = _interopRequireDefault(require("makeup-next-id"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const focusExitEmitters = {};
 function doFocusExit(el, fromElement, toElement) {
   el.dispatchEvent(new CustomEvent("focusExit", {

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _makeupExpander = _interopRequireDefault(require("makeup-expander"));
 var _makeupMenu = _interopRequireDefault(require("makeup-menu"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const defaultOptions = {
   customElementMode: false,
   expandedClass: "menu-button--expanded",

@@ -58,8 +58,8 @@
     "rimraf": "^5.0.7",
     "sinon": "^18.0.0",
     "stylelint": "^16.6.1",
-    "stylelint-config-standard": "^36.0.0",
-    "webpack": "^5.92.0",
+    "stylelint-config-standard": "^36.0.1",
+    "webpack": "^5.92.1",
     "webpack-cli": "^5.1.4"
   },
   "browserslist": [

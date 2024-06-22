@@ -23,7 +23,6 @@
     "makeup-lightbox-dialog": "^0.1.1"
   },
   "files": [
-    "browser.json",
     "dist/cjs/index.js",
     "dist/mjs/index.js",
     "package-lock.json"

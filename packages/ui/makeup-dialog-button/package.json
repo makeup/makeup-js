@@ -23,7 +23,6 @@
     "makeup-dialog": "^0.4.2"
   },
   "files": [
-    "browser.json",
     "dist/cjs/index.js",
     "dist/mjs/index.js",
     "package-lock.json"

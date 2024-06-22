@@ -24,7 +24,6 @@
     "makeup-modal": "^0.4.2"
   },
   "files": [
-    "browser.json",
     "dist/cjs/index.js",
     "dist/cjs/transition.js",
     "dist/mjs/index.js",

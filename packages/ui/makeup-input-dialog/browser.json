@@ -1,3 +1,0 @@
-{
-  "dependencies": ["require: ./dist/index.js"]
-}

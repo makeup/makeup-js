@@ -26,7 +26,6 @@
     "a11y"
   ],
   "files": [
-    "browser.json",
     "dist/cjs/index.js",
     "dist/cjs/util.js",
     "dist/mjs/index.js",

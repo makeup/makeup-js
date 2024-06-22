@@ -24,7 +24,6 @@
     "makeup-prevent-scroll-keys": "^0.2.2"
   },
   "files": [
-    "browser.json",
     "dist/cjs/index.js",
     "dist/mjs/index.js",
     "package-lock.json"

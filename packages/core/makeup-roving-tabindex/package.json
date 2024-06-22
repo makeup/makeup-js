@@ -29,7 +29,6 @@
     "makeup-navigation-emitter": "^0.6.2"
   },
   "files": [
-    "browser.json",
     "dist/cjs/index.js",
     "dist/mjs/index.js",
     "package-lock.json"

@@ -19,7 +19,6 @@
     "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js"
   },
   "files": [
-    "browser.json",
     "dist/cjs/index.js",
     "dist/mjs/index.js",
     "package-lock.json"

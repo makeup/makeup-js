@@ -26,7 +26,6 @@
     "a11y"
   ],
   "files": [
-    "browser.json",
     "dist/cjs/index.js",
     "dist/mjs/index.js",
     "package-lock.json"

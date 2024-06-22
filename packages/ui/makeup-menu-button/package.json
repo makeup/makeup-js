@@ -24,7 +24,6 @@
     "makeup-menu": "^0.3.1"
   },
   "files": [
-    "browser.json",
     "dist/cjs/index.js",
     "dist/mjs/index.js",
     "package-lock.json"

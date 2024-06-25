@@ -9,7 +9,8 @@ const defaultOptions = {
     "rgb(247, 247, 247)",
     "rgb(245, 245, 245)",
     "rgb(230, 32, 72)",
-    "rgb(254, 245, 246)"
+    "rgb(254, 245, 246)",
+    "rgba(0, 0, 0, 0)"
   ]
 };
 function getPlaceHolder(formControlEl) {

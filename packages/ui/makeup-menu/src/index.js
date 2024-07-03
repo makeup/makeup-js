@@ -186,11 +186,20 @@ function _selectMenuItemRadio(widgetEl, menuItemEl) {
     const groupName = menuItemEl.dataset.makeupGroup;
     const checkedEl = widgetEl.querySelector(`[data-makeup-group=${groupName}][aria-checked=true]`);
 
-    if (checkedEl) {
-      checkedEl.setAttribute("aria-checked", "false");
-    }
+    if (!checkedEl) {
+      menuItemEl.setAttribute("aria-checked", "true");
 
-    if (checkedEl !== menuItemEl) {
+      widgetEl.dispatchEvent(
+        new CustomEvent("makeup-menu-change", {
+          detail: {
+            el: menuItemEl,
+            group: groupName,
+            value: menuItemEl.innerText,
+          },
+        }),
+      );
+    } else if (checkedEl !== menuItemEl) {
+      checkedEl.setAttribute("aria-checked", "false");
       menuItemEl.setAttribute("aria-checked", "true");
 
       widgetEl.dispatchEvent(

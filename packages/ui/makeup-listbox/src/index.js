@@ -14,7 +14,7 @@ const defaultOptions = {
   autoInit: "ariaSelectedOrInteractive",
   autoReset: "ariaSelectedOrInteractive",
   autoSelect: true, // when true, aria-checked state matches active-descendant
-  autoScroll: false, // when true, the listbox will scroll to keep the activeDescendant in view
+  autoScroll: true, // when true, the listbox will scroll to keep the activeDescendant in view
   customElementMode: false,
   focusableElement: null, // used in a combobox/datepicker scenario
   listboxOwnerElement: null, // used in a combobox/datepicker scenario

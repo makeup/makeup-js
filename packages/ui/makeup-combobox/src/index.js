@@ -5,7 +5,7 @@ const defaultOptions = {
   autoSelect: true,
   collapseTimeout: 150,
   customElementMode: false,
-  autoScroll: false,
+  autoScroll: true,
 };
 
 export default class {

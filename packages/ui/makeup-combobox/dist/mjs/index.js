@@ -3,7 +3,8 @@ import Listbox from "makeup-listbox";
 const defaultOptions = {
   autoSelect: true,
   collapseTimeout: 150,
-  customElementMode: false
+  customElementMode: false,
+  autoScroll: true
 };
 class src_default {
   constructor(widgetEl, selectedOptions) {
@@ -20,7 +21,8 @@ class src_default {
       autoReset: -1,
       autoSelect: this._options.autoSelect,
       focusableElement: this._inputEl,
-      listboxOwnerElement: this._el
+      listboxOwnerElement: this._el,
+      autoScroll: this._options.autoScroll
     });
     this._expander = new Expander(this._el, {
       collapseOnClickOut: true,

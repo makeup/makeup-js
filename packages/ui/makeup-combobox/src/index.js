@@ -5,6 +5,7 @@ const defaultOptions = {
   autoSelect: true,
   collapseTimeout: 150,
   customElementMode: false,
+  autoScroll: true,
 };
 
 export default class {
@@ -27,6 +28,7 @@ export default class {
       autoSelect: this._options.autoSelect,
       focusableElement: this._inputEl,
       listboxOwnerElement: this._el,
+      autoScroll: this._options.autoScroll,
     });
 
     this._expander = new Expander(this._el, {

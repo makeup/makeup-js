@@ -10,7 +10,8 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 const defaultOptions = {
   autoSelect: true,
   collapseTimeout: 150,
-  customElementMode: false
+  customElementMode: false,
+  autoScroll: true
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
@@ -27,7 +28,8 @@ class _default {
       autoReset: -1,
       autoSelect: this._options.autoSelect,
       focusableElement: this._inputEl,
-      listboxOwnerElement: this._el
+      listboxOwnerElement: this._el,
+      autoScroll: this._options.autoScroll
     });
     this._expander = new _makeupExpander.default(this._el, {
       collapseOnClickOut: true,

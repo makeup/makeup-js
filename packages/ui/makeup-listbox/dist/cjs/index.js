@@ -23,6 +23,8 @@ const defaultOptions = {
   autoReset: "ariaSelectedOrInteractive",
   autoSelect: true,
   // when true, aria-checked state matches active-descendant
+  autoScroll: true,
+  // when true, the listbox will scroll to keep the activeDescendant in view
   customElementMode: false,
   focusableElement: null,
   // used in a combobox/datepicker scenario
@@ -69,6 +71,7 @@ class _default {
       activeDescendantClassName: this._options.activeDescendantClassName,
       autoInit: this._options.autoInit,
       autoReset: this._options.autoReset,
+      autoScroll: this._options.autoScroll,
       axis: "y"
     });
   }

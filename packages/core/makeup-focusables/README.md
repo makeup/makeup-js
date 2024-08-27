@@ -1,6 +1,6 @@
 # makeup-focusables
 
-Returns an array of all focusable descendants of the given element.
+Returns an array of all focusable descendants of the given element, excluding elements that are hidden or children of hidden elements.
 
 ## Experimental
 

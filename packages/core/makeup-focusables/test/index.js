@@ -129,4 +129,30 @@ describe("makeup-focusables", function () {
       });
     });
   });
+
+  describe("when element contains nested elements with display: none", function () {
+    var focusableEls;
+
+    before(function () {
+      body.innerHTML = "<button></button>" + '<div style="display:none">' + "<button></button>" + "</div>";
+      focusableEls = focusable(body);
+    });
+
+    it("should return only the element not nested in element with display: none", function () {
+      expect(focusableEls.length).to.equal(1);
+    });
+  });
+
+  describe("when element contains nested elements with hidden attribute", function () {
+    var focusableEls;
+
+    before(function () {
+      body.innerHTML = "<button></button>" + "<div hidden>" + "<button></button>" + "</div>";
+      focusableEls = focusable(body);
+    });
+
+    it("should return only the element not nested in hidden element", function () {
+      expect(focusableEls.length).to.equal(1);
+    });
+  });
 });

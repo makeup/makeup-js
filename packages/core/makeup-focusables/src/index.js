@@ -29,9 +29,15 @@ export default function (el, keyboardOnly = false, callback) {
 function getFocusables(el, keyboardOnly = false) {
   let focusableEls = Array.prototype.slice.call(el.querySelectorAll(focusableElSelector));
 
-  // filter out elements with display: none
+  // filter out elements with display: none or nested in a display: none parent
   focusableEls = focusableEls.filter(function (focusableEl) {
-    return window.getComputedStyle(focusableEl).display !== "none";
+    while (focusableEl !== el) {
+      if (window.getComputedStyle(focusableEl).display === "none") {
+        return false;
+      }
+      focusableEl = focusableEl.parentElement;
+    }
+    return true;
   });
 
   if (keyboardOnly === true) {

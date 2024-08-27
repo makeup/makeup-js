@@ -1,7 +1,7 @@
 {
   "name": "makeup-drawer-dialog",
   "description": "JavaScript class representing a modal drawer dialog",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -20,7 +20,7 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-lightbox-dialog": "^0.2.0"
+    "makeup-lightbox-dialog": "^0.2.1"
   },
   "files": [
     "dist/cjs/index.js",

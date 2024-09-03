@@ -1,7 +1,7 @@
 {
   "name": "makeup-fullscreen-dialog",
   "description": "JavaScript class representing a generic fullscreen dialog",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -19,7 +19,7 @@
     "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js"
   },
   "dependencies": {
-    "makeup-dialog": "^0.5.1"
+    "makeup-dialog": "^0.5.2"
   },
   "files": [
     "dist/cjs/index.js",

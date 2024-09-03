@@ -1,7 +1,7 @@
 {
   "name": "makeup-tabs",
   "description": "A JavaScript class representing ARIA tabs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -20,9 +20,9 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-next-id": "^0.5.0",
-    "makeup-prevent-scroll-keys": "^0.3.0",
-    "makeup-roving-tabindex": "^0.7.0"
+    "makeup-next-id": "^0.5.1",
+    "makeup-prevent-scroll-keys": "^0.3.1",
+    "makeup-roving-tabindex": "^0.7.1"
   },
   "files": [
     "dist/cjs/index.js",

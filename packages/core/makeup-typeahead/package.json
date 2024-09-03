@@ -1,7 +1,7 @@
 {
   "name": "makeup-typeahead",
   "description": "Captures character keys pressed and returns a list of relevant strings",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {

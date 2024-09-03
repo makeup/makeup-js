@@ -33,6 +33,7 @@
   "files": [
     "dist/cjs/index.js",
     "dist/mjs/index.js",
+    "dist/mjs/package.json",
     "package-lock.json"
   ],
   "browserslist": [

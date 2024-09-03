@@ -30,6 +30,7 @@
     "dist/cjs/util.js",
     "dist/mjs/index.js",
     "dist/mjs/util.js",
+    "dist/mjs/package.json",
     "package-lock.json"
   ],
   "browserslist": [

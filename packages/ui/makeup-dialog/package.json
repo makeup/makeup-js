@@ -28,6 +28,7 @@
     "dist/cjs/transition.js",
     "dist/mjs/index.js",
     "dist/mjs/transition.js",
+    "dist/mjs/package.json",
     "package-lock.json"
   ],
   "browserslist": [

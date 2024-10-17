@@ -36,6 +36,19 @@ describe("makeup-focusables", function () {
     });
   });
 
+  describe("when element contains buttons with position:fixed", function () {
+    var focusableEls;
+
+    before(function () {
+      body.innerHTML = '<button></button><button style="position:fixed"></button>';
+      focusableEls = focusable(body);
+    });
+
+    it("should only return enabled buttons", function () {
+      expect(focusableEls.length).to.equal(2);
+    });
+  });
+
   describe("when element contains elements with tabindex", function () {
     var focusableEls;
 

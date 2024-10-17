@@ -31,13 +31,7 @@ function getFocusables(el, keyboardOnly = false) {
 
   // filter out elements with display: none or nested in a display: none parent
   focusableEls = focusableEls.filter(function (focusableEl) {
-    while (focusableEl !== el) {
-      if (window.getComputedStyle(focusableEl).display === "none") {
-        return false;
-      }
-      focusableEl = focusableEl.parentElement;
-    }
-    return true;
+    return !!(focusableEl.offsetWidth || focusableEl.offsetHeight || focusableEl.getClientRects().length);
   });
 
   if (keyboardOnly === true) {

@@ -6,6 +6,7 @@ const defaultOptions = {
   collapseTimeout: 150,
   customElementMode: false,
   autoScroll: true,
+  filterListboxOptions: true,
 };
 
 export default class {
@@ -56,6 +57,16 @@ export default class {
       this._mutationObserver = new MutationObserver(this._onMutationListener);
       this._observeMutations();
       this._observeEvents();
+    }
+  }
+
+  filterSuggestions(value, items) {
+    if (this._options.filterListboxOptions && value.length !== 0) {
+      items.forEach((item) => {
+        item.hidden = !item.innerText.toLowerCase().startsWith(value.toLowerCase());
+      });
+    } else {
+      this.resetFilter();
     }
   }
 
@@ -122,7 +133,7 @@ export default class {
 }
 
 function _onInputFocus() {
-  this.resetFilter();
+  this.filterSuggestions(this._inputEl.value, this._listboxWidget.items);
 }
 
 function _onTextboxKeyDown(e) {
@@ -160,11 +171,7 @@ function _onTextboxKeyDown(e) {
     setTimeout(function () {
       widget._expander.expanded = false;
       if (widget._autocompleteType === "list") {
-        if (widget._inputEl.value.length === 0) {
-          widget.resetFilter();
-        } else {
-          _filterSuggestions(widget._inputEl.value, widget._listboxWidget.items);
-        }
+        this.filterSuggestions(widget._inputEl.value, widget._listboxWidget.items);
       }
     }, this._options.collapseTimeout);
   }
@@ -174,6 +181,8 @@ function _onTextboxClick() {
   if (this._expander.expanded === false) {
     this._expander.expanded = true;
   }
+
+  this.filterSuggestions(this._inputEl.value, this._listboxWidget.items);
 }
 
 function _onTextboxInput() {
@@ -183,11 +192,7 @@ function _onTextboxInput() {
 
   if (this._autocompleteType === "list") {
     this._listboxWidget._activeDescendant.reset();
-    if (this._inputEl.value.length === 0) {
-      this.resetFilter();
-    } else {
-      _filterSuggestions(this._inputEl.value, this._listboxWidget.items);
-    }
+    this.filterSuggestions(this._inputEl.value, this._listboxWidget.items);
   }
 }
 
@@ -197,6 +202,8 @@ function _onListboxClick(e) {
   const indexData = this._listboxWidget.items.indexOf(element);
   console.log(indexData);
   if (indexData !== undefined) {
+    this.filterSuggestions(this._listboxWidget.items[indexData].innerText, this._listboxWidget.items);
+
     this._inputEl.value = this._listboxWidget.items[indexData].innerText;
 
     if (this._options.autoSelect === false) {
@@ -229,22 +236,6 @@ function _onMutation(mutationsList) {
       );
     }
   }
-}
-
-function _filterSuggestions(value, items) {
-  const numChars = value.length;
-  const currentValue = value.toLowerCase();
-
-  const matchedItems = items.filter((el) => {
-    return el.innerText.trim().substring(0, numChars).toLowerCase() === currentValue;
-  });
-
-  const unmatchedItems = items.filter((el) => {
-    return el.innerText.trim().substring(0, numChars).toLowerCase() !== currentValue;
-  });
-
-  matchedItems.forEach((el) => (el.hidden = false));
-  unmatchedItems.forEach((el) => (el.hidden = true));
 }
 
 function _dispatchChangeEvent(el, value) {

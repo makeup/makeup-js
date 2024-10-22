@@ -26,13 +26,7 @@ function src_default(el, keyboardOnly = false, callback) {
 function getFocusables(el, keyboardOnly = false) {
   let focusableEls = Array.prototype.slice.call(el.querySelectorAll(focusableElSelector));
   focusableEls = focusableEls.filter(function(focusableEl) {
-    while (focusableEl !== el) {
-      if (window.getComputedStyle(focusableEl).display === "none") {
-        return false;
-      }
-      focusableEl = focusableEl.parentElement;
-    }
-    return true;
+    return !!(focusableEl.offsetWidth || focusableEl.offsetHeight || focusableEl.getClientRects().length);
   });
   if (keyboardOnly === true) {
     focusableEls = focusableEls.filter(function(focusableEl) {

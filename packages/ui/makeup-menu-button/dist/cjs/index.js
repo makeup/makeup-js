@@ -31,9 +31,8 @@ class _default {
     this._buttonTextEl = this._buttonEl.querySelector(this._options.buttonTextSelector);
     this._expander = new _makeupExpander.default(widgetEl, {
       alwaysDoFocusManagement: true,
-      collapseOnClick: true,
-      collapseOnClickOut: true,
-      collapseOnFocusOut: true,
+      autoCollapse: true,
+      collapseOnHostFocus: true,
       contentSelector: this._options.menuSelector,
       expandedClass: this._options.expandedClass,
       expandOnClick: true,

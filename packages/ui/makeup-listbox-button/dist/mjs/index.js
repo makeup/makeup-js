@@ -43,9 +43,8 @@ class index_default {
     });
     this._expander = new Expander(this.el, {
       alwaysDoFocusManagement: true,
-      collapseOnClick: true,
-      collapseOnClickOut: true,
-      collapseOnFocusOut: true,
+      autoCollapse: true,
+      collapseOnHostFocus: true,
       contentSelector: this._options.listboxSelector,
       expandedClass: "listbox-button--expanded",
       expandOnClick: true,

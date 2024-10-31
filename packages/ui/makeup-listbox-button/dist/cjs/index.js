@@ -51,9 +51,8 @@ class _default {
     });
     this._expander = new _makeupExpander.default(this.el, {
       alwaysDoFocusManagement: true,
-      collapseOnClick: true,
-      collapseOnClickOut: true,
-      collapseOnFocusOut: true,
+      autoCollapse: true,
+      collapseOnHostFocus: true,
       contentSelector: this._options.listboxSelector,
       expandedClass: "listbox-button--expanded",
       expandOnClick: true,

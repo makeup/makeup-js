@@ -6,6 +6,7 @@ const defaultOptions = {
   collapseTimeout: 150,
   customElementMode: false,
   autoScroll: true,
+  alwaysFilter: true,
 };
 
 export default class {
@@ -122,7 +123,9 @@ export default class {
 }
 
 function _onInputFocus() {
-  this.resetFilter();
+  if (!this._options.alwaysFilter === true) {
+    this.resetFilter();
+  }
 }
 
 function _onTextboxKeyDown(e) {
@@ -195,9 +198,19 @@ function _onListboxClick(e) {
   const widget = this;
   const element = e.target.closest("[role=option]");
   const indexData = this._listboxWidget.items.indexOf(element);
-  console.log(indexData);
+
   if (indexData !== undefined) {
     this._inputEl.value = this._listboxWidget.items[indexData].innerText;
+
+    // TODO: refactor this redundant logic
+    if (this._autocompleteType === "list") {
+      this._listboxWidget._activeDescendant.reset();
+      if (this._inputEl.value.length === 0) {
+        this.resetFilter();
+      } else {
+        _filterSuggestions(this._inputEl.value, this._listboxWidget.items);
+      }
+    }
 
     if (this._options.autoSelect === false) {
       _dispatchChangeEvent(this._el, this._inputEl.value);

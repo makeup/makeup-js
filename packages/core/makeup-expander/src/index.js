@@ -16,6 +16,7 @@ const defaultOptions = {
   expandOnHover: false,
   focusManagement: null,
   hostSelector: ".expander__host",
+  collapseOnHostFocus: false,
   simulateSpacebarClick: false,
 };
 
@@ -142,6 +143,7 @@ export default class {
       this.collapseOnClickOut = this.options.collapseOnClickOut;
       this.collapseOnFocusOut = this.options.collapseOnFocusOut;
       this.collapseOnMouseOut = this.options.collapseOnMouseOut;
+      this.collapseOnHostFocus = this.options.collapseOnHostFocus;
     }
   }
 
@@ -154,6 +156,7 @@ export default class {
       if (this.options.autoCollapse === true) {
         this.collapseOnClickOut = true;
         this.collapseOnFocusOut = true;
+        this.collapseOnHostFocus = true;
       }
     } else {
       this.hostEl.removeEventListener("click", this._hostClickListener);
@@ -169,6 +172,7 @@ export default class {
       if (this.options.autoCollapse === true) {
         this.collapseOnClickOut = true;
         this.collapseOnFocusOut = true;
+        this.collapseOnHostFocus = true;
       }
     } else {
       this.hostEl.removeEventListener("focus", this._hostFocusListener);
@@ -208,6 +212,14 @@ export default class {
       this.el.addEventListener("focusExit", this._focusExitListener);
     } else {
       this.el.removeEventListener("focusExit", this._focusExitListener);
+    }
+  }
+
+  set collapseOnHostFocus(bool) {
+    if (bool === true) {
+      this.contentEl.addEventListener("focusExit", this._focusExitListener);
+    } else {
+      this.contentEl.removeEventListener("focusExit", this._focusExitListener);
     }
   }
 

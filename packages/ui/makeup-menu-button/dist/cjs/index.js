@@ -38,7 +38,8 @@ class _default {
       expandedClass: this._options.expandedClass,
       expandOnClick: true,
       focusManagement: "focusable",
-      hostSelector: "button"
+      hostSelector: "button",
+      collapseOnHostFocus: true
     });
     this._onButtonFirstClickListener = _onButtonFirstClick.bind(this);
     this._onMenuKeyDownListener = _onMenuKeyDown.bind(this);

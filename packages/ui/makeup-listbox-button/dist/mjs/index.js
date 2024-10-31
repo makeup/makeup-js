@@ -50,7 +50,8 @@ class src_default {
       expandedClass: "listbox-button--expanded",
       expandOnClick: true,
       focusManagement: "focusable",
-      hostSelector: "button"
+      hostSelector: "button",
+      collapseOnHostFocus: true
     });
     this.el.classList.add("listbox-button--js");
     if (this._buttonFloatingLabelEl) {

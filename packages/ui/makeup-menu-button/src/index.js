@@ -33,6 +33,7 @@ export default class {
       expandOnClick: true,
       focusManagement: "focusable",
       hostSelector: "button",
+      collapseOnHostFocus: true,
     });
 
     this._onButtonFirstClickListener = _onButtonFirstClick.bind(this);

@@ -4,7 +4,8 @@ const defaultOptions = {
   autoSelect: true,
   collapseTimeout: 150,
   customElementMode: false,
-  autoScroll: true
+  autoScroll: true,
+  alwaysFilter: true
 };
 class src_default {
   constructor(widgetEl, selectedOptions) {
@@ -103,7 +104,9 @@ class src_default {
   }
 }
 function _onInputFocus() {
-  this.resetFilter();
+  if (!this._options.alwaysFilter === true) {
+    this.resetFilter();
+  }
 }
 function _onTextboxKeyDown(e) {
   if (e.keyCode === 38 || e.keyCode === 40) {
@@ -160,9 +163,16 @@ function _onListboxClick(e) {
   const widget = this;
   const element = e.target.closest("[role=option]");
   const indexData = this._listboxWidget.items.indexOf(element);
-  console.log(indexData);
   if (indexData !== void 0) {
     this._inputEl.value = this._listboxWidget.items[indexData].innerText;
+    if (this._autocompleteType === "list") {
+      this._listboxWidget._activeDescendant.reset();
+      if (this._inputEl.value.length === 0) {
+        this.resetFilter();
+      } else {
+        _filterSuggestions(this._inputEl.value, this._listboxWidget.items);
+      }
+    }
     if (this._options.autoSelect === false) {
       _dispatchChangeEvent(this._el, this._inputEl.value);
     }

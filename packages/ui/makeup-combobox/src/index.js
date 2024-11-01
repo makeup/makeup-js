@@ -183,7 +183,7 @@ function _onTextboxInput() {
   if (this._expander.expanded === false) {
     this._expander.expanded = true;
   }
-
+  // TODO: refactor this redundant logic with L165: L171
   if (this._autocompleteType === "list") {
     this._listboxWidget._activeDescendant.reset();
     if (this._inputEl.value.length === 0) {
@@ -202,7 +202,7 @@ function _onListboxClick(e) {
   if (indexData !== undefined) {
     this._inputEl.value = this._listboxWidget.items[indexData].innerText;
 
-    // TODO: refactor this redundant logic
+    // TODO: refactor this redundant logic with L165: L171
     if (this._autocompleteType === "list") {
       this._listboxWidget._activeDescendant.reset();
       if (this._inputEl.value.length === 0) {

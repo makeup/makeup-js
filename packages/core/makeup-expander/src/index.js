@@ -90,9 +90,9 @@ function manageFocus(focusManagement, contentEl) {
     contentEl.setAttribute("tabindex", "-1");
     contentEl.focus();
   } else if (focusManagement === "focusable") {
-    focusables(contentEl)[0].focus();
+    focusables(contentEl)[0]?.focus();
   } else if (focusManagement === "interactive") {
-    focusables(contentEl, true)[0].focus();
+    focusables(contentEl, true)[0]?.focus();
   } else if (focusManagement !== null) {
     const el = contentEl.querySelector(`#${focusManagement}`);
     if (el) {

@@ -248,7 +248,7 @@ class LinearNavigationModel extends NavigationModel {
 
   // todo: code smell as getter abstracts that the query selector re-runs every time getter is accessed
   get items() {
-    return [...this._el.querySelectorAll("".concat(this._itemSelector))];
+    return [...this._el.querySelectorAll(`${this._itemSelector}`)];
   }
   get index() {
     return this._index;

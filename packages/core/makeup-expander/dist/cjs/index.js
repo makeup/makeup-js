@@ -86,11 +86,13 @@ function manageFocus(focusManagement, contentEl) {
     contentEl.setAttribute("tabindex", "-1");
     contentEl.focus();
   } else if (focusManagement === "focusable") {
-    (0, _makeupFocusables.default)(contentEl)[0].focus();
+    var _focusables$;
+    (_focusables$ = (0, _makeupFocusables.default)(contentEl)[0]) === null || _focusables$ === void 0 || _focusables$.focus();
   } else if (focusManagement === "interactive") {
-    (0, _makeupFocusables.default)(contentEl, true)[0].focus();
+    var _focusables$2;
+    (_focusables$2 = (0, _makeupFocusables.default)(contentEl, true)[0]) === null || _focusables$2 === void 0 || _focusables$2.focus();
   } else if (focusManagement !== null) {
-    const el = contentEl.querySelector("#".concat(focusManagement));
+    const el = contentEl.querySelector(`#${focusManagement}`);
     if (el) {
       el.focus();
     }
@@ -120,7 +122,7 @@ class _default {
     if (this.options.ariaControls === true) {
       // ensure the widget has an id
       (0, _makeupNextId.default)(this.el, "expander");
-      this.contentEl.id = this.contentEl.id || "".concat(this.el.id, "-content");
+      this.contentEl.id = this.contentEl.id || `${this.el.id}-content`;
       this.hostEl.setAttribute("aria-controls", this.contentEl.id);
     }
     this.expandOnClick = this.options.expandOnClick;

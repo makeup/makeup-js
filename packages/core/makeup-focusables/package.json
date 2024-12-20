@@ -1,7 +1,7 @@
 {
   "name": "makeup-focusables",
   "description": "Returns an array of all focusable descendants of the given element",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {

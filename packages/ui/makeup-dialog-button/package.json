@@ -1,7 +1,7 @@
 {
   "name": "makeup-dialog-button",
   "description": "A JavaScript class representing an ARIA popup button for dialogs",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -20,7 +20,7 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-dialog": "^0.5.3"
+    "makeup-dialog": "^0.5.4"
   },
   "files": [
     "dist/cjs/index.js",

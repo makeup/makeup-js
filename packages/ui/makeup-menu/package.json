@@ -1,7 +1,7 @@
 {
   "name": "makeup-menu",
   "description": "A JavaScript class representing an ARIA menu",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -20,8 +20,8 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-prevent-scroll-keys": "^0.3.2",
-    "makeup-roving-tabindex": "^0.7.2"
+    "makeup-prevent-scroll-keys": "^0.3.3",
+    "makeup-roving-tabindex": "^0.7.3"
   },
   "files": [
     "dist/cjs/index.js",

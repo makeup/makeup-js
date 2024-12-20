@@ -7,7 +7,7 @@ const defaultOptions = {
   autoScroll: true,
   alwaysFilter: true
 };
-class src_default {
+class index_default {
   constructor(widgetEl, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this._el = widgetEl;
@@ -220,5 +220,5 @@ function _dispatchChangeEvent(el, value) {
   );
 }
 export {
-  src_default as default
+  index_default as default
 };

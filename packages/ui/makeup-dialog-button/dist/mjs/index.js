@@ -1,7 +1,7 @@
 const defaultOptions = {
   customElementMode: false
 };
-class src_default {
+class index_default {
   constructor(widgetEl, dialog, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this._el = widgetEl;
@@ -72,5 +72,5 @@ function _onDialogClose() {
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

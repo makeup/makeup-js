@@ -151,7 +151,7 @@ function _selectMenuItemCheckbox(widgetEl, menuItemEl) {
 function _selectMenuItemRadio(widgetEl, menuItemEl) {
   if (menuItemEl.getAttribute("aria-disabled") !== "true") {
     const groupName = menuItemEl.dataset.makeupGroup;
-    const checkedEl = widgetEl.querySelector(`[data-makeup-group=${groupName}][aria-checked=true]`);
+    const checkedEl = widgetEl.querySelector("[data-makeup-group=".concat(groupName, "][aria-checked=true]"));
     if (!checkedEl) {
       menuItemEl.setAttribute("aria-checked", "true");
       widgetEl.dispatchEvent(new CustomEvent("makeup-menu-change", {

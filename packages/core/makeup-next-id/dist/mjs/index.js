@@ -14,7 +14,7 @@ function createRandomPortion(size) {
   }
   return portion;
 }
-function src_default(el, prefix = defaultPrefix) {
+function index_default(el, prefix = defaultPrefix) {
   const separator = prefix === "" ? "" : "-";
   const key = `${prefix}${separator}${randomPortion}`;
   sequenceMap[key] = sequenceMap[key] || 0;
@@ -24,5 +24,5 @@ function src_default(el, prefix = defaultPrefix) {
   return el.id;
 }
 export {
-  src_default as default
+  index_default as default
 };

@@ -7,11 +7,11 @@ const defaultPanelOptions = {
   windowSelector: ".panel-dialog__window",
   transitionsModifier: "mask-fade-slow"
 };
-class src_default extends Lightbox {
+class index_default extends Lightbox {
   constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultPanelOptions, selectedOptions));
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

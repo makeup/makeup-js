@@ -4,7 +4,7 @@ const defaultOptions = {
   },
   customElementMode: false
 };
-class src_default {
+class index_default {
   constructor(el, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = el;
@@ -141,5 +141,5 @@ function _onMutation(mutationsList) {
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

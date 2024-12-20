@@ -10,7 +10,7 @@ const defaultOptions = {
   menuItemIconSelector: ".icon",
   menuItemButtonAriaLabelSelector: null
 };
-class src_default {
+class index_default {
   constructor(widgetEl, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
@@ -141,5 +141,5 @@ function _onMenuItemSelect(e) {
   this._buttonTextEl.innerHTML = btnContent;
 }
 export {
-  src_default as default
+  index_default as default
 };

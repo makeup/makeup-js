@@ -1,4 +1,4 @@
-function src_default() {
+function index_default() {
   let timeout;
   let typeStr = "";
   return {
@@ -28,5 +28,5 @@ function src_default() {
   };
 }
 export {
-  src_default as default
+  index_default as default
 };

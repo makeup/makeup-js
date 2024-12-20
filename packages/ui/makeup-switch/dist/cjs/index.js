@@ -50,7 +50,7 @@ class _default {
     this._focusableElement.removeEventListener("keydown", this._onKeyDownListener);
   }
   get _focusableElement() {
-    return this.el.querySelector(`.${this._options.bem.control}`);
+    return this.el.querySelector(".".concat(this._options.bem.control));
   }
   set checked(isChecked) {
     this._unobserveMutations();

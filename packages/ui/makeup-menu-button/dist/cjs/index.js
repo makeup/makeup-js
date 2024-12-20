@@ -11,7 +11,7 @@ const defaultOptions = {
   customElementMode: false,
   expandedClass: "menu-button--expanded",
   menuSelector: ".menu-button__menu",
-  buttonTextSelector: `.btn__text`,
+  buttonTextSelector: ".btn__text",
   buttonValueType: "text",
   // ["text", "icon", "both"],
   menuItemIconSelector: ".icon",
@@ -132,11 +132,11 @@ function _onMenuItemSelect(e) {
   } = this._options;
   const icon = el.querySelector(menuItemIconSelector).cloneNode(true);
   const text = el.innerText.trim();
-  let btnContent = this._buttonPrefix ? `${this._buttonPrefix} ${text}` : text;
+  let btnContent = this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(text) : text;
   if (icon) {
     switch (buttonValueType) {
       case "both":
-        btnContent = `${icon.outerHTML} <span>${btnContent}</span>`;
+        btnContent = "".concat(icon.outerHTML, " <span>").concat(btnContent, "</span>");
         break;
       case "icon":
         this._buttonEl.setAttribute("aria-label", btnContent);
@@ -149,7 +149,7 @@ function _onMenuItemSelect(e) {
   if (menuItemButtonAriaLabelSelector) {
     var _el$querySelector;
     const selectorText = (_el$querySelector = el.querySelector(menuItemButtonAriaLabelSelector)) === null || _el$querySelector === void 0 ? void 0 : _el$querySelector.innerText.trim();
-    this._buttonEl.setAttribute("aria-label", this._buttonPrefix ? `${this._buttonPrefix} ${selectorText}` : selectorText);
+    this._buttonEl.setAttribute("aria-label", this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(selectorText) : selectorText);
   }
   this._buttonTextEl.innerHTML = btnContent;
 }

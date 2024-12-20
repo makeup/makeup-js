@@ -5,7 +5,7 @@ const defaultSnackbarOptions = {
   ctaButtonSelector: ".snackbar-dialog__cta",
   transitionsModifier: "transition"
 };
-class src_default extends Dialog {
+class index_default extends Dialog {
   constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultSnackbarOptions, selectedOptions));
     this._autoDismissTimeout = null;
@@ -41,5 +41,5 @@ function _onCtaButtonClick() {
   this.cta();
 }
 export {
-  src_default as default
+  index_default as default
 };

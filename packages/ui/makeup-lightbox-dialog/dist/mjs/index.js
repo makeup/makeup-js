@@ -6,7 +6,7 @@ const defaultLightboxOptions = {
   closeButtonSelector: ".lightbox-dialog__close",
   windowSelector: ".lightbox-dialog__window"
 };
-class src_default extends Dialog {
+class index_default extends Dialog {
   constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultLightboxOptions, selectedOptions, { modal: true }));
   }
@@ -30,5 +30,5 @@ function _onClick(e) {
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

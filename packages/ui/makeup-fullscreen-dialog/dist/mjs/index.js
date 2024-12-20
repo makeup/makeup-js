@@ -6,11 +6,11 @@ const defaultFullscreenOptions = {
   transitionsModifier: "transition",
   windowSelector: ".fullscreen-dialog__window"
 };
-class src_default extends Dialog {
+class index_default extends Dialog {
   constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultFullscreenOptions, selectedOptions, { modal: true }));
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

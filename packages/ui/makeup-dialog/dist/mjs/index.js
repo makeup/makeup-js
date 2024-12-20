@@ -9,7 +9,7 @@ const defaultDialogOptions = {
   quickDismiss: true,
   transitionsModifier: "mask-fade"
 };
-class src_default {
+class index_default {
   constructor(widgetEl, selectedOptions) {
     this._options = Object.assign({}, defaultDialogOptions, selectedOptions);
     this._el = widgetEl;
@@ -142,5 +142,5 @@ function _onCloseButtonClick() {
   this.close();
 }
 export {
-  src_default as default
+  index_default as default
 };

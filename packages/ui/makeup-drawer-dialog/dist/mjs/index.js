@@ -7,7 +7,7 @@ const defaultDrawerOptions = {
   resizeButtonSelector: ".drawer-dialog__handle",
   windowSelector: ".drawer-dialog__window"
 };
-class src_default extends Lightbox {
+class index_default extends Lightbox {
   constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultDrawerOptions, selectedOptions));
   }
@@ -34,5 +34,5 @@ function _onResizeButtonClick() {
   this.resize();
 }
 export {
-  src_default as default
+  index_default as default
 };

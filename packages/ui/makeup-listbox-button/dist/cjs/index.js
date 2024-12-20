@@ -150,11 +150,11 @@ function _onListboxChange(e) {
     floatingLabelInline
   } = this._options;
   const icon = e.detail.el.querySelector(listboxOptionIconSelector).cloneNode(true);
-  let btnContent = this._buttonPrefix ? `${this._buttonPrefix}${toValue}` : toValue;
+  let btnContent = this._buttonPrefix ? "".concat(this._buttonPrefix).concat(toValue) : toValue;
   if (icon) {
     switch (buttonValueType) {
       case "both":
-        btnContent = `${icon.outerHTML} <span>${btnContent}</span>`;
+        btnContent = "".concat(icon.outerHTML, " <span>").concat(btnContent, "</span>");
         break;
       case "icon":
         this._buttonEl.setAttribute("aria-label", btnContent);
@@ -167,7 +167,7 @@ function _onListboxChange(e) {
   if (listboxOptionAriaLabelSelector) {
     var _e$detail$el$querySel;
     const selectorText = (_e$detail$el$querySel = e.detail.el.querySelector(listboxOptionAriaLabelSelector)) === null || _e$detail$el$querySel === void 0 ? void 0 : _e$detail$el$querySel.innerText.trim();
-    this._buttonEl.setAttribute("aria-label", this._buttonPrefix ? `${this._buttonPrefix} ${selectorText}` : selectorText);
+    this._buttonEl.setAttribute("aria-label", this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(selectorText) : selectorText);
   }
   this._buttonLabelEl.innerHTML = btnContent;
   if (this._buttonFloatingLabelEl) {

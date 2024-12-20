@@ -15,7 +15,7 @@ const defaultOptions = {
   listboxOptionIconSelector: ".icon",
   listboxOptionAriaLabelSelector: null
 };
-class src_default {
+class index_default {
   constructor(widgetEl, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
@@ -181,5 +181,5 @@ function _onMutation(mutationsList) {
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

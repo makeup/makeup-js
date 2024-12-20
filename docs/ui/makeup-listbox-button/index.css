@@ -209,6 +209,7 @@
     --color-background-primary: var(--color-neutral-100);
     --color-background-secondary: var(--color-neutral-200);
     --color-background-tertiary: var(--color-neutral-300);
+    --color-background-faint: rgba(var(--color-neutral-900-rgb), 0.05);
     --color-background-disabled: var(--color-neutral-400);
     --color-background-inverse: var(--color-neutral-700);
     --color-background-attention: var(--color-red-600);
@@ -547,6 +548,34 @@ a[aria-disabled="true"] {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.scrollbars-permanent {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scroll-snap-type: proximity;
+    scroll-snap-type: x proximity;
+}
+
+.scrollbars-permanent::-webkit-scrollbar {
+    background-color: var(--color-background-faint);
+    border-radius: 12px;
+}
+
+.scrollbars-permanent::-webkit-scrollbar:vertical {
+    width: 6px;
+}
+
+.scrollbars-permanent::-webkit-scrollbar:horizontal {
+    height: 6px;
+}
+
+.scrollbars-permanent::-webkit-scrollbar-thumb {
+    background-color: var(--color-foreground-secondary);
+    border-color: transparent;
+    border-radius: 12px;
+    border-right-style: inset;
+    box-shadow: none;
 }
 
 a.fake-btn,

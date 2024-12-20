@@ -24,7 +24,7 @@ const defaultOptions = {
 function isSpacebarOrEnter(keyCode) {
   return keyCode === 13 || keyCode === 32;
 }
-class src_default {
+class index_default {
   constructor(widgetEl, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
@@ -190,5 +190,5 @@ function _onMutation(mutationsList) {
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

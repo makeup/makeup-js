@@ -109,7 +109,7 @@ function _onFocus() {
     setPlaceholder(this.formControlEl, this.placeholder);
   }
 }
-class src_default {
+class index_default {
   constructor(el, userOptions) {
     this.options = Object.assign({}, defaultOptions, userOptions);
     this._observer = new MutationObserver(onMutation.bind(this));
@@ -153,5 +153,5 @@ class src_default {
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

@@ -6,7 +6,7 @@ const defaultInputOptions = {
   cancelButtonSelector: ".lightbox-dialog__cancel",
   windowSelector: ".lightbox-dialog__window"
 };
-class src_default extends Lightbox {
+class index_default extends Lightbox {
   constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultInputOptions, selectedOptions));
   }
@@ -45,5 +45,5 @@ function _onCancelButtonClick() {
   this.cancel();
 }
 export {
-  src_default as default
+  index_default as default
 };

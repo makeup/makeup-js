@@ -12,7 +12,7 @@ const focusableElList = [
   "*[contenteditable]"
 ];
 const focusableElSelector = focusableElList.join();
-function src_default(el, keyboardOnly = false, callback) {
+function index_default(el, keyboardOnly = false, callback) {
   if (callback) {
     const request = requestAnimationFrame(() => {
       callback(getFocusables(el, keyboardOnly));
@@ -36,5 +36,5 @@ function getFocusables(el, keyboardOnly = false) {
   return focusableEls;
 }
 export {
-  src_default as default
+  index_default as default
 };

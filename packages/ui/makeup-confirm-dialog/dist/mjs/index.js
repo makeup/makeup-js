@@ -8,7 +8,7 @@ const defaultOptions = {
   rejectButtonSelector: ".confirm-dialog__reject",
   windowSelector: ".confirm-dialog__window"
 };
-class src_default extends Lightbox {
+class index_default extends Lightbox {
   constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultOptions, selectedOptions));
   }
@@ -47,5 +47,5 @@ function _onRejectButtonClick() {
   this.reject();
 }
 export {
-  src_default as default
+  index_default as default
 };

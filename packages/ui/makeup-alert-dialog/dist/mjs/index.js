@@ -6,7 +6,7 @@ const defaultAlertOptions = {
   acknowledgeButtonSelector: ".alert-dialog__acknowledge",
   windowSelector: ".alert-dialog__window"
 };
-class src_default extends Lightbox {
+class index_default extends Lightbox {
   constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultAlertOptions, selectedOptions));
   }
@@ -33,5 +33,5 @@ function _onAcknowledgeButtonClick() {
   this.acknowledge();
 }
 export {
-  src_default as default
+  index_default as default
 };

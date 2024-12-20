@@ -35,7 +35,7 @@ function setPlaceholder(formControlEl, value) {
       firstOption.text = value;
     }
     if (!value && beforeWidth > formControlEl.offsetWidth) {
-      formControlEl.style["min-width"] = `${beforeWidth}px`;
+      formControlEl.style["min-width"] = "".concat(beforeWidth, "px");
     }
   } else if (value) {
     formControlEl.setAttribute("placeholder", value);

@@ -26,13 +26,13 @@ function onKeyDownOrUp(evt, el, keyEventType) {
       case "ArrowUp":
       case "ArrowRight":
       case "ArrowDown":
-        el.dispatchEvent(new CustomEvent(uncapitalizeFirstLetter(`${key}Key${keyEventType}`), {
+        el.dispatchEvent(new CustomEvent(uncapitalizeFirstLetter("".concat(key, "Key").concat(keyEventType)), {
           detail: evt,
           bubbles: true
         }));
         break;
       case " ":
-        el.dispatchEvent(new CustomEvent(`spacebarKey${keyEventType}`, {
+        el.dispatchEvent(new CustomEvent("spacebarKey".concat(keyEventType), {
           detail: evt,
           bubbles: true
         }));

@@ -5,7 +5,7 @@ const defaultToastOptions = {
   ctaButtonSelector: ".toast-dialog__cta",
   transitionsModifier: "transition"
 };
-class src_default extends Dialog {
+class index_default extends Dialog {
   constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultToastOptions, selectedOptions));
   }
@@ -39,5 +39,5 @@ function _onCtaButtonClick() {
   this.cta();
 }
 export {
-  src_default as default
+  index_default as default
 };

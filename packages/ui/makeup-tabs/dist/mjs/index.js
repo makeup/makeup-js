@@ -61,7 +61,7 @@ const defaultOptions = {
   autoSelect: true,
   initialIndex: 0
 };
-class src_default {
+class index_default {
   constructor(widgetEl, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this._onRovingTabindexChangeListener = onRovingTabindexChange.bind(this);
@@ -123,5 +123,5 @@ class src_default {
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

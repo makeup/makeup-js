@@ -85,7 +85,7 @@ function manageFocus(focusManagement, contentEl) {
     }
   }
 }
-class src_default {
+class index_default {
   constructor(el, selectedOptions) {
     this.options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = el;
@@ -242,5 +242,5 @@ class src_default {
   }
 }
 export {
-  src_default as default
+  index_default as default
 };

@@ -6,7 +6,6 @@ const defaultOptions = {
   collapseTimeout: 150,
   customElementMode: false,
   autoScroll: true,
-  alwaysFilter: true,
 };
 
 export default class {
@@ -123,7 +122,9 @@ export default class {
 }
 
 function _onInputFocus() {
-  if (!this._options.alwaysFilter === true) {
+  if (this._autocompleteType === "list") {
+    _filterSuggestions(this._inputEl.value, this._listboxWidget.items);
+  } else {
     this.resetFilter();
   }
 }

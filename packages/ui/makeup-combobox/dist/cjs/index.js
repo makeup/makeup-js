@@ -11,8 +11,7 @@ const defaultOptions = {
   autoSelect: true,
   collapseTimeout: 150,
   customElementMode: false,
-  autoScroll: true,
-  alwaysFilter: true
+  autoScroll: true
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
@@ -106,7 +105,9 @@ class _default {
 }
 exports.default = _default;
 function _onInputFocus() {
-  if (!this._options.alwaysFilter === true) {
+  if (this._autocompleteType === "list") {
+    _filterSuggestions(this._inputEl.value, this._listboxWidget.items);
+  } else {
     this.resetFilter();
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "makeup-listbox-button",
   "description": "A JavaScript class representing an ARIA listbox button",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "makeup-expander": "^0.11.4",
-    "makeup-listbox": "^0.4.4"
+    "makeup-listbox": "^0.4.5"
   },
   "files": [
     "dist/cjs/index.js",

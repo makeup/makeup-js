@@ -96,6 +96,7 @@ Setting focus on the host (a text input) sets it's aria-expanded state _and_ add
 - `options.collapseOnClickOut`: whether the content should collapse when clicking outside of content (default: false)
 - `options.collapseOnFocusOut`: whether the content should collapse when focus leaves the content (default: false)
 - `options.collapseOnMouseOut`: whether the content should collapse when mouse leaves the content (default: false)
+- `options.collapseOnHostFocus`: whether the content should collapse when focus is on the host (default: false)
 - `options.contentSelector`: the query selector for the expandee element in relation to the widget (default: '.expander\_\_content')
 - `options.expandOnClick`: whether the host should be click activated (default: false)
 - `options.expandOnFocus`: whether the host should be focus activated (default: false)

@@ -8,6 +8,7 @@ const defaultOptions = {
   collapseOnFocusOut: false,
   collapseOnMouseOut: false,
   collapseOnClickOut: false,
+  collapseOnHostFocus: false,
   contentSelector: ".expander__content",
   expandedClass: null,
   expandOnClick: false,
@@ -114,6 +115,7 @@ class index_default {
     this.expandOnClick = this.options.expandOnClick;
     this.expandOnFocus = this.options.expandOnFocus;
     this.expandOnHover = this.options.expandOnHover;
+    this.collapseOnHostFocus = this.options.collapseOnHostFocus;
     if (this.options.autoCollapse === false) {
       this.collapseOnClickOut = this.options.collapseOnClickOut;
       this.collapseOnFocusOut = this.options.collapseOnFocusOut;
@@ -176,6 +178,13 @@ class index_default {
       this.el.addEventListener("focusExit", this._focusExitListener);
     } else {
       this.el.removeEventListener("focusExit", this._focusExitListener);
+    }
+  }
+  set collapseOnHostFocus(bool) {
+    if (bool === true) {
+      this.contentEl.addEventListener("focusExit", this._focusExitListener);
+    } else {
+      this.contentEl.removeEventListener("focusExit", this._focusExitListener);
     }
   }
   set collapseOnMouseOut(bool) {

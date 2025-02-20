@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, afterEach, test } from "vitest";
 import sinon from "sinon";
 import * as modal from "../src/index.js";
 import testData from "./data.js";
@@ -27,40 +27,40 @@ function doBeforeAll(html) {
 testData.forEach(function (data) {
   describe("makeup-modal", function () {
     describe("when modal is activated", function () {
-      before(function () {
+      beforeEach(function () {
         doBeforeAll(data.html);
         modal.modal(modalEl);
       });
 
-      after(function () {
+      afterEach(function () {
         onModal.resetHistory();
         onUnmodal.resetHistory();
       });
 
-      it("should observe one modal event", function () {
+      test("should observe one modal event", function () {
         expect(onModal.callCount).to.equal(1);
       });
-      it("should observe zero unmodal events", function () {
+      test("should observe zero unmodal events", function () {
         expect(onUnmodal.callCount).to.equal(0);
       });
     });
     describe("when modal is activated then deactivated", function () {
-      before(function () {
+      beforeEach(function () {
         doBeforeAll(data.html);
         modal.modal(modalEl);
         modal.unmodal();
       });
 
-      after(function () {
+      afterEach(function () {
         onModal.resetHistory();
         onUnmodal.resetHistory();
       });
 
-      it("should observe one modal events", function () {
+      test("should observe one modal events", function () {
         expect(onModal.callCount).to.equal(1);
       });
 
-      it("should observe one unmodal event", function () {
+      test("should observe one unmodal event", function () {
         expect(onUnmodal.callCount).to.equal(1);
       });
     });
@@ -83,7 +83,7 @@ describe('hoist funcionality', function() {
             modal.modal(hoistEl);
         });
 
-        it('should have hoisted the data', function() {
+        test('should have hoisted the data', function() {
             expect(document.body.innerHTML).toEqual(hoistExpectedResult);
         });
     });
@@ -94,7 +94,7 @@ describe('hoist funcionality', function() {
             modal.unmodal();
         });
 
-        it('should keep the scripts in the same place', function() {
+        test('should keep the scripts in the same place', function() {
             expect(document.querySelector('#script-1').nextElementSibling.textContent).toEqual('one');
             expect(document.querySelector('#script-2').previousElementSibling.textContent).toEqual('one');
             expect(document.querySelector('#script-2').nextElementSibling.textContent).toEqual('two');

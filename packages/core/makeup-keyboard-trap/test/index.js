@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, afterEach, test } from "vitest";
 import sinon from "sinon";
 import * as keyboardTrap from "../src/index.js";
 import testData from "./data.js";
@@ -10,7 +10,7 @@ testData.forEach(function (data) {
 
   describe("given trap is not active,", function () {
     describe("when trap method is called", function () {
-      before(function () {
+      beforeEach(function () {
         document.body.innerHTML = data.html;
         trapEl = document.querySelector(".dialog");
         onTrap = sinon.spy();
@@ -22,29 +22,29 @@ testData.forEach(function (data) {
         keyboardTrap.refresh();
       });
 
-      after(function () {
+      afterEach(function () {
         keyboardTrap.untrap();
         onTrap.resetHistory();
         onUntrap.resetHistory();
       });
 
-      it("it should have class keyboard-trap--active on trap", function () {
+      test("it should have class keyboard-trap--active on trap", function () {
         expect(trapEl.classList.contains("keyboard-trap--active")).to.equal(true);
       });
-      it("it should have six trap boundaries in body", function () {
+      test("it should have six trap boundaries in body", function () {
         expect(document.querySelectorAll(".keyboard-trap-boundary").length).to.equal(6);
       });
-      it("it should observe one trap event", function () {
+      test("it should observe one trap event", function () {
         expect(onTrap.callCount).to.equal(1);
       });
-      it("it should observe zero untrap events", function () {
+      test("it should observe zero untrap events", function () {
         expect(onUntrap.callCount).to.equal(0);
       });
     });
   });
 
   describe("given trap is active,", function () {
-    before(function () {
+    beforeEach(function () {
       document.body.innerHTML = data.html;
       trapEl = document.querySelector(".dialog");
       onTrap = sinon.spy();
@@ -59,27 +59,27 @@ testData.forEach(function (data) {
     });
 
     describe("when untrap method is called", function () {
-      before(function () {
+      beforeEach(function () {
         keyboardTrap.untrap();
       });
 
-      it("it should have zero trap boundaries in body", function () {
+      test("it should have zero trap boundaries in body", function () {
         expect(document.querySelectorAll(".keyboard-trap-boundary").length).to.equal(0);
       });
-      it("it should not have class keyboard-trap--active on trap", function () {
+      test("it should not have class keyboard-trap--active on trap", function () {
         expect(trapEl.classList.contains("keyboard-trap--active")).to.be.false;
       });
-      it("it should observe 0 trap events", function () {
+      test("it should observe 0 trap events", function () {
         expect(onTrap.callCount).to.equal(0);
       });
-      it("it should observe 1 untrap event", function () {
+      test("it should observe 1 untrap event", function () {
         expect(onUntrap.callCount).to.equal(1);
       });
     });
   });
 
   describe("given trap is active", function () {
-    before(function () {
+    beforeEach(function () {
       document.body.innerHTML = data.html;
       trapEl = document.querySelector(".dialog");
       onTrap = sinon.spy();
@@ -94,11 +94,11 @@ testData.forEach(function (data) {
     });
 
     describe("when DOM is changed", function () {
-      before(function () {
+      beforeEach(function () {
         document.querySelector(".keyboard-trap-boundary").remove();
       });
 
-      it("it should not throw an error when untrap is called", function () {
+      test("it should not throw an error when untrap is called", function () {
         expect(keyboardTrap.untrap.bind()).not.to.throw();
       });
     });

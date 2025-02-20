@@ -1,9 +1,9 @@
 import floatingLabel from "../src/index.js";
-import { expect } from "chai";
+import { describe, expect, beforeEach, test } from "vitest";
 
 describe("makeup-floating-label", function () {
   describe("when module is imported", function () {
-    it("module should not be undefined", function () {
+    test("module should not be undefined", function () {
       expect(floatingLabel).not.to.be.undefined;
     });
   });

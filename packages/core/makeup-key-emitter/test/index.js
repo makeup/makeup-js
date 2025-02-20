@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, afterEach, test } from "vitest";
 import sinon from "sinon";
 import * as KeyEmitter from "../src/index.js";
 
@@ -17,13 +17,13 @@ describe("Given a list of three items", function () {
   var testEl = document.querySelector(".widget");
 
   describe("when key emitter class is imported", function () {
-    it("KeyEmitter module should not be undefined", function () {
+    test("KeyEmitter module should not be undefined", function () {
       expect(KeyEmitter).not.to.be.undefined;
     });
   });
 
   describe("when key emitter is added", function () {
-    before(function () {
+    beforeEach(function () {
       KeyEmitter.add(testEl);
     });
 
@@ -31,7 +31,7 @@ describe("Given a list of three items", function () {
       mockCallBack = null;
     });
 
-    it("should trigger homeKeyUp event", function () {
+    test("should trigger homeKeyUp event", function () {
       // execute
       mockCallBack = sinon.spy();
       testEl.addEventListener("homeKeyUp", mockCallBack);
@@ -45,7 +45,7 @@ describe("Given a list of three items", function () {
   });
 
   describe("when key emitter is added with Key Down", function () {
-    before(function () {
+    beforeEach(function () {
       KeyEmitter.addKeyDown(testEl);
     });
 
@@ -53,7 +53,7 @@ describe("Given a list of three items", function () {
       mockCallBack = null;
     });
 
-    it("should trigger arrowLeftKeyDown event", function () {
+    test("should trigger arrowLeftKeyDown event", function () {
       // execute
       mockCallBack = sinon.spy();
       testEl.addEventListener("arrowLeftKeyDown", mockCallBack);
@@ -65,7 +65,7 @@ describe("Given a list of three items", function () {
       expect(mockCallBack.callCount).to.equal(1);
     });
 
-    it("should trigger arrowUpKeyDown event", function () {
+    test("should trigger arrowUpKeyDown event", function () {
       // execute
       mockCallBack = sinon.spy();
       testEl.addEventListener("arrowUpKeyDown", mockCallBack);
@@ -77,7 +77,7 @@ describe("Given a list of three items", function () {
       expect(mockCallBack.callCount).to.equal(1);
     });
 
-    it("should trigger arrowRightKeyDown event", function () {
+    test("should trigger arrowRightKeyDown event", function () {
       // execute
       mockCallBack = sinon.spy();
       testEl.addEventListener("arrowRightKeyDown", mockCallBack);
@@ -89,7 +89,7 @@ describe("Given a list of three items", function () {
       expect(mockCallBack.callCount).to.equal(1);
     });
 
-    it("should trigger arrowDownKeyDown event", function () {
+    test("should trigger arrowDownKeyDown event", function () {
       // execute
       mockCallBack = sinon.spy();
       testEl.addEventListener("arrowDownKeyDown", mockCallBack);
@@ -103,7 +103,7 @@ describe("Given a list of three items", function () {
   });
 
   describe("when key emitter is added with Key Up", function () {
-    before(function () {
+    beforeEach(function () {
       KeyEmitter.addKeyUp(testEl);
     });
 
@@ -111,7 +111,7 @@ describe("Given a list of three items", function () {
       mockCallBack = null;
     });
 
-    it("should trigger spaceKeyUp event", function () {
+    test("should trigger spaceKeyUp event", function () {
       // execute
       mockCallBack = sinon.spy();
       testEl.addEventListener("spacebarKeyUp", mockCallBack);
@@ -123,7 +123,7 @@ describe("Given a list of three items", function () {
       expect(mockCallBack.callCount).to.equal(1);
     });
 
-    it("should not trigger spaceKeyUp event with shiftKey", function () {
+    test("should not trigger spaceKeyUp event with shiftKey", function () {
       // execute
       mockCallBack = sinon.spy();
       testEl.addEventListener("spacebarKeyUp", mockCallBack);
@@ -138,7 +138,7 @@ describe("Given a list of three items", function () {
   });
 
   describe("when key emitter is added and removed", function () {
-    before(function () {
+    beforeEach(function () {
       KeyEmitter.add(testEl);
     });
 
@@ -146,7 +146,7 @@ describe("Given a list of three items", function () {
       mockCallBack = null;
     });
 
-    it("should not trigger homeKeyUp event", function () {
+    test("should not trigger homeKeyUp event", function () {
       // execute
       mockCallBack = sinon.spy();
       testEl.addEventListener("homeKeyUp", mockCallBack);

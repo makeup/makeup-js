@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, it } from "vitest";
 import sinon from "sinon";
 import * as screenreaderTrap from "../src/index.js";
 import * as util from "../src/util.js";
@@ -36,7 +36,7 @@ testData.forEach(function (data) {
   describe("Util", function () {
     describe("given test data", function () {
       describe("when DOM is rendered", function () {
-        before(function () {
+        beforeEach(function () {
           doBeforeAll(data.html);
         });
 
@@ -58,7 +58,7 @@ testData.forEach(function (data) {
   describe("Module", function () {
     describe("given test data", function () {
       describe("when DOM is rendered and trap is activated", function () {
-        before(function () {
+        beforeEach(function () {
           doBeforeAll(data.html);
           screenreaderTrap.trap(trapEl);
         });
@@ -89,7 +89,7 @@ testData.forEach(function (data) {
       });
 
       describe("when DOM is rendered and trap is activated then deactivated", function () {
-        before(function () {
+        beforeEach(function () {
           doBeforeAll(data.html);
           screenreaderTrap.trap(trapEl);
           screenreaderTrap.untrap();

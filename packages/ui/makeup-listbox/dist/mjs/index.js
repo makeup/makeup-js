@@ -51,7 +51,7 @@ class index_default {
     this._activeDescendant = ActiveDescendant.createLinear(
       this._activeDescendantRootEl,
       this._options.focusableElement || this._listboxEl,
-      this._listboxEl,
+      this._listboxEl.parentElement,
       "[role=option]",
       {
         activeDescendantClassName: this._options.activeDescendantClassName,

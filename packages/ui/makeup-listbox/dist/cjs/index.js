@@ -67,7 +67,7 @@ class _default {
       this._observeMutations();
       this._observeEvents();
     }
-    this._activeDescendant = ActiveDescendant.createLinear(this._activeDescendantRootEl, this._options.focusableElement || this._listboxEl, this._listboxEl, "[role=option]", {
+    this._activeDescendant = ActiveDescendant.createLinear(this._activeDescendantRootEl, this._options.focusableElement || this._listboxEl, this._listboxEl.parentElement, "[role=option]", {
       activeDescendantClassName: this._options.activeDescendantClassName,
       autoInit: this._options.autoInit,
       autoReset: this._options.autoReset,

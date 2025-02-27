@@ -12,16 +12,6 @@ const defaultOptions = {
   wrap: false,
 };
 
-function isElementInView(el) {
-  const bounding = el.getBoundingClientRect();
-  return (
-    bounding.top >= 0 &&
-    bounding.left >= 0 &&
-    bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
-
 function onModelInit(e) {
   const { items, toIndex } = e.detail;
   const itemEl = items[toIndex];
@@ -47,8 +37,8 @@ function onModelChange(e) {
     toItem.classList.add(this._options.activeDescendantClassName);
     this._focusEl.setAttribute("aria-activedescendant", toItem.id);
 
-    if (this._options.autoScroll && this._itemContainerEl && !isElementInView(toItem)) {
-      toItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (this._options.autoScroll && this._itemContainerEl) {
+      this._itemContainerEl.scrollTop = toItem.offsetTop - this._itemContainerEl.offsetHeight / 2;
     }
   }
 

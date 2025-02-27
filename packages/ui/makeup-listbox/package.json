@@ -1,7 +1,7 @@
 {
   "name": "makeup-listbox",
   "description": "A JavaScript class representing an ARIA listbox",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -20,7 +20,7 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-active-descendant": "^0.7.5",
+    "makeup-active-descendant": "^0.7.6",
     "makeup-prevent-scroll-keys": "^0.3.3"
   },
   "files": [

@@ -7,7 +7,7 @@ export default defineConfig({
     environment: "jsdom",
     coverage: {
       provider: "istanbul",
-      reporter: ["text", "json", "html"],
+      reporter: ["text-summary", "lcov", "html"],
       exclude: [
         "node_modules/",
         "packages/**/**/test/",

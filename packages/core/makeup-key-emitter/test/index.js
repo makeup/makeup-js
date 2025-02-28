@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, afterEach, it } from "vitest";
 import sinon from "sinon";
 import * as KeyEmitter from "../src/index.js";
 
@@ -23,7 +23,7 @@ describe("Given a list of three items", function () {
   });
 
   describe("when key emitter is added", function () {
-    before(function () {
+    beforeEach(function () {
       KeyEmitter.add(testEl);
     });
 
@@ -45,7 +45,7 @@ describe("Given a list of three items", function () {
   });
 
   describe("when key emitter is added with Key Down", function () {
-    before(function () {
+    beforeEach(function () {
       KeyEmitter.addKeyDown(testEl);
     });
 
@@ -103,7 +103,7 @@ describe("Given a list of three items", function () {
   });
 
   describe("when key emitter is added with Key Up", function () {
-    before(function () {
+    beforeEach(function () {
       KeyEmitter.addKeyUp(testEl);
     });
 
@@ -138,7 +138,7 @@ describe("Given a list of three items", function () {
   });
 
   describe("when key emitter is added and removed", function () {
-    before(function () {
+    beforeEach(function () {
       KeyEmitter.add(testEl);
     });
 

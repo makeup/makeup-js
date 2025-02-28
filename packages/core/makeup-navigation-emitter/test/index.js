@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, afterEach, it } from "vitest";
 import sinon from "sinon";
 import * as NavigationEmitter from "../src/index.js";
 
@@ -22,7 +22,7 @@ function triggerKeyPress(el, keyType) {
 /* BEGIN STATIC MODEL SIZE TESTS */
 
 describe("given a list of 3 visible items", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -33,7 +33,7 @@ describe("given a list of 3 visible items", function () {
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       testEl = document.querySelector(".widget");
       testEmitter = NavigationEmitter.createLinear(testEl, "li"); // eslint-disable-line
     });
@@ -45,7 +45,7 @@ describe("given a list of 3 visible items", function () {
 });
 
 describe("given a list of 3 items with 1 hidden", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -56,7 +56,7 @@ describe("given a list of 3 items with 1 hidden", function () {
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       testEl = document.querySelector(".widget");
       testEmitter = NavigationEmitter.createLinear(testEl, "li"); // eslint-disable-line
     });
@@ -68,7 +68,7 @@ describe("given a list of 3 items with 1 hidden", function () {
 });
 
 describe("given a list of 3 hidden items", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <ul class="widget">
                 <li hidden>Item 1</li>
@@ -79,7 +79,7 @@ describe("given a list of 3 hidden items", function () {
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       testEl = document.querySelector(".widget");
       testEmitter = NavigationEmitter.createLinear(testEl, "li"); // eslint-disable-line
     });
@@ -91,7 +91,7 @@ describe("given a list of 3 hidden items", function () {
 });
 
 describe("given a list of 3 items with 1 aria-disabled", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -102,7 +102,7 @@ describe("given a list of 3 items with 1 aria-disabled", function () {
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       testEl = document.querySelector(".widget");
       testEmitter = NavigationEmitter.createLinear(testEl, "li"); // eslint-disable-line
     });
@@ -114,7 +114,7 @@ describe("given a list of 3 items with 1 aria-disabled", function () {
 });
 
 describe("given a list of 3 aria-disabled items", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <ul class="widget">
                 <li aria-disabled="true">Item 1</li>
@@ -125,7 +125,7 @@ describe("given a list of 3 aria-disabled items", function () {
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       testEl = document.querySelector(".widget");
       testEmitter = NavigationEmitter.createLinear(testEl, "li"); // eslint-disable-line
     });
@@ -141,7 +141,7 @@ describe("given a list of 3 aria-disabled items", function () {
 /* BEGIN MUTATION TESTS */
 
 describe("given a list of 3 visible items", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -157,7 +157,7 @@ describe("given a list of 3 visible items", function () {
   });
 
   describe("when second item is hidden", function () {
-    before(function (done) {
+    beforeEach(function (done) {
       testEmitter.model.items[1].hidden = true;
       // a delay is added to wait for a sec for mutation to trigger
       setTimeout(function () {
@@ -193,11 +193,11 @@ describe("given 3 items with default options", function () {
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow left is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Left", 1);
     });
 
@@ -207,7 +207,7 @@ describe("given 3 items with default options", function () {
   });
 
   describe("when arrow up is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Up", 1);
     });
 
@@ -217,7 +217,7 @@ describe("given 3 items with default options", function () {
   });
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
@@ -227,7 +227,7 @@ describe("given 3 items with default options", function () {
   });
 
   describe("when arrow right is pressed twice", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 2);
     });
 
@@ -237,7 +237,7 @@ describe("given 3 items with default options", function () {
   });
 
   describe("when arrow right is pressed three times", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 3);
     });
 
@@ -247,7 +247,7 @@ describe("given 3 items with default options", function () {
   });
 
   describe("when arrow right is pressed once after emitter is destroyed", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter.destroy();
       triggerArrowKeyPress(testEl, "Right", 1);
     });
@@ -258,7 +258,7 @@ describe("given 3 items with default options", function () {
   });
 
   describe("when arrow down is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Down", 1);
     });
 
@@ -268,7 +268,7 @@ describe("given 3 items with default options", function () {
   });
 
   describe("when arrow down is pressed once after emitter is destroyed", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter.destroy();
       triggerArrowKeyPress(testEl, "Down", 1);
     });
@@ -298,7 +298,7 @@ describe("given 3 items with default options", function () {
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when second item is clicked", function () {
@@ -337,11 +337,11 @@ describe("given 3 items with default options", function () {
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when home key is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerKeyPress(testEl, "home");
     });
 
@@ -351,7 +351,7 @@ describe("given 3 items with default options", function () {
   });
 
   describe("when end key is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerKeyPress(testEl, "end");
     });
 
@@ -382,11 +382,11 @@ describe("given 3 items with autoWrap on", function () {
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow left is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Left", 1);
     });
 
@@ -396,7 +396,7 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow up is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Up", 1);
     });
 
@@ -406,7 +406,7 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
@@ -416,7 +416,7 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow right is pressed twice", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 2);
     });
 
@@ -426,7 +426,7 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow right is pressed three times", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 3);
     });
 
@@ -436,7 +436,7 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow down is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Down", 1);
     });
 
@@ -467,7 +467,7 @@ describe("given 3 items with default options", function () {
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when index set to current index", function () {
@@ -522,11 +522,11 @@ describe("given 3 items with axis set to both", function () {
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow down is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Down", 1);
     });
 
@@ -536,7 +536,7 @@ describe("given 3 items with axis set to both", function () {
   });
 
   describe("when arrow up is pressed once after arrow down", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Down", 1);
       triggerArrowKeyPress(testEl, "Up", 1);
     });
@@ -547,7 +547,7 @@ describe("given 3 items with axis set to both", function () {
   });
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
@@ -557,7 +557,7 @@ describe("given 3 items with axis set to both", function () {
   });
 
   describe("when arrow left is pressed once after arrow right", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 1);
       triggerArrowKeyPress(testEl, "Left", 1);
     });
@@ -585,11 +585,11 @@ describe("given 3 items with axis set to x", function () {
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow down is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Down", 1);
     });
 
@@ -599,7 +599,7 @@ describe("given 3 items with axis set to x", function () {
   });
 
   describe("when arrow up is pressed once after arrow down", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Down", 1);
       triggerArrowKeyPress(testEl, "Up", 1);
     });
@@ -610,7 +610,7 @@ describe("given 3 items with axis set to x", function () {
   });
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
@@ -620,7 +620,7 @@ describe("given 3 items with axis set to x", function () {
   });
 
   describe("when arrow left is pressed once after arrow right", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 1);
       triggerArrowKeyPress(testEl, "Left", 1);
     });
@@ -648,11 +648,11 @@ describe("given 3 items with axis set to y", function () {
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
@@ -662,7 +662,7 @@ describe("given 3 items with axis set to y", function () {
   });
 
   describe("when arrow left is pressed once after arrow right", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Right", 1);
       triggerArrowKeyPress(testEl, "Left", 1);
     });
@@ -673,7 +673,7 @@ describe("given 3 items with axis set to y", function () {
   });
 
   describe("when arrow Down is pressed twice", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Down", 2);
     });
 
@@ -683,7 +683,7 @@ describe("given 3 items with axis set to y", function () {
   });
 
   describe("when arrow Up is pressed once after arrow down", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(testEl, "Down", 1);
       triggerArrowKeyPress(testEl, "Up", 1);
     });
@@ -713,11 +713,11 @@ describe("given 3 items", function () {
     testEl.addEventListener("navigationModelInit", onNavigationModelInit);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when autoInit is none", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter = NavigationEmitter.createLinear(testEl, "li", { autoInit: "none" }); // eslint-disable-line
     });
 
@@ -731,7 +731,7 @@ describe("given 3 items", function () {
   });
 
   describe("when autoInit is interactive", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter = NavigationEmitter.createLinear(testEl, "li", { autoInit: "interactive" }); // eslint-disable-line
     });
 
@@ -745,7 +745,7 @@ describe("given 3 items", function () {
   });
 
   describe("when autoInit is ariaChecked", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter = NavigationEmitter.createLinear(testEl, "li", { autoInit: "ariaChecked" }); // eslint-disable-line
     });
 
@@ -759,7 +759,7 @@ describe("given 3 items", function () {
   });
 
   describe("when autoInit is ariaSelected", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter = NavigationEmitter.createLinear(testEl, "li", { autoInit: "ariaSelected" }); // eslint-disable-line
     });
 
@@ -788,11 +788,11 @@ describe("given 3 items", function () {
     testEl.addEventListener("navigationModelInit", onNavigationModelInit);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when autoInit is ariaSelectedOrInteractive", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter = NavigationEmitter.createLinear(testEl, "li", { autoInit: "ariaSelectedOrInteractive" }); // eslint-disable-line
     });
 
@@ -821,11 +821,11 @@ describe("given 3 items", function () {
     testEl.addEventListener("navigationModelInit", onNavigationModelInit);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when autoInit is ariaSelectedOrInteractive", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter = NavigationEmitter.createLinear(testEl, "li", { autoInit: "ariaSelectedOrInteractive" }); // eslint-disable-line
     });
 
@@ -861,16 +861,16 @@ describe("given 3 items", function () {
     testEl.addEventListener("navigationModelReset", onNavigationModelReset);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("and autoReset is current", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter = NavigationEmitter.createLinear(testEl, "li", { autoReset: "current" }); // eslint-disable-line
     });
 
     describe("when testEmitter gets reset", function () {
-      before(function () {
+      beforeEach(function () {
         triggerArrowKeyPress(testEl, "Down", 1);
         testEmitter.model.reset();
       });
@@ -881,7 +881,7 @@ describe("given 3 items", function () {
     });
 
     describe("when focus exits the widget", function () {
-      before(function () {
+      beforeEach(function () {
         triggerArrowKeyPress(testEl, "Down", 1);
         buttonEl = document.querySelector("button");
         buttonEl.click();
@@ -898,12 +898,12 @@ describe("given 3 items", function () {
   });
 
   describe("and autoReset is interactive", function () {
-    before(function () {
+    beforeEach(function () {
       testEmitter = NavigationEmitter.createLinear(testEl, "li", { autoReset: "interactive" }); // eslint-disable-line
     });
 
     describe("when testEmitter gets reset after arrow key down", function () {
-      before(function () {
+      beforeEach(function () {
         triggerArrowKeyPress(testEl, "Down", 1);
         testEmitter.model.reset();
       });

@@ -1,7 +1,7 @@
 /* eslint-env jest */
 
 import nextId from "../src/index.js";
-import { expect } from "chai";
+import { describe, expect, beforeAll, it } from "vitest";
 
 const containerEl = document.createElement("div");
 let testEls;
@@ -16,7 +16,7 @@ describe("given three elements without an existing id", () => {
   describe("when nextId is called on each element in sequence", () => {
     const nids = [];
 
-    before(() => {
+    beforeAll(() => {
       containerEl.innerHTML = "<div></div><div></div><div></div>";
       testEls = nodeListToArray(containerEl.querySelectorAll("div"));
 
@@ -41,7 +41,7 @@ describe("given three elements without an existing id", () => {
   describe("when nextId is called on each element in sequence using custom prefix", () => {
     const nids = [];
 
-    before(() => {
+    beforeAll(() => {
       containerEl.innerHTML = "<div></div><div></div><div></div>";
       testEls = nodeListToArray(containerEl.querySelectorAll("div"));
 
@@ -66,7 +66,7 @@ describe("given three elements without an existing id", () => {
 
 describe("given three elements with an existing id", () => {
   describe("when nextId is called on each element in sequence", () => {
-    before(() => {
+    beforeAll(() => {
       containerEl.innerHTML = '<div id="foo-0"></div><div id="foo-1"></div><div id="foo-2"></div>';
       testEls = nodeListToArray(containerEl.querySelectorAll("div"));
 
@@ -89,7 +89,7 @@ describe("given three elements with an existing id", () => {
   });
 
   describe("when nextId is called on each element in sequence using custom prefix", () => {
-    before(() => {
+    beforeAll(() => {
       containerEl.innerHTML = '<div id="foo-0"></div><div id="foo-1"></div><div id="foo-2"></div>';
       testEls = nodeListToArray(containerEl.querySelectorAll("div"));
 

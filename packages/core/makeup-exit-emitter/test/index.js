@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, afterEach, it } from "vitest";
 import sinon from "sinon";
 import * as ExitEmitter from "../src/index.js";
 
@@ -25,14 +25,14 @@ describe("given an element with focus", function () {
     testEl.focus();
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(function () {
     testEl.focus();
     onFocusExit.resetHistory();
   });
 
   describe("when focus moves to sibling", function () {
-    before(function () {
+    beforeEach(function () {
       testElSibling.focus();
     });
 
@@ -42,7 +42,7 @@ describe("given an element with focus", function () {
   });
 
   describe("when focus moves to descendant", function () {
-    before(function () {
+    beforeEach(function () {
       testEl.querySelector("button").focus();
     });
 
@@ -52,7 +52,7 @@ describe("given an element with focus", function () {
   });
 
   // describe('when focus exits with blur', function() {
-  //     before(function() {
+  //     beforeEach(function() {
   //         testEl.blur();
   //     });
 
@@ -62,7 +62,7 @@ describe("given an element with focus", function () {
   // });
 
   describe("when focus moves to sibling without focusExit", function () {
-    before(function () {
+    beforeEach(function () {
       ExitEmitter.removeFocusExit(testEl);
       testElSibling.focus();
     });
@@ -92,14 +92,14 @@ describe("given an element with focus on descendant", function () {
     testEl.querySelector("button").focus();
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(function () {
     testEl.querySelector("button").focus();
     onFocusExit.resetHistory();
   });
 
   describe("when focus moves to sibling of element root", function () {
-    before(function () {
+    beforeEach(function () {
       testElSibling.focus();
     });
 
@@ -109,7 +109,7 @@ describe("given an element with focus on descendant", function () {
   });
 
   describe("when focus is reset on descendant", function () {
-    before(function () {
+    beforeEach(function () {
       testEl.querySelector("button").focus();
     });
 
@@ -119,7 +119,7 @@ describe("given an element with focus on descendant", function () {
   });
 
   describe("when focus moves to element root", function () {
-    before(function () {
+    beforeEach(function () {
       testEl.focus();
     });
 

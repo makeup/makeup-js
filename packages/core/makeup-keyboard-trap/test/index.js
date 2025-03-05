@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, afterEach, it } from "vitest";
 import sinon from "sinon";
 import * as keyboardTrap from "../src/index.js";
 import testData from "./data.js";
@@ -10,7 +10,7 @@ testData.forEach(function (data) {
 
   describe("given trap is not active,", function () {
     describe("when trap method is called", function () {
-      before(function () {
+      beforeEach(function () {
         document.body.innerHTML = data.html;
         trapEl = document.querySelector(".dialog");
         onTrap = sinon.spy();
@@ -22,7 +22,7 @@ testData.forEach(function (data) {
         keyboardTrap.refresh();
       });
 
-      after(function () {
+      afterEach(function () {
         keyboardTrap.untrap();
         onTrap.resetHistory();
         onUntrap.resetHistory();
@@ -44,7 +44,7 @@ testData.forEach(function (data) {
   });
 
   describe("given trap is active,", function () {
-    before(function () {
+    beforeEach(function () {
       document.body.innerHTML = data.html;
       trapEl = document.querySelector(".dialog");
       onTrap = sinon.spy();
@@ -59,7 +59,7 @@ testData.forEach(function (data) {
     });
 
     describe("when untrap method is called", function () {
-      before(function () {
+      beforeEach(function () {
         keyboardTrap.untrap();
       });
 
@@ -79,7 +79,7 @@ testData.forEach(function (data) {
   });
 
   describe("given trap is active", function () {
-    before(function () {
+    beforeEach(function () {
       document.body.innerHTML = data.html;
       trapEl = document.querySelector(".dialog");
       onTrap = sinon.spy();
@@ -94,7 +94,7 @@ testData.forEach(function (data) {
     });
 
     describe("when DOM is changed", function () {
-      before(function () {
+      beforeEach(function () {
         document.querySelector(".keyboard-trap-boundary").remove();
       });
 

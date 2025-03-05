@@ -171,11 +171,13 @@ describe("makeup-focusables", function () {
       body.innerHTML = '<div tabindex="1"></div><div></div><div tabindex="2"></div>';
     });
 
-    it("should return all elements in callback", function (done) {
-      focusable(body, false, (focusableEl) => {
-        expect(focusableEl.length).to.equal(2);
-        done();
+    it("should return all elements in callback", async function () {
+      const focusableEls = await new Promise((resolve) => {
+        focusable(body, false, (focusableEl) => {
+          resolve(focusableEl);
+        });
       });
+      expect(focusableEls.length).to.equal(2);
     });
   });
 

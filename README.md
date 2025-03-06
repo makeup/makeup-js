@@ -1,6 +1,6 @@
 # makeup-js
 
-<a href="https://travis-ci.com/makeup/makeup-js.svg?branch=master"><img src="https://travis-ci.com/makeup/makeup-js.svg?branch=master" /></a> <a href='https://coveralls.io/github/makeup/makeup-js?branch=master'><img src='https://coveralls.io/repos/github/makeup/makeup-js/badge.svg?branch=master' alt='Coverage Status' /></a>
+[![Core Module Coverage](https://coveralls.io/repos/github/makeup/makeup-js/badge.svg?branch=master)](https://coveralls.io/github/makeup/makeup-js?branch=master)
 
 A suite of vanilla JavaScript modules for building accessible user interfaces.
 

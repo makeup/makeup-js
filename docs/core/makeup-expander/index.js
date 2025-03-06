@@ -30,7 +30,7 @@ hoverAndFocusExpanderEls.forEach(function (el) {
 stealthExpanderEls.forEach(function (el) {
   expanderWidgets.push(
     new Expander(el, {
-      ollapseOnClickOut: true,
+      collapseOnClickOut: true,
       collapseOnFocusOut: true,
       expandOnClick: true,
       focusManagement: "focusable",

@@ -41,9 +41,22 @@ function onHostClick() {
   this.expanded = !this.expanded;
 }
 
+// TODO: this code need refactor.
 function onHostFocus() {
-  this._expandWasFocusActivated = true;
-  this.expanded = true;
+  if (this.options.collapseOnHostFocus) {
+    // if collapseOnClickOut | collapseOnFocusOut | collapseOnMouseOut are false - we should not close expander
+    if (
+      this.expanded &&
+      !this._mouseClickFlag &&
+      (this.options.autoCollapse ||
+        (this.options.collapseOnClickOut && this.options.collapseOnFocusOut && this.options.collapseOnMouseOut))
+    ) {
+      this.expanded = false;
+    }
+  } else {
+    this._expandWasFocusActivated = true;
+    this.expanded = true;
+  }
 }
 
 function onHostHover() {
@@ -177,6 +190,12 @@ export default class {
     }
   }
 
+  set collapseOnHostFocus(bool) {
+    if (bool === true) {
+      this.hostEl.addEventListener("focus", this._hostFocusListener);
+    }
+  }
+
   set expandOnHover(bool) {
     if (bool === true) {
       this.hostEl.addEventListener("mouseenter", this._hostHoverListener);
@@ -210,14 +229,6 @@ export default class {
       this.el.addEventListener("focusExit", this._focusExitListener);
     } else {
       this.el.removeEventListener("focusExit", this._focusExitListener);
-    }
-  }
-
-  set collapseOnHostFocus(bool) {
-    if (bool === true) {
-      this.contentEl.addEventListener("focusExit", this._focusExitListener);
-    } else {
-      this.contentEl.removeEventListener("focusExit", this._focusExitListener);
     }
   }
 
@@ -274,6 +285,7 @@ export default class {
       this.collapseOnClickOut = false;
       this.collapseOnFocusOut = false;
       this.collapseOnMouseOut = false;
+      this.collapseOnHostFocus = false;
     }
   }
 

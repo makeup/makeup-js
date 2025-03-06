@@ -45,9 +45,18 @@ function onHostClick() {
   this._expandWasMouseClickActivated = this._mouseClickFlag;
   this.expanded = !this.expanded;
 }
+
+// TODO: this code need refactor.
 function onHostFocus() {
-  this._expandWasFocusActivated = true;
-  this.expanded = true;
+  if (this.options.collapseOnHostFocus) {
+    // if collapseOnClickOut | collapseOnFocusOut | collapseOnMouseOut are false - we should not close expander
+    if (this.expanded && !this._mouseClickFlag && (this.options.autoCollapse || this.options.collapseOnClickOut && this.options.collapseOnFocusOut && this.options.collapseOnMouseOut)) {
+      this.expanded = false;
+    }
+  } else {
+    this._expandWasFocusActivated = true;
+    this.expanded = true;
+  }
 }
 function onHostHover() {
   clearTimeout(this._mouseLeft);
@@ -162,6 +171,11 @@ class _default {
       this.hostEl.removeEventListener("focus", this._hostFocusListener);
     }
   }
+  set collapseOnHostFocus(bool) {
+    if (bool === true) {
+      this.hostEl.addEventListener("focus", this._hostFocusListener);
+    }
+  }
   set expandOnHover(bool) {
     if (bool === true) {
       this.hostEl.addEventListener("mouseenter", this._hostHoverListener);
@@ -192,13 +206,6 @@ class _default {
       this.el.addEventListener("focusExit", this._focusExitListener);
     } else {
       this.el.removeEventListener("focusExit", this._focusExitListener);
-    }
-  }
-  set collapseOnHostFocus(bool) {
-    if (bool === true) {
-      this.contentEl.addEventListener("focusExit", this._focusExitListener);
-    } else {
-      this.contentEl.removeEventListener("focusExit", this._focusExitListener);
     }
   }
   set collapseOnMouseOut(bool) {
@@ -252,6 +259,7 @@ class _default {
       this.collapseOnClickOut = false;
       this.collapseOnFocusOut = false;
       this.collapseOnMouseOut = false;
+      this.collapseOnHostFocus = false;
     }
   }
   destroy() {

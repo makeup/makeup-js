@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, afterEach, beforeAll, it } from "vitest";
 import sinon from "sinon";
 import * as ActiveDescendant from "../src/index.js";
 
@@ -15,7 +15,7 @@ function triggerArrowKeyPress(el, dir, num) {
 /* BEGIN STATIC MODEL SIZE TESTS */
 
 describe("given a list of 3 visible items in programmatic relationship", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
@@ -29,7 +29,7 @@ describe("given a list of 3 visible items in programmatic relationship", functio
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       widgetEl = document.querySelector(".widget");
       focusEl = widgetEl.querySelector("input");
       containerEl = widgetEl.querySelector("ul");
@@ -43,7 +43,7 @@ describe("given a list of 3 visible items in programmatic relationship", functio
 });
 
 describe("given a list of 3 visible items in hierarchial relationship", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <div class="widget">
                 <ul>
@@ -56,7 +56,7 @@ describe("given a list of 3 visible items in hierarchial relationship", function
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       widgetEl = document.querySelector(".widget");
       focusEl = widgetEl.querySelector("ul");
       containerEl = focusEl;
@@ -70,7 +70,7 @@ describe("given a list of 3 visible items in hierarchial relationship", function
 });
 
 describe("given a list of 2 visible items, 1 hidden in programmatic relationship", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
@@ -84,7 +84,7 @@ describe("given a list of 2 visible items, 1 hidden in programmatic relationship
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       widgetEl = document.querySelector(".widget");
       focusEl = widgetEl.querySelector("input");
       containerEl = widgetEl.querySelector("ul");
@@ -98,7 +98,7 @@ describe("given a list of 2 visible items, 1 hidden in programmatic relationship
 });
 
 describe("given a list of 2 visible items, 1 hidden in hierarchial relationship", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <div class="widget">
                 <ul>
@@ -111,7 +111,7 @@ describe("given a list of 2 visible items, 1 hidden in hierarchial relationship"
   });
 
   describe("when instantiated with hierarchial relationship", function () {
-    before(function () {
+    beforeEach(function () {
       widgetEl = document.querySelector(".widget");
       focusEl = widgetEl.querySelector("ul");
       containerEl = focusEl;
@@ -125,7 +125,7 @@ describe("given a list of 2 visible items, 1 hidden in hierarchial relationship"
 });
 
 describe("given a list of 3 hidden items in programmatic relationship", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <div class="widget">
                 <input type="text"/>
@@ -139,7 +139,7 @@ describe("given a list of 3 hidden items in programmatic relationship", function
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       widgetEl = document.querySelector(".widget");
       focusEl = widgetEl.querySelector("input");
       containerEl = widgetEl.querySelector("ul");
@@ -153,7 +153,7 @@ describe("given a list of 3 hidden items in programmatic relationship", function
 });
 
 describe("given a list of 3 hidden items in hierarchial relationship", function () {
-  before(function () {
+  beforeEach(function () {
     document.body.innerHTML = `
             <div class="widget">
                 <ul>
@@ -166,7 +166,7 @@ describe("given a list of 3 hidden items in hierarchial relationship", function 
   });
 
   describe("when instantiated", function () {
-    before(function () {
+    beforeEach(function () {
       widgetEl = document.querySelector(".widget");
       focusEl = widgetEl.querySelector("ul");
       containerEl = focusEl;
@@ -204,11 +204,11 @@ describe("given 3 items with default options in programmatic relationship", func
     widgetEl.addEventListener("activeDescendantChange", onActiveDescendantChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow left is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       focusEl.focus();
       triggerArrowKeyPress(widgetEl, "Left", 1);
     });
@@ -219,7 +219,7 @@ describe("given 3 items with default options in programmatic relationship", func
   });
 
   describe("when arrow up is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Up", 1);
     });
 
@@ -229,7 +229,7 @@ describe("given 3 items with default options in programmatic relationship", func
   });
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
 
@@ -241,7 +241,7 @@ describe("given 3 items with default options in programmatic relationship", func
   });
 
   describe("when arrow right is pressed twice", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 2);
     });
 
@@ -251,7 +251,7 @@ describe("given 3 items with default options in programmatic relationship", func
   });
 
   describe("when arrow right is pressed four times", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 4);
     });
 
@@ -261,7 +261,7 @@ describe("given 3 items with default options in programmatic relationship", func
   });
 
   describe("when arrow right is pressed once after activedescendant is destroyed", function () {
-    before(function () {
+    beforeEach(function () {
       testActiveDescendant.destroy();
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
@@ -272,7 +272,7 @@ describe("given 3 items with default options in programmatic relationship", func
   });
 
   describe("when arrow down is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Down", 1);
     });
 
@@ -282,7 +282,7 @@ describe("given 3 items with default options in programmatic relationship", func
   });
 
   describe("when arrow down is pressed once after emitter is destroyed", function () {
-    before(function () {
+    beforeEach(function () {
       testActiveDescendant.destroy();
       triggerArrowKeyPress(widgetEl, "Down", 1);
     });
@@ -314,11 +314,11 @@ describe("given 3 items with default options in hierarchial relationship", funct
     widgetEl.addEventListener("activeDescendantChange", onActiveDescendantChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow left is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       focusEl.focus();
       triggerArrowKeyPress(widgetEl, "Left", 1);
     });
@@ -329,7 +329,7 @@ describe("given 3 items with default options in hierarchial relationship", funct
   });
 
   describe("when arrow up is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Up", 1);
     });
 
@@ -339,7 +339,7 @@ describe("given 3 items with default options in hierarchial relationship", funct
   });
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
 
@@ -351,7 +351,7 @@ describe("given 3 items with default options in hierarchial relationship", funct
   });
 
   describe("when arrow right is pressed twice", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 2);
     });
 
@@ -361,7 +361,7 @@ describe("given 3 items with default options in hierarchial relationship", funct
   });
 
   describe("when arrow right is pressed four times", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 4);
     });
 
@@ -371,7 +371,7 @@ describe("given 3 items with default options in hierarchial relationship", funct
   });
 
   describe("when arrow right is pressed once after activedescendant is destroyed", function () {
-    before(function () {
+    beforeEach(function () {
       testActiveDescendant.destroy();
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
@@ -382,7 +382,7 @@ describe("given 3 items with default options in hierarchial relationship", funct
   });
 
   describe("when arrow down is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Down", 1);
     });
 
@@ -392,7 +392,7 @@ describe("given 3 items with default options in hierarchial relationship", funct
   });
 
   describe("when arrow down is pressed once after emitter is destroyed", function () {
-    before(function () {
+    beforeEach(function () {
       testActiveDescendant.destroy();
       triggerArrowKeyPress(widgetEl, "Down", 1);
     });
@@ -429,11 +429,11 @@ describe("given 3 items with autoWrap on", function () {
     widgetEl.addEventListener("activeDescendantChange", onActiveDescendantChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow left is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Left", 1);
     });
 
@@ -443,7 +443,7 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow up is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Up", 1);
     });
 
@@ -453,7 +453,7 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
 
@@ -463,7 +463,7 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow right is pressed twice", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 2);
     });
 
@@ -473,7 +473,7 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow right is pressed three times", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 3);
     });
 
@@ -483,12 +483,70 @@ describe("given 3 items with autoWrap on", function () {
   });
 
   describe("when arrow down is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Down", 1);
     });
 
     it("should trigger 1 activeDescendantChange event", function () {
       expect(onActiveDescendantChange.callCount).to.equal(1);
+    });
+  });
+});
+
+describe("given 3 items with autoWrap off", function () {
+  function setup() {
+    document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul>
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+
+    widgetEl = document.querySelector(".widget");
+    focusEl = widgetEl.querySelector("input");
+    containerEl = widgetEl.querySelector("ul");
+    testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, "li", { wrap: false }); // eslint-disable-line
+
+    onActiveDescendantChange = sinon.spy();
+    widgetEl.addEventListener("activeDescendantChange", onActiveDescendantChange);
+  }
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when arrow left is pressed once after wrap set to true", function () {
+    beforeEach(function () {
+      testActiveDescendant.wrap = true;
+      triggerArrowKeyPress(widgetEl, "Left", 1);
+    });
+
+    it("should trigger 1 activeDescendantChange event", function () {
+      expect(onActiveDescendantChange.callCount).to.equal(1);
+    });
+
+    it("should have currentItem set to Button 3", function () {
+      let currentItem = testActiveDescendant.currentItem;
+      expect(currentItem.textContent).to.equal("Button 3");
+    });
+  });
+
+  describe("when arrow up is pressed once", function () {
+    beforeEach(function () {
+      testActiveDescendant.wrap = true;
+      triggerArrowKeyPress(widgetEl, "Up", 1);
+    });
+
+    it("should trigger 1 activeDescendantChange event", function () {
+      expect(onActiveDescendantChange.callCount).to.equal(1);
+    });
+
+    it("should have currentItem set to Button 3", function () {
+      let currentItem = testActiveDescendant.currentItem;
+      expect(currentItem.textContent).to.equal("Button 3");
     });
   });
 });
@@ -519,7 +577,7 @@ describe("given 3 items with default options", function () {
     widgetEl.addEventListener("activeDescendantChange", onActiveDescendantChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when index set to current index", function () {
@@ -579,11 +637,11 @@ describe("given 3 items with axis set to both", function () {
     widgetEl.addEventListener("activeDescendantChange", onActiveDescendantChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow down is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Down", 1);
     });
 
@@ -593,7 +651,7 @@ describe("given 3 items with axis set to both", function () {
   });
 
   describe("when arrow up is pressed once after arrow down", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Down", 1);
     });
 
@@ -605,7 +663,7 @@ describe("given 3 items with axis set to both", function () {
   });
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
 
@@ -615,7 +673,7 @@ describe("given 3 items with axis set to both", function () {
   });
 
   describe("when arrow left is pressed once after arrow right", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
 
@@ -649,11 +707,11 @@ describe("given 3 items with axis set to x", function () {
     widgetEl.addEventListener("activeDescendantChange", onActiveDescendantChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow down is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Down", 1);
     });
 
@@ -663,7 +721,7 @@ describe("given 3 items with axis set to x", function () {
   });
 
   describe("when arrow up is pressed once after arrow down", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Down", 1);
       triggerArrowKeyPress(widgetEl, "Up", 1);
     });
@@ -674,7 +732,7 @@ describe("given 3 items with axis set to x", function () {
   });
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
 
@@ -684,7 +742,7 @@ describe("given 3 items with axis set to x", function () {
   });
 
   describe("when arrow left is pressed once after arrow right", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
 
@@ -718,11 +776,11 @@ describe("given 3 items with axis set to y", function () {
     widgetEl.addEventListener("activeDescendantChange", onActiveDescendantChange);
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when arrow right is pressed once", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 1);
     });
 
@@ -732,7 +790,7 @@ describe("given 3 items with axis set to y", function () {
   });
 
   describe("when arrow left is pressed once after arrow right", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Right", 1);
       triggerArrowKeyPress(widgetEl, "Left", 1);
     });
@@ -743,7 +801,7 @@ describe("given 3 items with axis set to y", function () {
   });
 
   describe("when arrow Down is pressed twice", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Down", 2);
     });
 
@@ -753,7 +811,7 @@ describe("given 3 items with axis set to y", function () {
   });
 
   describe("when arrow Up is pressed once after arrow down", function () {
-    before(function () {
+    beforeEach(function () {
       triggerArrowKeyPress(widgetEl, "Down", 1);
     });
 
@@ -787,11 +845,11 @@ describe("given 3 items", function () {
     containerEl = widgetEl.querySelector("ul");
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when autoInit is 0", function () {
-    before(function () {
+    beforeEach(function () {
       testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, "li", { autoInit: 0 }); // eslint-disable-line
     });
 
@@ -801,7 +859,7 @@ describe("given 3 items", function () {
   });
 
   describe("when autoInit is 2", function () {
-    before(function () {
+    beforeAll(function () {
       testActiveDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, "li", { autoInit: 2 }); // eslint-disable-line
     });
 
@@ -847,11 +905,11 @@ describe("given 3 items with focus on second", function () {
     testActiveDescendant.index = 1;
   }
 
-  before(setup);
+  beforeEach(setup);
   afterEach(setup);
 
   describe("when autoReset is interactive", function () {
-    before(function () {
+    beforeEach(function () {
       testActiveDescendant.reset();
     });
 
@@ -861,7 +919,7 @@ describe("given 3 items with focus on second", function () {
   });
 
   // describe('when focus exits the widget', function() {
-  //     before(function() {
+  //     beforeEach(function() {
   //         buttonEl.focus();
   //     });
 

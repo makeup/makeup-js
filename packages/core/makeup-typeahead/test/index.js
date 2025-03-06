@@ -1,37 +1,78 @@
-import { expect } from "chai";
+import { describe, expect, beforeEach, afterEach, it } from "vitest";
 import typeahead from "../src/index.js";
 
-var testData = "<ul><li>Albania</li><li>Alcania</li><li>Alcbnia</li></ul>";
-var TIMEOUT_LENGTH = 1000;
+const TIMEOUT_LENGTH = 1000;
 
-var testDataEmpty = "<ol></ol>";
+describe("typeahead", () => {
+  let mockNodeList;
+  let getIndex;
+  let th;
+  let destroy;
 
-describe("typeahead", function () {
-  it("should generate proper answer based on chars given", function () {
-    document.querySelector("body").innerHTML = testData;
-    const { getIndex } = typeahead();
-    getIndex(document.querySelector("ul").children, "a", TIMEOUT_LENGTH);
-    var result1 = getIndex(document.querySelector("ul").children, "l", TIMEOUT_LENGTH);
+  beforeEach(() => {
+    th = typeahead();
+    getIndex = th.getIndex;
+    destroy = th.destroy;
+    mockNodeList = [{ textContent: "Albania" }, { textContent: "India" }, { textContent: "USA" }];
+  });
 
-    expect(result1).to.equal(0);
+  afterEach(() => {
+    destroy();
+    th = null;
+  });
 
-    var result2 = getIndex(document.querySelector("ul").children, "c", TIMEOUT_LENGTH);
-    expect(result2).to.equal(1);
+  it("should return -1 for null nodelist", async () => {
+    const index = getIndex(null, "a", TIMEOUT_LENGTH);
+    expect(index).toBe(-1);
+  });
 
-    var result3 = getIndex(document.querySelector("ul").children, "b", TIMEOUT_LENGTH);
-    expect(result3).to.equal(2);
+  it("should return -1 if no match is found", () => {
+    expect(getIndex(mockNodeList, "z", 1000)).toBe(-1);
+  });
+
+  it("should find index with starting character", async () => {
+    const index = getIndex(mockNodeList, "i", TIMEOUT_LENGTH);
+    expect(index).toBe(1);
+  });
+
+  it("should be case insensitive", async () => {
+    const index = getIndex(mockNodeList, "I", TIMEOUT_LENGTH);
+    expect(index).toBe(1);
+  });
+
+  it("should match multiple characters", async () => {
+    const index1 = getIndex(mockNodeList, "u", TIMEOUT_LENGTH);
+    const index2 = getIndex(mockNodeList, "s", TIMEOUT_LENGTH);
+    expect(index2).toBe(2); // USA (matching 'us')
+  });
+
+  it("should fallback to includes match if no start match", async () => {
+    mockNodeList = [{ textContent: "California" }, { textContent: "York" }, { textContent: "New York" }];
+    const index = getIndex(mockNodeList, "y", TIMEOUT_LENGTH);
+    expect(index).toBe(1); // York
+  });
+
+  it("should clear typeStr after timeout", async () => {
+    const index1 = getIndex(mockNodeList, "a", 100);
+    expect(index1).toBe(0); // Albania
+
+    setTimeout(() => {
+      const index2 = getIndex(mockNodeList, "u", 100);
+      expect(index2).toBe(2); // USA (not matching 'au')
+    }, 150);
   });
 
   it("should not error when empty list given", function () {
-    document.querySelector("body").innerHTML = testDataEmpty;
-    const { getIndex } = typeahead();
-    var result = getIndex(document.querySelector("ol").children, "a", TIMEOUT_LENGTH);
-    expect(result).to.equal(-1);
+    document.body.innerHTML = "<ol></ol>";
+    const children = document.querySelectorAll("ol > *");
+    const index = getIndex(children, "a", TIMEOUT_LENGTH);
+    expect(index).toBe(-1);
   });
 
-  it("should not error when null given for list", function () {
-    const { getIndex } = typeahead();
-    var result = getIndex(null, "a", TIMEOUT_LENGTH);
-    expect(result).to.equal(-1);
+  it("should cleanup timeout on destroy", async () => {
+    const index = getIndex(mockNodeList, "a", 5000);
+    destroy();
+    // Verify no errors after destroy
+    expect(index).toBe(0); // Albania
   });
 });

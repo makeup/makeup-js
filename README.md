@@ -1,5 +1,5 @@
 # makeup-js
-
+[![makeup tests](https://github.com/makeup/makeup-js/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/makeup/makeup-js/actions/workflows/tests.yml)
 [![Core Module Coverage](https://coveralls.io/repos/github/makeup/makeup-js/badge.svg?branch=master)](https://coveralls.io/github/makeup/makeup-js?branch=master)
 
 A suite of vanilla JavaScript modules for building accessible user interfaces.

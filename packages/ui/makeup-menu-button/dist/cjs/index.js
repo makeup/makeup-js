@@ -32,7 +32,7 @@ class _default {
     this._expander = new _makeupExpander.default(widgetEl, {
       alwaysDoFocusManagement: true,
       autoCollapse: true,
-      collapseOnHostFocus: true,
+      collapseOnHostReFocus: true,
       contentSelector: this._options.menuSelector,
       expandedClass: this._options.expandedClass,
       expandOnClick: true,

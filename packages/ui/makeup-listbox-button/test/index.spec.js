@@ -134,14 +134,14 @@ test.describe("given a listbox-button for automatic selection", function () {
       await expect(contentEl).toBeVisible();
     });
 
-    // test("should close on host clicking twice", async function () {
-    //   await hostBtn.click();
-    //   await expect(hostBtn).toHaveAttribute("aria-expanded", "true");
-    //   await expect(contentEl).toBeVisible();
-    //   await hostBtn.click();
-    //   await expect(hostBtn).toHaveAttribute("aria-expanded", "false");
-    //   await expect(contentEl).not.toBeVisible();
-    // });
+    test("should close on host clicking twice", async function () {
+      await hostBtn.click();
+      await expect(hostBtn).toHaveAttribute("aria-expanded", "true");
+      await expect(contentEl).toBeVisible();
+      await hostBtn.click();
+      await expect(hostBtn).toHaveAttribute("aria-expanded", "false");
+      await expect(contentEl).not.toBeVisible();
+    });
 
     // TODO: shouldn't first item be selected by default in automatic?
     test("should use valid aria on selection", async function () {

@@ -49,7 +49,7 @@ export default class {
     this._expander = new Expander(this.el, {
       alwaysDoFocusManagement: true,
       autoCollapse: true,
-      collapseOnHostFocus: true,
+      collapseOnHostReFocus: true,
       contentSelector: this._options.listboxSelector,
       expandedClass: "listbox-button--expanded",
       expandOnClick: true,

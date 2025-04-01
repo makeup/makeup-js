@@ -8,7 +8,7 @@ const defaultOptions = {
   collapseOnFocusOut: false,
   collapseOnMouseOut: false,
   collapseOnClickOut: false,
-  collapseOnHostFocus: false,
+  collapseOnHostReFocus: false,
   contentSelector: ".expander__content",
   expandedClass: null,
   expandOnClick: false,
@@ -32,16 +32,16 @@ function onHostMouseDown() {
 function onHostClick() {
   this._expandWasKeyboardClickActivated = this._keyboardClickFlag;
   this._expandWasMouseClickActivated = this._mouseClickFlag;
+  this._widgetHasKeyboardFocus = this._keyboardClickFlag;
   this.expanded = !this.expanded;
 }
 function onHostFocus() {
-  if (this.options.collapseOnHostFocus) {
-    if (this.expanded && !this._mouseClickFlag && (this.options.autoCollapse || this.options.collapseOnClickOut && this.options.collapseOnFocusOut && this.options.collapseOnMouseOut)) {
-      this.expanded = false;
-    }
-  } else {
-    this._expandWasFocusActivated = true;
-    this.expanded = true;
+  this._expandWasFocusActivated = true;
+  this.expanded = true;
+}
+function onHostReFocus() {
+  if (this.expanded && this._widgetHasKeyboardFocus) {
+    this.expanded = false;
   }
 }
 function onHostHover() {
@@ -50,6 +50,7 @@ function onHostHover() {
   this.expanded = true;
 }
 function onFocusExit() {
+  this._widgetHasKeyboardFocus = false;
   this.expanded = false;
 }
 function onMouseLeave() {
@@ -107,6 +108,7 @@ class index_default {
     this._documentTouchEndListener = _onDocumentTouchEnd.bind(this);
     this._hostClickListener = onHostClick.bind(this);
     this._hostFocusListener = onHostFocus.bind(this);
+    this._hostReFocusListener = onHostReFocus.bind(this);
     this._hostHoverListener = onHostHover.bind(this);
     this._focusExitListener = onFocusExit.bind(this);
     this._mouseLeaveListener = onMouseLeave.bind(this);
@@ -121,7 +123,7 @@ class index_default {
     this.expandOnClick = this.options.expandOnClick;
     this.expandOnFocus = this.options.expandOnFocus;
     this.expandOnHover = this.options.expandOnHover;
-    this.collapseOnHostFocus = this.options.collapseOnHostFocus;
+    this.collapseOnHostReFocus = this.options.collapseOnHostReFocus;
     if (this.options.autoCollapse === false) {
       this.collapseOnClickOut = this.options.collapseOnClickOut;
       this.collapseOnFocusOut = this.options.collapseOnFocusOut;
@@ -154,9 +156,11 @@ class index_default {
       this.hostEl.removeEventListener("focus", this._hostFocusListener);
     }
   }
-  set collapseOnHostFocus(bool) {
+  set collapseOnHostReFocus(bool) {
     if (bool === true) {
-      this.hostEl.addEventListener("focus", this._hostFocusListener);
+      this.hostEl.addEventListener("focus", this._hostReFocusListener);
+    } else {
+      this.hostEl.removeEventListener("focus", this._hostReFocusListener);
     }
   }
   set expandOnHover(bool) {
@@ -236,7 +240,7 @@ class index_default {
       this.collapseOnClickOut = false;
       this.collapseOnFocusOut = false;
       this.collapseOnMouseOut = false;
-      this.collapseOnHostFocus = false;
+      this.collapseOnHostReFocus = false;
     }
   }
   destroy() {
@@ -250,9 +254,11 @@ class index_default {
     this._documentTouchEndListener = null;
     this._hostClickListener = null;
     this._hostFocusListener = null;
+    this._hostReFocusListener = null;
     this._hostHoverListener = null;
     this._focusExitListener = null;
     this._mouseLeaveListener = null;
+    this._widgetHasKeyboardFocus = null;
   }
 }
 export {

@@ -1,7 +1,7 @@
 {
   "name": "makeup-modal",
   "description": "Applies modal accessibility requirements to any element",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -26,8 +26,8 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-keyboard-trap": "^0.5.4",
-    "makeup-screenreader-trap": "^0.5.3"
+    "makeup-keyboard-trap": "^0.5.5",
+    "makeup-screenreader-trap": "^0.5.4"
   },
   "files": [
     "dist/cjs/index.js",

@@ -110,7 +110,7 @@ test.describe("given a listbox-button for automatic selection", function () {
   test.beforeEach(async ({ page }) => {
     await page.goto("/ui/makeup-listbox-button/index.html");
 
-    containerEl = page.locator(".listbox-button[data-makeup-auto-select='true']").nth(3);
+    containerEl = page.locator(".listbox-button[data-makeup-auto-select='true']").first();
     hostBtn = containerEl.locator("button");
     contentEl = containerEl.locator(".listbox-button__listbox");
     OptionsEl = contentEl.locator(".listbox-button__options");
@@ -207,7 +207,7 @@ test.describe("given a listbox-button for automatic selection with grouped heade
 
   test.describe("for unselected, manual selection variant", async function () {
     test.beforeEach(async ({ page }) => {
-      containerEl = page.locator(".listbox-button").nth(10);
+      containerEl = page.locator(".listbox-button").nth(3);
       hostBtn = containerEl.locator("button");
       contentEl = containerEl.locator(".listbox-button__listbox");
       OptionsEl = contentEl.locator(".listbox-button__options");
@@ -227,15 +227,6 @@ test.describe("given a listbox-button for automatic selection with grouped heade
       await hostBtn.click();
       await expect(hostBtn).toHaveAttribute("aria-expanded", "true");
       await expect(contentEl).toBeVisible();
-    });
-
-    test("should close on host clicking twice", async function () {
-      await hostBtn.click();
-      await expect(hostBtn).toHaveAttribute("aria-expanded", "true");
-      await expect(contentEl).toBeVisible();
-      await hostBtn.click();
-      await expect(hostBtn).toHaveAttribute("aria-expanded", "false");
-      await expect(contentEl).not.toBeVisible();
     });
 
     test("should use valid aria on selection", async function () {

@@ -59,7 +59,7 @@ test.describe("given a listbox for automatic selection", function () {
   test.beforeEach(async ({ page }) => {
     await page.goto("/ui/makeup-listbox/index.html");
 
-    containerEl = page.locator(".listbox").nth(2);
+    containerEl = page.locator(".listbox").nth(3);
     OptionsEl = containerEl.locator(".listbox__options");
     firstOptionEl = OptionsEl.getByRole("option").first();
     secondOptionEl = OptionsEl.getByRole("option").nth(1);
@@ -106,7 +106,7 @@ test.describe("given a listbox with headers", function () {
 
   test.describe("for unselected variant", async function () {
     test.beforeEach(async ({ page }) => {
-      containerEl = page.locator(".listbox").nth(6);
+      containerEl = page.locator(".listbox").nth(2);
       listbox = await containerEl.getByRole("listbox");
       OptionsEl = containerEl.locator(".listbox__options");
       firstOptionEl = OptionsEl.getByRole("option").first();

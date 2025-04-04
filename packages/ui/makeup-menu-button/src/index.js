@@ -26,7 +26,7 @@ export default class {
     this._expander = new Expander(widgetEl, {
       alwaysDoFocusManagement: true,
       autoCollapse: true,
-      collapseOnHostFocus: true,
+      collapseOnHostReFocus: true,
       contentSelector: this._options.menuSelector,
       expandedClass: this._options.expandedClass,
       expandOnClick: true,

@@ -52,7 +52,7 @@ class _default {
     this._expander = new _makeupExpander.default(this.el, {
       alwaysDoFocusManagement: true,
       autoCollapse: true,
-      collapseOnHostFocus: true,
+      collapseOnHostReFocus: true,
       contentSelector: this._options.listboxSelector,
       expandedClass: "listbox-button--expanded",
       expandOnClick: true,

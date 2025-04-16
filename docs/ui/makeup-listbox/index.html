@@ -255,7 +255,7 @@
                 <use href="../../icons.svg#icon-tick-16"></use>
               </svg>
             </div>
-            <div class="listbox__option" role="option" aria-selected="true">
+            <div class="listbox__option" role="option" aria-selected="false">
               <span class="listbox__value">Blue</span>
               <span class="listbox__description">
                 <span class="clipped"> - </span>
@@ -290,12 +290,12 @@
 
         <h3>Groups</h3>
 
-        <div class="listbox">
+        <div class="listbox" id="groups">
           <div class="listbox__options" role="listbox" tabindex="0">
             <div id="warm-color-group-title" class="listbox__group-title" role="presentation">
               <span>Warm Colors</span>
             </div>
-            <div class="listbox__option" role="option" aria-describedby="warm-color-group-title" aria-selected="true">
+            <div class="listbox__option" role="option" aria-describedby="warm-color-group-title" aria-selected="false">
               <span class="listbox__value">Red</span>
               <span class="listbox__description">
                 <span class="clipped" aria-hidden="true"> - </span>
@@ -384,7 +384,7 @@
             <div id="warm-color-group-title" class="listbox__group-title" role="presentation">
               <span>Warm Colors</span>
             </div>
-            <div class="listbox__option" role="option" aria-describedby="warm-color-group-title" aria-selected="true">
+            <div class="listbox__option" role="option" aria-describedby="warm-color-group-title" aria-selected="false">
               <span class="listbox__value">Red</span>
               <span class="listbox__description">
                 <span class="clipped" aria-hidden="true"> - </span>
@@ -468,13 +468,18 @@
 
         <h3>Fixed Columns</h3>
 
-        <div class="listbox listbox--fixed-columns">
+        <div class="listbox listbox--fixed-columns" id="fixed-columns">
           <div class="listbox__options" role="listbox" tabindex="0">
             <div class="listbox__column">
               <div id="warm-color-group-title" class="listbox__group-title" role="presentation">
                 <span>Warm Colors</span>
               </div>
-              <div class="listbox__option" role="option" aria-describedby="warm-color-group-title" aria-selected="true">
+              <div
+                class="listbox__option"
+                role="option"
+                aria-describedby="warm-color-group-title"
+                aria-selected="false"
+              >
                 <span class="listbox__value">Red</span>
                 <span class="listbox__description">
                   <span class="clipped" aria-hidden="true"> - </span>

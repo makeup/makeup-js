@@ -173,13 +173,15 @@ function _onClick(e) {
   // unlike the keyDown event, the click event target can be a child element of the option
   // e.g. <div role="option"><span>Item 1</span></div>
   const toEl = e.target.closest("[role=option]");
-  const toElIndex = this.items.indexOf(toEl);
-  const isTolElSelected = toEl.getAttribute("aria-selected") === "true";
-  const isTolElDisabled = toEl.getAttribute("aria-disabled") === "true";
-  if (!isTolElDisabled && this._options.autoSelect === false && isTolElSelected === false) {
-    // todo: this.select() should take care of unselecting any existing selections
-    this.unselect(this.index);
-    this.select(toElIndex);
+  if (toEl) {
+    const toElIndex = this.items.indexOf(toEl);
+    const isTolElSelected = toEl.getAttribute("aria-selected") === "true";
+    const isTolElDisabled = toEl.getAttribute("aria-disabled") === "true";
+    if (!isTolElDisabled && this._options.autoSelect === false && isTolElSelected === false) {
+      // todo: this.select() should take care of unselecting any existing selections
+      this.unselect(this.index);
+      this.select(toElIndex);
+    }
   }
 }
 function _onActiveDescendantChange(e) {

@@ -138,8 +138,10 @@ function _onListboxKeyDown(e) {
   }
 }
 
-function _onListboxClick() {
-  this.collapse();
+function _onListboxClick(e) {
+  if (e.target.closest("[role=option]")) {
+    this.collapse();
+  }
 }
 
 function _onListboxInit(e) {

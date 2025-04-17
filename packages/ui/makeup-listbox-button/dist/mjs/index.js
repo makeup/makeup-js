@@ -118,8 +118,10 @@ function _onListboxKeyDown(e) {
     this.collapse();
   }
 }
-function _onListboxClick() {
-  this.collapse();
+function _onListboxClick(e) {
+  if (e.target.closest("[role=option]")) {
+    this.collapse();
+  }
 }
 function _onListboxInit(e) {
   this.el.dispatchEvent(new CustomEvent("makeup-listbox-button-init", { detail: e.detail }));

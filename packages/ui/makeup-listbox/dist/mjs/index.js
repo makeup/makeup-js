@@ -155,12 +155,14 @@ function _onKeyDown(e) {
 }
 function _onClick(e) {
   const toEl = e.target.closest("[role=option]");
-  const toElIndex = this.items.indexOf(toEl);
-  const isTolElSelected = toEl.getAttribute("aria-selected") === "true";
-  const isTolElDisabled = toEl.getAttribute("aria-disabled") === "true";
-  if (!isTolElDisabled && this._options.autoSelect === false && isTolElSelected === false) {
-    this.unselect(this.index);
-    this.select(toElIndex);
+  if (toEl) {
+    const toElIndex = this.items.indexOf(toEl);
+    const isTolElSelected = toEl.getAttribute("aria-selected") === "true";
+    const isTolElDisabled = toEl.getAttribute("aria-disabled") === "true";
+    if (!isTolElDisabled && this._options.autoSelect === false && isTolElSelected === false) {
+      this.unselect(this.index);
+      this.select(toElIndex);
+    }
   }
 }
 function _onActiveDescendantChange(e) {

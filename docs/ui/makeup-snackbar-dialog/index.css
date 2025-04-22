@@ -67,6 +67,7 @@
     --color-blue-400: #659eff;
     --color-blue-500: #3665f3;
     --color-blue-600: #382aef;
+    --color-blue-650: #003aa5;
     --color-blue-700: #002a69;
     --color-blue-800: #19133a;
     --color-violet-100: #f6f5fe;
@@ -187,6 +188,11 @@
     --font-size-giant-2: var(--font-size-36);
     --font-size-giant-3: var(--font-size-46);
     --font-size-giant-4: var(--font-size-64);
+    /* 
+    Ratio of 20px (base line height) / 14px (body font) 
+    This needs to be unitless for optimal scaling
+    */
+    --font-line-height-250: 1.4286;
     --font-weight-regular: 500;
     --font-weight-bold: 700;
     --spacing-25: 2px;
@@ -238,13 +244,21 @@
     --color-foreground-on-confirmation: var(--color-neutral-100);
     --color-foreground-on-information: var(--color-neutral-100);
     --color-foreground-on-strong: var(--color-neutral-100);
+    --color-foreground-link-visited: var(--color-pink-600);
+    --color-foreground-link-legal: var(--color-blue-650);
+    --color-foreground-link-primary: var(--color-foreground-primary);
     --color-stroke-default: var(--color-neutral-500);
     --color-stroke-accent: var(--color-blue-500);
-    --color-stroke-attention: var(--color-red-500);
+    --color-stroke-on-accent: var(--color-neutral-100);
+    --color-stroke-attention: var(--color-red-600);
+    --color-stroke-on-attention: var(--color-neutral-100);
     --color-stroke-confirmation: var(--color-kiwi-600);
+    --color-stroke-on-confirmation: var(--color-neutral-100);
     --color-stroke-information: var(--color-blue-500);
     --color-stroke-disabled: var(--color-neutral-400);
+    --color-stroke-on-disabled: var(--color-neutral-100);
     --color-stroke-strong: var(--color-neutral-800);
+    --color-stroke-inverse: var(--color-neutral-100);
     --color-stroke-subtle: var(--color-neutral-300);
     --color-state-visited: var(--color-pink-600);
     --color-state-focus-stroke: #005fcc;
@@ -352,8 +366,8 @@
         var(--color-ai-solid-blue-subtle) 154.5%
     );
     --shadow-subtle: 0px 4px 12px 0px rgba(0, 0, 0, 0.07);
-    --shadow-strong: 0px 5px 17px 0px rgba(0, 0, 0, 0.2),
-        0px 2px 7px 0px rgba(0, 0, 0, 0.15);
+    --shadow-strong:
+        0px 5px 17px 0px rgba(0, 0, 0, 0.2), 0px 2px 7px 0px rgba(0, 0, 0, 0.15);
     --color-loading-overlay: var(--color-neutral-100-rgb), 0.7;
     --color-loading-fill: #ededed;
     --color-loading-shimmer: linear-gradient(
@@ -398,6 +412,28 @@
         var(--color-ai-solid-green-subtle) 100%
     );
     --color-media-disabled-filter: grayscale(1) opacity(0.25);
+    /* Motion Functions */
+    --motion-easing-standard: cubic-bezier(0.3, 0, 0, 1);
+    --motion-easing-quick-enter: cubic-bezier(0, 0, 0, 1);
+    --motion-easing-quick-exit: cubic-bezier(1, 0, 0, 1);
+    --motion-easing-soft-enter: cubic-bezier(0, 0, 0.7, 1);
+    --motion-easing-soft-exit: cubic-bezier(0.3, 0, 1, 1);
+    --motion-easing-continuous: cubic-bezier(0.3, 0, 0.7, 1);
+    --motion-easing-bounce: cubic-bezier(0.3, 0, 0, 1.5);
+    --motion-easing-linear: cubic-bezier(0, 0, 1, 1);
+    /* Motion Timings */
+    --motion-duration-instant: 17ms;
+    --motion-duration-short-1: 50ms;
+    --motion-duration-short-2: 83ms;
+    --motion-duration-short-3: 167ms;
+    --motion-duration-medium-1: 250ms;
+    --motion-duration-medium-2: 333ms;
+    --motion-duration-medium-3: 500ms;
+    --motion-duration-long-1: 667ms;
+    --motion-duration-long-2: 883ms;
+    --motion-duration-long-3: 1000ms;
+    /* Typography */
+    --font-line-height-default: var(--font-line-height-250);
 }
 
 body {
@@ -408,6 +444,7 @@ body {
         Arial,
         sans-serif;
     font-size: var(--font-size-default);
+    line-height: var(--font-line-height-default);
     -webkit-text-size-adjust: 100%;
 }
 
@@ -423,13 +460,13 @@ legend {
 a {
     color: var(
         --link-foreground-color-default,
-        var(--color-foreground-primary)
+        var(--color-foreground-link-primary)
     );
 }
 a:visited {
     color: var(
         --link-foreground-color-visited,
-        var(--color-foreground-visited)
+        var(--color-foreground-link-visited)
     );
 }
 a:hover {
@@ -580,14 +617,17 @@ a[aria-disabled="true"] {
 
 a.nav-link,
 a.standalone-link {
-    color: var(--nav-link-foreground-color, var(--color-foreground-primary));
+    color: var(
+        --nav-link-foreground-color,
+        var(--color-foreground-link-primary)
+    );
     text-decoration: none;
 }
 a.nav-link:visited,
 a.standalone-link:visited {
     color: var(
         --link-foreground-color-default,
-        var(--color-foreground-primary)
+        var(--color-foreground-link-primary)
     );
 }
 a.nav-link:hover,
@@ -612,7 +652,10 @@ a.standalone-link[aria-disabled="true"] {
 button.fake-link {
     background-color: initial;
     border: 0;
-    color: var(--fake-link-foreground-color, var(--color-foreground-primary));
+    color: var(
+        --fake-link-foreground-color,
+        var(--color-foreground-link-primary)
+    );
     font-family: inherit;
     font-size: inherit;
     padding: 0;
@@ -629,6 +672,22 @@ button.fake-link[disabled] {
     color: var(
         --fake-link-foreground-disabled-color,
         var(--color-foreground-disabled)
+    );
+}
+
+a.legal-link,
+button.legal-link {
+    text-decoration: underline;
+}
+a.legal-link,
+a.legal-link:hover,
+a.legal-link:visited,
+button.legal-link,
+button.legal-link:hover,
+button.legal-link:visited {
+    color: var(
+        --legal-link-foreground-color,
+        var(--color-foreground-link-legal)
     );
 }
 

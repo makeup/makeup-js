@@ -24,13 +24,12 @@ const defaultOptions = {
 };
 class _default {
   constructor(widgetEl, selectedOptions) {
-    var _this$_buttonEl$datas;
     this._options = Object.assign({}, defaultOptions, selectedOptions);
     this.el = widgetEl;
     this._buttonEl = this.el.querySelector("button");
     this._buttonLabelEl = widgetEl.querySelector(this._options.buttonLabelSelector);
     this._buttonFloatingLabelEl = widgetEl.querySelector(this._options.floatingLabelSelector);
-    this._buttonPrefix = (_this$_buttonEl$datas = this._buttonEl.dataset) === null || _this$_buttonEl$datas === void 0 ? void 0 : _this$_buttonEl$datas.listboxButtonPrefix;
+    this._buttonPrefix = this._buttonEl.dataset?.listboxButtonPrefix;
     this._listboxEl = this.el.querySelector(this._options.listboxSelector);
     this._onButtonFirstClickListener = _onButtonFirstClick.bind(this);
     this._onListboxClickListener = _onListboxClick.bind(this);
@@ -151,11 +150,11 @@ function _onListboxChange(e) {
     floatingLabelInline
   } = this._options;
   const icon = e.detail.el.querySelector(listboxOptionIconSelector).cloneNode(true);
-  let btnContent = this._buttonPrefix ? "".concat(this._buttonPrefix).concat(toValue) : toValue;
+  let btnContent = this._buttonPrefix ? `${this._buttonPrefix}${toValue}` : toValue;
   if (icon) {
     switch (buttonValueType) {
       case "both":
-        btnContent = "".concat(icon.outerHTML, " <span>").concat(btnContent, "</span>");
+        btnContent = `${icon.outerHTML} <span>${btnContent}</span>`;
         break;
       case "icon":
         this._buttonEl.setAttribute("aria-label", btnContent);
@@ -166,9 +165,8 @@ function _onListboxChange(e) {
     }
   }
   if (listboxOptionAriaLabelSelector) {
-    var _e$detail$el$querySel;
-    const selectorText = (_e$detail$el$querySel = e.detail.el.querySelector(listboxOptionAriaLabelSelector)) === null || _e$detail$el$querySel === void 0 ? void 0 : _e$detail$el$querySel.innerText.trim();
-    this._buttonEl.setAttribute("aria-label", this._buttonPrefix ? "".concat(this._buttonPrefix, " ").concat(selectorText) : selectorText);
+    const selectorText = e.detail.el.querySelector(listboxOptionAriaLabelSelector)?.innerText.trim();
+    this._buttonEl.setAttribute("aria-label", this._buttonPrefix ? `${this._buttonPrefix} ${selectorText}` : selectorText);
   }
   this._buttonLabelEl.innerHTML = btnContent;
   if (this._buttonFloatingLabelEl) {

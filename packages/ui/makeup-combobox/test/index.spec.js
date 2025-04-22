@@ -37,7 +37,7 @@ test.describe("given a combobox", () => {
 
   test.describe("manual selection mode", () => {
     test("should expand options on input focus", async ({ page }) => {
-      const combobox = page.locator('[data-makeup-auto-select="false"]').first();
+      const combobox = page.locator(".combobox").first();
       const input = combobox.locator('input[role="combobox"]');
       const listbox = combobox.locator(".combobox__listbox");
 
@@ -47,7 +47,7 @@ test.describe("given a combobox", () => {
     });
 
     test("should navigate options with arrow keys", async ({ page }) => {
-      const combobox = page.locator('[data-makeup-auto-select="false"]').first();
+      const combobox = page.locator("#combobox-3 + form");
       const input = combobox.locator('input[role="combobox"]');
 
       await input.click();
@@ -62,7 +62,7 @@ test.describe("given a combobox", () => {
     });
 
     test("should select option with Enter key", async ({ page }) => {
-      const combobox = page.locator('[data-makeup-auto-select="false"]').first();
+      const combobox = page.locator("#combobox-3 + form");
       const input = combobox.locator('input[role="combobox"]');
 
       await input.click();
@@ -78,7 +78,7 @@ test.describe("given a combobox", () => {
     });
 
     test("should close dropdown with Escape key", async ({ page }) => {
-      const combobox = page.locator('[data-makeup-auto-select="false"]').first();
+      const combobox = page.locator("#combobox-3 + form");
       const input = combobox.locator('input[role="combobox"]');
       const listbox = combobox.locator(".combobox__listbox");
 
@@ -90,7 +90,7 @@ test.describe("given a combobox", () => {
     });
 
     test("should select option with mouse click", async ({ page }) => {
-      const combobox = page.locator('[data-makeup-auto-select="false"]').first();
+      const combobox = page.locator("#combobox-3 + form");
       const input = combobox.locator('input[role="combobox"]');
 
       await input.click();
@@ -109,7 +109,7 @@ test.describe("given a combobox", () => {
   test.describe("automatic selection mode", () => {
     test("should automatically update input on navigation", async ({ page }) => {
       // Second combobox doesn't have data-makeup-auto-select attribute (defaults to true)
-      const combobox = page.locator('h2:has-text("Automatic Selection") + p + form .combobox');
+      const combobox = page.locator("#combobox-1 + form .combobox");
       const input = combobox.locator('input[role="combobox"]').first();
 
       await input.click();
@@ -128,7 +128,7 @@ test.describe("given a combobox", () => {
   test.describe("list autocomplete functionality", () => {
     test("should filter options based on input", async ({ page }) => {
       // Third combobox has aria-autocomplete="list"
-      const combobox = page.locator('h2:has-text("Manual Selection with List Autocomplete") + p + form .combobox');
+      const combobox = page.locator("#combobox-4 + form .combobox");
       const input = combobox.locator('input[role="combobox"]');
 
       await input.click();
@@ -149,7 +149,7 @@ test.describe("given a combobox", () => {
 
     test("should reset filtering when input is cleared", async ({ page }) => {
       // Fourth combobox has aria-autocomplete="list" with autoSelect=true
-      const combobox = page.locator('h2:has-text("Automatic Selection with List Autocomplete") + p + form .combobox');
+      const combobox = page.locator("#combobox-2 + form .combobox");
       const input = combobox.locator('input[role="combobox"]');
 
       await input.click();

@@ -19,8 +19,8 @@ function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; 
 const defaultOptions = {
   activeDescendantClassName: "listbox__option--active",
   // the classname applied to the current active desdcendant
-  autoInit: "ariaSelectedOrInteractive",
-  autoReset: "ariaSelectedOrInteractive",
+  autoInit: "none",
+  autoReset: null,
   autoSelect: true,
   // when true, aria-checked state matches active-descendant
   autoScroll: true,
@@ -36,9 +36,6 @@ const defaultOptions = {
   // doubles up on support for aria-selected to announce visible selected/checked state
   valueSelector: ".listbox__value" // Selector to get value from
 };
-function isSpacebarOrEnter(keyCode) {
-  return keyCode === 13 || keyCode === 32;
-}
 class _default {
   constructor(widgetEl, selectedOptions) {
     this._options = Object.assign({}, defaultOptions, selectedOptions);
@@ -59,6 +56,8 @@ class _default {
     PreventScrollKeys.add(this.el);
     this._onKeyDownListener = _onKeyDown.bind(this);
     this._onClickListener = _onClick.bind(this);
+    this._onFirstMouseDownListener = _onFirstMouseDown.bind(this);
+    this._onFirstFocusListener = _onFirstFocus.bind(this);
     this._onActiveDescendantChangeListener = _onActiveDescendantChange.bind(this);
     this._onMutationListener = _onMutation.bind(this);
     this.el.classList.add("listbox--js");
@@ -93,6 +92,12 @@ class _default {
   _observeEvents() {
     if (this._destroyed !== true) {
       this._activeDescendantRootEl.addEventListener("activeDescendantChange", this._onActiveDescendantChangeListener);
+      this._listboxEl.addEventListener("mousedown", this._onFirstMouseDownListener, {
+        once: true
+      });
+      this._listboxEl.addEventListener("focus", this._onFirstFocusListener, {
+        once: true
+      });
       this._listboxEl.addEventListener("keydown", this._onKeyDownListener);
       this._listboxEl.addEventListener("click", this._onClickListener);
     }
@@ -100,6 +105,8 @@ class _default {
   _unobserveEvents() {
     this._listboxEl.removeEventListener("keydown", this._onKeyDownListener);
     this._listboxEl.removeEventListener("click", this._onClickListener);
+    this._listboxEl.removeEventListener("focus", this._onFirstFocusListener);
+    this._listboxEl.removeEventListener("mousedown", this._onFirstMouseDownListener);
     this._activeDescendantRootEl.removeEventListener("activeDescendantChange", this._onActiveDescendantChangeListener);
   }
   get index() {
@@ -110,31 +117,34 @@ class _default {
   }
   select(index) {
     this._unobserveMutations();
-    const itemEl = this.items[index];
-    if (itemEl && itemEl.getAttribute("aria-disabled") !== "true") {
-      const matchingItem = this.items[index];
-      let optionValue;
-      matchingItem.setAttribute("aria-selected", "true");
-      if (this._options.useAriaChecked === true) {
-        matchingItem.setAttribute("aria-checked", "true");
-      }
-      optionValue = matchingItem.innerText;
+    if (this.index !== index) {
+      this.unselect(this.index);
+      const itemEl = this._activeDescendant.items[index];
+      if (itemEl && itemEl.getAttribute("aria-disabled") !== "true") {
+        const matchingItem = this.items[index];
+        let optionValue;
+        matchingItem.setAttribute("aria-selected", "true");
+        if (this._options.useAriaChecked === true) {
+          matchingItem.setAttribute("aria-checked", "true");
+        }
+        optionValue = matchingItem.innerText;
 
-      // Check if value selector is present and use that to get innerText instead
-      // If its not present, will default to innerText of the whole item
-      if (this._options.valueSelector) {
-        const valueSelector = matchingItem.querySelector(this._options.valueSelector);
-        if (valueSelector) {
-          optionValue = valueSelector.innerText;
+        // Check if value selector is present and use that to get innerText instead
+        // If its not present, will default to innerText of the whole item
+        if (this._options.valueSelector) {
+          const valueSelector = matchingItem.querySelector(this._options.valueSelector);
+          if (valueSelector) {
+            optionValue = valueSelector.innerText;
+          }
         }
+        this.el.dispatchEvent(new CustomEvent("makeup-listbox-change", {
+          detail: {
+            el: matchingItem,
+            optionIndex: index,
+            optionValue
+          }
+        }));
       }
-      this.el.dispatchEvent(new CustomEvent("makeup-listbox-change", {
-        detail: {
-          el: matchingItem,
-          optionIndex: index,
-          optionValue
-        }
-      }));
     }
     this._observeMutations();
   }
@@ -156,49 +166,42 @@ class _default {
     this._unobserveEvents();
     this._onKeyDownListener = null;
     this._onClickListener = null;
+    this._onFirstMouseDownListener = null;
+    this._onFirstFocusListener = null;
     this._onActiveDescendantChangeListener = null;
     this._onMutationListener = null;
   }
 }
 exports.default = _default;
-function _onKeyDown(e) {
-  const activeDescendantEl = this._activeDescendant.currentItem;
-  if (isSpacebarOrEnter(e.keyCode) && (activeDescendantEl === null || activeDescendantEl === void 0 ? void 0 : activeDescendantEl.getAttribute("aria-selected")) !== "true") {
-    // todo: this.select() should take care of unselecting any existing selections
-    this.unselect(this.index);
-    this.select(this._activeDescendant.index);
+function _onFirstMouseDown() {
+  this._isMouseDown = true;
+}
+
+// set activeDescendant on first keyboard focus
+function _onFirstFocus() {
+  if (!this._isMouseDown) {
+    this._activeDescendant.index = this.index === -1 ? 0 : this.index;
   }
+  this._isMouseDown = false;
 }
 function _onClick(e) {
-  // unlike the keyDown event, the click event target can be a child element of the option
-  // e.g. <div role="option"><span>Item 1</span></div>
   const toEl = e.target.closest("[role=option]");
   if (toEl) {
-    const toElIndex = this.items.indexOf(toEl);
-    const isTolElSelected = toEl.getAttribute("aria-selected") === "true";
-    const isTolElDisabled = toEl.getAttribute("aria-disabled") === "true";
-    if (!isTolElDisabled && this._options.autoSelect === false && isTolElSelected === false) {
-      // todo: this.select() should take care of unselecting any existing selections
-      this.unselect(this.index);
-      this.select(toElIndex);
-    }
+    this.select(this.items.indexOf(toEl));
+  }
+}
+function _onKeyDown(e) {
+  if (e.keyCode === 13 || e.keyCode === 32) {
+    this.select(this._activeDescendant.index);
   }
 }
 function _onActiveDescendantChange(e) {
   const {
-    fromIndex,
     toIndex
   } = e.detail;
-  if (this._options.autoSelect === true) {
-    const fromEl = this.items[fromIndex];
-    const toEl = this.items[toIndex];
-    if (fromEl) {
-      // todo: this.select() should take care of unselecting any existing selections
-      this.unselect(fromIndex);
-    }
-    if (toEl) {
-      this.select(toIndex);
-    }
+  const toEl = this.items[toIndex];
+  if (this._options.autoSelect === true && toEl) {
+    this.select(toIndex);
   }
 }
 function _onMutation(mutationsList) {

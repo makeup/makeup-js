@@ -4,6 +4,11 @@
     <title>makeup-combobox</title>
     <link href="index.css" rel="stylesheet" />
     <link rel="icon" href="../../favicon.ico" type="image/x-icon" />
+    <style>
+      .combobox__listbox {
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body>
     <div id="page">
@@ -19,12 +24,113 @@
       </header>
       <hr />
       <main>
-        <h2 id="combobox-1">Manual Selection</h2>
+        <h2>Automatic Selection (default)</h2>
+        <p>
+          With automatic selection, ENTER key is not required, the textbox value is automatically updated to match the
+          current active descendant option. ENTER key will submit any associated form.
+        </p>
+
+        <h3 id="combobox-1">Autocomplete Off</h3>
+
+        <form method="get">
+          <span class="combobox">
+            <span class="combobox__control">
+              <input
+                name="console"
+                role="combobox"
+                type="text"
+                autocomplete="off"
+                aria-haspopup="listbox"
+                aria-label="Automatic Selection Demo"
+                aria-owns="listbox-1"
+              />
+            </span>
+            <div class="combobox__listbox" hidden>
+              <div id="listbox-1" class="combobox__options" role="listbox">
+                <div class="combobox__option" role="option">
+                  <span>Nintendo (NES)</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Nintendo 64</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Sega Dreamcast</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Sega Master System</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Sega Megadrive</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Sony Playstation</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Super Nintendo (SNES)</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>XBOX</span>
+                </div>
+              </div>
+            </div>
+          </span>
+        </form>
+
+        <h3 id="combobox-2">Autocomplete List</h3>
+
+        <form method="get">
+          <span class="combobox">
+            <span class="combobox__control">
+              <input
+                name="console"
+                role="combobox"
+                type="text"
+                autocomplete="off"
+                aria-autocomplete="list"
+                aria-haspopup="listbox"
+                aria-label="Autocomplete demo"
+                aria-owns="listbox-2"
+              />
+            </span>
+            <div class="combobox__listbox" hidden>
+              <div id="listbox-2" class="combobox__options" role="listbox">
+                <div class="combobox__option" role="option">
+                  <span>Nintendo (NES)</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Nintendo 64</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Sega Dreamcast</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Sega Master System</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Sega Megadrive</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Sony Playstation</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>Super Nintendo (SNES)</span>
+                </div>
+                <div class="combobox__option" role="option">
+                  <span>XBOX</span>
+                </div>
+              </div>
+            </div>
+          </span>
+        </form>
+
+        <h2>Manual Selection</h2>
         <p>
           With manual selection, ENTER key is required to manually update the textbox with the value of the current
           active descendant (controlled via arrow keys). This means that an <em>additional</em> ENTER key press is
           required to submit any associated form.
         </p>
+
+        <h3 id="combobox-3">Autocomplete off</h3>
 
         <form method="get">
           <span class="combobox" data-makeup-auto-select="false">
@@ -36,14 +142,11 @@
                 autocomplete="off"
                 aria-haspopup="listbox"
                 aria-label="Manual Selection Demo"
-                aria-owns="listbox-1"
+                aria-owns="listbox-3"
               />
-              <svg class="icon icon--chevron-down-12" focusable="false" height="12" width="12" aria-hidden="true">
-                <use href="../../icons.svg#icon-chevron-down-12"></use>
-              </svg>
             </span>
             <div class="combobox__listbox" hidden>
-              <div id="listbox-1" class="combobox__options" role="listbox">
+              <div id="listbox-3" class="combobox__options" role="listbox">
                 <div class="combobox__option" role="option">
                   <span>Nintendo (NES)</span>
                 </div>
@@ -94,61 +197,7 @@
           </span>
         </form>
 
-        <h2 id="combobox-2">Automatic Selection</h2>
-        <p>
-          With automatic selection, ENTER key is not required, the textbox value is automatically updated to match the
-          current active descendant option.
-        </p>
-
-        <form method="get">
-          <span class="combobox">
-            <span class="combobox__control">
-              <input
-                name="console"
-                role="combobox"
-                type="text"
-                autocomplete="off"
-                aria-haspopup="listbox"
-                aria-label="Automatic Selection Demo"
-                aria-owns="listbox-2"
-              />
-              <svg class="icon icon--chevron-down-12" focusable="false" height="12" width="12" aria-hidden="true">
-                <use href="../../icons.svg#icon-chevron-down-12"></use>
-              </svg>
-            </span>
-            <div class="combobox__listbox" hidden>
-              <div id="listbox-2" class="combobox__options" role="listbox">
-                <div class="combobox__option" role="option">
-                  <span>Nintendo (NES)</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Nintendo 64</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Sega Dreamcast</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Sega Master System</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Sega Megadrive</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Sony Playstation</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Super Nintendo (SNES)</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>XBOX</span>
-                </div>
-              </div>
-            </div>
-          </span>
-        </form>
-
-        <h2 id="combobox-3">Manual Selection with List Autocomplete</h2>
-        <p>With list autocomplete, the list of suggestions is filtered based on the current textbox value.</p>
+        <h3 id="combobox-4">Autocomplete List</h3>
 
         <form method="get">
           <span class="combobox" data-makeup-auto-select="false">
@@ -161,62 +210,8 @@
                 aria-autocomplete="list"
                 aria-haspopup="listbox"
                 aria-label="Autocomplete demo"
-                aria-owns="listbox-3"
-              />
-              <svg class="icon icon--chevron-down-12" focusable="false" height="12" width="12" aria-hidden="true">
-                <use href="../../icons.svg#icon-chevron-down-12"></use>
-              </svg>
-            </span>
-            <div class="combobox__listbox" hidden>
-              <div id="listbox-3" class="combobox__options" role="listbox">
-                <div class="combobox__option" role="option">
-                  <span>Nintendo (NES)</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Nintendo 64</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Sega Dreamcast</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Sega Master System</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Sega Megadrive</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Sony Playstation</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>Super Nintendo (SNES)</span>
-                </div>
-                <div class="combobox__option" role="option">
-                  <span>XBOX</span>
-                </div>
-              </div>
-            </div>
-          </span>
-        </form>
-
-        <h2 id="combobox-4">Automatic Selection with List Autocomplete</h2>
-        <p>With list autocomplete, the list of suggestions is filtered based on the current textbox value.</p>
-
-        <form method="get">
-          <span class="combobox" data-makeup-auto-select="true">
-            <span class="combobox__control">
-              <input
-                name="console"
-                role="combobox"
-                type="text"
-                autocomplete="off"
-                aria-autocomplete="list"
-                aria-haspopup="listbox"
-                aria-label="Autocomplete demo"
                 aria-owns="listbox-4"
               />
-              <svg class="icon icon--chevron-down-12" focusable="false" height="12" width="12" aria-hidden="true">
-                <use href="../../icons.svg#icon-chevron-down-12"></use>
-              </svg>
             </span>
             <div class="combobox__listbox" hidden>
               <div id="listbox-4" class="combobox__options" role="listbox">

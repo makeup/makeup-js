@@ -19,7 +19,7 @@ test.describe("given a listbox for manual selection", function () {
     test("should have the correct initial state", async function () {
       expect(containerEl).toBeTruthy();
       await expect(OptionsEl).toHaveAttribute("role", "listbox");
-      await expect(OptionsEl).toHaveAttribute("aria-activedescendant");
+      await expect(OptionsEl).not.toHaveAttribute("aria-activedescendant");
       await expect(firstOptionEl).toHaveAttribute("role", "option");
     });
 

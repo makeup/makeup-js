@@ -1,7 +1,7 @@
 {
   "name": "makeup-panel-dialog",
   "description": "JavaScript class representing a modal panel dialog",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -19,7 +19,7 @@
     "compile:cjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js --out-file dist/cjs/index.js"
   },
   "dependencies": {
-    "makeup-lightbox-dialog": "^0.2.5"
+    "makeup-lightbox-dialog": "^0.2.6"
   },
   "files": [
     "dist/cjs/index.js",

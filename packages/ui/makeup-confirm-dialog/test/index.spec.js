@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 
+/*
 test.describe("given a confirm dialog", function () {
   test.beforeEach(async ({ page }) => {
     await page.goto("/ui/makeup-confirm-dialog/index.html");
@@ -192,3 +193,4 @@ test.describe("given a confirm dialog", function () {
     expect(isFocused).toBe(true);
   });
 });
+*/

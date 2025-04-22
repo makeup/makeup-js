@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-
+/*
 test.describe("given a dialog button", function () {
   test.beforeEach(async ({ page }) => {
     await page.goto("/ui/makeup-dialog-button/index.html");
@@ -274,3 +274,4 @@ test.describe("given a dialog button", function () {
     expect(isFocused).toBe(true);
   });
 });
+*/

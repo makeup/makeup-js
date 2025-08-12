@@ -105,9 +105,8 @@ function trap(el) {
   trappedEl.classList.add("keyboard-trap--active");
 
   _observer.observe(el, {
-    childList: trappedEl,
-    subtree: trappedEl,
-    attributes: false,
+    childList: true,
+    subtree: true,
   });
 
   return trappedEl;

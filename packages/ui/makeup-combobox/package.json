@@ -1,7 +1,7 @@
 {
   "name": "makeup-combobox",
   "description": "A JavaScript class representing an ARIA combobox",
-  "version": "0.4.11",
+  "version": "0.4.12",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -20,8 +20,8 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-expander": "^0.11.7",
-    "makeup-listbox": "^0.4.8"
+    "makeup-expander": "^0.11.8",
+    "makeup-listbox": "^0.4.9"
   },
   "files": [
     "dist/cjs/index.js",

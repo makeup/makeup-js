@@ -6,6 +6,7 @@ let innerTrapBefore;
 let innerTrapAfter;
 let outerTrapAfter;
 let botTrap;
+let _observer = new MutationObserver(refresh);
 let firstFocusableElement;
 let lastFocusableElement;
 function createTrapBoundary() {
@@ -46,6 +47,7 @@ function untrap() {
     trappedEl.classList.remove("keyboard-trap--active");
     trappedEl.dispatchEvent(new CustomEvent("keyboardUntrap", { bubbles: true }));
     trappedEl = null;
+    _observer.disconnect();
   }
   return trappedEl;
 }
@@ -72,6 +74,10 @@ function trap(el) {
   body.appendChild(botTrap);
   trappedEl.dispatchEvent(new CustomEvent("keyboardTrap", { bubbles: true }));
   trappedEl.classList.add("keyboard-trap--active");
+  _observer.observe(el, {
+    childList: true,
+    subtree: true
+  });
   return trappedEl;
 }
 function refresh() {

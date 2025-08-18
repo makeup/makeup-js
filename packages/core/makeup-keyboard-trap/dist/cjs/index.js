@@ -8,6 +8,8 @@ exports.trap = trap;
 exports.untrap = untrap;
 var _makeupFocusables = _interopRequireDefault(require("makeup-focusables"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const _observer = typeof window !== "undefined" ? new MutationObserver(refresh) : null;
+
 // for the element that will be trapped
 let trappedEl;
 
@@ -18,7 +20,6 @@ let innerTrapBefore;
 let innerTrapAfter;
 let outerTrapAfter;
 let botTrap;
-let _observer = new MutationObserver(refresh);
 
 // for the first and last focusable element inside the trap
 let firstFocusableElement;
@@ -65,7 +66,7 @@ function untrap() {
       bubbles: true
     }));
     trappedEl = null;
-    _observer.disconnect();
+    _observer?.disconnect();
   }
   return trappedEl;
 }
@@ -99,7 +100,7 @@ function trap(el) {
     bubbles: true
   }));
   trappedEl.classList.add("keyboard-trap--active");
-  _observer.observe(el, {
+  _observer?.observe(el, {
     childList: true,
     subtree: true
   });

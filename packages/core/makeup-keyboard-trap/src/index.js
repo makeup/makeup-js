@@ -1,5 +1,7 @@
 import focusables from "makeup-focusables";
 
+const _observer = typeof window !== "undefined" ? new MutationObserver(refresh) : null;
+
 // for the element that will be trapped
 let trappedEl;
 
@@ -10,7 +12,6 @@ let innerTrapBefore;
 let innerTrapAfter;
 let outerTrapAfter;
 let botTrap;
-let _observer = new MutationObserver(refresh);
 
 // for the first and last focusable element inside the trap
 let firstFocusableElement;
@@ -65,7 +66,7 @@ function untrap() {
     trappedEl.dispatchEvent(new CustomEvent("keyboardUntrap", { bubbles: true }));
 
     trappedEl = null;
-    _observer.disconnect();
+    _observer?.disconnect();
   }
   return trappedEl;
 }
@@ -104,7 +105,7 @@ function trap(el) {
 
   trappedEl.classList.add("keyboard-trap--active");
 
-  _observer.observe(el, {
+  _observer?.observe(el, {
     childList: true,
     subtree: true,
   });

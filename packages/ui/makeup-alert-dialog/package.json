@@ -1,7 +1,7 @@
 {
   "name": "makeup-alert-dialog",
   "description": "JavaScript class representing an ARIA alert dialog",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -20,7 +20,7 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-lightbox-dialog": "^0.2.7"
+    "makeup-lightbox-dialog": "^0.2.8"
   },
   "files": [
     "dist/cjs/index.js",

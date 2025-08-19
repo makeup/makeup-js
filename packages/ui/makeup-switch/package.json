@@ -9,7 +9,7 @@
     }
   },
   "description": "A JavaScript class representing an ARIA switch",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "repository": "https://github.com/makeup/makeup-js/tree/master/packages/ui/makeup-switch",
   "author": "Ian McBurnie <ianmcburnie@hotmail.com>",
   "license": "MIT",

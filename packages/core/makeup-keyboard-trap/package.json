@@ -1,7 +1,7 @@
 {
   "name": "makeup-keyboard-trap",
   "description": "Restricts keyboard tabindex to a single subtree in the DOM",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {

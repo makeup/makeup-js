@@ -1,7 +1,7 @@
 {
   "name": "makeup-expander",
   "description": "Creates the basic interactivity for an element that expands and collapses another element.",
-  "version": "0.11.8",
+  "version": "0.11.9",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -26,9 +26,9 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-exit-emitter": "^0.5.6",
+    "makeup-exit-emitter": "^0.5.7",
     "makeup-focusables": "^0.4.5",
-    "makeup-next-id": "^0.5.6"
+    "makeup-next-id": "^0.5.7"
   },
   "files": [
     "dist/cjs/index.js",

@@ -59,11 +59,21 @@ We use [commitlint conventional configuration](https://github.com/conventional-c
 
 This repo uses [Lerna](https://lerna.js.org) to manage the [versioning](https://github.com/lerna/lerna/tree/main/libs/commands/version/README.md) and [publishing](https://github.com/lerna/lerna/blob/main/libs/commands/publish/README.md) of all packages.
 
-If you need to publish new patch versions of all modules that have changed since the last publish (e.g. after regenerating all modules with a newer version of Babel), run `lerna version patch --no-push --no-commit-hooks`. This creates a local "Publish" commit, containing all of the updated `package.json` and `package.json.lock` files.
+If you need to publish new patch versions of any modules that have changed (directly or indirectly) since the last publish, run the version command with the following options:
 
-If things look good, run `lerna publish from-git`. All packages identified in the commit will be published to NPM.
+```shell
+lerna version patch --no-push --no-commit-hooks -m "chore(release): publish"
+```
 
-Don't forget to push your local commit up to the git remote!
+This creates a local "publish" commit, containing all of the updated `package.json` and `package.json.lock` files. If you see any _unexpected_ updates, it could be that you have not pulled the latest git tags from the remote. Try the lerna [changed](https://github.com/lerna/lerna/tree/main/libs/commands/changed#readme) command to troubleshoot the issue.
+
+If things look good, publish all packages to NPM with the publish command:
+
+```shell
+lerna publish from-git
+```
+
+**IMPORTANT:** Don't forget to push your "publish" commit and the new git tag(s) to the remote!
 
 ## Core Modules Style Guide
 

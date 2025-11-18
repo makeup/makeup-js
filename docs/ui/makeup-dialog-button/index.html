@@ -234,64 +234,66 @@
           Snackbar
         </button>
 
-        <aside
-          class="snackbar-dialog snackbar-dialog--transition"
-          id="dialog-snackbar"
-          role="dialog"
-          aria-label="Notification"
-          aria-live="polite"
-          aria-modal="false"
-          hidden
-        >
-          <div class="snackbar-dialog__window">
-            <div class="snackbar-dialog__main">
-              <p>1 item deleted from watch list.</p>
+        <div role="status">
+          <aside
+            class="snackbar-dialog snackbar-dialog--transition"
+            id="dialog-snackbar"
+            role="dialog"
+            aria-label="Notification"
+            aria-modal="false"
+            hidden
+          >
+            <div class="snackbar-dialog__window">
+              <div class="snackbar-dialog__main">
+                <p>1 item deleted from watch list.</p>
+              </div>
+              <div class="snackbar-dialog__actions">
+                <button accesskey="u" class="fake-link snackbar-dialog__cta">
+                  Undo<span class="clipped"> - Access Key: U</span>
+                </button>
+              </div>
             </div>
-            <div class="snackbar-dialog__actions">
-              <button accesskey="u" class="fake-link snackbar-dialog__cta">
-                Undo<span class="clipped"> - Access Key: U</span>
-              </button>
-            </div>
-          </div>
-        </aside>
+          </aside>
+        </div>
 
         <button class="btn dialog-button" type="button" data-makeup-for="dialog-toast" aria-haspopup="dialog">
           Toast
         </button>
 
-        <aside
-          id="dialog-toast"
-          class="toast-dialog toast-dialog--transition"
-          role="dialog"
-          aria-label="Notification"
-          aria-live="polite"
-          aria-modal="false"
-          hidden
-        >
-          <div class="toast-dialog__window">
-            <div class="toast-dialog__header">
-              <h2 class="toast-dialog__title">User Privacy Preferences</h2>
-              <button
-                class="icon-btn icon-btn--transparent toast-dialog__close"
-                type="button"
-                aria-label="Close notification dialog"
-              >
-                <svg class="icon icon--close" focusable="false" height="24" width="24">
-                  <use href="../../icons.svg#icon-close-24"></use>
-                </svg>
-              </button>
+        <div role="status">
+          <aside
+            id="dialog-toast"
+            class="toast-dialog toast-dialog--transition"
+            role="dialog"
+            aria-label="Notification"
+            aria-modal="false"
+            hidden
+          >
+            <div class="toast-dialog__window">
+              <div class="toast-dialog__header">
+                <h2 class="toast-dialog__title">User Privacy Preferences</h2>
+                <button
+                  class="icon-btn icon-btn--transparent toast-dialog__close"
+                  type="button"
+                  aria-label="Close notification dialog"
+                >
+                  <svg class="icon icon--close" focusable="false" height="24" width="24">
+                    <use href="../../icons.svg#icon-close-24"></use>
+                  </svg>
+                </button>
+              </div>
+              <div class="toast-dialog__main">
+                <p>
+                  We detected something unusual about a recent sign-in to your eBay account. To help keep you safe, we
+                  recommend you change the password.
+                </p>
+              </div>
+              <div class="toast-dialog__footer">
+                <button accesskey="v" class="btn btn--primary toast-dialog__cta">View Account</button>
+              </div>
             </div>
-            <div class="toast-dialog__main">
-              <p>
-                We detected something unusual about a recent sign-in to your eBay account. To help keep you safe, we
-                recommend you change the password.
-              </p>
-            </div>
-            <div class="toast-dialog__footer">
-              <button accesskey="v" class="btn btn--primary toast-dialog__cta">View Account</button>
-            </div>
-          </div>
-        </aside>
+          </aside>
+        </div>
       </main>
     </div>
     <script src="index.min.js"></script>

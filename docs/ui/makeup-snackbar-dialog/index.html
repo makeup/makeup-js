@@ -21,24 +21,25 @@
         </p>
       </header>
       <main>
-        <aside
-          class="snackbar-dialog snackbar-dialog--transition"
-          role="dialog"
-          aria-label="Notification"
-          aria-live="polite"
-          aria-modal="false"
-        >
-          <div class="snackbar-dialog__window">
-            <div class="snackbar-dialog__main">
-              <p>1 item deleted from watch list.</p>
+        <div role="status">
+          <aside
+            class="snackbar-dialog snackbar-dialog--transition"
+            role="dialog"
+            aria-label="Notification"
+            aria-modal="false"
+          >
+            <div class="snackbar-dialog__window">
+              <div class="snackbar-dialog__main">
+                <p>1 item deleted from watch list.</p>
+              </div>
+              <div class="snackbar-dialog__actions">
+                <button accesskey="u" class="fake-link snackbar-dialog__cta">
+                  Undo<span class="clipped"> - Access Key: U</span>
+                </button>
+              </div>
             </div>
-            <div class="snackbar-dialog__actions">
-              <button accesskey="u" class="fake-link snackbar-dialog__cta">
-                Undo<span class="clipped"> - Access Key: U</span>
-              </button>
-            </div>
-          </div>
-        </aside>
+          </aside>
+        </div>
       </main>
     </div>
     <script src="index.min.js"></script>

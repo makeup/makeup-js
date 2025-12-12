@@ -25,9 +25,8 @@ export function trap(el: HTMLElement): HTMLElement;
 
 /**
  * Removes keyboard trap from the currently trapped element
- * @returns The previously trapped element (or null if none)
  */
-export function untrap(): HTMLElement | null;
+export function untrap(): void;
 
 /**
  * Refreshes the keyboard trap by recalculating focusable elements

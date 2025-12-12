@@ -44,7 +44,6 @@ export function modal(el: HTMLElement, options?: ModalOptions): HTMLElement;
 
 /**
  * Resets the element to non-modal state
- * @returns The previously modal element (or null if none)
  */
-export function unmodal(): HTMLElement | null;
+export function unmodal(): void;
 

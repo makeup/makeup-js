@@ -44,6 +44,9 @@ export function modal(el: HTMLElement, options?: ModalOptions): HTMLElement;
 
 /**
  * Resets the element to non-modal state
+ *
+ * Note: the current implementation does not return the previously modal element.
+ * It returns `null` (or `undefined` if called before any modal is set).
  */
-export function unmodal(): void;
+export function unmodal(): null | undefined;
 

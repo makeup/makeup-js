@@ -16,7 +16,8 @@ const defaultOptions = {
   expandOnHover: false,
   focusManagement: null,
   hostSelector: ".expander__host",
-  simulateSpacebarClick: false
+  simulateSpacebarClick: false,
+  useAriaExpanded: true
 };
 function onHostKeyDown(e) {
   if (e.keyCode === 13 || e.keyCode === 32) {
@@ -112,7 +113,8 @@ class index_default {
     this._hostHoverListener = onHostHover.bind(this);
     this._focusExitListener = onFocusExit.bind(this);
     this._mouseLeaveListener = onMouseLeave.bind(this);
-    if (this.hostEl.getAttribute("aria-expanded") === null) {
+    this._expanded = false;
+    if (this.options.useAriaExpanded === true && this.hostEl.getAttribute("aria-expanded") === null) {
       this.hostEl.setAttribute("aria-expanded", "false");
     }
     if (this.options.ariaControls === true) {
@@ -205,11 +207,13 @@ class index_default {
     }
   }
   get expanded() {
-    return this.hostEl.getAttribute("aria-expanded") === "true";
+    return this._expanded;
   }
   set expanded(bool) {
     if (bool === true && this.expanded === false) {
-      this.hostEl.setAttribute("aria-expanded", "true");
+      if (this.options.useAriaExpanded === true) {
+        this.hostEl.setAttribute("aria-expanded", "true");
+      }
       if (this.options.expandedClass) {
         this.el.classList.add(this.options.expandedClass);
       }
@@ -219,12 +223,15 @@ class index_default {
       this.el.dispatchEvent(new CustomEvent("expander-expand", { bubbles: true, detail: this.contentEl }));
     }
     if (bool === false && this.expanded === true) {
-      this.hostEl.setAttribute("aria-expanded", "false");
+      if (this.options.useAriaExpanded === true) {
+        this.hostEl.setAttribute("aria-expanded", "false");
+      }
       if (this.options.expandedClass) {
         this.el.classList.remove(this.options.expandedClass);
       }
       this.el.dispatchEvent(new CustomEvent("expander-collapse", { bubbles: true, detail: this.contentEl }));
     }
+    this._expanded = bool;
     this._expandWasKeyboardClickActivated = false;
     this._expandWasMouseClickActivated = false;
     this._expandWasFocusActivated = false;

@@ -18,6 +18,7 @@ const defaultOptions = {
   focusManagement: null,
   hostSelector: ".expander__host",
   simulateSpacebarClick: false,
+  useAriaExpanded: true,
 };
 
 function onHostKeyDown(e) {
@@ -134,8 +135,14 @@ export default class {
     this._focusExitListener = onFocusExit.bind(this);
     this._mouseLeaveListener = onMouseLeave.bind(this);
 
-    if (this.hostEl.getAttribute("aria-expanded") === null) {
-      this.hostEl.setAttribute("aria-expanded", "false");
+    if (this.options.useAriaExpanded === true) {
+      const initialAriaExpanded = this.hostEl.getAttribute("aria-expanded");
+      this._expanded = initialAriaExpanded === "true";
+      if (initialAriaExpanded === null) {
+        this.hostEl.setAttribute("aria-expanded", "false");
+      }
+    } else {
+      this._expanded = false;
     }
 
     if (this.options.ariaControls === true) {
@@ -242,12 +249,14 @@ export default class {
   }
 
   get expanded() {
-    return this.hostEl.getAttribute("aria-expanded") === "true";
+    return this._expanded;
   }
 
   set expanded(bool) {
     if (bool === true && this.expanded === false) {
-      this.hostEl.setAttribute("aria-expanded", "true");
+      if (this.options.useAriaExpanded === true) {
+        this.hostEl.setAttribute("aria-expanded", "true");
+      }
       if (this.options.expandedClass) {
         this.el.classList.add(this.options.expandedClass);
       }
@@ -261,12 +270,16 @@ export default class {
     }
 
     if (bool === false && this.expanded === true) {
-      this.hostEl.setAttribute("aria-expanded", "false");
+      if (this.options.useAriaExpanded === true) {
+        this.hostEl.setAttribute("aria-expanded", "false");
+      }
       if (this.options.expandedClass) {
         this.el.classList.remove(this.options.expandedClass);
       }
       this.el.dispatchEvent(new CustomEvent("expander-collapse", { bubbles: true, detail: this.contentEl }));
     }
+
+    this._expanded = bool;
 
     this._expandWasKeyboardClickActivated = false;
     this._expandWasMouseClickActivated = false;

@@ -10,6 +10,7 @@ const hoverExpanderEls = document.querySelectorAll(".expander--hover-only");
 const hoverAndFocusExpanderEls = document.querySelectorAll(".expander--focus-and-hover");
 const stealthExpanderEls = document.querySelectorAll(".expander--stealth-only");
 const clickAndSpacebarExpanderEls = document.querySelectorAll(".expander--click-and-spacebar");
+const tooltipEls = document.querySelectorAll(".expander--tooltip");
 const expanderWidgets = [];
 
 expanderWidgets.push(new Expander(clickExpanderEls[0], { expandOnClick: true }));
@@ -49,11 +50,24 @@ clickAndSpacebarExpanderEls.forEach(function (el) {
   );
 });
 
-expanderWidgets.forEach(function (item) {
-  item.el.addEventListener("expander-expand", function (e) {
-    console.log(e);
-  });
-  item.el.addEventListener("expander-collapse", function (e) {
-    console.log(e);
+tooltipEls.forEach(function (el) {
+  expanderWidgets.push(
+    new Expander(el, {
+      ariaControls: false,
+      autoCollapse: true,
+      expandOnFocus: true,
+      expandOnHover: true,
+      useAriaExpanded: false,
+      expandedClass: "expander__host-container--expanded",
+    }),
+  );
+
+  expanderWidgets.forEach(function (item) {
+    item.el.addEventListener("expander-expand", function (e) {
+      console.log(e);
+    });
+    item.el.addEventListener("expander-collapse", function (e) {
+      console.log(e);
+    });
   });
 });

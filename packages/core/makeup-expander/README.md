@@ -6,13 +6,13 @@ Creates the basic interactivity for an element that expands and collapses anothe
 
 This module is still in an experimental state, until it reaches v1 you must consider all minor releases as breaking changes.
 
-## Example 1: Requires aria-expanded only
+## Example 1: Uses aria-expanded
 
 In the first example, our expanded content is adjacent to the host element.
 
 ```html
 <div class="expander">
-  <button class="expander__host">Click for Flyout</button>
+  <button class="expander__host">Click for Popover</button>
   <div class="expander__content">
     <p>Any kind of HTML control can go inside...</p>
     <p>A link: <a id="foo" href="http://www.ebay.com">www.ebay.com</a></p>
@@ -38,7 +38,7 @@ const options = {
 const widget = new Expander(widgetEl, options);
 ```
 
-Clicking the button will now toggle its aria-expanded state. CSS can be used to display the content accordingly, for example:
+Clicking the button will now toggle its expanded state (setting aria-expanded on the element, by default). CSS can be used to display the content accordingly, for example:
 
 ```css
 .expander__content {
@@ -50,9 +50,9 @@ Clicking the button will now toggle its aria-expanded state. CSS can be used to 
 }
 ```
 
-## Example 2: Requires aria-expanded and a class
+## Example 2: Uses a class
 
-In this second example, our expanded content is not adjacent to the host element.
+In this second example, we use a class. This can be useful when our expanded content is not adjacent to the host element or when aria-expanded is not required.
 
 ```html
 <div class="expander">
@@ -79,7 +79,7 @@ const options = {
 };
 ```
 
-Setting focus on the host (a text input) sets it's aria-expanded state _and_ add adds the chosen class to the root. CSS can be used to display the content accordingly, for example:
+Setting focus on the host adds the chosen class to the root. CSS can be used to display the content accordingly, for example:
 
 ```css
 .expander--expanded .expander__content {
@@ -103,7 +103,8 @@ Setting focus on the host (a text input) sets it's aria-expanded state _and_ add
 - `options.expandOnHover`: whether the host should be hover activated (default: false)
 - `options.focusManagement`: where keyboard focus should go (null, 'content', 'focusable', 'interactive', or ID reference) when expanded via `ENTER` or `SPACEBAR` (default: null)
 - `options.hostSelector`: the query selector for the host element in relation to the widget (default: '.expander\_\_host')
-- `options.expandedClass`: the class which will be used on the root element to signify expanded state. **Example:** `foo--expanded`; this mirrors the `aria-expanded="true"` setting on the host element
+- `options.expandedClass`: the class which will be used on the root element to signify expanded state.
+- `options.useAriaExpanded`: set to false for tooltips (default: true)
 
 ## Properties
 
@@ -116,13 +117,6 @@ Set the following properties to true or false to enable or disable the behaviour
 - `expandOnClick`
 - `expandOnFocus`
 - `expandOnHover`
-
-## Methods
-
-- `collapse()`: set state to collapsed (DEPRECATED)
-- `expand()`: set state to expanded (DEPRECATED)
-- `isExpanded()`: returns expanded state (DEPRECATED)
-- `toggle()`: toggle expanded/collapsed state (DEPRECATED)
 
 ## Events
 

@@ -39,9 +39,10 @@ test.describe("given a toast dialog", function () {
 
   test("should have proper ARIA attributes", async ({ page }) => {
     const dialog = page.locator(".toast-dialog");
+    const dialogContainer = dialog.locator("..");
 
+    await expect(dialogContainer).toHaveAttribute("role", "status");
     await expect(dialog).toHaveAttribute("role", "dialog");
-    await expect(dialog).toHaveAttribute("aria-live", "polite");
     await expect(dialog).toHaveAttribute("aria-modal", "false");
     await expect(dialog).toHaveAttribute("aria-label", "Notification");
   });

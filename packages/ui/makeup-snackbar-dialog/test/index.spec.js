@@ -12,12 +12,10 @@ test.describe("given a snackbar dialog", function () {
 
   test("should have proper ARIA role and live region attributes", async ({ page }) => {
     const dialog = page.locator(".snackbar-dialog");
+    const dialogContainer = dialog.locator("..");
 
-    // Snackbars typically use role="alert" or role="status"
     await expect(dialog).toHaveAttribute("role", "dialog");
-
-    // Should have aria-live attribute for accessibility
-    await expect(dialog).toHaveAttribute("aria-live", "polite");
+    await expect(dialogContainer).toHaveAttribute("role", "status");
   });
 
   test("should have the correct position on screen", async ({ page }) => {

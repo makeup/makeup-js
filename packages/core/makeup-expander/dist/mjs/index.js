@@ -113,7 +113,8 @@ class index_default {
     this._hostHoverListener = onHostHover.bind(this);
     this._focusExitListener = onFocusExit.bind(this);
     this._mouseLeaveListener = onMouseLeave.bind(this);
-    this._expanded = false;
+    const initialAriaExpanded = this.options.useAriaExpanded === true ? this.hostEl.getAttribute("aria-expanded") : null;
+    this._expanded = initialAriaExpanded === "true";
     if (this.options.useAriaExpanded === true && this.hostEl.getAttribute("aria-expanded") === null) {
       this.hostEl.setAttribute("aria-expanded", "false");
     }

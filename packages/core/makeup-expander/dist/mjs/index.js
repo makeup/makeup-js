@@ -113,10 +113,14 @@ class index_default {
     this._hostHoverListener = onHostHover.bind(this);
     this._focusExitListener = onFocusExit.bind(this);
     this._mouseLeaveListener = onMouseLeave.bind(this);
-    const initialAriaExpanded = this.options.useAriaExpanded === true ? this.hostEl.getAttribute("aria-expanded") : null;
-    this._expanded = initialAriaExpanded === "true";
-    if (this.options.useAriaExpanded === true && this.hostEl.getAttribute("aria-expanded") === null) {
-      this.hostEl.setAttribute("aria-expanded", "false");
+    if (this.options.useAriaExpanded === true) {
+      const initialAriaExpanded = this.hostEl.getAttribute("aria-expanded");
+      this._expanded = initialAriaExpanded === "true";
+      if (initialAriaExpanded === null) {
+        this.hostEl.setAttribute("aria-expanded", "false");
+      }
+    } else {
+      this._expanded = false;
     }
     if (this.options.ariaControls === true) {
       nextID(this.el, "expander");

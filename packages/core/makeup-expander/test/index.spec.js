@@ -324,3 +324,96 @@ test.describe("given an expander event handling", () => {
 //     await expect(firstLink).toBeFocused();
 //   });
 // });
+
+test.describe("given an expander with useAriaExpanded=false (tooltip)", () => {
+  let containerEl;
+  let hostEl;
+  let contentEl;
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/core/makeup-expander/index.html");
+    containerEl = page.locator(".expander--tooltip").first();
+    hostEl = containerEl.locator(".expander__host");
+    contentEl = containerEl.locator(".expander__content");
+  });
+
+  test("should not have aria-expanded attribute on host", async () => {
+    await expect(hostEl).not.toHaveAttribute("aria-expanded");
+  });
+
+  test("should not have aria-controls attribute on host", async () => {
+    await expect(hostEl).not.toHaveAttribute("aria-controls");
+  });
+
+  test("should have the correct initial state", async () => {
+    expect(containerEl).toBeTruthy();
+    await expect(containerEl).not.toHaveClass(/expander__host-container--expanded/);
+    await expect(contentEl).not.toBeVisible();
+  });
+
+  test("should expand on host focus using expandedClass", async () => {
+    await hostEl.focus();
+    await expect(containerEl).toHaveClass(/expander__host-container--expanded/);
+    await expect(contentEl).toBeVisible();
+    // Verify aria-expanded is still not set
+    await expect(hostEl).not.toHaveAttribute("aria-expanded");
+  });
+
+  test("should expand on host hover using expandedClass", async () => {
+    await hostEl.hover();
+    await expect(containerEl).toHaveClass(/expander__host-container--expanded/);
+    await expect(contentEl).toBeVisible();
+    // Verify aria-expanded is still not set
+    await expect(hostEl).not.toHaveAttribute("aria-expanded");
+  });
+
+  test("should collapse on mouse out", async ({ page }) => {
+    await hostEl.hover();
+    await expect(containerEl).toHaveClass(/expander__host-container--expanded/);
+
+    // Move mouse away to trigger mouseout
+    await page.mouse.move(10, 10);
+
+    // Wait for the timeout (300ms in the code)
+    await page.waitForTimeout(350);
+
+    await expect(containerEl).not.toHaveClass(/expander__host-container--expanded/);
+    await expect(contentEl).not.toBeVisible();
+    // Verify aria-expanded is still not set
+    await expect(hostEl).not.toHaveAttribute("aria-expanded");
+  });
+
+  test("should emit expander-expand event on expansion", async ({ page }) => {
+    await page.evaluate(() => {
+      window.tooltipExpandFired = false;
+      document.querySelector(".expander--tooltip").addEventListener("expander-expand", () => {
+        window.tooltipExpandFired = true;
+      });
+    });
+
+    await hostEl.focus();
+
+    const eventFired = await page.evaluate(() => window.tooltipExpandFired);
+    expect(eventFired).toBe(true);
+  });
+
+  test("should emit expander-collapse event on collapse", async ({ page }) => {
+    // First expand
+    await hostEl.hover();
+    await expect(containerEl).toHaveClass(/expander__host-container--expanded/);
+
+    await page.evaluate(() => {
+      window.tooltipCollapseFired = false;
+      document.querySelector(".expander--tooltip").addEventListener("expander-collapse", () => {
+        window.tooltipCollapseFired = true;
+      });
+    });
+
+    // Move mouse away to trigger collapse
+    await page.mouse.move(10, 10);
+    await page.waitForTimeout(350);
+
+    const eventFired = await page.evaluate(() => window.tooltipCollapseFired);
+    expect(eventFired).toBe(true);
+  });
+});

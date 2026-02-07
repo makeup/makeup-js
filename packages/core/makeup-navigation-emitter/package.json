@@ -28,8 +28,8 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-exit-emitter": "^0.5.7",
-    "makeup-key-emitter": "^0.4.7"
+    "makeup-exit-emitter": "^0.5.8",
+    "makeup-key-emitter": "^0.4.8"
   },
   "files": [
     "dist/index.d.ts",

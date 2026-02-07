@@ -81,7 +81,8 @@ function findNextNavigableIndex(items, index, wrap) {
 
 // returning -1 means not found
 function findIndexPositionByType(typeOrNum, items, currentIndex) {
-  let index = -1;
+  let index = -1; // eslint-disable-line no-useless-assignment
+
   switch (typeOrNum) {
     case "none":
       index = null;

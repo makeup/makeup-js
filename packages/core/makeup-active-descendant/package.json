@@ -28,8 +28,8 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-navigation-emitter": "^0.7.7",
-    "makeup-next-id": "^0.5.7"
+    "makeup-navigation-emitter": "^0.7.8",
+    "makeup-next-id": "^0.5.8"
   },
   "files": [
     "dist/index.d.ts",

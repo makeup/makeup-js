@@ -1,5 +1,5 @@
 export default function () {
-  let timeout;
+  let timeout; // eslint-disable-line no-unassigned-vars
   let typeStr = "";
   return {
     getIndex: function (nodeList, char, timeoutLength) {

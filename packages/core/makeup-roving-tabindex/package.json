@@ -28,7 +28,7 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-navigation-emitter": "^0.7.7"
+    "makeup-navigation-emitter": "^0.7.8"
   },
   "files": [
     "dist/index.d.ts",

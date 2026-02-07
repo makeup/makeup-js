@@ -28,7 +28,7 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-next-id": "^0.5.7"
+    "makeup-next-id": "^0.5.8"
   },
   "files": [
     "dist/index.d.ts",

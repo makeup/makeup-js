@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 function _default() {
-  let timeout;
+  let timeout; // eslint-disable-line no-unassigned-vars
   let typeStr = "";
   return {
     getIndex: function (nodeList, char, timeoutLength) {

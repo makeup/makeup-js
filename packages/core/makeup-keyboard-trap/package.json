@@ -28,7 +28,7 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-focusables": "^0.4.5"
+    "makeup-focusables": "^0.4.6"
   },
   "files": [
     "dist/index.d.ts",

@@ -1,7 +1,7 @@
 {
   "name": "makeup-navigation-emitter",
   "description": "Emits custom events based on keyboard navigation of one or two dimensional model",
-  "version": "0.7.7",
+  "version": "0.7.8",
   "main": "./dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "types": "./dist/index.d.ts",

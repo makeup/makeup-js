@@ -1,7 +1,7 @@
 {
   "name": "makeup-menu-button",
   "description": "A JavaScript class representing an ARIA menu button",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -20,7 +20,7 @@
     "clean": "rimraf *.log .DS_Store"
   },
   "dependencies": {
-    "makeup-expander": "^0.11.10",
+    "makeup-expander": "^0.12.0",
     "makeup-menu": "^0.4.9"
   },
   "files": [

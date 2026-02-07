@@ -1,7 +1,7 @@
 {
   "name": "makeup-modal",
   "description": "Applies modal accessibility requirements to any element",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "types": "./dist/index.d.ts",

@@ -1,7 +1,7 @@
 {
   "name": "makeup-tabs",
   "description": "A JavaScript class representing ARIA tabs",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {

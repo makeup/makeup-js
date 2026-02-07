@@ -1,7 +1,7 @@
 {
   "name": "makeup-exit-emitter",
   "description": "Emits custom 'focusExit' event when keyboard focus has exited an element and all of it's descendants",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "types": "./dist/index.d.ts",

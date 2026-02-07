@@ -1,7 +1,7 @@
 {
   "name": "makeup-key-emitter",
   "description": "Emits custom events for common accessibility keys (arrowRightKeyDown, escKeyDown, etc)",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "types": "./dist/index.d.ts",

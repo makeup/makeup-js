@@ -32,8 +32,8 @@ window.onload = function () {
       menuItemButtonAriaLabelSelector,
     });
 
-    widget.menu.el.addEventListener("makeup-menu-select", (e) => console.log(e.type, e.detail));
-    widget.menu.el.addEventListener("makeup-menu-change", (e) => console.log(e.type, e.detail));
-    widget.menu.el.addEventListener("makeup-menu-button-mutation", (e) => console.log(e.type, e.detail));
+    el.addEventListener("makeup-menu-button-select", (e) => console.log(e.type, e.detail));
+    el.addEventListener("makeup-menu-button-change", (e) => console.log(e.type, e.detail));
+    el.addEventListener("makeup-menu-button-mutation", (e) => console.log(e.type, e.detail));
   });
 };

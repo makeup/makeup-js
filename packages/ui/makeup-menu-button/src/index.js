@@ -134,6 +134,7 @@ function _onMenuItemSelect(e) {
     this.el.dispatchEvent(
       new CustomEvent(eventName, {
         detail: e.detail,
+        bubbles: true,
       }),
     );
   }

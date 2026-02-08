@@ -123,6 +123,14 @@ function _onMenuItemSelect(e) {
   const widget = this;
   const { el } = e.detail;
 
+  // Re-dispatch the menu event as a menu-button event
+  const eventName = e.type === "makeup-menu-select" ? "makeup-menu-button-select" : "makeup-menu-button-change";
+  this.el.dispatchEvent(
+    new CustomEvent(eventName, {
+      detail: e.detail,
+    }),
+  );
+
   setTimeout(function () {
     widget._expander.expanded = false;
     widget._buttonEl.focus();

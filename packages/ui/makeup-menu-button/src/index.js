@@ -37,6 +37,7 @@ export default class {
     this._onButtonFirstClickListener = _onButtonFirstClick.bind(this);
     this._onMenuKeyDownListener = _onMenuKeyDown.bind(this);
     this._onMenuItemSelectListener = _onMenuItemSelect.bind(this);
+    this._onMenuItemChangeListener = _onMenuItemChange.bind(this);
     this._onMutationListener = _onMutation.bind(this);
 
     this.el.classList.add("menu-button--js");
@@ -70,7 +71,7 @@ export default class {
       this._buttonEl.addEventListener("click", this._onButtonFirstClickListener, { once: true });
       this.menu.el.addEventListener("keydown", this._onMenuKeyDownListener);
       this.menu.el.addEventListener("makeup-menu-select", this._onMenuItemSelectListener);
-      this.menu.el.addEventListener("makeup-menu-change", this._onMenuItemSelectListener);
+      this.menu.el.addEventListener("makeup-menu-change", this._onMenuItemChangeListener);
     }
   }
 
@@ -78,7 +79,17 @@ export default class {
     this._buttonEl.removeEventListener("click", this._onButtonFirstClickListener);
     this.menu.el.removeEventListener("keydown", this._onMenuKeyDownListener);
     this.menu.el.removeEventListener("makeup-menu-select", this._onMenuItemSelectListener);
-    this.menu.el.removeEventListener("makeup-menu-change", this._onMenuItemSelectListener);
+    this.menu.el.removeEventListener("makeup-menu-change", this._onMenuItemChangeListener);
+  }
+
+  // this should maybe be moved to expander as an option callback for after collapse
+  _collapseMenuAfterTimeout() {
+    const widget = this;
+
+    setTimeout(function () {
+      widget._expander.expanded = false;
+      widget._buttonEl.focus();
+    }, 150);
   }
 
   destroy() {
@@ -90,6 +101,7 @@ export default class {
     this._onButtonFirstClickListener = null;
     this._onMenuKeyDownListener = null;
     this._onMenuItemSelectListener = null;
+    this._onMenuItemChangeListener = null;
     this._onMutationListener = null;
   }
 }
@@ -120,13 +132,25 @@ function _onMenuKeyDown(e) {
 }
 
 function _onMenuItemSelect(e) {
-  const widget = this;
+  this._collapseMenuAfterTimeout();
+
+  this.el.dispatchEvent(
+    new CustomEvent("makeup-menu-button-select", {
+      detail: e.detail,
+    }),
+  );
+}
+
+function _onMenuItemChange(e) {
   const { el } = e.detail;
 
-  setTimeout(function () {
-    widget._expander.expanded = false;
-    widget._buttonEl.focus();
-  }, 150);
+  this._collapseMenuAfterTimeout();
+
+  this.el.dispatchEvent(
+    new CustomEvent("makeup-menu-button-change", {
+      detail: e.detail,
+    }),
+  );
 
   if (el.getAttribute("role") !== "menuitemradio") {
     return;

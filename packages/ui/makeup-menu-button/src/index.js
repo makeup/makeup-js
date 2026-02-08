@@ -124,13 +124,12 @@ function _onMenuItemSelect(e) {
   const { el } = e.detail;
 
   // Re-dispatch the menu event as a menu-button event
-  let eventName;
-  if (e.type === "makeup-menu-select") {
-    eventName = "makeup-menu-button-select";
-  } else if (e.type === "makeup-menu-change") {
-    eventName = "makeup-menu-button-change";
-  }
-  
+  const eventTypeMap = {
+    "makeup-menu-select": "makeup-menu-button-select",
+    "makeup-menu-change": "makeup-menu-button-change",
+  };
+  const eventName = eventTypeMap[e.type];
+
   if (eventName) {
     this.el.dispatchEvent(
       new CustomEvent(eventName, {

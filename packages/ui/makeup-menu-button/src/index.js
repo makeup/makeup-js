@@ -124,12 +124,20 @@ function _onMenuItemSelect(e) {
   const { el } = e.detail;
 
   // Re-dispatch the menu event as a menu-button event
-  const eventName = e.type === "makeup-menu-select" ? "makeup-menu-button-select" : "makeup-menu-button-change";
-  this.el.dispatchEvent(
-    new CustomEvent(eventName, {
-      detail: e.detail,
-    }),
-  );
+  let eventName;
+  if (e.type === "makeup-menu-select") {
+    eventName = "makeup-menu-button-select";
+  } else if (e.type === "makeup-menu-change") {
+    eventName = "makeup-menu-button-change";
+  }
+  
+  if (eventName) {
+    this.el.dispatchEvent(
+      new CustomEvent(eventName, {
+        detail: e.detail,
+      }),
+    );
+  }
 
   setTimeout(function () {
     widget._expander.expanded = false;

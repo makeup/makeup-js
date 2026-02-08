@@ -82,12 +82,11 @@ class _default {
     this.menu.el.removeEventListener("makeup-menu-change", this._onMenuItemChangeListener);
   }
 
-  // this should maybe be moved to expander as an option callback for after collapse
+  // TODO: Move this logic to Expander as an option callback that runs after collapse.
   _collapseMenuAfterTimeout() {
-    const widget = this;
-    setTimeout(function () {
-      widget._expander.expanded = false;
-      widget._buttonEl.focus();
+    setTimeout(() => {
+      this._expander.expanded = false;
+      this._buttonEl.focus();
     }, 150);
   }
   destroy() {

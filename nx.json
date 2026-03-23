@@ -8,5 +8,6 @@
       }
     }
   },
-  "useDaemonProcess": true
+  "useDaemonProcess": true,
+  "analytics": false
 }

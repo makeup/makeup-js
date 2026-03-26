@@ -62,6 +62,31 @@ describe("given three elements without an existing id", () => {
   });
 });
 
+describe("given an element without an existing id", () => {
+  describe("when nextId is called with an empty string prefix", () => {
+    let el;
+    let nid;
+
+    beforeAll(() => {
+      el = document.createElement("div");
+      document.body.appendChild(el);
+      nid = nextId(el, "");
+    });
+
+    it("should assign an id to the element", () => {
+      expect(el.id).toBeTruthy();
+    });
+
+    it("should not start with a hyphen", () => {
+      expect(el.id.startsWith("-")).toBe(false);
+    });
+
+    it("should return the assigned id", () => {
+      expect(nid).toBe(el.id);
+    });
+  });
+});
+
 describe("given three elements with an existing id", () => {
   describe("when nextId is called on each element in sequence", () => {
     let testEls;

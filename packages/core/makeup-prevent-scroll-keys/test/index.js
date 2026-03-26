@@ -1,8 +1,12 @@
 import { describe, expect, beforeEach, afterEach, it, vi } from "vitest";
 import { add, remove } from "../src/index.js";
 
-describe("given an element", () => {
+// Keys that should have scroll prevented
+const SCROLL_KEYS = [" ", "PageUp", "PageDown", "End", "Home", "ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"];
+
+describe("given an element with prevent-scroll-keys added", () => {
   let element;
+
   beforeEach(() => {
     element = document.createElement("div");
     add(element);
@@ -12,44 +16,105 @@ describe("given an element", () => {
     remove(element);
   });
 
-  it("when module imported should not be undefined", function () {
-    expect(add).not.toBe(undefined);
-    expect(remove).not.toBe(undefined);
-  });
+  describe("when a scroll key is pressed", () => {
+    it("should prevent default for Space", () => {
+      const event = new KeyboardEvent("keydown", { key: " " });
+      const preventDefaultSpy = vi.spyOn(event, "preventDefault");
 
-  it("should prevent default for key codes 32 to 40", () => {
-    const preventDefaultMock = vi.fn();
-
-    // Simulate keydown events for each key code from 32 to 40
-    for (let keyCode = 32; keyCode <= 40; keyCode++) {
-      const event = new KeyboardEvent("keydown", { keyCode });
-      event.preventDefault = preventDefaultMock;
       element.dispatchEvent(event);
-      expect(preventDefaultMock).toHaveBeenCalled();
-    }
+
+      expect(preventDefaultSpy).toHaveBeenCalledOnce();
+    });
+
+    it("should prevent default for PageUp", () => {
+      const event = new KeyboardEvent("keydown", { key: "PageUp" });
+      const preventDefaultSpy = vi.spyOn(event, "preventDefault");
+
+      element.dispatchEvent(event);
+
+      expect(preventDefaultSpy).toHaveBeenCalledOnce();
+    });
+
+    it("should prevent default for PageDown", () => {
+      const event = new KeyboardEvent("keydown", { key: "PageDown" });
+      const preventDefaultSpy = vi.spyOn(event, "preventDefault");
+
+      element.dispatchEvent(event);
+
+      expect(preventDefaultSpy).toHaveBeenCalledOnce();
+    });
+
+    it("should prevent default for End", () => {
+      const event = new KeyboardEvent("keydown", { key: "End" });
+      const preventDefaultSpy = vi.spyOn(event, "preventDefault");
+
+      element.dispatchEvent(event);
+
+      expect(preventDefaultSpy).toHaveBeenCalledOnce();
+    });
+
+    it("should prevent default for Home", () => {
+      const event = new KeyboardEvent("keydown", { key: "Home" });
+      const preventDefaultSpy = vi.spyOn(event, "preventDefault");
+
+      element.dispatchEvent(event);
+
+      expect(preventDefaultSpy).toHaveBeenCalledOnce();
+    });
+
+    it("should prevent default for arrow keys", () => {
+      const arrowKeys = ["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"];
+
+      arrowKeys.forEach((key) => {
+        const event = new KeyboardEvent("keydown", { key });
+        const preventDefaultSpy = vi.spyOn(event, "preventDefault");
+
+        element.dispatchEvent(event);
+
+        expect(preventDefaultSpy).toHaveBeenCalledOnce();
+      });
+    });
   });
 
-  it("should not prevent default for key codes outside 32 to 40", () => {
-    const preventDefaultMock = vi.fn();
+  describe("when a non-scroll key is pressed", () => {
+    it("should not prevent default for letter keys", () => {
+      const event = new KeyboardEvent("keydown", { key: "a" });
+      const preventDefaultSpy = vi.spyOn(event, "preventDefault");
 
-    // Simulate keydown events for a key code outside the range
-    const event = new KeyboardEvent("keydown", { keyCode: 41 });
-    event.preventDefault = preventDefaultMock;
-    element.dispatchEvent(event);
-    expect(preventDefaultMock).not.toHaveBeenCalled();
+      element.dispatchEvent(event);
+
+      expect(preventDefaultSpy).not.toHaveBeenCalled();
+    });
+
+    it("should not prevent default for Enter", () => {
+      const event = new KeyboardEvent("keydown", { key: "Enter" });
+      const preventDefaultSpy = vi.spyOn(event, "preventDefault");
+
+      element.dispatchEvent(event);
+
+      expect(preventDefaultSpy).not.toHaveBeenCalled();
+    });
+
+    it("should not prevent default for Tab", () => {
+      const event = new KeyboardEvent("keydown", { key: "Tab" });
+      const preventDefaultSpy = vi.spyOn(event, "preventDefault");
+
+      element.dispatchEvent(event);
+
+      expect(preventDefaultSpy).not.toHaveBeenCalled();
+    });
   });
 
-  it("should remove the event listener correctly", () => {
-    const preventDefaultMock = vi.fn();
-    const event = new KeyboardEvent("keydown", { keyCode: 32 });
-    event.preventDefault = preventDefaultMock;
+  describe("when remove is called", () => {
+    it("should stop preventing scroll keys", () => {
+      remove(element);
 
-    // Remove the event listener
-    remove(element);
+      const event = new KeyboardEvent("keydown", { key: " " });
+      const preventDefaultSpy = vi.spyOn(event, "preventDefault");
 
-    // Dispatch the event after removing the listener
-    element.dispatchEvent(event);
+      element.dispatchEvent(event);
 
-    expect(preventDefaultMock).not.toHaveBeenCalled();
+      expect(preventDefaultSpy).not.toHaveBeenCalled();
+    });
   });
 });

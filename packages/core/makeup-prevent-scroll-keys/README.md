@@ -11,12 +11,10 @@ This module is still in an experimental state, until it reaches v1 you must cons
 ```js
 import * as scrollKeyPreventer from "makeup-prevent-scroll-keys";
 
-// get element reference
 const widgetEl = document.querySelector(".widget");
 
-// execute
-scrollKeyPreventer.add(el);
+scrollKeyPreventer.add(widgetEl);
 
 // to remove
-scrollKeyPreventer.remove(el);
+scrollKeyPreventer.remove(widgetEl);
 ```

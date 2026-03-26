@@ -17,7 +17,7 @@ function createRandomPortion(size) {
 function index_default(el, prefix = defaultPrefix) {
   const separator = prefix === "" ? "" : "-";
   const key = `${prefix}${separator}${randomPortion}`;
-  sequenceMap[key] = sequenceMap[key] || 0;
+  sequenceMap[key] ??= 0;
   if (!el.id) {
     el.setAttribute("id", `${key}-${sequenceMap[key]++}`);
   }

@@ -4,26 +4,19 @@ function index_default() {
   return {
     getIndex: function(nodeList, char, timeoutLength) {
       typeStr = typeStr.concat(char);
-      let index;
       if (nodeList == null) return -1;
       const lowerTypeStr = typeStr.toLocaleLowerCase();
-      index = [...nodeList].findIndex((el) => el.textContent.toLocaleLowerCase().startsWith(lowerTypeStr));
+      let index = [...nodeList].findIndex((el) => el.textContent.toLocaleLowerCase().startsWith(lowerTypeStr));
       if (index === -1) {
         index = [...nodeList].findIndex((el) => el.textContent.toLocaleLowerCase().includes(lowerTypeStr));
       }
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-      setTimeout(() => {
-        clearTimeout(timeout);
+      timeout = setTimeout(() => {
         typeStr = "";
       }, timeoutLength);
       return index;
     },
     destroy: function() {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
+      clearTimeout(timeout);
     }
   };
 }

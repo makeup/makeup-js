@@ -1,35 +1,36 @@
-// REQUIRE
-// const screenreaderTrap = require('makeup-screenreader-trap');
+import { trap, untrap } from "makeup-screenreader-trap";
 
-// IMPORT
-import * as screenreaderTrap from "makeup-screenreader-trap";
+const logEl = document.getElementById("log");
 
-document.querySelectorAll(".trap").forEach(function (item) {
-  item.addEventListener("click", function () {
-    if (this.getAttribute("aria-pressed") === "true") {
-      screenreaderTrap.untrap(this);
+function logEvent(eventName) {
+  const item = document.createElement("li");
+  item.textContent = eventName;
+  logEl.prepend(item);
+}
+
+document.querySelectorAll(".trap").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (btn.getAttribute("aria-pressed") === "true") {
+      untrap();
     } else {
-      screenreaderTrap.trap(this, { useHiddenProperty: false });
+      trap(btn, { useHiddenProperty: btn.hasAttribute("data-use-hidden-property") });
     }
   });
 
-  item.addEventListener("screenreaderTrap", function (e) {
-    console.log(this, e);
-    this.innerText = "Untrap";
-    this.setAttribute("aria-pressed", "true");
+  btn.addEventListener("screenreaderTrap", () => {
+    btn.textContent = "Untrap";
+    btn.setAttribute("aria-pressed", "true");
   });
 
-  item.addEventListener("screenreaderUntrap", function (e) {
-    console.log(this, e);
-    this.innerText = "Trap";
-    this.setAttribute("aria-pressed", "false");
+  btn.addEventListener("screenreaderUntrap", () => {
+    btn.textContent = "Trap";
+    btn.setAttribute("aria-pressed", "false");
   });
 });
 
-document.addEventListener("screenreaderTrap", function (e) {
-  console.log(this, e);
-});
+document.addEventListener("screenreaderTrap", () => logEvent("screenreaderTrap"));
+document.addEventListener("screenreaderUntrap", () => logEvent("screenreaderUntrap"));
 
-document.addEventListener("screenreaderUntrap", function (e) {
-  console.log(this, e);
+document.getElementById("clear").addEventListener("click", () => {
+  logEl.innerHTML = "";
 });

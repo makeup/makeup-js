@@ -11,7 +11,7 @@ const focusableElList = [
   "*[tabindex]",
   "*[contenteditable]"
 ];
-const focusableElSelector = focusableElList.join();
+const focusableElSelector = focusableElList.join(",");
 function index_default(el, keyboardOnly = false, callback) {
   if (callback) {
     const request = requestAnimationFrame(() => {
@@ -24,14 +24,11 @@ function index_default(el, keyboardOnly = false, callback) {
   return getFocusables(el, keyboardOnly);
 }
 function getFocusables(el, keyboardOnly = false) {
-  let focusableEls = Array.prototype.slice.call(el.querySelectorAll(focusableElSelector));
-  focusableEls = focusableEls.filter(function(focusableEl) {
-    return !!(focusableEl.offsetWidth || focusableEl.offsetHeight || focusableEl.getClientRects().length);
-  });
+  let focusableEls = [...el.querySelectorAll(focusableElSelector)].filter(
+    (focusableEl) => !!(focusableEl.offsetWidth || focusableEl.offsetHeight || focusableEl.getClientRects().length)
+  );
   if (keyboardOnly === true) {
-    focusableEls = focusableEls.filter(function(focusableEl) {
-      return focusableEl.getAttribute("tabindex") !== "-1";
-    });
+    focusableEls = focusableEls.filter((focusableEl) => focusableEl.getAttribute("tabindex") !== "-1");
   }
   return focusableEls;
 }

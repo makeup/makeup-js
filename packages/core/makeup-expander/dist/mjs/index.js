@@ -1,5 +1,5 @@
 import nextID from "makeup-next-id";
-import * as ExitEmitter from "makeup-exit-emitter";
+import { addFocusExit } from "makeup-exit-emitter";
 import focusables from "makeup-focusables";
 const defaultOptions = {
   alwaysDoFocusManagement: false,
@@ -20,10 +20,10 @@ const defaultOptions = {
   useAriaExpanded: true
 };
 function onHostKeyDown(e) {
-  if (e.keyCode === 13 || e.keyCode === 32) {
+  if (e.key === "Enter" || e.key === " ") {
     this._keyboardClickFlag = true;
   }
-  if (e.keyCode === 32 && this.options.simulateSpacebarClick === true) {
+  if (e.key === " " && this.options.simulateSpacebarClick === true) {
     this.hostEl.click();
   }
 }
@@ -96,11 +96,11 @@ function manageFocus(focusManagement, contentEl) {
 }
 class index_default {
   constructor(el, selectedOptions) {
-    this.options = Object.assign({}, defaultOptions, selectedOptions);
+    this.options = { ...defaultOptions, ...selectedOptions };
     this.el = el;
     this.hostEl = el.querySelector(this.options.hostSelector);
     this.contentEl = el.querySelector(this.options.contentSelector);
-    ExitEmitter.addFocusExit(this.el);
+    addFocusExit(this.el);
     this._hostKeyDownListener = onHostKeyDown.bind(this);
     this._hostMouseDownListener = onHostMouseDown.bind(this);
     this._documentClickListener = _onDocumentClick.bind(this);

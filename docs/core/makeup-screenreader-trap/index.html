@@ -39,12 +39,6 @@
       </div>
 
       <div>
-        <div aria-hidden="true">aria-hidden sibling before trap</div>
-        <button class="trap" aria-pressed="false">Trap</button>
-        <div aria-hidden="true">aria-hidden sibling after trap</div>
-      </div>
-
-      <div>
         <div>sibling before trap</div>
         <div>sibling before trap</div>
         <button class="trap" aria-pressed="false">Trap</button>
@@ -118,28 +112,50 @@
         <div>great uncle after trap</div>
       </div>
 
-      <p>Has two visibly hidden elements (using hidden property) before and after button:</p>
+      <h2>Hidden elements</h2>
+
+      <p>Has two <code>aria-hidden</code> adjacent elements:</p>
 
       <div>
-        <div hidden>hidden sibling before trap</div>
+        <div aria-hidden="true">aria-hidden sibling before trap</div>
         <button class="trap" aria-pressed="false">Trap</button>
-        <div hidden>hidden sibling after trap</div>
+        <div aria-hidden="true">aria-hidden sibling after trap</div>
       </div>
 
-      <p>Has two visible SVG elements before and after button:</p>
+      <p>Has two <code>hidden</code> adjacent elements:</p>
 
       <div>
-        <svg>hidden svg sibling before trap</svg>
+        <div hidden>sibling before trap</div>
         <button class="trap" aria-pressed="false">Trap</button>
-        <svg>hidden svg sibling after trap</svg>
+        <div hidden>sibling after trap</div>
       </div>
 
-      <p>Has two visibly hidden SVG elements (using hidden property) before and after button:</p>
+      <h2>SVG</h2>
+
+      <p>Has two adjacent visible SVG text elements:</p>
 
       <div>
-        <svg hidden>hidden svg sibling before trap</svg>
+        <svg width="160" height="20"><text y="15">SVG sibling before trap</text></svg>
         <button class="trap" aria-pressed="false">Trap</button>
-        <svg hidden>hidden svg sibling after trap</svg>
+        <svg width="160" height="20"><text y="15">SVG sibling after trap</text></svg>
+      </div>
+
+      <p>Has two adjacent <code>aria-hidden</code> SVG text elements:</p>
+
+      <div>
+        <svg width="160" height="20" aria-hidden="true"><text y="15">SVG sibling before trap</text></svg>
+        <button class="trap" aria-pressed="false">Trap</button>
+        <svg width="160" height="20" aria-hidden="true"><text y="15">SVG sibling after trap</text></svg>
+      </div>
+
+      <p>
+        Has two adjacent <code>hidden</code> SVG text elements (SVG does not support the <code>hidden</code> property):
+      </p>
+
+      <div>
+        <svg width="160" height="20" hidden><text y="15">SVG sibling before trap</text></svg>
+        <button class="trap" aria-pressed="false">Trap</button>
+        <svg width="160" height="20" hidden><text y="15">SVG sibling after trap</text></svg>
       </div>
     </main>
     <script src="index.min.js"></script>

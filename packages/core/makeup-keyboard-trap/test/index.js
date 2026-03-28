@@ -1,20 +1,19 @@
-import { describe, expect, beforeEach, afterEach, it } from "vitest";
-import sinon from "sinon";
+import { describe, expect, beforeEach, afterEach, it, vi } from "vitest";
 import * as keyboardTrap from "../src/index.js";
 import testData from "./data.js";
 
-testData.forEach(function (data) {
-  var trapEl;
-  var onTrap;
-  var onUntrap;
+testData.forEach((data) => {
+  let trapEl;
+  let onTrap;
+  let onUntrap;
 
-  describe("given trap is not active,", function () {
-    describe("when trap method is called", function () {
-      beforeEach(function () {
+  describe("given trap is not active,", () => {
+    describe("when trap method is called", () => {
+      beforeEach(() => {
         document.body.innerHTML = data.html;
         trapEl = document.querySelector(".dialog");
-        onTrap = sinon.spy();
-        onUntrap = sinon.spy();
+        onTrap = vi.fn();
+        onUntrap = vi.fn();
 
         trapEl.addEventListener("keyboardTrap", onTrap);
         trapEl.addEventListener("keyboardUntrap", onUntrap);
@@ -22,85 +21,97 @@ testData.forEach(function (data) {
         keyboardTrap.refresh();
       });
 
-      afterEach(function () {
+      afterEach(() => {
         keyboardTrap.untrap();
-        onTrap.resetHistory();
-        onUntrap.resetHistory();
+        onTrap.mockClear();
+        onUntrap.mockClear();
       });
 
-      it("it should have class keyboard-trap--active on trap", function () {
-        expect(trapEl.classList.contains("keyboard-trap--active")).to.equal(true);
+      it("should have class keyboard-trap--active on trap", () => {
+        expect(trapEl.classList.contains("keyboard-trap--active")).toBe(true);
       });
-      it("it should have six trap boundaries in body", function () {
-        expect(document.querySelectorAll(".keyboard-trap-boundary").length).to.equal(6);
+      it("should have six trap boundaries in body", () => {
+        expect(document.querySelectorAll(".keyboard-trap-boundary").length).toBe(6);
       });
-      it("it should observe one trap event", function () {
-        expect(onTrap.callCount).to.equal(1);
+      it("should observe one trap event", () => {
+        expect(onTrap.mock.calls.length).toBe(1);
       });
-      it("it should observe zero untrap events", function () {
-        expect(onUntrap.callCount).to.equal(0);
+      it("should observe zero untrap events", () => {
+        expect(onUntrap.mock.calls.length).toBe(0);
       });
     });
   });
 
-  describe("given trap is active,", function () {
-    beforeEach(function () {
+  describe("given trap is active,", () => {
+    beforeEach(() => {
       document.body.innerHTML = data.html;
       trapEl = document.querySelector(".dialog");
-      onTrap = sinon.spy();
-      onUntrap = sinon.spy();
+      onTrap = vi.fn();
+      onUntrap = vi.fn();
 
       trapEl.addEventListener("keyboardTrap", onTrap);
       trapEl.addEventListener("keyboardUntrap", onUntrap);
 
       keyboardTrap.trap(trapEl);
       keyboardTrap.refresh();
-      onTrap.resetHistory();
+      onTrap.mockClear();
     });
 
-    describe("when untrap method is called", function () {
-      beforeEach(function () {
+    describe("when untrap method is called", () => {
+      beforeEach(() => {
         keyboardTrap.untrap();
       });
 
-      it("it should have zero trap boundaries in body", function () {
-        expect(document.querySelectorAll(".keyboard-trap-boundary").length).to.equal(0);
+      it("should have zero trap boundaries in body", () => {
+        expect(document.querySelectorAll(".keyboard-trap-boundary").length).toBe(0);
       });
-      it("it should not have class keyboard-trap--active on trap", function () {
-        expect(trapEl.classList.contains("keyboard-trap--active")).to.be.false;
+      it("should not have class keyboard-trap--active on trap", () => {
+        expect(trapEl.classList.contains("keyboard-trap--active")).toBe(false);
       });
-      it("it should observe 0 trap events", function () {
-        expect(onTrap.callCount).to.equal(0);
+      it("should observe 0 trap events", () => {
+        expect(onTrap.mock.calls.length).toBe(0);
       });
-      it("it should observe 1 untrap event", function () {
-        expect(onUntrap.callCount).to.equal(1);
+      it("should observe 1 untrap event", () => {
+        expect(onUntrap.mock.calls.length).toBe(1);
       });
     });
   });
 
-  describe("given trap is active", function () {
-    beforeEach(function () {
+  describe("given trap is active", () => {
+    beforeEach(() => {
       document.body.innerHTML = data.html;
       trapEl = document.querySelector(".dialog");
-      onTrap = sinon.spy();
-      onUntrap = sinon.spy();
+      onTrap = vi.fn();
+      onUntrap = vi.fn();
 
       trapEl.addEventListener("keyboardTrap", onTrap);
       trapEl.addEventListener("keyboardUntrap", onUntrap);
 
       keyboardTrap.trap(trapEl);
-      onTrap.resetHistory();
-      onUntrap.resetHistory();
+      onTrap.mockClear();
+      onUntrap.mockClear();
     });
 
-    describe("when DOM is changed", function () {
-      beforeEach(function () {
+    describe("when DOM is changed", () => {
+      beforeEach(() => {
         document.querySelector(".keyboard-trap-boundary").remove();
       });
 
-      it("it should not throw an error when untrap is called", function () {
-        expect(keyboardTrap.untrap.bind()).not.to.throw();
+      it("should not throw an error when untrap is called", () => {
+        expect(() => keyboardTrap.untrap()).not.toThrow();
       });
+    });
+  });
+});
+
+describe("given trap is not active", () => {
+  beforeEach(() => {
+    keyboardTrap.untrap();
+  });
+
+  describe("when refresh is called", () => {
+    it("should not throw", () => {
+      expect(() => keyboardTrap.refresh()).not.toThrow();
     });
   });
 });

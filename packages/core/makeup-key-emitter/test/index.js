@@ -1,170 +1,212 @@
-import { describe, expect, beforeEach, afterEach, it } from "vitest";
-import sinon from "sinon";
-import * as KeyEmitter from "../src/index.js";
+import { describe, expect, beforeEach, afterEach, it, vi } from "vitest";
+import { add, addKeyDown, addKeyUp, remove, removeKeyDown, removeKeyUp } from "../src/index.js";
 
-var mockCallBack;
+describe("given an element with key emitter added", () => {
+  let el;
 
-describe("Given a list of three items", function () {
-  var dom =
-    '<ul class="widget">' +
-    "<li><button>Button 1</button></li>" +
-    "<li><button>Button 2</button></li>" +
-    "<li><button>Button 3</button></li>" +
-    "</ul>";
+  beforeEach(() => {
+    document.body.innerHTML = '<ul class="widget"><li><button>Button 1</button></li></ul>';
+    el = document.querySelector(".widget");
+    add(el);
+  });
 
-  document.body.innerHTML = dom;
+  afterEach(() => {
+    remove(el);
+    vi.restoreAllMocks();
+  });
 
-  var testEl = document.querySelector(".widget");
-
-  describe("when key emitter class is imported", function () {
-    it("KeyEmitter module should not be undefined", function () {
-      expect(KeyEmitter).not.to.be.undefined;
+  describe("when Home key is pressed", () => {
+    it("should trigger homeKeyUp event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("homeKeyUp", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keyup", { key: "Home" }));
+      expect(onEvent).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when key emitter is added", function () {
-    beforeEach(function () {
-      KeyEmitter.add(testEl);
+  describe("when remove is called and Home key is pressed", () => {
+    it("should not trigger homeKeyUp event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("homeKeyUp", onEvent);
+      remove(el);
+      el.dispatchEvent(new KeyboardEvent("keyup", { key: "Home" }));
+      expect(onEvent).not.toHaveBeenCalled();
     });
+  });
+});
 
-    afterEach(function () {
-      mockCallBack = null;
-    });
+describe("given an element with addKeyDown added", () => {
+  let el;
 
-    it("should trigger homeKeyUp event", function () {
-      // execute
-      mockCallBack = sinon.spy();
-      testEl.addEventListener("homeKeyUp", mockCallBack);
-      var keyUpEvent = new Event("keyup");
-      keyUpEvent.keyCode = 40;
-      keyUpEvent.key = "Home";
-      testEl.dispatchEvent(keyUpEvent);
-      // assert
-      expect(mockCallBack.callCount).to.equal(1);
+  beforeEach(() => {
+    document.body.innerHTML = '<ul class="widget"><li><button>Button 1</button></li></ul>';
+    el = document.querySelector(".widget");
+    addKeyDown(el);
+  });
+
+  describe("when ArrowLeft key is pressed", () => {
+    it("should trigger arrowLeftKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("arrowLeftKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowLeft" }));
+      expect(onEvent).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when key emitter is added with Key Down", function () {
-    beforeEach(function () {
-      KeyEmitter.addKeyDown(testEl);
-    });
-
-    afterEach(function () {
-      mockCallBack = null;
-    });
-
-    it("should trigger arrowLeftKeyDown event", function () {
-      // execute
-      mockCallBack = sinon.spy();
-      testEl.addEventListener("arrowLeftKeyDown", mockCallBack);
-      var keyDownEvent = new Event("keydown");
-      keyDownEvent.keyCode = 37;
-      keyDownEvent.key = "ArrowLeft";
-      testEl.dispatchEvent(keyDownEvent);
-      // assert
-      expect(mockCallBack.callCount).to.equal(1);
-    });
-
-    it("should trigger arrowUpKeyDown event", function () {
-      // execute
-      mockCallBack = sinon.spy();
-      testEl.addEventListener("arrowUpKeyDown", mockCallBack);
-      var keyDownEvent = new Event("keydown");
-      keyDownEvent.keyCode = 38;
-      keyDownEvent.key = "ArrowUp";
-      testEl.dispatchEvent(keyDownEvent);
-      // assert
-      expect(mockCallBack.callCount).to.equal(1);
-    });
-
-    it("should trigger arrowRightKeyDown event", function () {
-      // execute
-      mockCallBack = sinon.spy();
-      testEl.addEventListener("arrowRightKeyDown", mockCallBack);
-      var keyDownEvent = new Event("keydown");
-      keyDownEvent.keyCode = 39;
-      keyDownEvent.key = "ArrowRight";
-      testEl.dispatchEvent(keyDownEvent);
-      // assert
-      expect(mockCallBack.callCount).to.equal(1);
-    });
-
-    it("should trigger arrowDownKeyDown event", function () {
-      // execute
-      mockCallBack = sinon.spy();
-      testEl.addEventListener("arrowDownKeyDown", mockCallBack);
-      var keyDownEvent = new Event("keydown");
-      keyDownEvent.keyCode = 40;
-      keyDownEvent.key = "ArrowDown";
-      testEl.dispatchEvent(keyDownEvent);
-      // assert
-      expect(mockCallBack.callCount).to.equal(1);
+  describe("when ArrowUp key is pressed", () => {
+    it("should trigger arrowUpKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("arrowUpKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" }));
+      expect(onEvent).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when key emitter is added with Key Up", function () {
-    beforeEach(function () {
-      KeyEmitter.addKeyUp(testEl);
-    });
-
-    afterEach(function () {
-      mockCallBack = null;
-    });
-
-    it("should trigger spaceKeyUp event", function () {
-      // execute
-      mockCallBack = sinon.spy();
-      testEl.addEventListener("spacebarKeyUp", mockCallBack);
-      var keyUpEvent = new Event("keyup");
-      keyUpEvent.keyCode = 32;
-      keyUpEvent.key = " ";
-      testEl.dispatchEvent(keyUpEvent);
-      // assert
-      expect(mockCallBack.callCount).to.equal(1);
-    });
-
-    it("should not trigger spaceKeyUp event with shiftKey", function () {
-      // execute
-      mockCallBack = sinon.spy();
-      testEl.addEventListener("spacebarKeyUp", mockCallBack);
-      var keyUpEvent = new Event("keyup");
-      keyUpEvent.keyCode = 32;
-      keyUpEvent.key = " ";
-      keyUpEvent.shiftKey = true;
-      testEl.dispatchEvent(keyUpEvent);
-      // assert
-      expect(mockCallBack.callCount).to.equal(0);
+  describe("when ArrowRight key is pressed", () => {
+    it("should trigger arrowRightKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("arrowRightKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight" }));
+      expect(onEvent).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when key emitter is added and removed", function () {
-    beforeEach(function () {
-      KeyEmitter.add(testEl);
+  describe("when ArrowDown key is pressed", () => {
+    it("should trigger arrowDownKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("arrowDownKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
+      expect(onEvent).toHaveBeenCalledOnce();
     });
+  });
+});
 
-    afterEach(function () {
-      mockCallBack = null;
+describe("given an element with addKeyUp added", () => {
+  let el;
+
+  beforeEach(() => {
+    document.body.innerHTML = '<ul class="widget"><li><button>Button 1</button></li></ul>';
+    el = document.querySelector(".widget");
+    addKeyUp(el);
+  });
+
+  describe("when Space key is pressed", () => {
+    it("should trigger spacebarKeyUp event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("spacebarKeyUp", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keyup", { key: " " }));
+      expect(onEvent).toHaveBeenCalledOnce();
     });
+  });
 
-    it("should not trigger homeKeyUp event", function () {
-      // execute
-      mockCallBack = sinon.spy();
-      testEl.addEventListener("homeKeyUp", mockCallBack);
+  describe("when Space key is pressed with Shift", () => {
+    it("should not trigger spacebarKeyUp event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("spacebarKeyUp", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keyup", { key: " ", shiftKey: true }));
+      expect(onEvent).not.toHaveBeenCalled();
+    });
+  });
 
-      var keyUpEvent = new Event("keyup");
-      keyUpEvent.keyCode = 40;
-      keyUpEvent.key = "Home";
-      testEl.dispatchEvent(keyUpEvent);
-      // assert
-      expect(mockCallBack.callCount).to.equal(1);
+  describe("when a non-accessibility key is pressed", () => {
+    it("should not trigger any custom event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("aKeyUp", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keyup", { key: "a" }));
+      expect(onEvent).not.toHaveBeenCalled();
+    });
+  });
 
-      // reset the spy
-      mockCallBack = sinon.spy();
-      // execute
-      KeyEmitter.remove(testEl);
-      testEl.dispatchEvent(keyUpEvent);
-      // assert
-      expect(mockCallBack.callCount).to.equal(0);
+  describe("when removeKeyUp is called and Space key is pressed", () => {
+    it("should not trigger spacebarKeyUp event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("spacebarKeyUp", onEvent);
+      removeKeyUp(el);
+      el.dispatchEvent(new KeyboardEvent("keyup", { key: " " }));
+      expect(onEvent).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("given an element with addKeyDown added", () => {
+  let el;
+
+  beforeEach(() => {
+    document.body.innerHTML = '<ul class="widget"><li><button>Button 1</button></li></ul>';
+    el = document.querySelector(".widget");
+    addKeyDown(el);
+  });
+
+  describe("when Enter key is pressed", () => {
+    it("should trigger enterKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("enterKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+      expect(onEvent).toHaveBeenCalledOnce();
+    });
+  });
+
+  describe("when Escape key is pressed", () => {
+    it("should trigger escapeKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("escapeKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+      expect(onEvent).toHaveBeenCalledOnce();
+    });
+  });
+
+  describe("when PageUp key is pressed", () => {
+    it("should trigger pageUpKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("pageUpKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "PageUp" }));
+      expect(onEvent).toHaveBeenCalledOnce();
+    });
+  });
+
+  describe("when PageDown key is pressed", () => {
+    it("should trigger pageDownKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("pageDownKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "PageDown" }));
+      expect(onEvent).toHaveBeenCalledOnce();
+    });
+  });
+
+  describe("when End key is pressed", () => {
+    it("should trigger endKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("endKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "End" }));
+      expect(onEvent).toHaveBeenCalledOnce();
+    });
+  });
+
+  describe("when Home key is pressed", () => {
+    it("should trigger homeKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("homeKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "Home" }));
+      expect(onEvent).toHaveBeenCalledOnce();
+    });
+  });
+
+  describe("when ArrowLeft key is pressed with Shift", () => {
+    it("should not trigger arrowLeftKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("arrowLeftKeyDown", onEvent);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowLeft", shiftKey: true }));
+      expect(onEvent).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when removeKeyDown is called and ArrowLeft key is pressed", () => {
+    it("should not trigger arrowLeftKeyDown event", () => {
+      const onEvent = vi.fn();
+      el.addEventListener("arrowLeftKeyDown", onEvent);
+      removeKeyDown(el);
+      el.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowLeft" }));
+      expect(onEvent).not.toHaveBeenCalled();
     });
   });
 });

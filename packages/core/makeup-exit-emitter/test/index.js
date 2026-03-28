@@ -1,130 +1,134 @@
-import { describe, expect, beforeEach, afterEach, it } from "vitest";
-import sinon from "sinon";
+import { describe, expect, beforeEach, afterEach, it, vi } from "vitest";
 import * as ExitEmitter from "../src/index.js";
 
-let testEl;
-let testElSibling;
-let onFocusExit;
+describe("given an element with focus", () => {
+  let testEl;
+  let testElSibling;
+  let onFocusExit;
 
-describe("given an element with focus", function () {
-  function setup() {
+  beforeEach(() => {
     document.body.innerHTML = `
-            <div id="test-element" tabindex="0">
-                <button></button>
-            </div>
-            <div id="test-element-sibling" tabindex="0">
-                <button></button>
-            </div>
-        `;
-
+      <div id="test-element" tabindex="0">
+        <button></button>
+      </div>
+      <div id="test-element-sibling" tabindex="0">
+        <button></button>
+      </div>
+    `;
     testEl = document.querySelector("#test-element");
     testElSibling = document.querySelector("#test-element-sibling");
     ExitEmitter.addFocusExit(testEl);
-    onFocusExit = sinon.spy();
+    onFocusExit = vi.fn();
     testEl.addEventListener("focusExit", onFocusExit);
     testEl.focus();
-  }
-
-  beforeEach(setup);
-  afterEach(function () {
-    testEl.focus();
-    onFocusExit.resetHistory();
   });
 
-  describe("when focus moves to sibling", function () {
-    beforeEach(function () {
+  afterEach(() => {
+    testEl.focus();
+    onFocusExit.mockClear();
+  });
+
+  describe("when focus moves to sibling", () => {
+    beforeEach(() => {
       testElSibling.focus();
     });
 
-    it("should trigger focusExit once", function () {
-      expect(onFocusExit.called).to.be.true;
+    it("should trigger focusExit", () => {
+      expect(onFocusExit).toHaveBeenCalled();
     });
   });
 
-  describe("when focus moves to descendant", function () {
-    beforeEach(function () {
+  describe("when focus moves to descendant", () => {
+    beforeEach(() => {
       testEl.querySelector("button").focus();
     });
 
-    it("should not trigger focusExit", function () {
-      expect(onFocusExit.notCalled).to.be.true;
+    it("should not trigger focusExit", () => {
+      expect(onFocusExit).not.toHaveBeenCalled();
     });
   });
 
-  // describe('when focus exits with blur', function() {
-  //     beforeEach(function() {
-  //         testEl.blur();
-  //     });
-
-  //     it('should trigger focusExit once', async function() {
-  //         expect(onFocusExit.calledOnce).to.be.true;
-  //     });
-  // });
-
-  describe("when focus moves to sibling without focusExit", function () {
-    beforeEach(function () {
+  describe("when removeFocusExit is called and focus moves to sibling", () => {
+    beforeEach(() => {
       ExitEmitter.removeFocusExit(testEl);
       testElSibling.focus();
     });
 
-    it("should not trigger focusExit", function () {
-      expect(onFocusExit.notCalled).to.be.true;
+    it("should not trigger focusExit", () => {
+      expect(onFocusExit).not.toHaveBeenCalled();
     });
   });
 });
 
-describe("given an element with focus on descendant", function () {
-  function setup() {
-    document.body.innerHTML = `
-            <div id="test-element" tabindex="0">
-                <button></button>
-            </div>
-            <div id="test-element-sibling" tabindex="0">
-                <button></button>
-            </div>
-        `;
+describe("given an element with no focusExit registered", () => {
+  let testEl;
 
+  beforeEach(() => {
+    document.body.innerHTML = `<div id="test-element-unregistered" tabindex="0"></div>`;
+    testEl = document.querySelector("#test-element-unregistered");
+  });
+
+  describe("when removeFocusExit is called", () => {
+    it("should not throw", () => {
+      expect(() => ExitEmitter.removeFocusExit(testEl)).not.toThrow();
+    });
+  });
+});
+
+describe("given an element with focus on a descendant", () => {
+  let testEl;
+  let testElSibling;
+  let onFocusExit;
+
+  beforeEach(() => {
+    document.body.innerHTML = `
+      <div id="test-element" tabindex="0">
+        <button></button>
+      </div>
+      <div id="test-element-sibling" tabindex="0">
+        <button></button>
+      </div>
+    `;
     testEl = document.querySelector("#test-element");
     testElSibling = document.querySelector("#test-element-sibling");
     ExitEmitter.addFocusExit(testEl);
-    onFocusExit = sinon.spy();
+    onFocusExit = vi.fn();
     testEl.addEventListener("focusExit", onFocusExit);
     testEl.querySelector("button").focus();
-  }
-
-  beforeEach(setup);
-  afterEach(function () {
-    testEl.querySelector("button").focus();
-    onFocusExit.resetHistory();
   });
 
-  describe("when focus moves to sibling of element root", function () {
-    beforeEach(function () {
+  afterEach(() => {
+    testEl.querySelector("button").focus();
+    onFocusExit.mockClear();
+  });
+
+  describe("when focus moves to sibling of element root", () => {
+    beforeEach(() => {
       testElSibling.focus();
     });
 
-    it("should trigger focusExit once", async function () {
-      expect(onFocusExit.called).to.be.true;
+    it("should trigger focusExit", () => {
+      expect(onFocusExit).toHaveBeenCalled();
     });
   });
 
-  describe("when focus is reset on descendant", function () {
-    beforeEach(function () {
+  describe("when focus is reset on descendant", () => {
+    beforeEach(() => {
       testEl.querySelector("button").focus();
     });
 
-    it("should not trigger focusExit", function () {
-      expect(onFocusExit.notCalled).to.be.true;
+    it("should not trigger focusExit", () => {
+      expect(onFocusExit).not.toHaveBeenCalled();
     });
   });
 
-  describe("when focus moves to element root", function () {
-    beforeEach(function () {
+  describe("when focus moves to element root", () => {
+    beforeEach(() => {
       testEl.focus();
     });
 
-    it("should not trigger focusExit", function () {
-      expect(onFocusExit.notCalled).to.be.true;
+    it("should not trigger focusExit", () => {
+      expect(onFocusExit).not.toHaveBeenCalled();
     });
   });
 });

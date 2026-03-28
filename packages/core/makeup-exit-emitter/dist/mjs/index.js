@@ -1,5 +1,5 @@
 import nextID from "makeup-next-id";
-const focusExitEmitters = {};
+const focusExitEmitters = /* @__PURE__ */ new Map();
 function doFocusExit(el, fromElement, toElement) {
   el.dispatchEvent(
     new CustomEvent("focusExit", {
@@ -44,19 +44,17 @@ class FocusExitEmitter {
   }
 }
 function addFocusExit(el) {
-  let exitEmitter = null;
   nextID(el);
-  if (!focusExitEmitters[el.id]) {
-    exitEmitter = new FocusExitEmitter(el);
-    focusExitEmitters[el.id] = exitEmitter;
+  if (!focusExitEmitters.has(el.id)) {
+    focusExitEmitters.set(el.id, new FocusExitEmitter(el));
   }
-  return exitEmitter;
+  return focusExitEmitters.get(el.id);
 }
 function removeFocusExit(el) {
-  const exitEmitter = focusExitEmitters[el.id];
+  const exitEmitter = focusExitEmitters.get(el.id);
   if (exitEmitter) {
     exitEmitter.removeEventListeners();
-    delete focusExitEmitters[el.id];
+    focusExitEmitters.delete(el.id);
   }
 }
 export {

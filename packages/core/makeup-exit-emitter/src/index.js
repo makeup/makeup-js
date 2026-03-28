@@ -1,5 +1,6 @@
 import nextID from "makeup-next-id";
-const focusExitEmitters = {};
+
+const focusExitEmitters = new Map();
 
 function doFocusExit(el, fromElement, toElement) {
   el.dispatchEvent(
@@ -42,13 +43,10 @@ function onWidgetFocusIn() {
 class FocusExitEmitter {
   constructor(el) {
     this.el = el;
-
     this.currentFocusElement = null;
-
     this.onWidgetFocusInListener = onWidgetFocusIn.bind(this);
     this.onDocumentFocusInListener = onDocumentFocusIn.bind(this);
     this.onWindowBlurListener = onWindowBlur.bind(this);
-
     this.el.addEventListener("focusin", this.onWidgetFocusInListener);
   }
 
@@ -59,24 +57,23 @@ class FocusExitEmitter {
   }
 }
 
+// TODO: rename to enableFocusExit when module is renamed to makeup-focus-exit
 export function addFocusExit(el) {
-  let exitEmitter = null;
-
   nextID(el);
 
-  if (!focusExitEmitters[el.id]) {
-    exitEmitter = new FocusExitEmitter(el);
-    focusExitEmitters[el.id] = exitEmitter;
+  if (!focusExitEmitters.has(el.id)) {
+    focusExitEmitters.set(el.id, new FocusExitEmitter(el));
   }
 
-  return exitEmitter;
+  return focusExitEmitters.get(el.id);
 }
 
+// TODO: rename to disableFocusExit when module is renamed to makeup-focus-exit
 export function removeFocusExit(el) {
-  const exitEmitter = focusExitEmitters[el.id];
+  const exitEmitter = focusExitEmitters.get(el.id);
 
   if (exitEmitter) {
     exitEmitter.removeEventListeners();
-    delete focusExitEmitters[el.id];
+    focusExitEmitters.delete(el.id);
   }
 }

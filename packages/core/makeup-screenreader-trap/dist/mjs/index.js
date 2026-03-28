@@ -4,22 +4,18 @@ let trappedEl;
 let dirtyObjects;
 const filterSvg = (item) => item.tagName.toLowerCase() !== "svg";
 function showElementPrep(el, useHiddenProperty) {
-  let preparedElement;
   if (useHiddenProperty === false) {
-    preparedElement = prepareElement(el, "aria-hidden", "false");
+    return prepareElement(el, "aria-hidden", "false");
   } else {
-    preparedElement = prepareElement(el, "hidden", false);
+    return prepareElement(el, "hidden", false);
   }
-  return preparedElement;
 }
 function hideElementPrep(el, useHiddenProperty) {
-  let preparedElement;
   if (useHiddenProperty === false) {
-    preparedElement = prepareElement(el, "aria-hidden", "true");
+    return prepareElement(el, "aria-hidden", "true");
   } else {
-    preparedElement = prepareElement(el, "hidden", true);
+    return prepareElement(el, "hidden", true);
   }
-  return preparedElement;
 }
 function prepareElement(el, attributeName, dirtyValue) {
   const isProperty = typeof dirtyValue === "boolean";
@@ -65,7 +61,7 @@ const defaultOptions = {
 };
 function trap(el, selectedOptions) {
   untrap();
-  const options = Object.assign({}, defaultOptions, selectedOptions);
+  const options = { ...defaultOptions, ...selectedOptions };
   trappedEl = el;
   mainEl = document.querySelector('main, [role="main"]');
   if (mainEl) {
@@ -78,7 +74,12 @@ function trap(el, selectedOptions) {
     siblings = siblings.filter(filterSvg);
     siblingsOfAncestors = siblingsOfAncestors.filter(filterSvg);
   }
-  dirtyObjects = [showElementPrep(trappedEl, options.useHiddenProperty)].concat(ancestors.map((item) => showElementPrep(item, options.useHiddenProperty))).concat(siblings.map((item) => hideElementPrep(item, options.useHiddenProperty))).concat(siblingsOfAncestors.map((item) => hideElementPrep(item, options.useHiddenProperty)));
+  dirtyObjects = [
+    showElementPrep(trappedEl, options.useHiddenProperty),
+    ...ancestors.map((item) => showElementPrep(item, options.useHiddenProperty)),
+    ...siblings.map((item) => hideElementPrep(item, options.useHiddenProperty)),
+    ...siblingsOfAncestors.map((item) => hideElementPrep(item, options.useHiddenProperty))
+  ];
   dirtyObjects.forEach((item) => dirtyElement(item));
   trappedEl.dispatchEvent(new CustomEvent("screenreaderTrap", { bubbles: true }));
 }

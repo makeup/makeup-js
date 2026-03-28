@@ -5,10 +5,8 @@ const filterAncestor = (item) =>
 // filter function for sibling elements
 const filterSibling = (item) => item.nodeType === 1 && item.tagName.toLowerCase() !== "script";
 
-// reducer to flatten arrays
-const flattenArrays = (a, b) => a.concat(b);
-
 // recursive function to get previous sibling nodes of given element
+// TODO: rewrite as iterative loop to avoid stack overflow risk in large DOM trees
 function getPreviousSiblings(el, siblings = []) {
   const previousSibling = el.previousSibling;
 
@@ -22,6 +20,7 @@ function getPreviousSiblings(el, siblings = []) {
 }
 
 // recursive function to get next sibling nodes of given element
+// TODO: rewrite as iterative loop to avoid stack overflow risk in large DOM trees
 function getNextSiblings(el, siblings = []) {
   const nextSibling = el.nextSibling;
 
@@ -63,7 +62,7 @@ function getAncestors(el) {
 function getSiblingsOfAncestors(el) {
   return getAncestors(el)
     .map((item) => getSiblings(item))
-    .reduce(flattenArrays, []);
+    .flat();
 }
 
 export { getSiblings, getAncestors, getSiblingsOfAncestors };

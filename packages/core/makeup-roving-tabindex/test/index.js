@@ -675,3 +675,188 @@ describe("given 3 items with focus on second", () => {
 });
 
 /* END AUTO RESET TESTS */
+
+/* BEGIN MUTATION TESTS */
+
+describe("given a list of 3 visible items", () => {
+  let onRovingTabindexMutation;
+
+  beforeEach(() => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    onRovingTabindexMutation = vi.fn();
+    testEl.addEventListener("rovingTabindexMutation", onRovingTabindexMutation);
+    testRovingIndex = createLinear(testEl, "li");
+  });
+
+  describe("when current item is hidden", () => {
+    beforeEach(async () => {
+      testRovingIndex.items[0].hidden = true;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    });
+
+    it("should trigger 1 rovingTabindexMutation event", () => {
+      expect(onRovingTabindexMutation).toHaveBeenCalledOnce();
+    });
+
+    it("should move tabindex 0 to next navigable item", () => {
+      expect(testEl.children[0].getAttribute("tabindex")).toBe("-1");
+      expect(testEl.children[1].getAttribute("tabindex")).toBe("0");
+    });
+  });
+});
+
+/* END MUTATION TESTS */
+
+/* BEGIN WRAP SETTER TESTS */
+
+describe("given 3 items with wrap initially false", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testRovingIndex = createLinear(testEl, "li");
+
+    onNavigationModelChange = vi.fn();
+    testEl.addEventListener("navigationModelChange", onNavigationModelChange);
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when wrap is set to true and arrow left is pressed once", () => {
+    beforeEach(() => {
+      testRovingIndex.wrap = true;
+      triggerArrowKeyPress(testEl, "Left", 1);
+    });
+
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
+    });
+
+    it("should set tabindex 0 on last item", () => {
+      expect(testEl.children[2].getAttribute("tabindex")).toBe("0");
+    });
+  });
+});
+
+/* END WRAP SETTER TESTS */
+
+/* BEGIN CURRENT ITEM TESTS */
+
+describe("given 3 items with default options", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testRovingIndex = createLinear(testEl, "li");
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when instantiated", () => {
+    it("should have currentItem equal to first item", () => {
+      expect(testRovingIndex.currentItem).toBe(testEl.children[0]);
+    });
+  });
+
+  describe("when index is set to 1", () => {
+    beforeEach(() => {
+      testRovingIndex.index = 1;
+    });
+
+    it("should have currentItem equal to second item", () => {
+      expect(testRovingIndex.currentItem).toBe(testEl.children[1]);
+    });
+  });
+});
+
+/* END CURRENT ITEM TESTS */
+
+/* BEGIN NULL INDEX NAVIGATION TESTS */
+
+describe("given 3 items with autoInit none", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testRovingIndex = createLinear(testEl, "li", { autoInit: "none" });
+
+    onNavigationModelChange = vi.fn();
+    testEl.addEventListener("navigationModelChange", onNavigationModelChange);
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when arrow right is pressed once", () => {
+    beforeEach(() => {
+      triggerArrowKeyPress(testEl, "Right", 1);
+    });
+
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
+    });
+
+    it("should set tabindex 0 on first item", () => {
+      expect(testEl.children[0].getAttribute("tabindex")).toBe("0");
+    });
+  });
+});
+
+/* END NULL INDEX NAVIGATION TESTS */
+
+/* BEGIN DEPRECATED INDEX OPTION TESTS */
+
+describe("given 3 items with deprecated index option set to 2", () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testRovingIndex = createLinear(testEl, "li", { index: 2 });
+  });
+
+  describe("when instantiated", () => {
+    it("should have index value of 2", () => {
+      expect(testRovingIndex.index).toBe(2);
+    });
+
+    it("should set tabindex 0 on third item", () => {
+      expect(testEl.children[2].getAttribute("tabindex")).toBe("0");
+    });
+  });
+});
+
+/* END DEPRECATED INDEX OPTION TESTS */

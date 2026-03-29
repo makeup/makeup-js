@@ -51,14 +51,6 @@
       </div>
 
       <div>
-        <div>sibling before trap</div>
-        <div>sibling before trap</div>
-        <button class="trap" aria-pressed="false">Trap</button>
-        <div>sibling after trap</div>
-        <div>sibling after trap</div>
-      </div>
-
-      <div>
         <div>uncle before trap</div>
         <div>
           <div>sibling before trap</div>
@@ -66,63 +58,6 @@
           <div>sibling after trap</div>
         </div>
         <div>uncle after trap</div>
-      </div>
-
-      <div>
-        <div>uncle before trap</div>
-        <div>uncle before trap</div>
-        <div>
-          <div>sibling before trap</div>
-          <div>sibling before trap</div>
-          <button class="trap" aria-pressed="false">Trap</button>
-          <div>sibling after trap</div>
-          <div>sibling after trap</div>
-        </div>
-        <div>uncle after trap</div>
-        <div>uncle after trap</div>
-      </div>
-
-      <div>
-        <div>great uncle before trap</div>
-        <div>
-          <div>uncle before trap</div>
-          <div>
-            <div>sibling before trap</div>
-            <button class="trap" aria-pressed="false">Trap</button>
-            <div>sibling after trap</div>
-          </div>
-          <div>uncle after trap</div>
-        </div>
-        <div>great uncle after trap</div>
-      </div>
-
-      <div>
-        <div>great-great uncle before trap</div>
-        <div>
-          <div>great uncle before trap</div>
-          <div>
-            <div>uncle before trap</div>
-            <div>
-              <div>sibling before trap</div>
-              <button class="trap" aria-pressed="false">Trap</button>
-              <div>sibling after trap</div>
-            </div>
-            <div>uncle after trap</div>
-          </div>
-          <div>great uncle after trap</div>
-        </div>
-        <div>great uncle after trap</div>
-      </div>
-
-      <hr />
-
-      <h2>useHiddenProperty</h2>
-      <p>Uses the <code>hidden</code> DOM property instead of <code>aria-hidden</code>.</p>
-
-      <div>
-        <div>sibling before trap</div>
-        <button class="trap" data-use-hidden-property aria-pressed="false">Trap</button>
-        <div>sibling after trap</div>
       </div>
 
       <hr />
@@ -188,6 +123,20 @@
         <svg width="160" height="20" hidden><text y="15">SVG sibling before trap</text></svg>
         <button class="trap" aria-pressed="false">Trap</button>
         <svg width="160" height="20" hidden><text y="15">SVG sibling after trap</text></svg>
+      </div>
+
+      <hr />
+
+      <h2>useHiddenProperty</h2>
+      <p>
+        Uses the <code>hidden</code> DOM property instead of <code>aria-hidden</code> to hide elements for
+        <em>all</em> users.
+      </p>
+
+      <div>
+        <div>sibling before trap</div>
+        <button class="trap" data-use-hidden-property aria-pressed="false">Trap</button>
+        <div>sibling after trap</div>
       </div>
 
       <hr />

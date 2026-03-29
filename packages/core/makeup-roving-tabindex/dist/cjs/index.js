@@ -4,8 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createLinear = createLinear;
-var NavigationEmitter = _interopRequireWildcard(require("makeup-navigation-emitter"));
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+var _makeupNavigationEmitter = require("makeup-navigation-emitter");
 const defaultOptions = {
   autoInit: "interactive",
   autoReset: "current",
@@ -13,7 +12,7 @@ const defaultOptions = {
   axis: "both"
 };
 function refreshTabindex(items, focusIndex) {
-  items.forEach(function (el, i) {
+  items.forEach((el, i) => {
     el.setAttribute("tabindex", i === focusIndex ? "0" : "-1");
   });
 }
@@ -72,11 +71,14 @@ class RovingTabindex {
 class LinearRovingTabindex extends RovingTabindex {
   constructor(el, itemSelector, selectedOptions) {
     super(el);
-    this._options = Object.assign({}, defaultOptions, selectedOptions);
+    this._options = {
+      ...defaultOptions,
+      ...selectedOptions
+    };
     this._itemSelector = itemSelector;
 
     // todo: options.index is deprecated. Remove support in future release.
-    this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
+    this._navigationEmitter = (0, _makeupNavigationEmitter.createLinear)(el, itemSelector, {
       autoInit: this._options.index !== undefined ? this._options.index : this._options.autoInit,
       autoReset: this._options.autoReset,
       wrap: this._options.wrap,

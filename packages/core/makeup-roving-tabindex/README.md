@@ -11,15 +11,12 @@ This module is still in an experimental state, until it reaches v1 you must cons
 ```js
 import * as RovingTabindex from "makeup-roving-tabindex";
 
-// get an element reference
 const widgetEl = document.querySelector(".widget");
 
-// create a roving tabindex instance on the element
 const rovingTabindex = RovingTabindex.createLinear(widgetEl, "li");
 
-// listen for events (optional)
-widgetEl.addEventListener("rovingTabindexChange", function (e) {
-  // console.log(e.detail);
+widgetEl.addEventListener("rovingTabindexChange", (e) => {
+  console.log(e.detail);
 });
 ```
 
@@ -68,10 +65,9 @@ Markup after:
 
 ## Properties
 
-- `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden items)
-- `index`: the index position of the roving tabindex (i.e. the element with tabindex="0"). A no-op on aria-disabled or hidden items.
-- `matchingItems`: returns all items that match item selector
-- `ignoreByDelegateSelector`: CSS selector of descendant elements that will be ignored by the navigation emitters key event delegation (i.e. these elements will _not_ operate the roving tabindex) (default: null)
+- `items`: returns all items matching the item selector (live DOM query, includes hidden and disabled items)
+- `index`: gets or sets the current index position (setting triggers `rovingTabindexChange` if the index changes and the target is navigable)
+- `currentItem`: returns the item element at the current index
 
 ## Methods
 
@@ -90,6 +86,10 @@ Markup after:
     - fromIndex
     - toIndex
 - `rovingTabindexReset`
+  - detail
+    - fromIndex
+    - toIndex
+- `rovingTabindexMutation`
   - detail
     - fromIndex
     - toIndex

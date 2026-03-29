@@ -4,7 +4,6 @@ const modal1 = document.getElementById("modal-1");
 const modal2 = document.getElementById("modal-2");
 const modal3 = document.getElementById("modal-3");
 
-const unmodalButton = document.getElementById("button-unmodal");
 const hoistCheckbox = document.getElementById("hoist-checkbox");
 const wrapCheckbox = document.getElementById("wrap-checkbox");
 const hiddenCheckbox = document.getElementById("hidden-checkbox");
@@ -26,21 +25,29 @@ function logEvent(name) {
 }
 
 [modal1, modal2, modal3].forEach((el) => {
+  const btn = el.querySelector(".toggle-btn");
+
+  btn.addEventListener("click", () => {
+    if (btn.getAttribute("aria-pressed") === "true") {
+      unmodal();
+    } else {
+      modal(el, getOptions());
+    }
+  });
+
   el.addEventListener("makeup-modal", () => {
     logEvent("makeup-modal");
-    unmodalButton.disabled = false;
+    btn.textContent = "Unmodal";
+    btn.setAttribute("aria-pressed", "true");
+    btn.focus();
   });
+
   el.addEventListener("makeup-unmodal", () => {
     logEvent("makeup-unmodal");
-    unmodalButton.disabled = true;
+    btn.textContent = "Modal";
+    btn.setAttribute("aria-pressed", "false");
   });
 });
-
-document.getElementById("button-1").addEventListener("click", () => modal(modal1, getOptions()));
-document.getElementById("button-2").addEventListener("click", () => modal(modal2, getOptions()));
-document.getElementById("button-3").addEventListener("click", () => modal(modal3, getOptions()));
-
-unmodalButton.addEventListener("click", () => unmodal());
 
 document.getElementById("clear").addEventListener("click", () => {
   logEl.innerHTML = "";

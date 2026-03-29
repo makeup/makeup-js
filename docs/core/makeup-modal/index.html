@@ -25,19 +25,29 @@
         margin-bottom: 1rem;
         padding: 1em;
       }
+      /* when modal is active */
+      [data-makeup-modal="widget"] {
+        border-color: royalblue;
+        border-style: solid;
+      }
+      /* inert container created by wrap — preserve layout and dim content */
+      [data-makeup-modal="inert"] {
+        margin: 0 auto;
+        max-width: 960px;
+        opacity: 0.4;
+      }
+      /* placeholder left behind when modal is hoisted */
+      [data-makeup-modal="placeholder"] {
+        border: 1px dashed #ccc;
+        margin-bottom: 1rem;
+        min-height: 3em;
+      }
     </style>
   </head>
   <body>
     <header>
       <h1><a href="../">core</a> / makeup-modal</h1>
       <p>Restricts keyboard and screen reader access to a single element. All other content becomes inert.</p>
-
-      <div>
-        <button id="button-1">Modal 1 (root)</button>
-        <button id="button-2">Modal 2 (shallow)</button>
-        <button id="button-3">Modal 3 (deep)</button>
-        <button id="button-unmodal" disabled>Unmodal</button>
-      </div>
       <div>
         <label><input id="hoist-checkbox" type="checkbox" /> hoist</label>
         <label><input id="wrap-checkbox" type="checkbox" /> wrap</label>
@@ -50,6 +60,7 @@
       <a href="#">link</a>
       <input type="text" placeholder="textbox" />
       <a href="#">link</a>
+      <button class="toggle-btn" aria-pressed="false">Modal</button>
     </div>
 
     <main>
@@ -60,6 +71,7 @@
             <a href="#">link</a>
             <input type="text" placeholder="textbox" />
             <a href="#">link</a>
+            <button class="toggle-btn" aria-pressed="false">Modal</button>
           </div>
         </div>
       </div>
@@ -79,6 +91,7 @@
                             <a href="#">link</a>
                             <input type="text" placeholder="textbox" />
                             <a href="#">link</a>
+                            <button class="toggle-btn" aria-pressed="false">Modal</button>
                           </div>
                         </div>
                       </div>

@@ -1,64 +1,62 @@
-// REQUIRE
-//const RovingTabindex = require('makeup-roving-tabindex');
+import { createLinear } from "makeup-roving-tabindex";
+import { add as addPreventScrollKeys } from "makeup-prevent-scroll-keys";
 
-// IMPORT
-import * as RovingTabindex from "makeup-roving-tabindex";
+const widgetEl = document.querySelector(".widget");
+const logEl = document.getElementById("log");
 
-const rovers = [];
-const appender = document.getElementById("appender");
-const prepender = document.getElementById("prepender");
-const removeFirst = document.getElementById("removeFirst");
-const removeLast = document.getElementById("removeLast");
-const widgetEls = document.querySelectorAll(".widget");
-const wrap = document.getElementById("wrap");
-const log = (e) => console.log(e.type, e.detail);
+const logEvent = (e) => {
+  const item = document.createElement("li");
+  item.textContent = `${e.type} — from: ${e.detail.fromIndex}, to: ${e.detail.toIndex}`;
+  logEl.prepend(item);
+};
 
-appender.addEventListener("click", function () {
-  widgetEls.forEach(function (el) {
-    const listItem = document.createElement("li");
-    listItem.innerText = `Item ${parseInt(el.querySelectorAll("li").length + 1, 10)}`;
-    el.children[0].appendChild(listItem);
-  });
+const rover = createLinear(widgetEl, "li");
+
+addPreventScrollKeys(widgetEl);
+
+widgetEl.addEventListener("rovingTabindexInit", logEvent);
+widgetEl.addEventListener("rovingTabindexChange", logEvent);
+widgetEl.addEventListener("rovingTabindexMutation", logEvent);
+widgetEl.addEventListener("rovingTabindexReset", logEvent);
+
+document.getElementById("appender").addEventListener("click", () => {
+  const ul = widgetEl.querySelector("ul");
+  const item = document.createElement("li");
+  item.textContent = `Item ${ul.children.length + 1}`;
+  ul.appendChild(item);
 });
 
-prepender.addEventListener("click", function () {
-  widgetEls.forEach(function (el) {
-    const ul = el.children[0];
-    const listItem = document.createElement("li");
-    listItem.innerText = `Item ${parseInt(el.querySelectorAll("li").length + 1, 10)}`;
-    ul.insertBefore(listItem, ul.children[0]);
-  });
+document.getElementById("prepender").addEventListener("click", () => {
+  const ul = widgetEl.querySelector("ul");
+  const item = document.createElement("li");
+  item.textContent = `Item ${ul.children.length + 1}`;
+  ul.insertBefore(item, ul.firstElementChild);
 });
 
-removeFirst.addEventListener("click", function () {
-  widgetEls.forEach(function (el) {
-    const ul = el.children[0];
-    const node = ul.firstElementChild;
-    if (node) ul.removeChild(node);
-  });
+document.getElementById("removeFirst").addEventListener("click", () => {
+  const first = widgetEl.querySelector("ul").firstElementChild;
+  if (first) first.remove();
 });
 
-removeLast.addEventListener("click", function () {
-  widgetEls.forEach(function (el) {
-    const ul = el.children[0];
-    const node = ul.lastElementChild;
-    if (node) ul.removeChild(node);
-  });
+document.getElementById("removeLast").addEventListener("click", () => {
+  const last = widgetEl.querySelector("ul").lastElementChild;
+  if (last) last.remove();
 });
 
-removeCurrent.addEventListener("click", () => rovers.forEach((widget) => widget.currentItem.remove()));
-disableCurrent.addEventListener("click", () =>
-  rovers.forEach((widget) => widget.currentItem.setAttribute("aria-disabled", "true")),
-);
-hideCurrent.addEventListener("click", () => rovers.forEach((widget) => (widget.currentItem.hidden = true)));
+document.getElementById("removeCurrent").addEventListener("click", () => rover.currentItem?.remove());
 
-wrap.addEventListener("change", (e) => rovers.forEach((rover) => (rover.wrap = e.target.checked)));
+document
+  .getElementById("disableCurrent")
+  .addEventListener("click", () => rover.currentItem?.setAttribute("aria-disabled", "true"));
 
-widgetEls.forEach(function (el) {
-  el.addEventListener("rovingTabindexInit", log);
-  el.addEventListener("rovingTabindexChange", log);
-  el.addEventListener("rovingTabindexMutation", log);
-  el.addEventListener("rovingTabindexReset", log);
+document.getElementById("hideCurrent").addEventListener("click", () => {
+  if (rover.currentItem) rover.currentItem.hidden = true;
+});
 
-  rovers.push(RovingTabindex.createLinear(el, "li"));
+document.getElementById("wrap").addEventListener("change", (e) => {
+  rover.wrap = e.target.checked;
+});
+
+document.getElementById("clear").addEventListener("click", () => {
+  logEl.innerHTML = "";
 });

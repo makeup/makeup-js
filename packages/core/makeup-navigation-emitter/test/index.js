@@ -917,3 +917,339 @@ describe("given 3 items", () => {
 });
 
 /* END AUTO RESET TESTS */
+
+/* BEGIN IGNORE BY DELEGATE SELECTOR TESTS */
+
+describe("given 3 items with ignoreByDelegateSelector set to '.ignore'", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li class="ignore">Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testEmitter = createLinear(testEl, "li", { ignoreByDelegateSelector: ".ignore" });
+
+    onNavigationModelChange = vi.fn();
+    testEl.addEventListener("navigationModelChange", onNavigationModelChange);
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when arrow right is pressed with ignored item as target", () => {
+    beforeEach(() => {
+      testEl.dispatchEvent(
+        new CustomEvent("arrowRightKeyDown", { detail: { target: document.querySelector(".ignore") } }),
+      );
+    });
+
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when arrow right is pressed with non-ignored item as target", () => {
+    beforeEach(() => {
+      testEl.dispatchEvent(
+        new CustomEvent("arrowRightKeyDown", { detail: { target: document.querySelector("li:first-child") } }),
+      );
+    });
+
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
+    });
+  });
+});
+
+/* END IGNORE BY DELEGATE SELECTOR TESTS */
+
+/* BEGIN AUTO INIT NUMBER TESTS */
+
+describe("given 3 items", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when autoInit is 2", () => {
+    beforeEach(() => {
+      testEmitter = createLinear(testEl, "li", { autoInit: 2 });
+    });
+
+    it("should have index value of 2", () => {
+      expect(testEmitter.model.index).toBe(2);
+    });
+  });
+});
+
+/* END AUTO INIT NUMBER TESTS */
+
+/* BEGIN CLICK NON-NAVIGABLE TESTS */
+
+describe("given 3 items with aria-disabled second item", () => {
+  let disabledItemEl;
+
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li aria-disabled="true">Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    disabledItemEl = document.querySelector("[aria-disabled]");
+    testEmitter = createLinear(testEl, "li");
+
+    onNavigationModelChange = vi.fn();
+    testEl.addEventListener("navigationModelChange", onNavigationModelChange);
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when aria-disabled item is clicked", () => {
+    beforeEach(() => {
+      disabledItemEl.click();
+    });
+
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("given 3 items with hidden second item", () => {
+  let hiddenItemEl;
+
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li hidden>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    hiddenItemEl = document.querySelector("[hidden]");
+    testEmitter = createLinear(testEl, "li");
+
+    onNavigationModelChange = vi.fn();
+    testEl.addEventListener("navigationModelChange", onNavigationModelChange);
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when hidden item is clicked", () => {
+    beforeEach(() => {
+      hiddenItemEl.click();
+    });
+
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
+    });
+  });
+});
+
+/* END CLICK NON-NAVIGABLE TESTS */
+
+/* BEGIN NULL INDEX NAVIGATION TESTS */
+
+describe("given 3 items with autoInit none", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testEmitter = createLinear(testEl, "li", { autoInit: "none" });
+
+    onNavigationModelChange = vi.fn();
+    testEl.addEventListener("navigationModelChange", onNavigationModelChange);
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when arrow right is pressed once", () => {
+    beforeEach(() => {
+      triggerArrowKeyPress(testEl, "Right", 1);
+    });
+
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
+    });
+
+    it("should set index to 0", () => {
+      expect(testEmitter.model.index).toBe(0);
+    });
+  });
+
+  describe("when arrow left is pressed once", () => {
+    beforeEach(() => {
+      triggerArrowKeyPress(testEl, "Left", 1);
+    });
+
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
+    });
+  });
+});
+
+/* END NULL INDEX NAVIGATION TESTS */
+
+/* BEGIN ADDITIONAL MUTATION TESTS */
+
+describe("given a list of 3 visible items with current item at index 0", () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    onNavigationModelMutation = vi.fn();
+    testEl.addEventListener("navigationModelMutation", onNavigationModelMutation);
+    testEmitter = createLinear(testEl, "li");
+  });
+
+  describe("when current item is aria-disabled", () => {
+    beforeEach(async () => {
+      testEmitter.model.items[0].setAttribute("aria-disabled", "true");
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    });
+
+    it("should trigger 1 navigationModelMutation event", () => {
+      expect(onNavigationModelMutation).toHaveBeenCalledOnce();
+    });
+
+    it("should keep index at 0", () => {
+      expect(testEmitter.model.index).toBe(0);
+    });
+  });
+
+  describe("when current item is hidden", () => {
+    beforeEach(async () => {
+      testEmitter.model.items[0].hidden = true;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    });
+
+    it("should trigger 1 navigationModelMutation event", () => {
+      expect(onNavigationModelMutation).toHaveBeenCalledOnce();
+    });
+
+    it("should move index to first navigable item", () => {
+      expect(testEmitter.model.index).toBe(1);
+    });
+  });
+
+  describe("when a new item is appended", () => {
+    beforeEach(async () => {
+      const newItem = document.createElement("li");
+      newItem.textContent = "Item 4";
+      testEl.appendChild(newItem);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    });
+
+    it("should trigger 1 navigationModelMutation event", () => {
+      expect(onNavigationModelMutation).toHaveBeenCalledOnce();
+    });
+  });
+});
+
+/* END ADDITIONAL MUTATION TESTS */
+
+/* BEGIN AUTO RESET NULL TESTS */
+
+describe("given 3 items with autoReset null", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testEmitter = createLinear(testEl, "li", { autoReset: null });
+
+    onNavigationModelReset = vi.fn();
+    testEl.addEventListener("navigationModelReset", onNavigationModelReset);
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when focus exits the widget", () => {
+    beforeEach(() => {
+      triggerArrowKeyPress(testEl, "Down", 1);
+      testEl.dispatchEvent(new CustomEvent("focusExit", { bubbles: false }));
+    });
+
+    it("should trigger 0 navigationModelReset events", () => {
+      expect(onNavigationModelReset).not.toHaveBeenCalled();
+    });
+
+    it("should keep index at 1", () => {
+      expect(testEmitter.model.index).toBe(1);
+    });
+  });
+});
+
+/* END AUTO RESET NULL TESTS */
+
+/* BEGIN ARIA ATTRIBUTE NAVIGABILITY TESTS */
+
+describe("given 3 items where aria-selected is on a hidden item and a visible item", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li hidden aria-selected="true">Item 2</li>
+                <li aria-selected="true">Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when autoInit is ariaSelected", () => {
+    beforeEach(() => {
+      testEmitter = createLinear(testEl, "li", { autoInit: "ariaSelected" });
+    });
+
+    it("should skip hidden item and use first visible aria-selected item", () => {
+      expect(testEmitter.model.index).toBe(2);
+    });
+  });
+});
+
+/* END ARIA ATTRIBUTE NAVIGABILITY TESTS */

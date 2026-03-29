@@ -1,5 +1,5 @@
-import * as keyboardTrap from "makeup-keyboard-trap";
-import * as screenreaderTrap from "makeup-screenreader-trap";
+import { trap as keyboardTrap, untrap as keyboardUntrap } from "makeup-keyboard-trap";
+import { trap as screenreaderTrap, untrap as screenreaderUntrap } from "makeup-screenreader-trap";
 const defaultOptions = {
   hoist: false,
   useHiddenProperty: false,
@@ -35,7 +35,7 @@ function wrap() {
     inertContentEl = document.createElement("div");
     inertContentEl.setAttribute("data-makeup-modal", "inert");
     [...document.body.children].forEach((child, index) => {
-      if (!(child === modalEl || child.tagName.toLowerCase() === tags.SCRIPT || child.tagName === tags.LINK)) {
+      if (!(child === modalEl || child.tagName.toLowerCase() === tags.SCRIPT || child.tagName.toLowerCase() === tags.LINK)) {
         inertContentEl.appendChild(child);
         originalPositionIndexes.push(index);
       }
@@ -46,7 +46,7 @@ function wrap() {
 function unwrap() {
   if (inertContentEl) {
     [...inertContentEl.children].forEach((child) => {
-      if (!(child.tagName.toLowerCase() === tags.SCRIPT || child.tagName === tags.LINK)) {
+      if (!(child.tagName.toLowerCase() === tags.SCRIPT || child.tagName.toLowerCase() === tags.LINK)) {
         const index = originalPositionIndexes.shift();
         if (index > document.body.children.length) {
           document.body.appendChild(child);
@@ -62,8 +62,8 @@ function unwrap() {
 }
 function unmodal() {
   if (modalEl) {
-    keyboardTrap.untrap(modalEl);
-    screenreaderTrap.untrap(modalEl);
+    keyboardUntrap(modalEl);
+    screenreaderUntrap(modalEl);
     unwrap();
     unhoist();
     document.body.removeAttribute("data-makeup-modal");
@@ -74,7 +74,7 @@ function unmodal() {
   return modalEl;
 }
 function modal(el, options) {
-  const _options = Object.assign({}, defaultOptions, options);
+  const _options = { ...defaultOptions, ...options };
   unmodal();
   modalEl = el;
   if (_options.hoist) {
@@ -83,9 +83,9 @@ function modal(el, options) {
   if (_options.wrap) {
     wrap();
   }
-  screenreaderTrap.trap(modalEl, options);
+  screenreaderTrap(modalEl, options);
   if (!_options.useHiddenProperty) {
-    keyboardTrap.trap(modalEl);
+    keyboardTrap(modalEl);
   }
   document.body.setAttribute("data-makeup-modal", "true");
   modalEl.setAttribute("data-makeup-modal", "widget");

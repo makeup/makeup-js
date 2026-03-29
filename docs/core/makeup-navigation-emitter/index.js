@@ -16,7 +16,7 @@ appender.addEventListener("click", function () {
   widgetEls.forEach(function (el) {
     const listEl = el.querySelector("ul");
     const listItem = document.createElement("li");
-    listItem.innerText = `Item ${parseInt(listEl.querySelectorAll("li").length, 10)}`;
+    listItem.innerText = `Item ${listEl.querySelectorAll("li").length + 1}`;
     listEl.appendChild(listItem);
   });
 });

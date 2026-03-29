@@ -1,5 +1,5 @@
-import * as KeyEmitter from "makeup-key-emitter";
-import * as ExitEmitter from "makeup-exit-emitter";
+import { addKeyDown, removeKeyDown } from "makeup-key-emitter";
+import { addFocusExit, removeFocusExit } from "makeup-exit-emitter";
 const defaultOptions = {
   axis: "both",
   autoInit: "interactive",
@@ -17,7 +17,7 @@ function findNavigableItems(items) {
   return items.filter(isItemNavigable);
 }
 function findFirstNavigableIndex(items) {
-  return items.findIndex((item) => isItemNavigable(item));
+  return items.findIndex(isItemNavigable);
 }
 function findLastNavigableIndex(items) {
   return items.indexOf(findNavigableItems(items).reverse()[0]);
@@ -174,7 +174,7 @@ class NavigationModel {
    * @param {typeof defaultOptions} selectedOptions
    */
   constructor(el, itemSelector, selectedOptions) {
-    this.options = Object.assign({}, defaultOptions, selectedOptions);
+    this.options = { ...defaultOptions, ...selectedOptions };
     this._el = el;
     this._itemSelector = itemSelector;
   }
@@ -264,8 +264,8 @@ class NavigationEmitter {
     this._clickListener = onClick.bind(model);
     this._focusExitListener = onFocusExit.bind(model);
     this._observer = new MutationObserver(onMutation.bind(model));
-    KeyEmitter.addKeyDown(this.el);
-    ExitEmitter.addFocusExit(this.el);
+    addKeyDown(this.el);
+    addFocusExit(this.el);
     const axis = model.options.axis;
     if (axis === "both" || axis === "x") {
       this.el.addEventListener("arrowLeftKeyDown", this._keyPrevListener);
@@ -288,8 +288,8 @@ class NavigationEmitter {
     });
   }
   destroy() {
-    KeyEmitter.removeKeyDown(this.el);
-    ExitEmitter.removeFocusExit(this.el);
+    removeKeyDown(this.el);
+    removeFocusExit(this.el);
     this.el.removeEventListener("arrowLeftKeyDown", this._keyPrevListener);
     this.el.removeEventListener("arrowRightKeyDown", this._keyNextListener);
     this.el.removeEventListener("arrowUpKeyDown", this._keyPrevListener);

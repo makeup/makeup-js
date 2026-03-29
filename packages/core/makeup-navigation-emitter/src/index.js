@@ -1,5 +1,5 @@
-import * as KeyEmitter from "makeup-key-emitter";
-import * as ExitEmitter from "makeup-exit-emitter";
+import { addKeyDown, removeKeyDown } from "makeup-key-emitter";
+import { addFocusExit, removeFocusExit } from "makeup-exit-emitter";
 
 const defaultOptions = {
   axis: "both",
@@ -22,7 +22,7 @@ function findNavigableItems(items) {
 }
 
 function findFirstNavigableIndex(items) {
-  return items.findIndex((item) => isItemNavigable(item));
+  return items.findIndex(isItemNavigable);
 }
 
 function findLastNavigableIndex(items) {
@@ -224,7 +224,7 @@ class NavigationModel {
    */
   constructor(el, itemSelector, selectedOptions) {
     /** @member {typeof defaultOptions} */
-    this.options = Object.assign({}, defaultOptions, selectedOptions);
+    this.options = { ...defaultOptions, ...selectedOptions };
 
     /** @member {HTMLElement} */
     this._el = el;
@@ -352,8 +352,8 @@ class NavigationEmitter {
     this._focusExitListener = onFocusExit.bind(model);
     this._observer = new MutationObserver(onMutation.bind(model));
 
-    KeyEmitter.addKeyDown(this.el);
-    ExitEmitter.addFocusExit(this.el);
+    addKeyDown(this.el);
+    addFocusExit(this.el);
 
     const axis = model.options.axis;
 
@@ -380,8 +380,8 @@ class NavigationEmitter {
   }
 
   destroy() {
-    KeyEmitter.removeKeyDown(this.el);
-    ExitEmitter.removeFocusExit(this.el);
+    removeKeyDown(this.el);
+    removeFocusExit(this.el);
 
     this.el.removeEventListener("arrowLeftKeyDown", this._keyPrevListener);
     this.el.removeEventListener("arrowRightKeyDown", this._keyNextListener);
@@ -403,9 +403,11 @@ function createLinear(el, itemSelector, selectedOptions) {
 }
 
 /*
+// todo: rename to createGridNavigationEmitter when implemented
 static createGrid(el, rowSelector, colSelector, selectedOptions) {
     return null;
 }
 */
 
+// todo: rename createLinear to createLinearNavigationEmitter for unambiguous named import usage
 export { createLinear };

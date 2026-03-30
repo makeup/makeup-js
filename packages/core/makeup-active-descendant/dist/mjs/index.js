@@ -1,4 +1,4 @@
-import * as NavigationEmitter from "makeup-navigation-emitter";
+import { createLinear as createLinearEmitter } from "makeup-navigation-emitter";
 import nextID from "makeup-next-id";
 const defaultOptions = {
   activeDescendantClassName: "active-descendant",
@@ -6,6 +6,7 @@ const defaultOptions = {
   autoReset: "none",
   autoScroll: false,
   axis: "both",
+  ignoreByDelegateSelector: null,
   wrap: false
 };
 function onModelInit(e) {
@@ -36,7 +37,7 @@ function onModelChange(e) {
 function onModelReset(e) {
   const toIndex = e.detail.toIndex;
   const activeClassName = this._options.activeDescendantClassName;
-  this.items.forEach(function(el) {
+  this.items.forEach((el) => {
     el.classList.remove(activeClassName);
   });
   if (toIndex !== null && toIndex !== -1) {
@@ -51,7 +52,7 @@ function onModelReset(e) {
 function onModelMutation(e) {
   const { toIndex } = e.detail;
   const activeDescendantClassName = this._options.activeDescendantClassName;
-  this.items.forEach(function(item, index) {
+  this.items.forEach((item, index) => {
     nextID(item);
     if (index !== toIndex) {
       item.classList.remove(activeDescendantClassName);
@@ -83,7 +84,7 @@ class ActiveDescendant {
 class LinearActiveDescendant extends ActiveDescendant {
   constructor(el, focusEl, itemContainerEl, itemSelector, selectedOptions) {
     super(el);
-    this._options = Object.assign({}, defaultOptions, selectedOptions);
+    this._options = { ...defaultOptions, ...selectedOptions };
     this._focusEl = focusEl;
     this._itemContainerEl = itemContainerEl;
     this._itemSelector = itemSelector;
@@ -91,14 +92,14 @@ class LinearActiveDescendant extends ActiveDescendant {
     if (this._itemContainerEl !== this._focusEl) {
       focusEl.setAttribute("aria-owns", this._itemContainerEl.id);
     }
-    this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
+    this._navigationEmitter = createLinearEmitter(el, itemSelector, {
       autoInit: this._options.autoInit,
       autoReset: this._options.autoReset,
       axis: this._options.axis,
       ignoreByDelegateSelector: this._options.ignoreByDelegateSelector,
       wrap: this._options.wrap
     });
-    this.items.forEach(function(itemEl) {
+    this.items.forEach((itemEl) => {
       nextID(itemEl);
     });
   }

@@ -1,6 +1,4 @@
-"use strict";
-
-import * as NavigationEmitter from "makeup-navigation-emitter";
+import { createLinear as createLinearEmitter } from "makeup-navigation-emitter";
 import nextID from "makeup-next-id";
 
 const defaultOptions = {
@@ -9,6 +7,7 @@ const defaultOptions = {
   autoReset: "none",
   autoScroll: false,
   axis: "both",
+  ignoreByDelegateSelector: null,
   wrap: false,
 };
 
@@ -49,7 +48,7 @@ function onModelReset(e) {
   const toIndex = e.detail.toIndex;
   const activeClassName = this._options.activeDescendantClassName;
 
-  this.items.forEach(function (el) {
+  this.items.forEach((el) => {
     el.classList.remove(activeClassName);
   });
 
@@ -68,7 +67,7 @@ function onModelMutation(e) {
   const { toIndex } = e.detail;
   const activeDescendantClassName = this._options.activeDescendantClassName;
 
-  this.items.forEach(function (item, index) {
+  this.items.forEach((item, index) => {
     nextID(item);
     if (index !== toIndex) {
       item.classList.remove(activeDescendantClassName);
@@ -106,7 +105,7 @@ class LinearActiveDescendant extends ActiveDescendant {
   constructor(el, focusEl, itemContainerEl, itemSelector, selectedOptions) {
     super(el);
 
-    this._options = Object.assign({}, defaultOptions, selectedOptions);
+    this._options = { ...defaultOptions, ...selectedOptions };
 
     this._focusEl = focusEl;
     this._itemContainerEl = itemContainerEl;
@@ -120,7 +119,7 @@ class LinearActiveDescendant extends ActiveDescendant {
       focusEl.setAttribute("aria-owns", this._itemContainerEl.id);
     }
 
-    this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
+    this._navigationEmitter = createLinearEmitter(el, itemSelector, {
       autoInit: this._options.autoInit,
       autoReset: this._options.autoReset,
       axis: this._options.axis,
@@ -129,7 +128,7 @@ class LinearActiveDescendant extends ActiveDescendant {
     });
 
     // ensure each item has an id
-    this.items.forEach(function (itemEl) {
+    this.items.forEach((itemEl) => {
       nextID(itemEl);
     });
   }

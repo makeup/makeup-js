@@ -107,7 +107,7 @@ const widgetEl = document.querySelector(".widget");
 const focusEl = widgetEl.querySelector("ul");
 
 // in this scenario the container element is the same as the focusable element
-const containerEl = focusEL;
+const containerEl = focusEl;
 
 // create an activeDescendant widget instance on the element
 const activeDescendant = ActiveDescendant.createLinear(widgetEl, focusEl, containerEl, "li");
@@ -170,6 +170,7 @@ Use CSS to style the active descendant however you wish:
 - `autoScroll` : Specify true to scroll the container as activeDescendant changes (default: false)
 - `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
 - `ignoreByDelegateSelector`: CSS selector of descendant elements that will be ignored by the navigation emitters key event delegation (i.e. these elements will _not_ operate the active descendant) (default: null)
+- `wrap` : specify whether arrow keys should wrap/loop (default: false)
 
 ## Custom Events
 
@@ -186,20 +187,18 @@ Use CSS to style the active descendant however you wish:
   - detail
     - fromIndex
     - toIndex
+- `activeDescendantMutation`
+  - detail
+    - fromIndex
+    - toIndex
 
 ## Properties
 
-- `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden & non-disabled items)
-- `index`: the index position of the current active descendant. A no-op on aria-disabled or hidden items.
-- `matchingItems`: returns all items that match item selector
-- `nonEmittingElementSelector`: CSS selector of nested elements that will _not_ operate the navigation emitter. This is useful in a combobox + button scenario, where the nested button should not trigger navigationModelChange events (default: null)
+- `items`: returns all items matching the item selector (live DOM query, includes hidden and disabled items)
+- `index`: gets or sets the current active descendant index. A no-op on aria-disabled or hidden items.
+- `currentItem`: returns the item element at the current index
 
 ## Methods
 
 - `destroy`: destroys all event listeners
 - `reset`: will force a reset to the value specified by `autoReset`
-
-## Dependencies
-
-- [makeup-navigation-emitter](https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-navigation-emitter)
-- [makeup-next-id](https://github.com/makeup/makeup-js/tree/master/packages/core/makeup-next-id)

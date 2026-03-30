@@ -3,20 +3,52 @@
   <head>
     <title>makeup-focusables demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
+    <style>
+      .widget {
+        border: 1px solid #ddd;
+        margin: 0.75rem 0;
+        padding: 1rem;
+      }
+      .widget > * + * {
+        margin-left: 0.5rem;
+      }
+    </style>
   </head>
   <body>
-    <main role="main">
-      <h1>makeup-focusables demo</h1>
+    <main>
+      <h1><a href="../">core</a> / makeup-focusables</h1>
+      <p>Returns focusable descendants of an element. Excludes hidden elements and their children.</p>
 
-      <p aria-live="polite" aria-atomic="true">Num Focusables: <span id="output">0</span></p>
+      <hr />
 
-      <button id="appender1">Append Sequential</button>
-      <button id="appender2">Append Non-Sequential</button>
-      <button id="appender3">Append Hidden</button>
-      <button id="appender4">Append Nested Hidden</button>
+      <h2>All focusables vs keyboard-only</h2>
+      <p>
+        <code>focusables(el)</code> returns all focusable descendants. <code>focusables(el, true)</code> returns only
+        those reachable by sequential keyboard navigation (excludes <code>tabindex="-1"</code>).
+      </p>
 
-      <ul id="list"></ul>
+      <div id="widget" class="widget">
+        <button>Button</button>
+        <a href="#">Link</a>
+        <input type="text" placeholder="Input" />
+        <div tabindex="-1">tabindex="-1" div</div>
+        <button disabled>Disabled button</button>
+      </div>
+
+      <p>
+        All focusable: <output id="count-all"></output> &nbsp;&nbsp; Keyboard-only:
+        <output id="count-keyboard"></output>
+      </p>
+
+      <p>
+        <button type="button" id="append-keyboard">+ button</button>
+        <button type="button" id="append-programmatic">+ tabindex="-1"</button>
+        <button type="button" id="append-hidden">+ hidden button</button>
+        <button type="button" id="reset">Reset</button>
+      </p>
     </main>
+    <script src="index.min.js"></script>
   </body>
-  <script src="index.min.js"></script>
 </html>

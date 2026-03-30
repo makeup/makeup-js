@@ -3,19 +3,25 @@
   <head>
     <title>makeup-next-id demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
   </head>
   <body>
-    <main role="main">
-      <h1>makeup-next-id demo</h1>
-      <p>Click button to append a new list item with generated id. Check console for output.</p>
+    <main>
+      <h1><a href="../">core</a> / makeup-next-id</h1>
+      <p>Assigns a unique, sequential ID to an element if it does not already have one.</p>
 
-      <ul id="list"></ul>
+      <hr />
 
-      <form id="testForm">
-        <label>Prefix</label><input type="text" id="prefix" value="nid" />
-        <button id="appender">Append new item</button>
+      <h2>Append element with generated ID</h2>
+      <p>Each new item receives the next available ID for the given prefix.</p>
+      <form id="demo-form">
+        <label for="prefix">Prefix</label>
+        <input type="text" id="prefix" value="nid" />
+        <button type="submit">Append item</button>
       </form>
+      <ul id="list"></ul>
     </main>
+    <script src="index.min.js"></script>
   </body>
-  <script src="index.min.js"></script>
 </html>

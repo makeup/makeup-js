@@ -1,83 +1,90 @@
-// REQUIRE
-//const ActiveDescendant = require('makeup-active-descendant');
+import { createLinear } from "makeup-active-descendant";
+import { add as addPreventScrollKeys } from "makeup-prevent-scroll-keys";
 
-// IMPORT
-import * as ActiveDescendant from "makeup-active-descendant";
+const widget1El = document.getElementById("widget-1");
+const widget2El = document.getElementById("widget-2");
+const logEl1 = document.getElementById("log-1");
+const logEl2 = document.getElementById("log-2");
 
-const navs = [];
-const append = document.getElementById("append");
-const prepend = document.getElementById("prepend");
-const removeFirst = document.getElementById("removeFirst");
-const removeLast = document.getElementById("removeLast");
-const widgetEls = document.querySelectorAll(".widget");
-const wrapCheckbox = document.getElementById("wrap");
-const log = (e) => console.log(e.type, e.detail);
+const logEvent = (logEl, e) => {
+  const item = document.createElement("li");
+  item.textContent = `${e.type} — from: ${e.detail.fromIndex}, to: ${e.detail.toIndex}`;
+  logEl.prepend(item);
+};
 
-prepend.addEventListener("click", function () {
-  widgetEls.forEach(function (el) {
-    const list = el.querySelector("ul");
-    const newListItem = document.createElement("li");
-    newListItem.setAttribute("role", "option");
-    const numListItems = parseInt(list.querySelectorAll("li").length, 10);
-    newListItem.innerText = `Item ${numListItems + 1}`;
-    list.insertBefore(newListItem, list.children[0]);
+// Hierarchical: focusEl is the ul (ancestor of items)
+const focusEl1 = widget1El.querySelector("ul");
+const nav1 = createLinear(widget1El, focusEl1, focusEl1, "li");
+
+addPreventScrollKeys(focusEl1);
+
+["activeDescendantInit", "activeDescendantChange", "activeDescendantReset", "activeDescendantMutation"].forEach(
+  (eventName) => widget1El.addEventListener(eventName, (e) => logEvent(logEl1, e)),
+);
+
+// Programmatic: focusEl is the input (not an ancestor of items)
+const focusEl2 = widget2El.querySelector("input[type='text']");
+const containerEl2 = widget2El.querySelector("ul");
+const nav2 = createLinear(widget2El, focusEl2, containerEl2, "li", {
+  ignoreByDelegateSelector: 'input[type="button"]',
+});
+
+addPreventScrollKeys(focusEl2);
+
+["activeDescendantInit", "activeDescendantChange", "activeDescendantReset", "activeDescendantMutation"].forEach(
+  (eventName) => widget2El.addEventListener(eventName, (e) => logEvent(logEl2, e)),
+);
+
+// Controls — apply to both widgets
+const navs = [nav1, nav2];
+const widgetEls = [widget1El, widget2El];
+
+document.getElementById("append").addEventListener("click", () => {
+  widgetEls.forEach((el) => {
+    const ul = el.querySelector("ul");
+    const item = document.createElement("li");
+    item.setAttribute("role", "option");
+    item.textContent = `Item ${ul.children.length + 1}`;
+    ul.appendChild(item);
   });
 });
 
-append.addEventListener("click", function () {
-  widgetEls.forEach(function (el) {
-    const list = el.querySelector("ul");
-    const newListItem = document.createElement("li");
-    newListItem.setAttribute("role", "option");
-    const numListItems = parseInt(list.querySelectorAll("li").length, 10);
-    newListItem.innerText = `Item ${numListItems + 1}`;
-    list.appendChild(newListItem);
+document.getElementById("prepend").addEventListener("click", () => {
+  widgetEls.forEach((el) => {
+    const ul = el.querySelector("ul");
+    const item = document.createElement("li");
+    item.setAttribute("role", "option");
+    item.textContent = `Item ${ul.children.length + 1}`;
+    ul.insertBefore(item, ul.firstElementChild);
   });
 });
 
-removeFirst.addEventListener("click", function () {
-  widgetEls.forEach(function (el) {
-    const list = el.querySelector("ul");
-    const node = list.firstElementChild;
-    list.removeChild(node);
+document.getElementById("removeFirst").addEventListener("click", () => {
+  widgetEls.forEach((el) => {
+    const first = el.querySelector("ul").firstElementChild;
+    if (first) first.remove();
   });
 });
 
-removeLast.addEventListener("click", function () {
-  widgetEls.forEach(function (el) {
-    const list = el.querySelector("ul");
-    const node = list.lastElementChild;
-    list.removeChild(node);
+document.getElementById("removeLast").addEventListener("click", () => {
+  widgetEls.forEach((el) => {
+    const last = el.querySelector("ul").lastElementChild;
+    if (last) last.remove();
   });
 });
 
-disableCurrent.addEventListener("click", function () {
-  navs.forEach(function (nav) {
-    if (nav.currentItem) nav.currentItem.setAttribute("aria-disabled", "true");
-  });
+document.getElementById("disableCurrent").addEventListener("click", () => {
+  navs.forEach((nav) => nav.currentItem?.setAttribute("aria-disabled", "true"));
 });
 
-widgetEls.forEach(function (el) {
-  el.addEventListener("activeDescendantInit", log);
-  el.addEventListener("activeDescendantChange", log);
-  el.addEventListener("activeDescendantReset", log);
-  el.addEventListener("activeDescendantMutation", log);
-
-  const widget = ActiveDescendant.createLinear(
-    el,
-    el.querySelector("input") || el.querySelector("ul"),
-    el.querySelector("ul"),
-    "li",
-    {
-      nonEmittingElementSelector: 'input[type="button"]',
-    },
-  );
-
-  navs.push(widget);
+document.getElementById("wrap").addEventListener("change", (e) => {
+  navs.forEach((nav) => (nav.wrap = e.target.checked));
 });
 
-wrapCheckbox.addEventListener("change", function (e) {
-  navs.forEach(function (nav) {
-    nav.wrap = e.target.checked;
-  });
+document.getElementById("clear-1").addEventListener("click", () => {
+  logEl1.innerHTML = "";
+});
+
+document.getElementById("clear-2").addEventListener("click", () => {
+  logEl2.innerHTML = "";
 });

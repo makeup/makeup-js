@@ -197,6 +197,7 @@ Use CSS to style the active descendant however you wish:
 - `items`: returns all items matching the item selector (live DOM query, includes hidden and disabled items)
 - `index`: gets or sets the current active descendant index. A no-op on aria-disabled or hidden items.
 - `currentItem`: returns the item element at the current index
+- `wrap`: sets whether arrow keys should wrap/loop
 
 ## Methods
 

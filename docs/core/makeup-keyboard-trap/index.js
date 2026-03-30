@@ -1,36 +1,35 @@
-// REQUIRE
-// const keyboardTrap = require('makeup-keyboard-trap');
+import { trap, untrap } from "makeup-keyboard-trap";
 
-// IMPORT
-import * as keyboardTrap from "makeup-keyboard-trap";
+const trapEl = document.getElementById("trap");
+const toggleBtn = document.getElementById("toggle");
+const logEl = document.getElementById("log");
 
-const trap = document.getElementById("trap");
-const btn = document.querySelector("button");
+function logEvent(name) {
+  const item = document.createElement("li");
+  item.textContent = name;
+  logEl.prepend(item);
+}
 
-btn.addEventListener("click", function () {
-  if (this.getAttribute("aria-pressed") === "true") {
-    keyboardTrap.untrap();
+toggleBtn.addEventListener("click", () => {
+  if (toggleBtn.getAttribute("aria-pressed") === "true") {
+    untrap();
   } else {
-    keyboardTrap.trap(this.parentNode);
+    trap(trapEl);
   }
 });
 
-document.addEventListener("keyboardTrap", function (e) {
-  console.log(this, e);
+trapEl.addEventListener("keyboardTrap", () => {
+  toggleBtn.textContent = "Untrap";
+  toggleBtn.setAttribute("aria-pressed", "true");
+  logEvent("keyboardTrap");
 });
 
-document.addEventListener("keyboardUntrap", function (e) {
-  console.log(this, e);
+trapEl.addEventListener("keyboardUntrap", () => {
+  toggleBtn.textContent = "Trap";
+  toggleBtn.setAttribute("aria-pressed", "false");
+  logEvent("keyboardUntrap");
 });
 
-trap.addEventListener("keyboardUntrap", function (e) {
-  console.log(this, e);
-  btn.innerText = "Trap";
-  btn.setAttribute("aria-pressed", "false");
-});
-
-trap.addEventListener("keyboardTrap", function (e) {
-  console.log(this, e);
-  btn.innerText = "Untrap";
-  btn.setAttribute("aria-pressed", "true");
+document.getElementById("clear").addEventListener("click", () => {
+  logEl.innerHTML = "";
 });

@@ -3,62 +3,53 @@
   <head>
     <title>makeup-exit-emitter demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
     <style>
-      header {
-        border-bottom: 1px solid #eee;
-      }
       .widget {
-        border: 2px dotted #eee;
-        margin: 16px 0;
-        padding: 16px;
+        border: 2px dashed #ccc;
+        margin: 0.75rem 0;
+        padding: 1rem;
       }
-      .test {
-        border: 1px dotted #333;
-        margin: 20px 0;
-        padding: 10px;
-      }
-      .focusin {
-        background-color: #eee;
-      }
-      .mousein {
-        background-color: #ffcc00;
+      .widget--active {
+        background-color: #f5f5f5;
+        border-color: #333;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>makeup-exit-emitter demo</h1>
+    <main>
+      <h1><a href="../">core</a> / makeup-exit-emitter</h1>
+      <p>Emits a <code>focusExit</code> event when keyboard focus leaves an element and all of its descendants.</p>
       <p>
-        The dotted border marks the confines of a widget. Background will be grey whilst focus remains on or inside
-        widget.
+        <strong>Note:</strong> in some browsers (e.g. Safari), clicking buttons, checkboxes, and radios does not move
+        keyboard focus.
       </p>
+
+      <hr />
+
+      <h2>Focus exit detection</h2>
       <p>
-        Note that a mouse click on buttons, checkboxes and radios <strong>does not</strong> set focus in some browsers
-        (e.g. Safari)!
+        Tab between elements. The widget border highlights while focus is inside; <code>focusExit</code> fires when
+        focus moves out.
       </p>
-    </header>
-    <main role="main">
-      <h2>Test Area</h2>
 
-      <button>Button 1</button>
-      <input type="text" placeholder="input before widget" />
-      <p>text before widgets</p>
+      <input type="text" placeholder="focusable before widgets" />
 
-      <div class="widget">
-        <button>Button 3</button>
-        <span>text inside widget</span>
-        <input type="text" placeholder="input inside widget" />
+      <div class="widget" id="widget-1">
+        <button>Button</button>
+        <input type="text" placeholder="input inside widget 1" />
       </div>
 
-      <div class="widget">
-        <button>Button 5</button>
-        <span>text inside widget</span>
-        <input type="text" placeholder="input inside widget" />
+      <div class="widget" id="widget-2">
+        <button>Button</button>
+        <input type="text" placeholder="input inside widget 2" />
       </div>
 
-      <p>text after widgets</p>
-      <input type="text" placeholder="input after widgets" />
-      <button>Button 7</button>
+      <input type="text" placeholder="focusable after widgets" />
+
+      <ul id="log" class="demo-output"></ul>
+      <button type="button" id="clear">Clear</button>
     </main>
     <script src="index.min.js"></script>
   </body>

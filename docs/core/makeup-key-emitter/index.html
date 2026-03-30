@@ -3,33 +3,38 @@
   <head>
     <title>makeup-key-emitter demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
   </head>
   <body>
     <main>
-      <h1>makeup-key-emitter demo</h1>
-      <p>
-        Move keyboard focus to buttons and press UP, DOWN, ESC etc. Open your developer console to see debug output.
-      </p>
-      <p>
-        <strong>NOTE:</strong> pressing UP and DOWN is <strong>not</strong> expected to move the focus, it should just
-        trigger an event.
-      </p>
-      <p></p>
+      <h1><a href="../">core</a> / makeup-key-emitter</h1>
+      <p>Emits custom events for accessibility keys (e.g. <code>arrowDownKeyDown</code>, <code>escapeKeyUp</code>).</p>
+      <p><strong>Note:</strong> arrow keys emit events only — they do not move focus.</p>
+
       <hr />
 
-      <h2>On Container (delegated)</h2>
+      <h2>On container (delegated)</h2>
+      <p>A single listener on the container catches key events bubbling up from any child.</p>
       <ul id="widget-1">
         <li><button>Item 1</button></li>
         <li><button>Item 2</button></li>
         <li><button>Item 3</button></li>
       </ul>
+      <ul id="log-1" class="demo-output"></ul>
+      <button type="button" id="clear-1">Clear</button>
 
-      <h2>On Buttons (directly bound)</h2>
+      <hr />
+
+      <h2>On buttons (directly bound)</h2>
+      <p>A listener bound to each button individually.</p>
       <ul id="widget-2">
         <li><button>Item 1</button></li>
         <li><button>Item 2</button></li>
         <li><button>Item 3</button></li>
       </ul>
+      <ul id="log-2" class="demo-output"></ul>
+      <button type="button" id="clear-2">Clear</button>
     </main>
     <script src="index.min.js"></script>
   </body>

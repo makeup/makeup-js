@@ -1,22 +1,21 @@
-// REQUIRE
-//const typeahead = require('makeup-typeahead').default;
-
-// IMPORT
 import typeahead from "makeup-typeahead";
 
-const list = document.querySelector("ul");
-const selected = document.querySelector(".selected");
-const TIMEOUT_LENGTH = 2000;
-
+const listEl = document.getElementById("list");
+const matchEl = document.getElementById("match");
 const { getIndex } = typeahead();
+const TIMEOUT = 1500;
 
-function handleKeyDown(e) {
-  if (e.key.length === 1) {
-    const listIndex = getIndex(list.children, e.key, TIMEOUT_LENGTH);
-    if (listIndex !== -1) {
-      selected.innerHTML = list.children[listIndex].innerHTML;
-    }
+listEl.addEventListener("keydown", (e) => {
+  if (e.key.length !== 1) return;
+
+  const index = getIndex(listEl.children, e.key, TIMEOUT);
+
+  [...listEl.children].forEach((li) => li.classList.remove("match"));
+
+  if (index !== -1) {
+    listEl.children[index].classList.add("match");
+    matchEl.textContent = listEl.children[index].textContent;
+  } else {
+    matchEl.textContent = "—";
   }
-}
-
-document.addEventListener("keydown", (e) => handleKeyDown(e));
+});

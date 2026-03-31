@@ -1,60 +1,58 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>makeup-switch</title>
+    <title>makeup-switch demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
     <link href="index.css" rel="stylesheet" />
-    <link rel="icon" href="../../favicon.ico" type="image/x-icon" />
     <style>
       .switch {
-        --switch-unchecked-background-color: black;
-        --switch-checked-background-color: green;
-        --switch-foreground-color: white;
-        --switch-disabled-background-color: #eee;
-        margin-right: 8px;
+        --switch-unchecked-background-color: #767676;
+        --switch-checked-background-color: #21890d;
+        --switch-disabled-background-color: #c7c7c7;
+        margin-right: 0.5rem;
+        vertical-align: middle;
       }
     </style>
   </head>
   <body>
-    <div id="page">
-      <header>
-        <h1>makeup-switch</h1>
-        <p>Switch is headless UI widget and does not come bundled with any CSS.</p>
-        <p>
-          This example is receiving its base markup and styles from
-          <a href="https://ebay.github.io/skin/#switch">eBay Skin</a>. A subset of style properties are being
-          customized/themed via Skin's CSS Custom Properties.
-        </p>
-      </header>
+    <main>
+      <h1><a href="../">ui</a> / makeup-switch</h1>
+      <p>ARIA switch widget. Headless — bring your own CSS (this demo uses eBay Skin).</p>
+
       <hr />
-      <main>
-        <span class="switch">
-          <span
-            class="switch__control"
-            role="switch"
-            tabindex="0"
-            aria-checked="false"
-            aria-labelledby="label-1"
-          ></span>
-          <span class="switch__button"></span>
-        </span>
-        <span id="label-1">Enabled Switch</span>
 
-        <hr />
+      <h2>Enabled</h2>
+      <span class="switch">
+        <span class="switch__control" role="switch" tabindex="0" aria-checked="false" aria-labelledby="label-1"></span>
+        <span class="switch__button"></span>
+      </span>
+      <span id="label-1">Wi-Fi</span>
 
-        <span class="switch">
-          <span
-            class="switch__control"
-            role="switch"
-            tabindex="0"
-            aria-checked="false"
-            aria-disabled="true"
-            aria-labelledby="label-2"
-          ></span>
-          <span class="switch__button"></span>
-        </span>
-        <span id="label-2">Disabled Switch</span>
-      </main>
-    </div>
+      <hr />
+
+      <h2>Disabled</h2>
+      <span class="switch">
+        <span
+          class="switch__control"
+          role="switch"
+          tabindex="0"
+          aria-checked="false"
+          aria-disabled="true"
+          aria-labelledby="label-2"
+        ></span>
+        <span class="switch__button"></span>
+      </span>
+      <span id="label-2">Bluetooth</span>
+
+      <hr />
+
+      <h2>Events</h2>
+      <p><code>makeup-switch-toggle</code> fires on each toggle; <code>detail.on</code> is true or false.</p>
+      <ul id="log" class="demo-output"></ul>
+      <button type="button" id="clear">Clear</button>
+    </main>
     <script src="index.min.js"></script>
   </body>
 </html>

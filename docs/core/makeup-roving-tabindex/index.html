@@ -3,6 +3,8 @@
   <head>
     <title>makeup-roving-tabindex demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
     <style>
       li[aria-disabled="true"] {
         color: lightgrey;
@@ -14,14 +16,30 @@
     </style>
   </head>
   <body>
-    <main role="main">
-      <h1>makeup-roving-tabindex demo</h1>
-      <p>Use ARROW keys to move the roving tabindex.</p>
+    <main>
+      <h1><a href="../">core</a> / makeup-roving-tabindex</h1>
+      <p>Implements a roving tab index on a collection of elements. Use arrow keys to navigate.</p>
       <p>
-        For the purpose of demonstration, aria-disabled items are greyed out; hidden items have strike-through (in the
-        real world they would obviously be actually hidden). Disabled and hidden items are included in indexing, but
-        skipped in navigation.
+        For demonstration purposes, <code>aria-disabled</code> items are greyed out and <code>hidden</code> items have
+        strike-through (in practice they would be visually hidden). Both are included in the index but skipped during
+        navigation.
       </p>
+
+      <hr />
+
+      <h2>Linear</h2>
+
+      <fieldset>
+        <legend>Controls</legend>
+        <button id="prepender" type="button">Prepend item</button>
+        <button id="appender" type="button">Append item</button>
+        <button id="removeFirst" type="button">Remove first</button>
+        <button id="removeLast" type="button">Remove last</button>
+        <button id="removeCurrent" type="button">Remove current</button>
+        <button id="disableCurrent" type="button">Disable current</button>
+        <button id="hideCurrent" type="button">Hide current</button>
+        <label><input id="wrap" type="checkbox" /> Wrap</label>
+      </fieldset>
 
       <div class="widget">
         <ul>
@@ -34,17 +52,8 @@
         </ul>
       </div>
 
-      <fieldset>
-        <legend>Tools</legend>
-        <button id="prepender" type="button">Prepend New Item</button>
-        <button id="appender" type="button">Append New Item</button>
-        <button id="removeFirst" type="button">Remove First Item</button>
-        <button id="removeLast" type="button">Remove Last Item</button>
-        <button id="removeCurrent" type="button">Remove Current Item</button>
-        <button id="disableCurrent" type="button">Disable Current Item</button>
-        <button id="hideCurrent" type="button">Hide Current Item</button>
-        <label for="wrap">Wrap</label><input id="wrap" type="checkbox" />
-      </fieldset>
+      <ul id="log" class="demo-output"></ul>
+      <button type="button" id="clear">Clear</button>
     </main>
     <script src="index.min.js"></script>
   </body>

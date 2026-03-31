@@ -3,13 +3,34 @@
   <head>
     <title>makeup-typeahead demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
+    <style>
+      #list {
+        border: 1px solid #ddd;
+        cursor: default;
+        margin: 0.75rem 0;
+        padding: 0.5rem 1rem;
+      }
+      .match {
+        background: #eee;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <main>
-      <h1>makeup-typeahead demo</h1>
-      <span>just start typing to see the typeahead's results!</span>
-      <h2>Country List</h2>
-      <ul>
+      <h1><a href="../">core</a> / makeup-typeahead</h1>
+      <p>
+        Returns the index of the best matching item for a typed character string. Characters accumulate across
+        keypresses; each keypress starts its own 1.5s timer — when it fires the string resets.
+      </p>
+
+      <hr />
+
+      <h2>Country list</h2>
+      <p>Tab to focus the list, then type to jump to a matching item.</p>
+      <ul id="list" tabindex="0">
         <li>Albania</li>
         <li>Angola</li>
         <li>Aruba</li>
@@ -25,10 +46,7 @@
         <li>UK</li>
         <li>USA</li>
       </ul>
-
-      <h2>Typeahead Country</h2>
-
-      <h3 class="selected"></h3>
+      <p>Match: <output id="match">—</output></p>
     </main>
     <script src="index.min.js"></script>
   </body>

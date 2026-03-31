@@ -19,22 +19,18 @@ let dirtyObjects;
 // filter function for svg elements
 const filterSvg = item => item.tagName.toLowerCase() !== "svg";
 function showElementPrep(el, useHiddenProperty) {
-  let preparedElement;
   if (useHiddenProperty === false) {
-    preparedElement = prepareElement(el, "aria-hidden", "false");
+    return prepareElement(el, "aria-hidden", "false");
   } else {
-    preparedElement = prepareElement(el, "hidden", false);
+    return prepareElement(el, "hidden", false);
   }
-  return preparedElement;
 }
 function hideElementPrep(el, useHiddenProperty) {
-  let preparedElement;
   if (useHiddenProperty === false) {
-    preparedElement = prepareElement(el, "aria-hidden", "true");
+    return prepareElement(el, "aria-hidden", "true");
   } else {
-    preparedElement = prepareElement(el, "hidden", true);
+    return prepareElement(el, "hidden", true);
   }
-  return preparedElement;
 }
 function prepareElement(el, attributeName, dirtyValue) {
   const isProperty = typeof dirtyValue === "boolean";
@@ -88,7 +84,10 @@ const defaultOptions = {
 function trap(el, selectedOptions) {
   // ensure current trap is deactivated
   untrap();
-  const options = Object.assign({}, defaultOptions, selectedOptions);
+  const options = {
+    ...defaultOptions,
+    ...selectedOptions
+  };
 
   // update the trapped el reference
   trappedEl = el;
@@ -113,7 +112,7 @@ function trap(el, selectedOptions) {
   }
 
   // prepare elements
-  dirtyObjects = [showElementPrep(trappedEl, options.useHiddenProperty)].concat(ancestors.map(item => showElementPrep(item, options.useHiddenProperty))).concat(siblings.map(item => hideElementPrep(item, options.useHiddenProperty))).concat(siblingsOfAncestors.map(item => hideElementPrep(item, options.useHiddenProperty)));
+  dirtyObjects = [showElementPrep(trappedEl, options.useHiddenProperty), ...ancestors.map(item => showElementPrep(item, options.useHiddenProperty)), ...siblings.map(item => hideElementPrep(item, options.useHiddenProperty)), ...siblingsOfAncestors.map(item => hideElementPrep(item, options.useHiddenProperty))];
 
   // update DOM
   dirtyObjects.forEach(item => dirtyElement(item));

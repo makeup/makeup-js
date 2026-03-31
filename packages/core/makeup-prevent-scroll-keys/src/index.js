@@ -1,15 +1,27 @@
-function onKeyDown(e) {
-  if (e.keyCode >= 32 && e.keyCode <= 40) {
+const SCROLL_KEYS = new Set([
+  " ",
+  "PageUp",
+  "PageDown",
+  "End",
+  "Home",
+  "ArrowLeft",
+  "ArrowUp",
+  "ArrowRight",
+  "ArrowDown",
+]);
+
+const onKeyDown = (e) => {
+  if (SCROLL_KEYS.has(e.key)) {
     e.preventDefault();
   }
-}
+};
 
-function add(el) {
+const add = (el) => {
   el.addEventListener("keydown", onKeyDown);
-}
+};
 
-function remove(el) {
+const remove = (el) => {
   el.removeEventListener("keydown", onKeyDown);
-}
+};
 
 export { add, remove };

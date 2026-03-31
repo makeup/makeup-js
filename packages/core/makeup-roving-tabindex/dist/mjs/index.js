@@ -1,4 +1,4 @@
-import * as NavigationEmitter from "makeup-navigation-emitter";
+import { createLinear as createLinearEmitter } from "makeup-navigation-emitter";
 const defaultOptions = {
   autoInit: "interactive",
   autoReset: "current",
@@ -6,7 +6,7 @@ const defaultOptions = {
   axis: "both"
 };
 function refreshTabindex(items, focusIndex) {
-  items.forEach(function(el, i) {
+  items.forEach((el, i) => {
     el.setAttribute("tabindex", i === focusIndex ? "0" : "-1");
   });
 }
@@ -57,9 +57,9 @@ class RovingTabindex {
 class LinearRovingTabindex extends RovingTabindex {
   constructor(el, itemSelector, selectedOptions) {
     super(el);
-    this._options = Object.assign({}, defaultOptions, selectedOptions);
+    this._options = { ...defaultOptions, ...selectedOptions };
     this._itemSelector = itemSelector;
-    this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
+    this._navigationEmitter = createLinearEmitter(el, itemSelector, {
       autoInit: this._options.index !== void 0 ? this._options.index : this._options.autoInit,
       autoReset: this._options.autoReset,
       wrap: this._options.wrap,

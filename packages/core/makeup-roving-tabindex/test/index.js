@@ -1,10 +1,7 @@
-import { describe, expect, beforeEach, afterEach, it } from "vitest";
-import Sinon from "sinon";
-import * as RovingTabindex from "../src/index.js";
+import { describe, expect, beforeEach, afterEach, it, vi } from "vitest";
+import { createLinear } from "../src/index.js";
 
-const timeoutInterval = 500;
-
-var testEl, testRovingIndex, onNavigationModelChange;
+let testEl, testRovingIndex, onNavigationModelChange;
 
 function triggerArrowKeyPress(el, dir, num) {
   for (let i = 0; i < num; i++) {
@@ -18,8 +15,8 @@ function triggerKeyPress(el, keyType) {
 
 /* BEGIN STATIC MODEL SIZE TESTS */
 
-describe("given a list of 3 visible items", function () {
-  beforeEach(function () {
+describe("given a list of 3 visible items", () => {
+  beforeEach(() => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -29,20 +26,20 @@ describe("given a list of 3 visible items", function () {
         `;
   });
 
-  describe("when instantiated", function () {
-    beforeEach(function () {
+  describe("when instantiated", () => {
+    beforeEach(() => {
       testEl = document.querySelector(".widget");
-      testRovingIndex = RovingTabindex.createLinear(testEl, "li"); // eslint-disable-line
+      testRovingIndex = createLinear(testEl, "li");
     });
 
-    it("model should have 3 items", function () {
-      expect(testRovingIndex.items.length).to.equal(3);
+    it("model should have 3 items", () => {
+      expect(testRovingIndex.items.length).toBe(3);
     });
   });
 });
 
-describe("given a list of 2 visible items, 1 hidden", function () {
-  beforeEach(function () {
+describe("given a list of 2 visible items, 1 hidden", () => {
+  beforeEach(() => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -52,20 +49,20 @@ describe("given a list of 2 visible items, 1 hidden", function () {
         `;
   });
 
-  describe("when instantiated", function () {
-    beforeEach(function () {
+  describe("when instantiated", () => {
+    beforeEach(() => {
       testEl = document.querySelector(".widget");
-      testRovingIndex = RovingTabindex.createLinear(testEl, "li"); // eslint-disable-line
+      testRovingIndex = createLinear(testEl, "li");
     });
 
-    it("model should have 3 items", function () {
-      expect(testRovingIndex.items.length).to.equal(3);
+    it("model should have 3 items", () => {
+      expect(testRovingIndex.items.length).toBe(3);
     });
   });
 });
 
-describe("given a list of 3 hidden items", function () {
-  beforeEach(function () {
+describe("given a list of 3 hidden items", () => {
+  beforeEach(() => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li hidden>Item 1</li>
@@ -75,14 +72,14 @@ describe("given a list of 3 hidden items", function () {
         `;
   });
 
-  describe("when instantiated", function () {
-    beforeEach(function () {
+  describe("when instantiated", () => {
+    beforeEach(() => {
       testEl = document.querySelector(".widget");
-      testRovingIndex = RovingTabindex.createLinear(testEl, "li"); // eslint-disable-line
+      testRovingIndex = createLinear(testEl, "li");
     });
 
-    it("model should have 3 items", function () {
-      expect(testRovingIndex.items.length).to.equal(3);
+    it("model should have 3 items", () => {
+      expect(testRovingIndex.items.length).toBe(3);
     });
   });
 });
@@ -91,8 +88,8 @@ describe("given a list of 3 hidden items", function () {
 
 /* BEGIN ARROW KEY TESTS */
 
-describe("given 3 items with default options", function () {
-  function setup() {
+describe("given 3 items with default options", () => {
+  const setup = () => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -102,100 +99,100 @@ describe("given 3 items with default options", function () {
         `;
 
     testEl = document.querySelector(".widget");
-    testRovingIndex = RovingTabindex.createLinear(testEl, "li"); // eslint-disable-line
+    testRovingIndex = createLinear(testEl, "li");
 
-    onNavigationModelChange = Sinon.spy();
+    onNavigationModelChange = vi.fn();
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
-  }
+  };
 
   beforeEach(setup);
   afterEach(setup);
 
-  describe("when arrow left is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow left is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Left", 1);
     });
 
-    it("should trigger 0 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 
-  describe("when arrow up is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow up is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Up", 1);
     });
 
-    it("should trigger 0 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 
-  describe("when arrow right is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
-    it("should trigger 1 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
-      expect(testEl.children[0].getAttribute("tabindex")).to.equal("-1");
-      expect(testEl.children[1].getAttribute("tabindex")).to.equal("0");
-      expect(testEl.children[2].getAttribute("tabindex")).to.equal("-1");
+    it("should trigger 1 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
+      expect(testEl.children[0].getAttribute("tabindex")).toBe("-1");
+      expect(testEl.children[1].getAttribute("tabindex")).toBe("0");
+      expect(testEl.children[2].getAttribute("tabindex")).toBe("-1");
     });
   });
 
-  describe("when arrow right is pressed twice", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed twice", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 2);
     });
 
-    it("should trigger 2 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(2);
+    it("should trigger 2 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
     });
   });
 
-  describe("when arrow right is pressed three times", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed three times", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 3);
     });
 
-    it("should trigger 2 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(2);
+    it("should trigger 2 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
     });
   });
 
-  describe("when arrow right is pressed once after rovingTabIndex is destroyed", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed once after rovingTabIndex is destroyed", () => {
+    beforeEach(() => {
       testRovingIndex.destroy();
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
-    it("should trigger 0 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 
-  describe("when arrow down is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow down is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Down", 1);
     });
 
-    it("should trigger 1 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
+    it("should trigger 1 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when arrow down is pressed once after rovingTabIndex is destroyed", function () {
-    beforeEach(function () {
+  describe("when arrow down is pressed once after rovingTabIndex is destroyed", () => {
+    beforeEach(() => {
       testRovingIndex.destroy();
       triggerArrowKeyPress(testEl, "Down", 1);
     });
 
-    it("should trigger 0 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
-      expect(testEl.children[0].getAttribute("tabindex")).to.equal("0");
-      expect(testEl.children[1].getAttribute("tabindex")).to.equal("-1");
-      expect(testEl.children[2].getAttribute("tabindex")).to.equal("-1");
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
+      expect(testEl.children[0].getAttribute("tabindex")).toBe("0");
+      expect(testEl.children[1].getAttribute("tabindex")).toBe("-1");
+      expect(testEl.children[2].getAttribute("tabindex")).toBe("-1");
     });
   });
 });
@@ -204,8 +201,8 @@ describe("given 3 items with default options", function () {
 
 /* BEGIN HOME & END KEY TESTS */
 
-describe("given 3 items with default options", function () {
-  function setup() {
+describe("given 3 items with default options", () => {
+  const setup = () => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -215,32 +212,32 @@ describe("given 3 items with default options", function () {
         `;
 
     testEl = document.querySelector(".widget");
-    testRovingIndex = RovingTabindex.createLinear(testEl, "li"); // eslint-disable-line
+    testRovingIndex = createLinear(testEl, "li");
 
-    onNavigationModelChange = Sinon.spy();
+    onNavigationModelChange = vi.fn();
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
-  }
+  };
 
   beforeEach(setup);
   afterEach(setup);
 
-  describe("when home key is pressed once", function () {
-    beforeEach(function () {
+  describe("when home key is pressed once", () => {
+    beforeEach(() => {
       triggerKeyPress(testEl, "home");
     });
 
-    it("should trigger 0 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 
-  describe("when end key is pressed once", function () {
-    beforeEach(function () {
+  describe("when end key is pressed once", () => {
+    beforeEach(() => {
       triggerKeyPress(testEl, "end");
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
     });
   });
 });
@@ -249,8 +246,8 @@ describe("given 3 items with default options", function () {
 
 /* BEGIN AUTOWRAP ARROW KEY TESTS */
 
-describe("given 3 items with autoWrap on", function () {
-  function setup() {
+describe("given 3 items with autoWrap on", () => {
+  const setup = () => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -260,75 +257,75 @@ describe("given 3 items with autoWrap on", function () {
         `;
 
     testEl = document.querySelector(".widget");
-    testRovingIndex = RovingTabindex.createLinear(testEl, "li", { wrap: true }); // eslint-disable-line
+    testRovingIndex = createLinear(testEl, "li", { wrap: true });
 
-    onNavigationModelChange = Sinon.spy();
+    onNavigationModelChange = vi.fn();
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
-  }
+  };
 
   beforeEach(setup);
   afterEach(setup);
 
-  describe("when arrow left is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow left is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Left", 1);
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
-      expect(testEl.children[0].getAttribute("tabindex")).to.equal("-1");
-      expect(testEl.children[1].getAttribute("tabindex")).to.equal("-1");
-      expect(testEl.children[2].getAttribute("tabindex")).to.equal("0");
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
+      expect(testEl.children[0].getAttribute("tabindex")).toBe("-1");
+      expect(testEl.children[1].getAttribute("tabindex")).toBe("-1");
+      expect(testEl.children[2].getAttribute("tabindex")).toBe("0");
     });
   });
 
-  describe("when arrow up is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow up is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Up", 1);
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when arrow right is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when arrow right is pressed twice", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed twice", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 2);
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(2);
+    it("should trigger 2 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
     });
   });
 
-  describe("when arrow right is pressed three times", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed three times", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 3);
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(3);
+    it("should trigger 3 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledTimes(3);
     });
   });
 
-  describe("when arrow down is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow down is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Down", 1);
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
     });
   });
 });
@@ -337,8 +334,8 @@ describe("given 3 items with autoWrap on", function () {
 
 /* BEGIN INDEX SETTER TESTS */
 
-describe("given 3 items with default options", function () {
-  function setup() {
+describe("given 3 items with default options", () => {
+  const setup = () => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -348,42 +345,42 @@ describe("given 3 items with default options", function () {
         `;
 
     testEl = document.querySelector(".widget");
-    testRovingIndex = RovingTabindex.createLinear(testEl, "li"); // eslint-disable-line
+    testRovingIndex = createLinear(testEl, "li");
 
-    onNavigationModelChange = Sinon.spy();
+    onNavigationModelChange = vi.fn();
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
-  }
+  };
 
   beforeEach(setup);
   afterEach(setup);
 
-  describe("when index set to current index", function () {
-    beforeEach(function () {
+  describe("when index set to current index", () => {
+    beforeEach(() => {
       testRovingIndex.index = 0;
     });
 
-    it("should trigger 0 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange event", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 
-  describe("when index set within bounds", function () {
-    beforeEach(function () {
+  describe("when index set within bounds", () => {
+    beforeEach(() => {
       testRovingIndex.index = 1;
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when index set out of bounds", function () {
-    beforeEach(function () {
+  describe("when index set out of bounds", () => {
+    beforeEach(() => {
       testRovingIndex.index = 100;
     });
 
-    it("should trigger 0 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange events", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 });
@@ -392,8 +389,8 @@ describe("given 3 items with default options", function () {
 
 /* BEGIN AXIS TESTS */
 
-describe("given 3 items with axis set to both", function () {
-  function setup() {
+describe("given 3 items with axis set to both", () => {
+  const setup = () => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -403,60 +400,60 @@ describe("given 3 items with axis set to both", function () {
         `;
 
     testEl = document.querySelector(".widget");
-    testRovingIndex = RovingTabindex.createLinear(testEl, "li", { axis: "both" }); // eslint-disable-line
+    testRovingIndex = createLinear(testEl, "li", { axis: "both" });
 
-    onNavigationModelChange = Sinon.spy();
+    onNavigationModelChange = vi.fn();
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
-  }
+  };
 
   beforeEach(setup);
   afterEach(setup);
 
-  describe("when arrow down is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow down is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Down", 1);
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when arrow up is pressed once after arrow down", function () {
-    beforeEach(function () {
+  describe("when arrow up is pressed once after arrow down", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Down", 1);
       triggerArrowKeyPress(testEl, "Up", 1);
     });
 
-    it("should trigger 2 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(2);
+    it("should trigger 2 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
     });
   });
 
-  describe("when arrow right is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when arrow left is pressed once after arrow right", function () {
-    beforeEach(function () {
+  describe("when arrow left is pressed once after arrow right", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 1);
       triggerArrowKeyPress(testEl, "Left", 1);
     });
 
-    it("should trigger 2 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(2);
+    it("should trigger 2 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
     });
   });
 });
 
-describe("given 3 items with axis set to x", function () {
-  function setup() {
+describe("given 3 items with axis set to x", () => {
+  const setup = () => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -466,60 +463,60 @@ describe("given 3 items with axis set to x", function () {
         `;
 
     testEl = document.querySelector(".widget");
-    testRovingIndex = RovingTabindex.createLinear(testEl, "li", { axis: "x" }); // eslint-disable-line
+    testRovingIndex = createLinear(testEl, "li", { axis: "x" });
 
-    onNavigationModelChange = Sinon.spy();
+    onNavigationModelChange = vi.fn();
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
-  }
+  };
 
   beforeEach(setup);
   afterEach(setup);
 
-  describe("when arrow down is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow down is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Down", 1);
     });
 
-    it("should trigger 0 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange event", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 
-  describe("when arrow up is pressed once after arrow down", function () {
-    beforeEach(function () {
+  describe("when arrow up is pressed once after arrow down", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Down", 1);
       triggerArrowKeyPress(testEl, "Up", 1);
     });
 
-    it("should trigger 0 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange event", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 
-  describe("when arrow right is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
-    it("should trigger 1 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(1);
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
     });
   });
 
-  describe("when arrow left is pressed once after arrow right", function () {
-    beforeEach(function () {
+  describe("when arrow left is pressed once after arrow right", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 1);
       triggerArrowKeyPress(testEl, "Left", 1);
     });
 
-    it("should trigger 2 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(2);
+    it("should trigger 2 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
     });
   });
 });
 
-describe("given 3 items with axis set to y", function () {
-  function setup() {
+describe("given 3 items with axis set to y", () => {
+  const setup = () => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -529,54 +526,54 @@ describe("given 3 items with axis set to y", function () {
         `;
 
     testEl = document.querySelector(".widget");
-    testRovingIndex = RovingTabindex.createLinear(testEl, "li", { axis: "y" }); // eslint-disable-line
+    testRovingIndex = createLinear(testEl, "li", { axis: "y" });
 
-    onNavigationModelChange = Sinon.spy();
+    onNavigationModelChange = vi.fn();
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
-  }
+  };
 
   beforeEach(setup);
   afterEach(setup);
 
-  describe("when arrow right is pressed once", function () {
-    beforeEach(function () {
+  describe("when arrow right is pressed once", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 1);
     });
 
-    it("should trigger 0 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange event", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 
-  describe("when arrow left is pressed once after arrow right", function () {
-    beforeEach(function () {
+  describe("when arrow left is pressed once after arrow right", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Right", 1);
       triggerArrowKeyPress(testEl, "Left", 1);
     });
 
-    it("should trigger 0 navigationModelChange event", function () {
-      expect(onNavigationModelChange.callCount).to.equal(0);
+    it("should trigger 0 navigationModelChange event", () => {
+      expect(onNavigationModelChange).not.toHaveBeenCalled();
     });
   });
 
-  describe("when arrow Down is pressed twice", function () {
-    beforeEach(function () {
+  describe("when arrow Down is pressed twice", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Down", 2);
     });
 
-    it("should trigger 2 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(2);
+    it("should trigger 2 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
     });
   });
 
-  describe("when arrow Up is pressed once after arrow down", function () {
-    beforeEach(function () {
+  describe("when arrow Up is pressed once after arrow down", () => {
+    beforeEach(() => {
       triggerArrowKeyPress(testEl, "Down", 1);
       triggerArrowKeyPress(testEl, "Up", 1);
     });
 
-    it("should trigger 2 navigationModelChange events", function () {
-      expect(onNavigationModelChange.callCount).to.equal(2);
+    it("should trigger 2 navigationModelChange events", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledTimes(2);
     });
   });
 });
@@ -585,10 +582,10 @@ describe("given 3 items with axis set to y", function () {
 
 /* BEGIN AUTO RESET TESTS */
 
-describe("given 3 items with focus on second", function () {
-  var buttonEl;
+describe("given 3 items with focus on second", () => {
+  let buttonEl;
 
-  function setup() {
+  const setup = () => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -600,41 +597,41 @@ describe("given 3 items with focus on second", function () {
 
     testEl = document.querySelector(".widget");
     buttonEl = document.querySelector("button");
-    testRovingIndex = RovingTabindex.createLinear(testEl, "li", { autoReset: "current" }); // eslint-disable-line
+    testRovingIndex = createLinear(testEl, "li", { autoReset: "current" });
 
-    onNavigationModelChange = Sinon.spy();
+    onNavigationModelChange = vi.fn();
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
     triggerArrowKeyPress(testEl, "Down", 1);
-  }
+  };
 
   beforeEach(setup);
   afterEach(setup);
 
-  describe("when autoReset is set to current", function () {
-    beforeEach(function () {
+  describe("when autoReset is set to current", () => {
+    beforeEach(() => {
       testRovingIndex.reset();
     });
 
-    it("should have index value of 1", function () {
-      expect(testRovingIndex.index).to.equal(1);
+    it("should have index value of 1", () => {
+      expect(testRovingIndex.index).toBe(1);
     });
   });
 
-  describe("when focus exits the widget", function () {
-    beforeEach(function () {
+  describe("when focus exits the widget", () => {
+    beforeEach(() => {
       buttonEl.focus();
     });
 
-    it("should set focus to item with index 1", function () {
-      expect(testRovingIndex.index).to.equal(1);
+    it("should set focus to item with index 1", () => {
+      expect(testRovingIndex.index).toBe(1);
     });
   });
 });
 
-describe("given 3 items with focus on second", function () {
-  var buttonEl;
+describe("given 3 items with focus on second", () => {
+  let buttonEl;
 
-  function setup() {
+  const setup = () => {
     document.body.innerHTML = `
             <ul class="widget">
                 <li>Item 1</li>
@@ -646,35 +643,220 @@ describe("given 3 items with focus on second", function () {
 
     testEl = document.querySelector(".widget");
     buttonEl = document.querySelector("button");
-    testRovingIndex = RovingTabindex.createLinear(testEl, "li", { autoReset: "interactive" }); // eslint-disable-line
+    testRovingIndex = createLinear(testEl, "li", { autoReset: "interactive" });
 
-    onNavigationModelChange = Sinon.spy();
+    onNavigationModelChange = vi.fn();
     testEl.addEventListener("navigationModelChange", onNavigationModelChange);
     triggerArrowKeyPress(testEl, "Down", 1);
-  }
+  };
 
   beforeEach(setup);
   afterEach(setup);
 
-  describe("when autoReset is set to interactive", function () {
-    beforeEach(function () {
+  describe("when autoReset is set to interactive", () => {
+    beforeEach(() => {
       testRovingIndex.reset();
     });
 
-    it("should have index value of 0", function () {
-      expect(testRovingIndex.index).to.equal(0);
+    it("should have index value of 0", () => {
+      expect(testRovingIndex.index).toBe(0);
     });
   });
 
-  describe("when focus exits the widget", function () {
-    beforeEach(function () {
+  describe("when focus exits the widget", () => {
+    beforeEach(() => {
       buttonEl.focus();
     });
 
-    it("should set focus to item with index 0", function () {
-      expect(testRovingIndex.index).to.equal(0);
+    it("should set focus to item with index 0", () => {
+      expect(testRovingIndex.index).toBe(0);
     });
   });
 });
 
 /* END AUTO RESET TESTS */
+
+/* BEGIN MUTATION TESTS */
+
+describe("given a list of 3 visible items", () => {
+  let onRovingTabindexMutation;
+
+  beforeEach(() => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    onRovingTabindexMutation = vi.fn();
+    testEl.addEventListener("rovingTabindexMutation", onRovingTabindexMutation);
+    testRovingIndex = createLinear(testEl, "li");
+  });
+
+  describe("when current item is hidden", () => {
+    beforeEach(async () => {
+      testRovingIndex.items[0].hidden = true;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    });
+
+    it("should trigger 1 rovingTabindexMutation event", () => {
+      expect(onRovingTabindexMutation).toHaveBeenCalledOnce();
+    });
+
+    it("should move tabindex 0 to next navigable item", () => {
+      expect(testEl.children[0].getAttribute("tabindex")).toBe("-1");
+      expect(testEl.children[1].getAttribute("tabindex")).toBe("0");
+    });
+  });
+});
+
+/* END MUTATION TESTS */
+
+/* BEGIN WRAP SETTER TESTS */
+
+describe("given 3 items with wrap initially false", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testRovingIndex = createLinear(testEl, "li");
+
+    onNavigationModelChange = vi.fn();
+    testEl.addEventListener("navigationModelChange", onNavigationModelChange);
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when wrap is set to true and arrow left is pressed once", () => {
+    beforeEach(() => {
+      testRovingIndex.wrap = true;
+      triggerArrowKeyPress(testEl, "Left", 1);
+    });
+
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
+    });
+
+    it("should set tabindex 0 on last item", () => {
+      expect(testEl.children[2].getAttribute("tabindex")).toBe("0");
+    });
+  });
+});
+
+/* END WRAP SETTER TESTS */
+
+/* BEGIN CURRENT ITEM TESTS */
+
+describe("given 3 items with default options", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testRovingIndex = createLinear(testEl, "li");
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when instantiated", () => {
+    it("should have currentItem equal to first item", () => {
+      expect(testRovingIndex.currentItem).toBe(testEl.children[0]);
+    });
+  });
+
+  describe("when index is set to 1", () => {
+    beforeEach(() => {
+      testRovingIndex.index = 1;
+    });
+
+    it("should have currentItem equal to second item", () => {
+      expect(testRovingIndex.currentItem).toBe(testEl.children[1]);
+    });
+  });
+});
+
+/* END CURRENT ITEM TESTS */
+
+/* BEGIN NULL INDEX NAVIGATION TESTS */
+
+describe("given 3 items with autoInit none", () => {
+  const setup = () => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testRovingIndex = createLinear(testEl, "li", { autoInit: "none" });
+
+    onNavigationModelChange = vi.fn();
+    testEl.addEventListener("navigationModelChange", onNavigationModelChange);
+  };
+
+  beforeEach(setup);
+  afterEach(setup);
+
+  describe("when arrow right is pressed once", () => {
+    beforeEach(() => {
+      triggerArrowKeyPress(testEl, "Right", 1);
+    });
+
+    it("should trigger 1 navigationModelChange event", () => {
+      expect(onNavigationModelChange).toHaveBeenCalledOnce();
+    });
+
+    it("should set tabindex 0 on first item", () => {
+      expect(testEl.children[0].getAttribute("tabindex")).toBe("0");
+    });
+  });
+});
+
+/* END NULL INDEX NAVIGATION TESTS */
+
+/* BEGIN DEPRECATED INDEX OPTION TESTS */
+
+describe("given 3 items with deprecated index option set to 2", () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+            <ul class="widget">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        `;
+
+    testEl = document.querySelector(".widget");
+    testRovingIndex = createLinear(testEl, "li", { index: 2 });
+  });
+
+  describe("when instantiated", () => {
+    it("should have index value of 2", () => {
+      expect(testRovingIndex.index).toBe(2);
+    });
+
+    it("should set tabindex 0 on third item", () => {
+      expect(testEl.children[2].getAttribute("tabindex")).toBe("0");
+    });
+  });
+});
+
+/* END DEPRECATED INDEX OPTION TESTS */

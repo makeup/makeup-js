@@ -1,4 +1,5 @@
 # makeup-js
+
 [![makeup tests](https://github.com/makeup/makeup-js/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/makeup/makeup-js/actions/workflows/tests.yml)
 [![Core Module Coverage](https://coveralls.io/repos/github/makeup/makeup-js/badge.svg?branch=master)](https://coveralls.io/github/makeup/makeup-js?branch=master)
 
@@ -23,6 +24,15 @@ The following modules assist with common accessibility logic (e.g. maintaining a
 - [makeup-roving-tabindex](packages/core/makeup-roving-tabindex)
 - [makeup-screenreader-trap](packages/core/makeup-screenreader-trap)
 - [makeup-typeahead](packages/core/makeup-typeahead)
+
+## Development
+
+This project includes [Claude Code](https://claude.ai/code) skills for common development tasks. See [`.claude/skills/`](.claude/skills/) for available commands:
+
+- `/refactor-module <module-name>` — modernize a module to current JavaScript patterns
+- `/test-coverage <module-name>` — audit unit test coverage and identify gaps
+- `/add-unit-tests <module-name>` — write missing unit tests based on coverage gaps
+- `/revamp-demo <module-name>` — rewrite a module's demo page with consistent style and on-page output
 
 ## UI Modules
 

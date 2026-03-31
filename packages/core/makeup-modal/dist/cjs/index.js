@@ -5,9 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.modal = modal;
 exports.unmodal = unmodal;
-var keyboardTrap = _interopRequireWildcard(require("makeup-keyboard-trap"));
-var screenreaderTrap = _interopRequireWildcard(require("makeup-screenreader-trap"));
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+var _makeupKeyboardTrap = require("makeup-keyboard-trap");
+var _makeupScreenreaderTrap = require("makeup-screenreader-trap");
 const defaultOptions = {
   hoist: false,
   useHiddenProperty: false,
@@ -30,6 +29,11 @@ function unhoist() {
     hoistedPlaceholderEl = null;
   }
 }
+
+// moves the modal element to document.body when it is nested deeper in the DOM.
+// a placeholder is inserted at the original location so unhoist() can restore it.
+// motivation: the screenreader and keyboard traps hide all siblings and siblings-of-ancestors;
+// a deeply nested element has many such ancestors. hoisting to body reduces that to one level of siblings.
 function hoist() {
   if (!hoistedPlaceholderEl && !isRootLevel(modalEl)) {
     hoistedPlaceholderEl = document.createElement("div");
@@ -38,6 +42,12 @@ function hoist() {
     document.body.appendChild(modalEl);
   }
 }
+
+// collects all other body children (except the modal, scripts, and link tags) into a single
+// [data-makeup-modal="inert"] container. unwrap() restores them to their original positions.
+// motivation: once all inert content is in one container, a single attribute (aria-hidden, hidden, inert)
+// can be applied to it rather than to each sibling individually. designed to be used after hoist(),
+// which ensures the modal is already a direct body child before wrap() runs.
 function wrap() {
   if (!inertContentEl && isRootLevel(modalEl)) {
     inertContentEl = document.createElement("div");
@@ -45,7 +55,7 @@ function wrap() {
     [...document.body.children].forEach((child, index) => {
       // checking for the script and link tags is necessary because moving them could cause issues.
       // for example, moving a script to the top of the body could freeze the page while the script loads.
-      if (!(child === modalEl || child.tagName.toLowerCase() === tags.SCRIPT || child.tagName === tags.LINK)) {
+      if (!(child === modalEl || child.tagName.toLowerCase() === tags.SCRIPT || child.tagName.toLowerCase() === tags.LINK)) {
         inertContentEl.appendChild(child);
         originalPositionIndexes.push(index);
       }
@@ -56,7 +66,7 @@ function wrap() {
 function unwrap() {
   if (inertContentEl) {
     [...inertContentEl.children].forEach(child => {
-      if (!(child.tagName.toLowerCase() === tags.SCRIPT || child.tagName === tags.LINK)) {
+      if (!(child.tagName.toLowerCase() === tags.SCRIPT || child.tagName.toLowerCase() === tags.LINK)) {
         const index = originalPositionIndexes.shift();
         if (index > document.body.children.length) {
           document.body.appendChild(child);
@@ -72,8 +82,8 @@ function unwrap() {
 }
 function unmodal() {
   if (modalEl) {
-    keyboardTrap.untrap(modalEl);
-    screenreaderTrap.untrap(modalEl);
+    (0, _makeupKeyboardTrap.untrap)(modalEl);
+    (0, _makeupScreenreaderTrap.untrap)(modalEl);
     unwrap();
     unhoist();
     document.body.removeAttribute("data-makeup-modal");
@@ -86,7 +96,10 @@ function unmodal() {
   return modalEl;
 }
 function modal(el, options) {
-  const _options = Object.assign({}, defaultOptions, options);
+  const _options = {
+    ...defaultOptions,
+    ...options
+  };
   unmodal();
   modalEl = el;
   if (_options.hoist) {
@@ -95,11 +108,11 @@ function modal(el, options) {
   if (_options.wrap) {
     wrap();
   }
-  screenreaderTrap.trap(modalEl, options);
+  (0, _makeupScreenreaderTrap.trap)(modalEl, options);
 
   // no need to create keyboard traps when inert content is using hidden property
   if (!_options.useHiddenProperty) {
-    keyboardTrap.trap(modalEl);
+    (0, _makeupKeyboardTrap.trap)(modalEl);
   }
   document.body.setAttribute("data-makeup-modal", "true");
   modalEl.setAttribute("data-makeup-modal", "widget");

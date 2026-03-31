@@ -3,6 +3,8 @@
   <head>
     <title>makeup-screenreader-trap demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
     <style>
       main div > * {
         margin-left: 2em;
@@ -10,7 +12,7 @@
       main > div {
         background-color: #eee;
         border: 1px solid #ccc;
-        margin-bottom: 2em;
+        margin-bottom: 1rem;
         padding: 1em 0;
       }
       main > div[aria-hidden="false"] {
@@ -23,10 +25,20 @@
     </style>
   </head>
   <body>
-    <main role="main">
-      <h1>makeup-screenreader-trap demo</h1>
-      <p>Activate any button to hide all other elements on screen from screen reader.</p>
-      <p>For demo purposes, elements with <code>aria-hidden="true"</code> are visually marked with strikethrough.</p>
+    <main>
+      <h1><a href="../">core</a> / makeup-screenreader-trap</h1>
+      <p>
+        Restricts the screen reader virtual cursor to a single DOM subtree. Elements hidden from screen readers are
+        shown with strikethrough.
+      </p>
+
+      <hr />
+
+      <h2>Default (aria-hidden)</h2>
+      <p>
+        Siblings and ancestor siblings receive <code>aria-hidden="true"</code>; the trapped element and its ancestors
+        receive <code>aria-hidden="false"</code>.
+      </p>
 
       <div>
         <button class="trap" aria-pressed="false">Trap</button>
@@ -37,6 +49,24 @@
         <button class="trap" aria-pressed="false">Trap</button>
         <div>sibling after trap</div>
       </div>
+
+      <div>
+        <div>uncle before trap</div>
+        <div>
+          <div>sibling before trap</div>
+          <button class="trap" aria-pressed="false">Trap</button>
+          <div>sibling after trap</div>
+        </div>
+        <div>uncle after trap</div>
+      </div>
+
+      <hr />
+
+      <h2>Pre-existing aria-hidden</h2>
+      <p>
+        Elements already marked <code>aria-hidden</code> before trap is activated; the original value is restored on
+        untrap.
+      </p>
 
       <div>
         <div aria-hidden="true">aria-hidden sibling before trap</div>
@@ -45,80 +75,19 @@
       </div>
 
       <div>
-        <div>sibling before trap</div>
-        <div>sibling before trap</div>
-        <button class="trap" aria-pressed="false">Trap</button>
-        <div>sibling after trap</div>
-        <div>sibling after trap</div>
-      </div>
-
-      <div>
-        <div>uncle before trap</div>
+        <div aria-hidden="true">aria-hidden uncle before trap</div>
         <div>
           <div>sibling before trap</div>
           <button class="trap" aria-pressed="false">Trap</button>
           <div>sibling after trap</div>
         </div>
-        <div>uncle after trap</div>
+        <div aria-hidden="true">aria-hidden uncle after trap</div>
       </div>
 
-      <div>
-        <div>uncle before trap</div>
-        <div>uncle before trap</div>
-        <div>
-          <div>sibling before trap</div>
-          <div>sibling before trap</div>
-          <button class="trap" aria-pressed="false">Trap</button>
-          <div>sibling after trap</div>
-          <div>sibling after trap</div>
-        </div>
-        <div>uncle after trap</div>
-        <div>uncle after trap</div>
-      </div>
+      <hr />
 
-      <div>
-        <div aria-hidden="true">hidden uncle before trap</div>
-        <div>
-          <div>sibling before trap</div>
-          <button class="trap" aria-pressed="false">Trap</button>
-          <div>sibling after trap</div>
-        </div>
-        <div aria-hidden="true">hidden uncle after trap</div>
-      </div>
-
-      <div>
-        <div>great uncle before trap</div>
-        <div>
-          <div>uncle before trap</div>
-          <div>
-            <div>sibling before trap</div>
-            <button class="trap" aria-pressed="false">Trap</button>
-            <div>sibling after trap</div>
-          </div>
-          <div>uncle after trap</div>
-        </div>
-        <div>great uncle after trap</div>
-      </div>
-
-      <div>
-        <div>great-great uncle before trap</div>
-        <div>
-          <div>great uncle before trap</div>
-          <div>
-            <div>uncle before trap</div>
-            <div>
-              <div>sibling before trap</div>
-              <button class="trap" aria-pressed="false">Trap</button>
-              <div>sibling after trap</div>
-            </div>
-            <div>uncle after trap</div>
-          </div>
-          <div>great uncle after trap</div>
-        </div>
-        <div>great uncle after trap</div>
-      </div>
-
-      <p>Has two visibly hidden elements (using hidden property) before and after button:</p>
+      <h2>Pre-existing hidden property</h2>
+      <p>Elements already using the <code>hidden</code> property before trap is activated; restored on untrap.</p>
 
       <div>
         <div hidden>hidden sibling before trap</div>
@@ -126,21 +95,56 @@
         <div hidden>hidden sibling after trap</div>
       </div>
 
-      <p>Has two visible SVG elements before and after button:</p>
+      <hr />
+
+      <h2>SVG siblings</h2>
+
+      <p>Has two adjacent visible SVG text elements:</p>
 
       <div>
-        <svg>hidden svg sibling before trap</svg>
+        <svg width="160" height="20"><text y="15">SVG sibling before trap</text></svg>
         <button class="trap" aria-pressed="false">Trap</button>
-        <svg>hidden svg sibling after trap</svg>
+        <svg width="160" height="20"><text y="15">SVG sibling after trap</text></svg>
       </div>
 
-      <p>Has two visibly hidden SVG elements (using hidden property) before and after button:</p>
+      <p>Has two adjacent <code>aria-hidden</code> SVG text elements:</p>
 
       <div>
-        <svg hidden>hidden svg sibling before trap</svg>
+        <svg width="160" height="20" aria-hidden="true"><text y="15">SVG sibling before trap</text></svg>
         <button class="trap" aria-pressed="false">Trap</button>
-        <svg hidden>hidden svg sibling after trap</svg>
+        <svg width="160" height="20" aria-hidden="true"><text y="15">SVG sibling after trap</text></svg>
       </div>
+
+      <p>
+        Has two adjacent <code>hidden</code> SVG text elements (SVG does not support the <code>hidden</code> property):
+      </p>
+
+      <div>
+        <svg width="160" height="20" hidden><text y="15">SVG sibling before trap</text></svg>
+        <button class="trap" aria-pressed="false">Trap</button>
+        <svg width="160" height="20" hidden><text y="15">SVG sibling after trap</text></svg>
+      </div>
+
+      <hr />
+
+      <h2>useHiddenProperty</h2>
+      <p>
+        Uses the <code>hidden</code> DOM property instead of <code>aria-hidden</code> to hide elements for
+        <em>all</em> users.
+      </p>
+
+      <div>
+        <div>sibling before trap</div>
+        <button class="trap" data-use-hidden-property aria-pressed="false">Trap</button>
+        <div>sibling after trap</div>
+      </div>
+
+      <hr />
+
+      <h2>Events</h2>
+      <p>Events bubble from the trapped element.</p>
+      <ul id="log" class="demo-output"></ul>
+      <button type="button" id="clear">Clear</button>
     </main>
     <script src="index.min.js"></script>
   </body>

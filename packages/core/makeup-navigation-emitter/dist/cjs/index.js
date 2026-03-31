@@ -4,9 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createLinear = createLinear;
-var KeyEmitter = _interopRequireWildcard(require("makeup-key-emitter"));
-var ExitEmitter = _interopRequireWildcard(require("makeup-exit-emitter"));
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+var _makeupKeyEmitter = require("makeup-key-emitter");
+var _makeupExitEmitter = require("makeup-exit-emitter");
 const defaultOptions = {
   axis: "both",
   autoInit: "interactive",
@@ -24,7 +23,7 @@ function findNavigableItems(items) {
   return items.filter(isItemNavigable);
 }
 function findFirstNavigableIndex(items) {
-  return items.findIndex(item => isItemNavigable(item));
+  return items.findIndex(isItemNavigable);
 }
 function findLastNavigableIndex(items) {
   // todo: at(-1) is more performant than reverse(), but Babel is not transpiling it
@@ -206,7 +205,10 @@ class NavigationModel {
    */
   constructor(el, itemSelector, selectedOptions) {
     /** @member {typeof defaultOptions} */
-    this.options = Object.assign({}, defaultOptions, selectedOptions);
+    this.options = {
+      ...defaultOptions,
+      ...selectedOptions
+    };
 
     /** @member {HTMLElement} */
     this._el = el;
@@ -322,8 +324,8 @@ class NavigationEmitter {
     this._clickListener = onClick.bind(model);
     this._focusExitListener = onFocusExit.bind(model);
     this._observer = new MutationObserver(onMutation.bind(model));
-    KeyEmitter.addKeyDown(this.el);
-    ExitEmitter.addFocusExit(this.el);
+    (0, _makeupKeyEmitter.addKeyDown)(this.el);
+    (0, _makeupExitEmitter.addFocusExit)(this.el);
     const axis = model.options.axis;
     if (axis === "both" || axis === "x") {
       this.el.addEventListener("arrowLeftKeyDown", this._keyPrevListener);
@@ -346,8 +348,8 @@ class NavigationEmitter {
     });
   }
   destroy() {
-    KeyEmitter.removeKeyDown(this.el);
-    ExitEmitter.removeFocusExit(this.el);
+    (0, _makeupKeyEmitter.removeKeyDown)(this.el);
+    (0, _makeupExitEmitter.removeFocusExit)(this.el);
     this.el.removeEventListener("arrowLeftKeyDown", this._keyPrevListener);
     this.el.removeEventListener("arrowRightKeyDown", this._keyNextListener);
     this.el.removeEventListener("arrowUpKeyDown", this._keyPrevListener);
@@ -365,7 +367,10 @@ function createLinear(el, itemSelector, selectedOptions) {
 }
 
 /*
+// todo: rename to createGridNavigationEmitter when implemented
 static createGrid(el, rowSelector, colSelector, selectedOptions) {
     return null;
 }
 */
+
+// todo: rename createLinear to createLinearNavigationEmitter for unambiguous named import usage

@@ -12,7 +12,7 @@ const focusableElList = [
   "*[contenteditable]",
 ];
 
-const focusableElSelector = focusableElList.join();
+const focusableElSelector = focusableElList.join(",");
 
 export default function (el, keyboardOnly = false, callback) {
   if (callback) {
@@ -27,17 +27,13 @@ export default function (el, keyboardOnly = false, callback) {
 }
 
 function getFocusables(el, keyboardOnly = false) {
-  let focusableEls = Array.prototype.slice.call(el.querySelectorAll(focusableElSelector));
-
   // filter out elements with display: none or nested in a display: none parent
-  focusableEls = focusableEls.filter(function (focusableEl) {
-    return !!(focusableEl.offsetWidth || focusableEl.offsetHeight || focusableEl.getClientRects().length);
-  });
+  let focusableEls = [...el.querySelectorAll(focusableElSelector)].filter(
+    (focusableEl) => !!(focusableEl.offsetWidth || focusableEl.offsetHeight || focusableEl.getClientRects().length),
+  );
 
   if (keyboardOnly === true) {
-    focusableEls = focusableEls.filter(function (focusableEl) {
-      return focusableEl.getAttribute("tabindex") !== "-1";
-    });
+    focusableEls = focusableEls.filter((focusableEl) => focusableEl.getAttribute("tabindex") !== "-1");
   }
 
   return focusableEls;

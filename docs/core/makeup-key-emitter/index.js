@@ -1,50 +1,60 @@
-// REQUIRE
-//const KeyEmitter = require('makeup-key-emitter');
+import { add } from "makeup-key-emitter";
 
-// IMPORT
-import * as KeyEmitter from "makeup-key-emitter";
-
-const widgetEl1 = document.getElementById("widget-1");
-const widget2ButtonEls = document.querySelectorAll("#widget-2 button");
-
-const events = [
-  "arrowUpKey",
-  "arrowDownKey",
-  "arrowLeftKey",
-  "arrowRightKey",
-  "escapeKey",
-  "spacebarKey",
-  "enterKey",
-  "homeKey",
-  "endKey",
-  "pageDownKey",
-  "pageUpKey",
+const keyEventNames = [
+  "arrowUpKeyDown",
+  "arrowUpKeyUp",
+  "arrowDownKeyDown",
+  "arrowDownKeyUp",
+  "arrowLeftKeyDown",
+  "arrowLeftKeyUp",
+  "arrowRightKeyDown",
+  "arrowRightKeyUp",
+  "escapeKeyDown",
+  "escapeKeyUp",
+  "spacebarKeyDown",
+  "spacebarKeyUp",
+  "enterKeyDown",
+  "enterKeyUp",
+  "homeKeyDown",
+  "homeKeyUp",
+  "endKeyDown",
+  "endKeyUp",
+  "pageUpKeyDown",
+  "pageUpKeyUp",
+  "pageDownKeyDown",
+  "pageDownKeyUp",
 ];
 
-// on widget1 container
+function logEvent(logEl, eventName) {
+  const item = document.createElement("li");
+  item.textContent = eventName;
+  logEl.prepend(item);
+}
 
-KeyEmitter.add(widgetEl1);
+// Widget 1: delegated on container
+const widget1El = document.getElementById("widget-1");
+const log1El = document.getElementById("log-1");
 
-events.forEach(function (eventName) {
-  widgetEl1.addEventListener(`${eventName}Down`, function (e) {
-    console.log(this, e);
-  });
-  widgetEl1.addEventListener(`${eventName}Up`, function (e) {
-    console.log(this, e);
+add(widget1El);
+
+keyEventNames.forEach((eventName) => {
+  widget1El.addEventListener(eventName, () => logEvent(log1El, eventName));
+});
+
+document.getElementById("clear-1").addEventListener("click", () => {
+  log1El.innerHTML = "";
+});
+
+// Widget 2: directly bound on each button
+const log2El = document.getElementById("log-2");
+
+[...document.querySelectorAll("#widget-2 button")].forEach((btn) => {
+  add(btn);
+  keyEventNames.forEach((eventName) => {
+    btn.addEventListener(eventName, () => logEvent(log2El, eventName));
   });
 });
 
-// on widget2 buttons
-
-[...widget2ButtonEls].forEach(function (el) {
-  KeyEmitter.add(el);
-
-  events.forEach(function (eventName) {
-    el.addEventListener(`${eventName}Down`, function (e) {
-      console.log(this, e);
-    });
-    el.addEventListener(`${eventName}Up`, function (e) {
-      console.log(this, e);
-    });
-  });
+document.getElementById("clear-2").addEventListener("click", () => {
+  log2El.innerHTML = "";
 });

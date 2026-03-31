@@ -1,39 +1,45 @@
-// REQUIRE
-//const NavigationEmitter = require('makeup-navigation-emitter');
-
-// IMPORT
 import * as NavigationEmitter from "makeup-navigation-emitter";
+import { add as addPreventScrollKeys } from "makeup-prevent-scroll-keys";
 
-const emitters = [];
-const appender = document.getElementById("appender");
 const widgetEls = document.querySelectorAll(".widget");
-const wrapCheckbox = document.getElementById("wrap");
-const log = (e) => console.log(e.type, e.detail);
 
-const options = [{}, { autoInit: "none", autoReset: "none" }, { autoInit: "none", autoReset: "none" }];
+const perWidgetOptions = [{}, { autoInit: "none", autoReset: "none" }, { autoInit: "none", autoReset: "none" }];
 
-appender.addEventListener("click", function () {
-  widgetEls.forEach(function (el) {
-    const listEl = el.querySelector("ul");
-    const listItem = document.createElement("li");
-    listItem.innerText = `Item ${parseInt(listEl.querySelectorAll("li").length, 10)}`;
-    listEl.appendChild(listItem);
+const eventNames = ["navigationModelInit", "navigationModelChange", "navigationModelReset", "navigationModelMutation"];
+
+// prevent page scroll on arrow keys for widget-1 and widget-2 (widget-3 uses an input which handles this natively)
+[document.getElementById("widget-1"), document.getElementById("widget-2")].forEach(addPreventScrollKeys);
+
+const emitters = [...widgetEls].map((el, index) => {
+  const logEl = document.getElementById(`log-${index + 1}`);
+
+  function logEvent(e) {
+    const item = document.createElement("li");
+    const detail = e.detail ? ` ${e.detail.fromIndex} → ${e.detail.toIndex}` : "";
+    item.textContent = `${e.type}${detail}`;
+    logEl.prepend(item);
+  }
+
+  eventNames.forEach((name) => el.addEventListener(name, logEvent));
+
+  document.getElementById(`clear-${index + 1}`).addEventListener("click", () => {
+    logEl.innerHTML = "";
   });
+
+  return NavigationEmitter.createLinear(el, "li", perWidgetOptions[index]);
 });
 
-widgetEls.forEach(function (el, index) {
-  el.addEventListener("navigationModelInit", log);
-  el.addEventListener("navigationModelChange", log);
-  el.addEventListener("navigationModelReset", log);
-  el.addEventListener("navigationModelMutation", log);
-  emitters.push(NavigationEmitter.createLinear(el, "li", options[index]));
-});
-
-wrapCheckbox.addEventListener("change", function (e) {
-  emitters.forEach(function (emitter) {
+document.getElementById("wrap").addEventListener("change", (e) => {
+  emitters.forEach((emitter) => {
     emitter.model.options.wrap = e.target.checked;
   });
 });
 
-// emitters[0].model.index = 1;
-// emitters[1].model.index = 1;
+document.getElementById("appender").addEventListener("click", () => {
+  widgetEls.forEach((el) => {
+    const listEl = el.querySelector("ul");
+    const newItem = document.createElement("li");
+    newItem.textContent = `Item ${listEl.querySelectorAll("li").length + 1}`;
+    listEl.appendChild(newItem);
+  });
+});

@@ -29,15 +29,15 @@ With keyboard focus on any list item element, arrow keys will update the underly
 ```
 
 ```js
-import NavigationEmitter from 'makeup-navigation-emitter';
+import * as NavigationEmitter from "makeup-navigation-emitter";
 
-const widgetEl = document.querySelector('.widget');
+const widgetEl = document.querySelector(".widget");
 
-var emitter = NavigationEmitter.createLinear(widgetEl, 'li'));
+const emitter = NavigationEmitter.createLinear(widgetEl, "li");
 
 // the navigationModelChange event will trigger when using UP/DOWN arrow keys on any element in model
-widgetEl.addEventListener('navigationModelChange', function(e) {
-    console.log(e.detail.fromIndex, e.detail.toIndex);
+widgetEl.addEventListener("navigationModelChange", (e) => {
+  console.log(e.detail.fromIndex, e.detail.toIndex);
 });
 ```
 
@@ -60,14 +60,14 @@ Note that this module will not highlight the active item, that is the job of an 
 ```
 
 ```js
-import NavigationEmitter from 'makeup-navigation-emitter';
+import * as NavigationEmitter from "makeup-navigation-emitter";
 
-const widgetEl = document.querySelector('.widget');
+const widgetEl = document.querySelector(".widget");
 
-var emitter = NavigationEmitter.createLinear(widgetEl, 'li'));
+const emitter = NavigationEmitter.createLinear(widgetEl, "li");
 
-widgetEl.addEventListener('navigationModelChange', function(e) {
-    console.log(e.detail.fromIndex, e.detail.toIndex);
+widgetEl.addEventListener("navigationModelChange", (e) => {
+  console.log(e.detail.fromIndex, e.detail.toIndex);
 });
 ```
 
@@ -91,14 +91,14 @@ Note that this module will not highlight the active item, that is the job of an 
 ```
 
 ```js
-import NavigationEmitter from 'makeup-navigation-emitter';
+import * as NavigationEmitter from "makeup-navigation-emitter";
 
-const widgetEl = document.querySelector('.widget');
+const widgetEl = document.querySelector(".widget");
 
-var emitter = NavigationEmitter.createLinear(widgetEl, 'li', { autoInit: 'none', autoReset: 'none' }));
+const emitter = NavigationEmitter.createLinear(widgetEl, "li", { autoInit: "none", autoReset: "none" });
 
-widgetEl.addEventListener('navigationModelChange', function(e) {
-    console.log(e.detail.fromIndex, e.detail.toIndex);
+widgetEl.addEventListener("navigationModelChange", (e) => {
+  console.log(e.detail.fromIndex, e.detail.toIndex);
 });
 ```
 
@@ -129,8 +129,9 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 
 ## Properties
 
-- `matchingItems`: returns all items that match item selector
-- `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden & non aria-disabled items)
+- `model.items`: returns all items matching the item selector (live DOM query, includes hidden and disabled items)
+- `model.index`: gets or sets the current index position (setting triggers `navigationModelChange` if the index changes and the target is navigable)
+- `model.currentItem`: returns the item element at the current index
 
 ## Events
 

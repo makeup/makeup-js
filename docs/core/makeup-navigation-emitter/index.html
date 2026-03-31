@@ -3,6 +3,8 @@
   <head>
     <title>makeup-navigation-emitter demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
     <style>
       li[aria-disabled="true"] {
         color: lightgrey;
@@ -14,95 +16,74 @@
     </style>
   </head>
   <body>
-    <main role="main">
-      <h1>makeup-(keyboard)-navigation-emitter demo</h1>
-      <p><strong>TIP</strong>: open developer console to see events!</p>
+    <main>
+      <h1><a href="../">core</a> / makeup-navigation-emitter</h1>
       <p>
-        This module <strong>does not</strong> do any keyboard focus management, it only models state and triggers
-        events. It is the job of consumers, such as
-        <a href="https://github.com/makeup-js/makeup-roving-tabindex">makeup-roving-tabindex</a> and
-        <a href="https://github.com/makeup-js/makeup-active-descendant">makeup-active-descendant</a> to do focus
-        management based on the model and the events it emits. You probably don't ever need to use this module directly!
+        Models keyboard navigation state for a list of items and emits events when the active index changes. Does not
+        manage focus — that is the job of consumers such as makeup-roving-tabindex and makeup-active-descendant.
       </p>
-      <p>
-        Set keyboard focus inside on any of the focusable "widgets", then use ARROW keys to update model. For the
-        purpose of demonstration/testing, aria-disabled items are greyed out. Hidden items have strike-through. Disabled
-        and hidden items are included in indexing, but skipped in navigation.
-      </p>
+      <div>
+        <label><input id="wrap" type="checkbox" /> wrap</label>
+        <button type="button" id="appender">Append new items</button>
+      </div>
 
-      <h2>Example 1 - Item-Based Relationship</h2>
-      <div class="widget">
+      <hr />
+
+      <h2>Item-based relationship</h2>
+      <p>Focus lives on each item (roving tabindex pattern). Use arrow keys to navigate.</p>
+      <div class="widget" id="widget-1">
         <ul>
           <li tabindex="0">Item 1</li>
           <li>Item 2</li>
-          <li aria-disabled="true">Item 3</li>
+          <li aria-disabled="true">Item 3 (disabled)</li>
           <li>Item 4</li>
-          <li hidden>Item 5</li>
+          <li hidden>Item 5 (hidden)</li>
           <li>Item 6</li>
         </ul>
       </div>
+      <ul id="log-1" class="demo-output"></ul>
+      <button type="button" id="clear-1">Clear</button>
 
-      <h2>Example 2 - Container-Based Relationship</h2>
-      <div class="widget" tabindex="0">
+      <hr />
+
+      <h2>Container-based relationship</h2>
+      <p>
+        Focus lives on the container (active descendant pattern). Use arrow keys to navigate. Options:
+        <code>autoInit: "none", autoReset: "none"</code>.
+      </p>
+      <div class="widget" id="widget-2" tabindex="0">
         <ul>
           <li>Item 1</li>
           <li>Item 2</li>
-          <li aria-disabled="true">Item 3</li>
+          <li aria-disabled="true">Item 3 (disabled)</li>
           <li>Item 4</li>
-          <li hidden>Item 5</li>
+          <li hidden>Item 5 (hidden)</li>
           <li>Item 6</li>
         </ul>
       </div>
+      <ul id="log-2" class="demo-output"></ul>
+      <button type="button" id="clear-2">Clear</button>
 
-      <h2>Example 3 - External-Based Relationship</h2>
-      <div class="widget">
-        <input />
+      <hr />
+
+      <h2>External relationship</h2>
+      <p>
+        Focus lives on an external element, e.g. an input (combobox pattern). Focus the input then use arrow keys.
+        Options: <code>autoInit: "none", autoReset: "none"</code>.
+      </p>
+      <div class="widget" id="widget-3">
+        <input type="text" placeholder="Focus here, then use arrow keys" />
         <ul>
           <li>Item 1</li>
           <li>Item 2</li>
-          <li aria-disabled="true">Item 3</li>
+          <li aria-disabled="true">Item 3 (disabled)</li>
           <li>Item 4</li>
-          <li hidden>Item 5</li>
+          <li hidden>Item 5 (hidden)</li>
           <li>Item 6</li>
         </ul>
       </div>
-
-      <!--
-
-            <h2>Example 1b - Nested</h2>
-            <div class="widget">
-                <ul>
-                    <li tabindex="0"><span>Item 0</span></li>
-                    <li><span>Item 1</span></li>
-                    <li><span>Item 2</span></li>
-                </ul>
-            </div>
-
-            <h2>Example 2b - Nested</h2>
-            <div class="widget" tabindex="0">
-                <ul>
-                    <li><span>Item 0</span></li>
-                    <li><span>Item 1</span></li>
-                    <li><span>Item 2</span></li>
-                </ul>
-            </div>
-
-            <h2>Example 3b - Nested</h2>
-            <div class="widget">
-                <input />
-                <ul>
-                    <li><span>Item 0</span></li>
-                    <li><span>Item 1</span></li>
-                    <li><span>Item 2</span></li>
-                </ul>
-            </div>
-            -->
-
-      <fieldset>
-        <legend>Tools</legend>
-        <button id="appender">Append New Items</button>
-        <label>Wrap</label><input id="wrap" type="checkbox" />
-      </fieldset>
+      <ul id="log-3" class="demo-output"></ul>
+      <button type="button" id="clear-3">Clear</button>
     </main>
     <script src="index.min.js"></script>
   </body>

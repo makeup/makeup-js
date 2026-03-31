@@ -1,5 +1,5 @@
 import nextID from "makeup-next-id";
-import * as ExitEmitter from "makeup-exit-emitter";
+import { addFocusExit } from "makeup-exit-emitter";
 import focusables from "makeup-focusables";
 
 const defaultOptions = {
@@ -22,12 +22,12 @@ const defaultOptions = {
 };
 
 function onHostKeyDown(e) {
-  if (e.keyCode === 13 || e.keyCode === 32) {
+  if (e.key === "Enter" || e.key === " ") {
     this._keyboardClickFlag = true;
   }
   // if host element does not naturally trigger a click event on spacebar, we can force one to trigger here.
   // careful! if host already triggers click events naturally, we end up with a "double-click".
-  if (e.keyCode === 32 && this.options.simulateSpacebarClick === true) {
+  if (e.key === " " && this.options.simulateSpacebarClick === true) {
     this.hostEl.click();
   }
 }
@@ -114,13 +114,13 @@ function manageFocus(focusManagement, contentEl) {
 
 export default class {
   constructor(el, selectedOptions) {
-    this.options = Object.assign({}, defaultOptions, selectedOptions);
+    this.options = { ...defaultOptions, ...selectedOptions };
 
     this.el = el;
     this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
     this.contentEl = el.querySelector(this.options.contentSelector);
 
-    ExitEmitter.addFocusExit(this.el);
+    addFocusExit(this.el);
 
     this._hostKeyDownListener = onHostKeyDown.bind(this);
     this._hostMouseDownListener = onHostMouseDown.bind(this);

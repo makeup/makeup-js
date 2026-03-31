@@ -4,16 +4,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createLinear = createLinear;
-var NavigationEmitter = _interopRequireWildcard(require("makeup-navigation-emitter"));
+var _makeupNavigationEmitter = require("makeup-navigation-emitter");
 var _makeupNextId = _interopRequireDefault(require("makeup-next-id"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 const defaultOptions = {
   activeDescendantClassName: "active-descendant",
   autoInit: "none",
   autoReset: "none",
   autoScroll: false,
   axis: "both",
+  ignoreByDelegateSelector: null,
   wrap: false
 };
 function onModelInit(e) {
@@ -54,7 +54,7 @@ function onModelChange(e) {
 function onModelReset(e) {
   const toIndex = e.detail.toIndex;
   const activeClassName = this._options.activeDescendantClassName;
-  this.items.forEach(function (el) {
+  this.items.forEach(el => {
     el.classList.remove(activeClassName);
   });
   if (toIndex !== null && toIndex !== -1) {
@@ -73,7 +73,7 @@ function onModelMutation(e) {
     toIndex
   } = e.detail;
   const activeDescendantClassName = this._options.activeDescendantClassName;
-  this.items.forEach(function (item, index) {
+  this.items.forEach((item, index) => {
     (0, _makeupNextId.default)(item);
     if (index !== toIndex) {
       item.classList.remove(activeDescendantClassName);
@@ -107,7 +107,10 @@ class ActiveDescendant {
 class LinearActiveDescendant extends ActiveDescendant {
   constructor(el, focusEl, itemContainerEl, itemSelector, selectedOptions) {
     super(el);
-    this._options = Object.assign({}, defaultOptions, selectedOptions);
+    this._options = {
+      ...defaultOptions,
+      ...selectedOptions
+    };
     this._focusEl = focusEl;
     this._itemContainerEl = itemContainerEl;
     this._itemSelector = itemSelector;
@@ -119,7 +122,7 @@ class LinearActiveDescendant extends ActiveDescendant {
     if (this._itemContainerEl !== this._focusEl) {
       focusEl.setAttribute("aria-owns", this._itemContainerEl.id);
     }
-    this._navigationEmitter = NavigationEmitter.createLinear(el, itemSelector, {
+    this._navigationEmitter = (0, _makeupNavigationEmitter.createLinear)(el, itemSelector, {
       autoInit: this._options.autoInit,
       autoReset: this._options.autoReset,
       axis: this._options.axis,
@@ -128,7 +131,7 @@ class LinearActiveDescendant extends ActiveDescendant {
     });
 
     // ensure each item has an id
-    this.items.forEach(function (itemEl) {
+    this.items.forEach(itemEl => {
       (0, _makeupNextId.default)(itemEl);
     });
   }

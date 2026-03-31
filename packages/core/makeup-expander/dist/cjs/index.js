@@ -5,9 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _makeupNextId = _interopRequireDefault(require("makeup-next-id"));
-var ExitEmitter = _interopRequireWildcard(require("makeup-exit-emitter"));
+var _makeupExitEmitter = require("makeup-exit-emitter");
 var _makeupFocusables = _interopRequireDefault(require("makeup-focusables"));
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const defaultOptions = {
   alwaysDoFocusManagement: false,
@@ -28,12 +27,12 @@ const defaultOptions = {
   useAriaExpanded: true
 };
 function onHostKeyDown(e) {
-  if (e.keyCode === 13 || e.keyCode === 32) {
+  if (e.key === "Enter" || e.key === " ") {
     this._keyboardClickFlag = true;
   }
   // if host element does not naturally trigger a click event on spacebar, we can force one to trigger here.
   // careful! if host already triggers click events naturally, we end up with a "double-click".
-  if (e.keyCode === 32 && this.options.simulateSpacebarClick === true) {
+  if (e.key === " " && this.options.simulateSpacebarClick === true) {
     this.hostEl.click();
   }
 }
@@ -108,11 +107,14 @@ function manageFocus(focusManagement, contentEl) {
 }
 class _default {
   constructor(el, selectedOptions) {
-    this.options = Object.assign({}, defaultOptions, selectedOptions);
+    this.options = {
+      ...defaultOptions,
+      ...selectedOptions
+    };
     this.el = el;
     this.hostEl = el.querySelector(this.options.hostSelector); // the keyboard focusable host el
     this.contentEl = el.querySelector(this.options.contentSelector);
-    ExitEmitter.addFocusExit(this.el);
+    (0, _makeupExitEmitter.addFocusExit)(this.el);
     this._hostKeyDownListener = onHostKeyDown.bind(this);
     this._hostMouseDownListener = onHostMouseDown.bind(this);
     this._documentClickListener = _onDocumentClick.bind(this);

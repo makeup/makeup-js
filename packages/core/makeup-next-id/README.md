@@ -32,18 +32,14 @@ Markup before:
 Markup after:
 
 ```html
-<div class="widget" id="nid-tCa-1"></div>
-<div class="widget" id="nid-tCa-2"></div>
-<div class="widget" id="nid-tCa-3"></div>
+<div class="widget" id="nid-sdv-0"></div>
+<div class="widget" id="nid-sdv-1"></div>
+<div class="widget" id="nid-sdv-2"></div>
 ```
 
 ## Custom Events
 
 - None
-
-## Dependencies
-
-- [nanoid](https://www.npmjs.com/package/nanoid)
 
 ## Polyfills
 

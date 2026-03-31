@@ -1,6 +1,12 @@
 # makeup-key-emitter
 
-Emits custom events for common accessibility keys (arrowRightKeyDown, escKeyDown, etc).
+Emits custom keyDown and keyUp events for the following accessibility keys:
+
+- `arrowLeft`, `arrowUp`, `arrowRight`, `arrowDown`
+- `enter`, `escape`, `spacebar`
+- `home`, `end`, `pageUp`, `pageDown`
+
+For example, pressing the right arrow key emits `arrowRightKeyDown` and `arrowRightKeyUp`.
 
 ## Experimental
 
@@ -9,14 +15,14 @@ This module is still in an experimental state; until it reaches v1, all minor re
 ## Example
 
 ```js
-import KeyEmitter from "makeup-key-emitter";
+import { addKeyDown } from "makeup-key-emitter";
 
-let el = document.getElementById("#widget1");
+const el = document.getElementById("widget1");
 
-KeyEmitter.addKeyDown(el);
+addKeyDown(el);
 
 el.addEventListener("arrowRightKeyDown", function (e) {
-  console.log(this, e.type); // outputs (el1, 'arrowRightKeyDown')
+  console.log(this, e.type); // outputs (el, 'arrowRightKeyDown')
 });
 ```
 

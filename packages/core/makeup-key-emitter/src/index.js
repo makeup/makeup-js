@@ -46,27 +46,33 @@ function onKeyUp(e) {
   onKeyDownOrUp(e, this, "Up");
 }
 
+// TODO: rename to enableKeyDown
 function addKeyDown(el) {
   el.addEventListener("keydown", onKeyDown);
 }
 
+// TODO: rename to enableKeyUp
 function addKeyUp(el) {
   el.addEventListener("keyup", onKeyUp);
 }
 
+// TODO: rename to disableKeyDown
 function removeKeyDown(el) {
   el.removeEventListener("keydown", onKeyDown);
 }
 
+// TODO: rename to disableKeyUp
 function removeKeyUp(el) {
   el.removeEventListener("keyup", onKeyUp);
 }
 
+// TODO: rename to enableKeyDownAndUp
 function add(el) {
   addKeyDown(el);
   addKeyUp(el);
 }
 
+// TODO: rename to disableKeyDownAndUp
 function remove(el) {
   removeKeyDown(el);
   removeKeyUp(el);

@@ -29,7 +29,7 @@ export default function (el, prefix = defaultPrefix) {
   const key = `${prefix}${separator}${randomPortion}`;
 
   // initialise key in sequence map if necessary
-  sequenceMap[key] = sequenceMap[key] || 0;
+  sequenceMap[key] ??= 0;
 
   if (!el.id) {
     el.setAttribute("id", `${key}-${sequenceMap[key]++}`);

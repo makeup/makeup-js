@@ -12,10 +12,8 @@ const filterAncestor = item => item.nodeType === 1 && item.tagName.toLowerCase()
 // filter function for sibling elements
 const filterSibling = item => item.nodeType === 1 && item.tagName.toLowerCase() !== "script";
 
-// reducer to flatten arrays
-const flattenArrays = (a, b) => a.concat(b);
-
 // recursive function to get previous sibling nodes of given element
+// TODO: rewrite as iterative loop to avoid stack overflow risk in large DOM trees
 function getPreviousSiblings(el) {
   let siblings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   const previousSibling = el.previousSibling;
@@ -27,6 +25,7 @@ function getPreviousSiblings(el) {
 }
 
 // recursive function to get next sibling nodes of given element
+// TODO: rewrite as iterative loop to avoid stack overflow risk in large DOM trees
 function getNextSiblings(el) {
   let siblings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   const nextSibling = el.nextSibling;
@@ -61,5 +60,5 @@ function getAncestors(el) {
 
 // get siblings of ancestors (i.e. aunts and uncles) of given el
 function getSiblingsOfAncestors(el) {
-  return getAncestors(el).map(item => getSiblings(item)).reduce(flattenArrays, []);
+  return getAncestors(el).map(item => getSiblings(item)).flat();
 }

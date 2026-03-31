@@ -1,6 +1,5 @@
 const filterAncestor = (item) => item.nodeType === 1 && item.tagName.toLowerCase() !== "body" && item.tagName.toLowerCase() !== "html";
 const filterSibling = (item) => item.nodeType === 1 && item.tagName.toLowerCase() !== "script";
-const flattenArrays = (a, b) => a.concat(b);
 function getPreviousSiblings(el, siblings = []) {
   const previousSibling = el.previousSibling;
   if (!previousSibling) {
@@ -33,7 +32,7 @@ function getAncestors(el) {
   return getAllAncestors(el).filter(filterAncestor);
 }
 function getSiblingsOfAncestors(el) {
-  return getAncestors(el).map((item) => getSiblings(item)).reduce(flattenArrays, []);
+  return getAncestors(el).map((item) => getSiblings(item)).flat();
 }
 export {
   getAncestors,

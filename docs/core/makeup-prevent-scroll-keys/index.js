@@ -1,13 +1,23 @@
-// REQUIRE
-//const scrollKeyPreventer = require('makeup-prevent-scroll-keys');
-
-// IMPORT
-import * as scrollKeyPreventer from "makeup-prevent-scroll-keys";
+import { add, remove } from "makeup-prevent-scroll-keys";
 
 const widgetEl = document.querySelector(".widget");
+const scrollOutput = document.getElementById("scroll-y");
+const toggleBtn = document.getElementById("toggle");
+let enabled = true;
 
-scrollKeyPreventer.add(widgetEl);
+add(widgetEl);
 
-window.addEventListener("scroll", (e) => console.log(e));
+window.addEventListener("scroll", () => {
+  scrollOutput.textContent = Math.round(window.scrollY);
+});
 
-// scrollKeyPreventer.remove(widgetEl);
+toggleBtn.addEventListener("click", () => {
+  if (enabled) {
+    remove(widgetEl);
+    toggleBtn.textContent = "Enable prevention";
+  } else {
+    add(widgetEl);
+    toggleBtn.textContent = "Disable prevention";
+  }
+  enabled = !enabled;
+});

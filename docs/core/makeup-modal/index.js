@@ -1,54 +1,54 @@
-// REQUIRE
-// const modal = require('makeup-modal');
-
-// IMPORT
-import * as modal from "makeup-modal";
+import { modal, unmodal } from "makeup-modal";
 
 const modal1 = document.getElementById("modal-1");
 const modal2 = document.getElementById("modal-2");
 const modal3 = document.getElementById("modal-3");
 
-const button1 = document.getElementById("button-1");
-const button2 = document.getElementById("button-2");
-const button3 = document.getElementById("button-3");
-
-const unmodalButton = document.getElementById("button-unmodal");
-
 const hoistCheckbox = document.getElementById("hoist-checkbox");
 const wrapCheckbox = document.getElementById("wrap-checkbox");
 const hiddenCheckbox = document.getElementById("hidden-checkbox");
 
-modal1.addEventListener("makeup-modal", (e) => console.log(e));
-modal2.addEventListener("makeup-modal", (e) => console.log(e));
-modal3.addEventListener("makeup-modal", (e) => console.log(e));
-modal1.addEventListener("makeup-unmodal", (e) => console.log(e));
-modal2.addEventListener("makeup-unmodal", (e) => console.log(e));
-modal3.addEventListener("makeup-unmodal", (e) => console.log(e));
+const logEl = document.getElementById("log");
 
-button1.addEventListener("click", () => {
-  modal.modal(modal1, {
+function getOptions() {
+  return {
     hoist: hoistCheckbox.checked,
-    useHiddenProperty: hiddenCheckbox.checked,
     wrap: wrapCheckbox.checked,
+    useHiddenProperty: hiddenCheckbox.checked,
+  };
+}
+
+function logEvent(name) {
+  const item = document.createElement("li");
+  item.textContent = name;
+  logEl.prepend(item);
+}
+
+[modal1, modal2, modal3].forEach((el) => {
+  const btn = el.querySelector(".toggle-btn");
+
+  btn.addEventListener("click", () => {
+    if (btn.getAttribute("aria-pressed") === "true") {
+      unmodal();
+    } else {
+      modal(el, getOptions());
+    }
+  });
+
+  el.addEventListener("makeup-modal", () => {
+    logEvent("makeup-modal");
+    btn.textContent = "Unmodal";
+    btn.setAttribute("aria-pressed", "true");
+    btn.focus();
+  });
+
+  el.addEventListener("makeup-unmodal", () => {
+    logEvent("makeup-unmodal");
+    btn.textContent = "Modal";
+    btn.setAttribute("aria-pressed", "false");
   });
 });
 
-button2.addEventListener("click", () => {
-  modal.modal(modal2, {
-    hoist: hoistCheckbox.checked,
-    useHiddenProperty: hiddenCheckbox.checked,
-    wrap: wrapCheckbox.checked,
-  });
-});
-
-button3.addEventListener("click", () => {
-  modal.modal(modal3, {
-    hoist: hoistCheckbox.checked,
-    useHiddenProperty: hiddenCheckbox.checked,
-    wrap: wrapCheckbox.checked,
-  });
-});
-
-unmodalButton.addEventListener("click", () => {
-  modal.unmodal();
+document.getElementById("clear").addEventListener("click", () => {
+  logEl.innerHTML = "";
 });

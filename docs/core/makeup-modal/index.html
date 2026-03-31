@@ -3,88 +3,78 @@
   <head>
     <title>makeup-modal demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
     <style>
+      header,
+      body > .modal {
+        margin: 0 auto;
+        max-width: 960px;
+      }
+      header {
+        margin-bottom: 1rem;
+      }
+      main {
+        margin-top: 1rem;
+      }
+      header > div {
+        margin-bottom: 0.5rem;
+      }
       .modal {
         border: 1px dashed grey;
-        margin: 16px 0;
-        padding: 16px;
+        margin-bottom: 1rem;
+        padding: 1em;
+      }
+      /* when modal is active */
+      [data-makeup-modal="widget"] {
+        border-color: royalblue;
+        border-style: solid;
+      }
+      /* inert container created by wrap — preserve layout and dim content */
+      [data-makeup-modal="inert"] {
+        margin: 0 auto;
+        max-width: 960px;
+        opacity: 0.4;
+      }
+      /* placeholder left behind when modal is hoisted */
+      [data-makeup-modal="placeholder"] {
+        border: 1px dashed #ccc;
+        margin-bottom: 1rem;
+        min-height: 3em;
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>makeup-modal demo</h1>
+      <h1><a href="../">core</a> / makeup-modal</h1>
+      <p>Restricts keyboard and screen reader access to a single element. All other content becomes inert.</p>
       <div>
-        <button id="button-1">Modal #1</button>
-        <button id="button-2">Modal #2</button>
-        <button id="button-3">Modal #3</button>
-        <button id="button-unmodal">Unmodal</button>
-
-        <input id="hoist-checkbox" type="checkbox" />
-        <label for="hoist-checkbox">Hoist</label>
-
-        <input id="wrap-checkbox" type="checkbox" />
-        <label for="wrap-checkbox">Wrap</label>
-
-        <input id="hidden-checkbox" type="checkbox" />
-        <label for="hidden-checkbox">Hidden</label>
+        <label><input id="hoist-checkbox" type="checkbox" /> hoist</label>
+        <label><input id="wrap-checkbox" type="checkbox" /> wrap</label>
+        <label><input id="hidden-checkbox" type="checkbox" /> useHiddenProperty</label>
       </div>
     </header>
 
     <div class="modal" id="modal-1">
-      <h2>Modal 1 (root-level)</h2>
-      <a href="http://www.ebay.com">link</a>
-      <input type="text" autofocus placeholder="textbox" />
-      <a href="http://www.ebay.com">link</a>
+      <p>Modal 1 — root level</p>
+      <a href="#">link</a>
+      <input type="text" placeholder="textbox" />
+      <a href="#">link</a>
+      <button class="toggle-btn" aria-pressed="false">Modal</button>
     </div>
 
     <main>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
-      </p>
-      <a href="http://www.ebay.com">link</a>
-
       <div>
         <div>
-          <div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </p>
-            <a href="http://www.ebay.com">link</a>
-            <div class="modal" id="modal-2">
-              <h2>Modal 2 (shallow nest)</h2>
-              <a href="http://www.ebay.com">link</a>
-              <input type="text" autofocus placeholder="textbox" />
-              <a href="http://www.ebay.com">link</a>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </p>
-            <a href="http://www.ebay.com">link</a>
+          <div class="modal" id="modal-2">
+            <p>Modal 2 — shallow nest</p>
+            <a href="#">link</a>
+            <input type="text" placeholder="textbox" />
+            <a href="#">link</a>
+            <button class="toggle-btn" aria-pressed="false">Modal</button>
           </div>
         </div>
       </div>
-
-      <a href="http://www.ebay.com">link</a>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
-      </p>
 
       <div>
         <div>
@@ -97,10 +87,11 @@
                       <div>
                         <div>
                           <div class="modal" id="modal-3">
-                            <h2>Modal 3 (deep nest)</h2>
-                            <a href="http://www.ebay.com">link</a>
-                            <input type="text" autofocus placeholder="textbox" />
-                            <a href="http://www.ebay.com">link</a>
+                            <p>Modal 3 — deep nest (10 levels)</p>
+                            <a href="#">link</a>
+                            <input type="text" placeholder="textbox" />
+                            <a href="#">link</a>
+                            <button class="toggle-btn" aria-pressed="false">Modal</button>
                           </div>
                         </div>
                       </div>
@@ -113,26 +104,10 @@
         </div>
       </div>
 
-      <a href="http://www.ebay.com">link</a>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
-      </p>
+      <h2>Events</h2>
+      <ul id="log" class="demo-output"></ul>
+      <button type="button" id="clear">Clear</button>
     </main>
-
-    <footer>
-      <a href="http://www.ebay.com">link</a>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
-      </p>
-    </footer>
 
     <script src="index.min.js"></script>
   </body>

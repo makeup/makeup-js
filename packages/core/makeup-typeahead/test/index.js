@@ -1,78 +1,91 @@
-import { describe, expect, beforeEach, afterEach, it } from "vitest";
+import { describe, expect, beforeEach, afterEach, it, vi } from "vitest";
 import typeahead from "../src/index.js";
 
 const TIMEOUT_LENGTH = 1000;
 
-describe("typeahead", () => {
+describe("given a typeahead instance", () => {
   let mockNodeList;
-  let getIndex;
   let th;
-  let destroy;
 
   beforeEach(() => {
     th = typeahead();
-    getIndex = th.getIndex;
-    destroy = th.destroy;
     mockNodeList = [{ textContent: "Albania" }, { textContent: "India" }, { textContent: "USA" }];
   });
 
   afterEach(() => {
-    destroy();
-    th = null;
+    th.destroy();
+    vi.restoreAllMocks();
   });
 
-  it("should return -1 for null nodelist", async () => {
-    const index = getIndex(null, "a", TIMEOUT_LENGTH);
-    expect(index).toBe(-1);
+  describe("when getIndex is called with a null nodelist", () => {
+    it("should return -1", () => {
+      expect(th.getIndex(null, "a", TIMEOUT_LENGTH)).toBe(-1);
+    });
   });
 
-  it("should return -1 if no match is found", () => {
-    expect(getIndex(mockNodeList, "z", 1000)).toBe(-1);
+  describe("when getIndex is called with no matching character", () => {
+    it("should return -1", () => {
+      expect(th.getIndex(mockNodeList, "z", TIMEOUT_LENGTH)).toBe(-1);
+    });
   });
 
-  it("should find index with starting character", async () => {
-    const index = getIndex(mockNodeList, "i", TIMEOUT_LENGTH);
-    expect(index).toBe(1);
+  describe("when getIndex is called with a matching starting character", () => {
+    it("should return the matching index", () => {
+      expect(th.getIndex(mockNodeList, "i", TIMEOUT_LENGTH)).toBe(1);
+    });
+
+    it("should be case insensitive", () => {
+      expect(th.getIndex(mockNodeList, "I", TIMEOUT_LENGTH)).toBe(1);
+    });
   });
 
-  it("should be case insensitive", async () => {
-    const index = getIndex(mockNodeList, "I", TIMEOUT_LENGTH);
-    expect(index).toBe(1);
+  describe("when getIndex is called with multiple characters in sequence", () => {
+    it("should match the accumulated string", () => {
+      th.getIndex(mockNodeList, "u", TIMEOUT_LENGTH);
+      expect(th.getIndex(mockNodeList, "s", TIMEOUT_LENGTH)).toBe(2); // USA
+    });
   });
 
-  it("should match multiple characters", async () => {
-    const index1 = getIndex(mockNodeList, "u", TIMEOUT_LENGTH);
-    const index2 = getIndex(mockNodeList, "s", TIMEOUT_LENGTH);
-    expect(index2).toBe(2); // USA (matching 'us')
+  describe("when the character only matches mid-string", () => {
+    it("should fallback to includes match", () => {
+      const nodes = [{ textContent: "California" }, { textContent: "York" }, { textContent: "New York" }];
+      expect(th.getIndex(nodes, "y", TIMEOUT_LENGTH)).toBe(1); // York
+    });
   });
 
-  it("should fallback to includes match if no start match", async () => {
-    mockNodeList = [{ textContent: "California" }, { textContent: "York" }, { textContent: "New York" }];
-    const index = getIndex(mockNodeList, "y", TIMEOUT_LENGTH);
-    expect(index).toBe(1); // York
+  describe("when getIndex is called with an empty nodelist", () => {
+    it("should return -1", () => {
+      document.body.innerHTML = "<ol></ol>";
+      const children = document.querySelectorAll("ol > *");
+      expect(th.getIndex(children, "a", TIMEOUT_LENGTH)).toBe(-1);
+    });
   });
 
-  it("should clear typeStr after timeout", async () => {
-    const index1 = getIndex(mockNodeList, "a", 100);
-    expect(index1).toBe(0); // Albania
+  describe("when the timeout expires", () => {
+    it("should reset the accumulated string", () => {
+      vi.useFakeTimers();
+      th.getIndex(mockNodeList, "a", 100); // Albania
+      vi.advanceTimersByTime(150);
+      expect(th.getIndex(mockNodeList, "u", 100)).toBe(2); // USA (not 'au')
+      vi.useRealTimers();
+    });
 
-    setTimeout(() => {
-      const index2 = getIndex(mockNodeList, "u", 100);
-      expect(index2).toBe(2); // USA (not matching 'au')
-    }, 150);
+    it("should reset after the first timeout even when a second character was typed before it expired", () => {
+      vi.useFakeTimers();
+      th.getIndex(mockNodeList, "a", 100); // timer fires at t=100ms
+      vi.advanceTimersByTime(50);
+      th.getIndex(mockNodeList, "l", 100); // timer fires at t=150ms
+      vi.advanceTimersByTime(60); // t=110ms: first timer has fired, typeStr is now ""
+      expect(th.getIndex(mockNodeList, "u", 100)).toBe(2); // USA — not searching for "alu"
+      vi.useRealTimers();
+    });
   });
 
-  it("should not error when empty list given", function () {
-    document.body.innerHTML = "<ol></ol>";
-    const children = document.querySelectorAll("ol > *");
-    const index = getIndex(children, "a", TIMEOUT_LENGTH);
-    expect(index).toBe(-1);
-  });
-
-  it("should cleanup timeout on destroy", async () => {
-    const index = getIndex(mockNodeList, "a", 5000);
-    destroy();
-    // Verify no errors after destroy
-    expect(index).toBe(0); // Albania
+  describe("when destroy is called", () => {
+    it("should clear the pending timeout without error", () => {
+      const index = th.getIndex(mockNodeList, "a", 5000);
+      th.destroy();
+      expect(index).toBe(0); // Albania
+    });
   });
 });

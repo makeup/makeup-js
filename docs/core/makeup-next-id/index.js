@@ -1,18 +1,13 @@
-// REQUIRE
-//const nextId = require('makeup-next-id').default;
-
-// IMPORT
 import nextId from "makeup-next-id";
 
 const listEl = document.getElementById("list");
-const testForm = document.getElementById("testForm");
-const inputEl = document.getElementById("prefix");
+const formEl = document.getElementById("demo-form");
+const prefixEl = document.getElementById("prefix");
 
-testForm.addEventListener("submit", (e) => {
+formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   const listItem = document.createElement("li");
-  const id = nextId(listItem, inputEl.value);
-  listItem.innerText = `Item ${listEl.childNodes.length} (${id})`;
-  console.log(`id: ${id}`);
+  const id = nextId(listItem, prefixEl.value);
+  listItem.textContent = `id="${id}"`;
   listEl.appendChild(listItem);
 });

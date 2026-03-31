@@ -18,7 +18,7 @@ This module is still in an experimental state, until it reaches v1 you must cons
 
 ## Options
 
-- `useHiddenProperty`: use `hidden` property instead of `aria-hidden` (default: false)
+- `useHiddenProperty`: use `hidden` property instead of `aria-hidden` to fully hide the surrounding DOM tree for all users (useful for full-screen modal dialog) (default: false)
 
 ## Events
 

@@ -3,11 +3,12 @@
   <head>
     <title>makeup-keyboard-trap demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
     <style>
       #trap {
         border: 1px dashed #ccc;
-        padding: 1em;
-        margin-bottom: 1em;
+        padding: 1rem;
       }
       #trap.keyboard-trap--active {
         background-color: #eee;
@@ -16,26 +17,32 @@
     </style>
   </head>
   <body>
-    <main role="main">
-      <h1>makeup-keyboard-trap demo</h1>
+    <main>
+      <h1><a href="../">core</a> / makeup-keyboard-trap</h1>
+      <p>Restricts keyboard tab focus to a single subtree in the DOM.</p>
 
+      <hr />
+
+      <h2>Tab trap</h2>
       <p>
-        Use keyboard to activate the 'trap' button. Keyboard focus will be trapped inside the bordered element. For best
-        results, keyboard focus should be inside trapped element before trap is activated.
+        Tab through the page. Click <strong>Trap</strong> to activate — focus will be locked inside the bordered area.
+        Hidden links inside the trap are ignored.
       </p>
-
-      <h2>Test Area</h2>
-      <input aria-label="input before trap" placeholder="input before trap" />
-      <p>text before trap</p>
+      <input aria-label="Input before trap" placeholder="Input before trap" />
       <div id="trap">
-        <a href="http://www.ebay.com" hidden>ebay</a>
-        <a href="http://www.ebay.com">ebay</a>
-        <button aria-pressed="false">Trap</button>
-        <a href="http://www.ebay.com">ebay</a>
-        <a href="http://www.ebay.com" hidden>ebay</a>
+        <a href="#" hidden>hidden link</a>
+        <a href="#">Link A</a>
+        <button aria-pressed="false" id="toggle">Trap</button>
+        <a href="#">Link B</a>
+        <a href="#" hidden>hidden link</a>
       </div>
-      <p>text after trap</p>
-      <input aria-label="input after trap" placeholder="input after trap" />
+      <input aria-label="Input after trap" placeholder="Input after trap" />
+
+      <hr />
+
+      <h2>Events</h2>
+      <ul id="log" class="demo-output"></ul>
+      <button type="button" id="clear">Clear</button>
     </main>
     <script src="index.min.js"></script>
   </body>

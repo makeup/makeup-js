@@ -3,6 +3,8 @@
   <head>
     <title>makeup-active-descendant demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
     <style>
       li[aria-disabled="true"] {
         color: lightgrey;
@@ -17,19 +19,36 @@
     </style>
   </head>
   <body>
-    <main role="main">
-      <h1>makeup-active-descendant demo</h1>
-      <p>Use ARROW keys to move the active descendant.</p>
+    <main>
+      <h1><a href="../">core</a> / makeup-active-descendant</h1>
       <p>
-        For the purpose of demonstration, aria-disabled items are greyed out; hidden items have strike-through (in the
-        real world they would obviously be actually hidden). Disabled and hidden items are included in indexing, but
-        skipped in navigation.
+        Implements ARIA active descendant keyboard navigation. Focus stays on the owner element while
+        <code>aria-activedescendant</code> communicates the current item to assistive technology.
       </p>
+      <p>
+        For demonstration purposes, <code>aria-disabled</code> items are greyed out and <code>hidden</code> items have
+        strike-through. Both are included in the index but skipped during navigation.
+      </p>
+
+      <fieldset>
+        <legend>Controls</legend>
+        <button id="prepend" type="button">Prepend item</button>
+        <button id="append" type="button">Append item</button>
+        <button id="removeFirst" type="button">Remove first</button>
+        <button id="removeLast" type="button">Remove last</button>
+        <button id="disableCurrent" type="button">Disable current</button>
+        <label><input id="wrap" type="checkbox" /> Wrap</label>
+      </fieldset>
 
       <hr />
 
-      <h2>Example 1 - Hierarchical Relationship</h2>
-      <div class="widget">
+      <h2>Hierarchical relationship</h2>
+      <p>
+        The focusable element is an ancestor of the items. Focus the list and use arrow keys to navigate.
+        <code>aria-activedescendant</code> is set on the list itself.
+      </p>
+
+      <div class="widget" id="widget-1">
         <ul role="listbox" tabindex="0">
           <li role="option">Item 1</li>
           <li role="option">Item 2</li>
@@ -40,13 +59,22 @@
         </ul>
       </div>
 
+      <ul id="log-1" class="demo-output"></ul>
+      <button type="button" id="clear-1">Clear</button>
+
       <hr />
 
-      <h2>Example 2 - Programmatic Relationship</h2>
-      <div class="widget">
-        <input type="text" role="combobox" aria-owns="listbox1" />
+      <h2>Programmatic relationship</h2>
+      <p>
+        The focusable element is not an ancestor of the items. The module adds <code>aria-owns</code> to link them.
+        Focus the text input and use arrow keys to navigate. The button next to the input uses
+        <code>ignoreByDelegateSelector</code> — arrow keys while focused on it do not trigger navigation.
+      </p>
+
+      <div class="widget" id="widget-2">
+        <input type="text" role="combobox" />
         <input type="button" value="button" />
-        <ul id="listbox1" role="listbox">
+        <ul role="listbox">
           <li role="option">Item 1</li>
           <li role="option">Item 2</li>
           <li role="option" aria-disabled="true">Item 3</li>
@@ -56,17 +84,8 @@
         </ul>
       </div>
 
-      <hr />
-
-      <fieldset>
-        <legend>Tools</legend>
-        <button id="prepend">Prepend New Item</button>
-        <button id="append">Append New Item</button>
-        <button id="removeFirst">Remove First Item</button>
-        <button id="removeLast">Remove Last Item</button>
-        <button id="disableCurrent" type="button">Disable Current Item</button>
-        <label>Wrap</label><input id="wrap" type="checkbox" />
-      </fieldset>
+      <ul id="log-2" class="demo-output"></ul>
+      <button type="button" id="clear-2">Clear</button>
     </main>
     <script src="index.min.js"></script>
   </body>

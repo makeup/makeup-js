@@ -188,7 +188,7 @@ test.describe("given a toast dialog", function () {
       const button = document.createElement("button");
       button.id = "test-button";
       button.textContent = "Test Button";
-      document.querySelector("#page").append(button);
+      document.body.append(button);
     });
 
     const testButton = page.locator("#test-button");

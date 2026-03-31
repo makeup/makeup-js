@@ -1,7 +1,7 @@
 {
   "name": "makeup-active-descendant",
   "description": "Implements ARIA active descendant keyboard navigation",
-  "version": "0.7.11",
+  "version": "0.8.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "types": "./dist/index.d.ts",
@@ -28,8 +28,8 @@
     "a11y"
   ],
   "dependencies": {
-    "makeup-navigation-emitter": "^0.7.8",
-    "makeup-next-id": "^0.5.8"
+    "makeup-navigation-emitter": "^0.8.0",
+    "makeup-next-id": "^0.6.0"
   },
   "files": [
     "dist/index.d.ts",

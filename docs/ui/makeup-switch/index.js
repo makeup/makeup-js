@@ -1,24 +1,22 @@
-import "../../docs.css";
 import "@ebay/skin/tokens";
 import "@ebay/skin/global";
 import "@ebay/skin/switch";
 
-// REQUIRE
-//const MakeupSwitch = require('makeup-switch').default;
-
-// IMPORT
 import MakeupSwitch from "makeup-switch";
 
-window.onload = function () {
-  document.querySelectorAll(".switch").forEach(function (el, i) {
-    const widget = new MakeupSwitch(el);
+const logEl = document.getElementById("log");
 
-    el.addEventListener("makeup-switch-toggle", function (e) {
-      console.log(e.type, e.detail);
-    });
+function logEvent(e) {
+  const item = document.createElement("li");
+  item.textContent = `makeup-switch-toggle — on: ${e.detail.on}`;
+  logEl.prepend(item);
+}
 
-    el.addEventListener("makeup-switch-mutation", function (e) {
-      console.log(e.type, e.detail);
-    });
-  });
-};
+document.querySelectorAll(".switch").forEach((el) => {
+  new MakeupSwitch(el);
+  el.addEventListener("makeup-switch-toggle", logEvent);
+});
+
+document.getElementById("clear").addEventListener("click", () => {
+  logEl.innerHTML = "";
+});

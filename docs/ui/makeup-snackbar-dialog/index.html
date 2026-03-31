@@ -2,46 +2,39 @@
 <html lang="en">
   <head>
     <title>makeup-snackbar-dialog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../docs.css" />
     <link href="index.css" rel="stylesheet" />
-    <link rel="icon" href="../../favicon.ico" type="image/x-icon" />
   </head>
   <body>
-    <div id="page">
-      <header>
-        <h1>makeup-snackbar-dialog</h1>
-        <p>Snackbar-Dialog is headless UI widget and does not come bundled with any CSS.</p>
-        <p>
-          This example is receiving its base styles from
-          <a href="https://ebay.github.io/skin/#snackbar-dialog">eBay Skin</a>. A subset of style properties are being
-          customized/themed via Skin's CSS Custom Properties.
-        </p>
-        <p>
-          This page was loaded with the dialog in an "open" state. To see examples of dialogs opened by button click,
-          visit the <a href="../makeup-dialog-button">makeup-dialog-button</a> page.
-        </p>
-      </header>
-      <main>
-        <div role="status">
-          <aside
-            class="snackbar-dialog snackbar-dialog--transition"
-            role="dialog"
-            aria-label="Notification"
-            aria-modal="false"
-          >
-            <div class="snackbar-dialog__window">
-              <div class="snackbar-dialog__main">
-                <p>1 item deleted from watch list.</p>
-              </div>
-              <div class="snackbar-dialog__actions">
-                <button accesskey="u" class="fake-link snackbar-dialog__cta">
-                  Undo<span class="clipped"> - Access Key: U</span>
-                </button>
-              </div>
+    <main>
+      <h1><a href="../">ui</a> / makeup-snackbar-dialog</h1>
+      <p>Snackbar-Dialog is headless UI widget and does not come bundled with any CSS.</p>
+      <p>
+        This page was loaded with the dialog in an "open" state. To see examples of dialogs opened by button click,
+        visit the <a href="../makeup-dialog-button">makeup-dialog-button</a> page.
+      </p>
+      <div role="status">
+        <aside
+          class="snackbar-dialog snackbar-dialog--transition"
+          role="dialog"
+          aria-label="Notification"
+          aria-modal="false"
+        >
+          <div class="snackbar-dialog__window">
+            <div class="snackbar-dialog__main">
+              <p>1 item deleted from watch list.</p>
             </div>
-          </aside>
-        </div>
-      </main>
-    </div>
+            <div class="snackbar-dialog__actions">
+              <button accesskey="u" class="fake-link snackbar-dialog__cta">
+                Undo<span class="clipped"> - Access Key: U</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
     <script src="index.min.js"></script>
   </body>
 </html>

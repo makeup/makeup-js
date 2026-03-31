@@ -1,7 +1,7 @@
 {
   "name": "makeup-dialog",
   "description": "Abstract class representing the base behaviour for a modal or non-modal ARIA dialog",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
   "exports": {
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "makeup-focusables": "^0.5.0",
-    "makeup-modal": "^0.6.0"
+    "makeup-modal": "^0.7.0"
   },
   "files": [
     "dist/cjs/index.js",

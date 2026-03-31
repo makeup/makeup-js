@@ -1,35 +1,35 @@
 const filterAncestor = (item) => item.nodeType === 1 && item.tagName.toLowerCase() !== "body" && item.tagName.toLowerCase() !== "html";
 const filterSibling = (item) => item.nodeType === 1 && item.tagName.toLowerCase() !== "script";
-function getPreviousSiblings(el, siblings = []) {
-  const previousSibling = el.previousSibling;
-  if (!previousSibling) {
-    return siblings;
+function getPreviousSiblings(el) {
+  const siblings = [];
+  let current = el.previousSibling;
+  while (current) {
+    siblings.push(current);
+    current = current.previousSibling;
   }
-  siblings.push(previousSibling);
-  return getPreviousSiblings(previousSibling, siblings);
+  return siblings;
 }
-function getNextSiblings(el, siblings = []) {
-  const nextSibling = el.nextSibling;
-  if (!nextSibling) {
-    return siblings;
+function getNextSiblings(el) {
+  const siblings = [];
+  let current = el.nextSibling;
+  while (current) {
+    siblings.push(current);
+    current = current.nextSibling;
   }
-  siblings.push(nextSibling);
-  return getNextSiblings(nextSibling, siblings);
+  return siblings;
 }
 function getSiblings(el) {
   const allSiblings = getPreviousSiblings(el).concat(getNextSiblings(el));
   return allSiblings.filter(filterSibling);
 }
-function getAllAncestors(el, ancestors = []) {
-  const nextAncestor = el.parentNode;
-  if (!nextAncestor) {
-    return ancestors;
-  }
-  ancestors.push(nextAncestor);
-  return getAllAncestors(nextAncestor, ancestors);
-}
 function getAncestors(el) {
-  return getAllAncestors(el).filter(filterAncestor);
+  const ancestors = [];
+  let current = el.parentNode;
+  while (current) {
+    ancestors.push(current);
+    current = current.parentNode;
+  }
+  return ancestors.filter(filterAncestor);
 }
 function getSiblingsOfAncestors(el) {
   return getAncestors(el).map((item) => getSiblings(item)).flat();

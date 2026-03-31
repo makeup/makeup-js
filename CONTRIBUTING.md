@@ -73,7 +73,11 @@ If things look good, publish all packages to NPM with the publish command:
 lerna publish from-git
 ```
 
-**IMPORTANT:** Don't forget to push your "publish" commit and the new git tag(s) to the remote!
+Don't forget to push your "publish" commit and the new git tag(s) to the remote!
+
+```shell
+git push --follow-tags
+```
 
 ## Core Modules Style Guide
 

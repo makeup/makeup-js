@@ -6,7 +6,10 @@
 
 body {
   color: #333;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;

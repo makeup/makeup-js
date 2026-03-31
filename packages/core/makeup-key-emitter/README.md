@@ -1,6 +1,12 @@
 # makeup-key-emitter
 
-Emits custom events for common accessibility keys (arrowRightKeyDown, escKeyDown, etc).
+Emits custom keyDown and keyUp events for the following accessibility keys:
+
+- `arrowLeft`, `arrowUp`, `arrowRight`, `arrowDown`
+- `enter`, `escape`, `spacebar`
+- `home`, `end`, `pageUp`, `pageDown`
+
+For example, pressing the right arrow key emits `arrowRightKeyDown` and `arrowRightKeyUp`.
 
 ## Experimental
 

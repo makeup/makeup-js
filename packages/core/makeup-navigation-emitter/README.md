@@ -129,8 +129,9 @@ widgetEl.addEventListener("navigationModelChange", (e) => {
 
 ## Properties
 
-- `matchingItems`: returns all items that match item selector
-- `navigableItems`: returns navigable subset of matchingItems (e.g. non-hidden & non aria-disabled items)
+- `model.items`: returns all items matching the item selector (live DOM query, includes hidden and disabled items)
+- `model.index`: gets or sets the current index position (setting triggers `navigationModelChange` if the index changes and the target is navigable)
+- `model.currentItem`: returns the item element at the current index
 
 ## Events
 

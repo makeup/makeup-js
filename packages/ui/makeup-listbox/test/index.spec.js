@@ -50,6 +50,27 @@ test.describe("given a listbox for manual selection", function () {
   });
 });
 
+test.describe("given a listbox for manual selection with a pre-selected item", function () {
+  let OptionsEl;
+  let selectedOptionEl;
+  let disabledOptionEl;
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/ui/makeup-listbox/index.html");
+
+    const containerEl = page.locator(".listbox[data-makeup-auto-select='false']").nth(1);
+    OptionsEl = containerEl.locator(".listbox__options");
+    selectedOptionEl = OptionsEl.getByRole("option").filter({ hasText: "Blue" });
+    disabledOptionEl = OptionsEl.locator(".listbox__option[aria-disabled='true']");
+  });
+
+  test("should not deselect current item when clicking a disabled item", async function () {
+    await expect(selectedOptionEl).toHaveAttribute("aria-selected", "true");
+    await disabledOptionEl.click({ force: true });
+    await expect(selectedOptionEl).toHaveAttribute("aria-selected", "true");
+  });
+});
+
 test.describe("given a listbox for automatic selection", function () {
   let containerEl;
   let OptionsEl;
@@ -87,6 +108,27 @@ test.describe("given a listbox for automatic selection", function () {
       const disabledOptionEl = await OptionsEl.locator(".listbox__option[aria-disabled='true']").first();
       await expect(disabledOptionEl).not.toBeFocused();
     });
+  });
+});
+
+test.describe("given a listbox for automatic selection with a pre-selected item", function () {
+  let OptionsEl;
+  let selectedOptionEl;
+  let disabledOptionEl;
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/ui/makeup-listbox/index.html");
+
+    const containerEl = page.locator(".listbox:not([data-makeup-auto-select])").nth(1);
+    OptionsEl = containerEl.locator(".listbox__options");
+    selectedOptionEl = OptionsEl.getByRole("option").filter({ hasText: "Blue" });
+    disabledOptionEl = OptionsEl.locator(".listbox__option[aria-disabled='true']");
+  });
+
+  test("should not deselect current item when clicking a disabled item", async function () {
+    await expect(selectedOptionEl).toHaveAttribute("aria-selected", "true");
+    await disabledOptionEl.click({ force: true });
+    await expect(selectedOptionEl).toHaveAttribute("aria-selected", "true");
   });
 });
 

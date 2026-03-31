@@ -165,7 +165,7 @@ function _onFirstFocus() {
 }
 function _onClick(e) {
   const toEl = e.target.closest("[role=option]");
-  if (toEl) {
+  if (toEl && toEl.getAttribute("aria-disabled") !== "true") {
     this.select(this.items.indexOf(toEl));
   }
 }

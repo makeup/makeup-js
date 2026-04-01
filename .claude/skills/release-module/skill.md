@@ -90,10 +90,12 @@ Where `<version-type>` is `patch`, `minor`, or `major` (defaults to `patch` if n
 
 ## 5. Publish to npm
 
-After user confirms the version commit looks correct:
+**IMPORTANT:** This step requires **interactive user input** and cannot be automated by Claude.
+
+Instruct the user to run:
 
 ```bash
-lerna publish from-git
+npx lerna publish from-git
 ```
 
 **What this does:**
@@ -101,12 +103,34 @@ lerna publish from-git
 - Publishes all packages that have tags pointing to the current commit
 - Uses the versions from git tags (not package.json)
 - Uploads to npm registry
+- Asks for confirmation (y/n)
+- If 2FA is enabled, prompts for one-time password (OTP)
 
-**Important:** This step requires npm authentication and publish permissions.
+**User must run this command themselves** because:
+
+- 2FA/OTP requires interactive terminal input
+- Confirmation prompt needs user decision
+
+**If publish fails with uncommitted changes:**
+
+If `lerna publish` fails with an error like:
+
+```
+EUNCOMMIT Working tree has uncommitted changes
+M packages/ui/makeup-*/package.json
+```
+
+This happens when a previous `lerna publish` attempt failed (e.g., due to missing OTP) and added `gitHead` fields to package.json files. To fix:
+
+```bash
+git restore packages/ui/makeup-*/package.json
+```
+
+Then retry `npx lerna publish from-git`.
 
 ## 6. Push to remote
 
-After successful npm publish, push the commit and tags:
+After the user confirms npm publish succeeded, push the commit and tags:
 
 ```bash
 git push --follow-tags
@@ -117,14 +141,24 @@ git push --follow-tags
 - Pushes the "publish" commit to remote
 - Pushes all new git tags
 
-## 7. Summary
+## 7. Verify release
+
+After pushing, verify packages are live:
+
+```bash
+npm view makeup-<package-name> version
+```
+
+Check that the version matches what was just published.
+
+## 8. Summary
 
 Provide a summary of what was released:
 
 - List of packages published with their new versions
 - Commit SHA of the release
 - Git tags created
-- Reminder that changes are now on npm and GitHub
+- Confirmation that changes are now on npm and GitHub
 
 # Error Handling
 

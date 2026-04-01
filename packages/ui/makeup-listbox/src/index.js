@@ -121,42 +121,40 @@ export default class {
   select(index) {
     this._unobserveMutations();
 
-    if (this.index !== index) {
+    const itemEl = this._activeDescendant.items[index];
+
+    if (this.index !== index && itemEl && itemEl.getAttribute("aria-disabled") !== "true") {
       this.unselect(this.index);
 
-      const itemEl = this._activeDescendant.items[index];
+      const matchingItem = this.items[index];
+      let optionValue;
 
-      if (itemEl && itemEl.getAttribute("aria-disabled") !== "true") {
-        const matchingItem = this.items[index];
-        let optionValue;
+      matchingItem.setAttribute("aria-selected", "true");
 
-        matchingItem.setAttribute("aria-selected", "true");
-
-        if (this._options.useAriaChecked === true) {
-          matchingItem.setAttribute("aria-checked", "true");
-        }
-
-        optionValue = matchingItem.innerText;
-
-        // Check if value selector is present and use that to get innerText instead
-        // If its not present, will default to innerText of the whole item
-        if (this._options.valueSelector) {
-          const valueSelector = matchingItem.querySelector(this._options.valueSelector);
-          if (valueSelector) {
-            optionValue = valueSelector.innerText;
-          }
-        }
-
-        this.el.dispatchEvent(
-          new CustomEvent("makeup-listbox-change", {
-            detail: {
-              el: matchingItem,
-              optionIndex: index,
-              optionValue,
-            },
-          }),
-        );
+      if (this._options.useAriaChecked === true) {
+        matchingItem.setAttribute("aria-checked", "true");
       }
+
+      optionValue = matchingItem.innerText;
+
+      // Check if value selector is present and use that to get innerText instead
+      // If its not present, will default to innerText of the whole item
+      if (this._options.valueSelector) {
+        const valueSelector = matchingItem.querySelector(this._options.valueSelector);
+        if (valueSelector) {
+          optionValue = valueSelector.innerText;
+        }
+      }
+
+      this.el.dispatchEvent(
+        new CustomEvent("makeup-listbox-change", {
+          detail: {
+            el: matchingItem,
+            optionIndex: index,
+            optionValue,
+          },
+        }),
+      );
     }
 
     this._observeMutations();
@@ -207,7 +205,7 @@ function _onFirstFocus() {
 function _onClick(e) {
   const toEl = e.target.closest("[role=option]");
 
-  if (toEl) {
+  if (toEl && toEl.getAttribute("aria-disabled") !== "true") {
     this.select(this.items.indexOf(toEl));
   }
 }

@@ -119,7 +119,8 @@ function _onListboxKeyDown(e) {
   }
 }
 function _onListboxClick(e) {
-  if (e.target.closest("[role=option]")) {
+  const optionEl = e.target.closest("[role=option]");
+  if (optionEl && optionEl.getAttribute("aria-disabled") !== "true") {
     this.collapse();
   }
 }

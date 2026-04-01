@@ -96,6 +96,18 @@ test.describe("given a listbox-button for manual selection", function () {
       const disabledOptionEl = await contentEl.locator(".listbox-button__option[aria-disabled='true']").first();
       await expect(disabledOptionEl).not.toBeFocused();
     });
+
+    test("should not collapse overlay when clicking a disabled option", async function ({ page }) {
+      const container = page.locator("#manual-selected");
+      const btn = container.locator("button");
+      const content = container.locator(".listbox-button__listbox");
+      const disabledOptionEl = content.locator(".listbox-button__option[aria-disabled='true']").first();
+
+      await btn.click();
+      await expect(content).toBeVisible();
+      await disabledOptionEl.click({ force: true });
+      await expect(content).toBeVisible();
+    });
   });
 });
 
@@ -187,6 +199,18 @@ test.describe("given a listbox-button for automatic selection", function () {
     test("should not focus on disabled option", async function () {
       const disabledOptionEl = await contentEl.locator(".listbox-button__option[aria-disabled='true']").first();
       await expect(disabledOptionEl).not.toBeFocused();
+    });
+
+    test("should not collapse overlay when clicking a disabled option", async function ({ page }) {
+      const container = page.locator("#automatic-selected");
+      const btn = container.locator("button");
+      const content = container.locator(".listbox-button__listbox");
+      const disabledOptionEl = content.locator(".listbox-button__option[aria-disabled='true']").first();
+
+      await btn.click();
+      await expect(content).toBeVisible();
+      await disabledOptionEl.click({ force: true });
+      await expect(content).toBeVisible();
     });
   });
 });

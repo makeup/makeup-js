@@ -100,33 +100,31 @@ class index_default {
   }
   select(index) {
     this._unobserveMutations();
-    if (this.index !== index) {
+    const itemEl = this._activeDescendant.items[index];
+    if (this.index !== index && itemEl && itemEl.getAttribute("aria-disabled") !== "true") {
       this.unselect(this.index);
-      const itemEl = this._activeDescendant.items[index];
-      if (itemEl && itemEl.getAttribute("aria-disabled") !== "true") {
-        const matchingItem = this.items[index];
-        let optionValue;
-        matchingItem.setAttribute("aria-selected", "true");
-        if (this._options.useAriaChecked === true) {
-          matchingItem.setAttribute("aria-checked", "true");
-        }
-        optionValue = matchingItem.innerText;
-        if (this._options.valueSelector) {
-          const valueSelector = matchingItem.querySelector(this._options.valueSelector);
-          if (valueSelector) {
-            optionValue = valueSelector.innerText;
-          }
-        }
-        this.el.dispatchEvent(
-          new CustomEvent("makeup-listbox-change", {
-            detail: {
-              el: matchingItem,
-              optionIndex: index,
-              optionValue
-            }
-          })
-        );
+      const matchingItem = this.items[index];
+      let optionValue;
+      matchingItem.setAttribute("aria-selected", "true");
+      if (this._options.useAriaChecked === true) {
+        matchingItem.setAttribute("aria-checked", "true");
       }
+      optionValue = matchingItem.innerText;
+      if (this._options.valueSelector) {
+        const valueSelector = matchingItem.querySelector(this._options.valueSelector);
+        if (valueSelector) {
+          optionValue = valueSelector.innerText;
+        }
+      }
+      this.el.dispatchEvent(
+        new CustomEvent("makeup-listbox-change", {
+          detail: {
+            el: matchingItem,
+            optionIndex: index,
+            optionValue
+          }
+        })
+      );
     }
     this._observeMutations();
   }
@@ -165,7 +163,7 @@ function _onFirstFocus() {
 }
 function _onClick(e) {
   const toEl = e.target.closest("[role=option]");
-  if (toEl) {
+  if (toEl && toEl.getAttribute("aria-disabled") !== "true") {
     this.select(this.items.indexOf(toEl));
   }
 }

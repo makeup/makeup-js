@@ -34,7 +34,7 @@
     "@ebay/skin": "^19.27.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.61.1",
-    "@types/node": "^25.9.4",
+    "@types/node": "^26.0.1",
     "@vitest/coverage-istanbul": "^4.1.9",
     "@vitest/ui": "^4.1.9",
     "browser-sync": "^3.0.4",

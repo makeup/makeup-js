@@ -230,7 +230,9 @@ button {
     --color-yellow-200: #fff8d5;
     --color-yellow-300: #ffe58a;
     --color-yellow-400: #ffbd14;
+    --color-yellow-450: #b97e31;
     --color-yellow-500: #eebb04;
+    --color-yellow-550: #b97e31;
     --color-yellow-600: #855f00;
     --color-yellow-700: #553b06;
     --color-yellow-800: #312102;
@@ -522,6 +524,7 @@ button {
     --color-background-success: var(--color-kiwi-600);
     --color-background-tertiary: var(--color-neutral-300);
     --color-background-transparent: var(--color-clear);
+    --color-background-warning: var(--color-yellow-400);
     --color-border-accent: var(--color-blue-500);
     --color-border-attention: var(--color-red-600);
     --color-border-disabled: var(--color-neutral-400);
@@ -551,9 +554,11 @@ button {
     --color-foreground-on-inverse: var(--color-neutral-100);
     --color-foreground-on-strong: var(--color-neutral-100);
     --color-foreground-on-success: var(--color-neutral-100);
+    --color-foreground-on-warning: var(--color-neutral-800);
     --color-foreground-primary: var(--color-neutral-800);
     --color-foreground-secondary: var(--color-neutral-600);
     --color-foreground-success: var(--color-kiwi-600);
+    --color-foreground-warning: var(--color-yellow-550);
     --color-gradient-ai-blue-strong: linear-gradient(
         to right,
         var(--color-ai-solid-purple-strong),
@@ -706,7 +711,7 @@ button {
     --color-marketing-lime-background-4: var(--color-avocado-500);
     --color-marketing-green-foreground-3: var(--color-kiwi-700);
     --color-marketing-green-background-3: var(--color-kiwi-400);
-    --color-marketing-teal-foreground-3: var(--color-teal-7);
+    --color-marketing-teal-foreground-3: var(--color-teal-700);
     --color-marketing-teal-background-3: var(--color-teal-400);
     --color-marketing-teal-foreground-5: var(--color-neutral-100);
     --color-marketing-teal-background-5: var(--color-teal-600);

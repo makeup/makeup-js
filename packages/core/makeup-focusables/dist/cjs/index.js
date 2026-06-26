@@ -6,9 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 const focusableElList = ["a[href]", "area[href]", "button:not([disabled])", "embed", "iframe", "input:not([disabled])", "object", "select:not([disabled])", "textarea:not([disabled])", "*[tabindex]", "*[contenteditable]"];
 const focusableElSelector = focusableElList.join(",");
-function _default(el) {
-  let keyboardOnly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  let callback = arguments.length > 2 ? arguments[2] : undefined;
+function _default(el, keyboardOnly = false, callback) {
   if (callback) {
     const request = requestAnimationFrame(() => {
       callback(getFocusables(el, keyboardOnly));
@@ -19,8 +17,7 @@ function _default(el) {
   }
   return getFocusables(el, keyboardOnly);
 }
-function getFocusables(el) {
-  let keyboardOnly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+function getFocusables(el, keyboardOnly = false) {
   // filter out elements with display: none or nested in a display: none parent
   let focusableEls = [...el.querySelectorAll(focusableElSelector)].filter(focusableEl => !!(focusableEl.offsetWidth || focusableEl.offsetHeight || focusableEl.getClientRects().length));
   if (keyboardOnly === true) {

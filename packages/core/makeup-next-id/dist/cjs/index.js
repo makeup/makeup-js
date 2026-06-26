@@ -24,8 +24,7 @@ function createRandomPortion(size) {
   }
   return portion;
 }
-function _default(el) {
-  let prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultPrefix;
+function _default(el, prefix = defaultPrefix) {
   const separator = prefix === "" ? "" : "-";
 
   // join first prefix with random portion to create key

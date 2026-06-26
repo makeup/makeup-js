@@ -13,18 +13,13 @@ const defaultSnackbarOptions = {
   transitionsModifier: "transition"
 };
 class _default extends _makeupDialog.default {
-  constructor(el) {
-    let selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultSnackbarOptions, selectedOptions));
     this._autoDismissTimeout = null;
   }
   _show() {
-    var _this = this;
     super._show();
-    this._autoDismissTimeout = setTimeout(function () {
-      let widget = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this;
-      return widget.close();
-    }, this._options.autoDismissTimer);
+    this._autoDismissTimeout = setTimeout((widget = this) => widget.close(), this._options.autoDismissTimer);
   }
   _observeEvents() {
     super._observeEvents();

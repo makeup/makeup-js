@@ -14,8 +14,7 @@ const defaultFullscreenOptions = {
   windowSelector: ".fullscreen-dialog__window"
 };
 class _default extends _makeupDialog.default {
-  constructor(el) {
-    let selectedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  constructor(el, selectedOptions = {}) {
     super(el, Object.assign({}, defaultFullscreenOptions, selectedOptions, {
       modal: true
     }));

@@ -8,6 +8,7 @@ The following slash commands are available for common development tasks. Run the
 - `/test-coverage` — audit unit test coverage for a module and produce a prioritized gap report
 - `/add-unit-tests` — write missing unit tests based on coverage gaps; can accept a gap report from `/test-coverage` to skip re-running coverage
 - `/revamp-demo` — rewrite a module's demo page with consistent style, structure, and on-page output
+- `/update-minor-deps` — perform non-breaking (patch and minor) devDependency updates as a single batch with build, test, and one signed commit (commit-only)
 - `/update-major-deps` — perform major devDependency updates one group at a time with risk assessment, build, test, and a signed commit per group (commit-only, pauses on medium/high risk)
 
 Skills are defined in `.claude/skills/`.

@@ -24,6 +24,7 @@ export default function transition(el, baseClass, cb) {
   let ended;
   let pending;
   let ran = 0;
+  let timer;
   const classList = el.classList;
   const initClass = "".concat(baseClass, "-init");
   let cancelFrame = nextFrame(function () {
@@ -31,10 +32,13 @@ export default function transition(el, baseClass, cb) {
     classList.add(baseClass);
     classList.remove(initClass);
     pending = getTransitionCount(el);
+    const transitionTimeout = getLongestTransitionTime(el);
     cancelFrame = undefined;
 
-    if (pending === 0) {
-      cancel();
+    if (pending === 0 || transitionTimeout === 0) {
+      complete();
+    } else {
+      timer = setTimeout(complete, transitionTimeout + 50);
     }
   });
   classList.add(initClass);
@@ -49,6 +53,7 @@ export default function transition(el, baseClass, cb) {
     }
 
     ended = true;
+    clearTimeout(timer);
     el.removeEventListener(TRANSITION_END, listener, true);
 
     if (cancelFrame) {
@@ -64,14 +69,23 @@ export default function transition(el, baseClass, cb) {
    */
 
   function listener() {
-    if (++ran === pending) {
-      ended = true;
-      el.removeEventListener(TRANSITION_END, listener, true);
-      classList.remove(baseClass);
+    if (++ran >= pending) {
+      complete();
+    }
+  }
 
-      if (cb) {
-        cb();
-      }
+  function complete() {
+    if (ended) {
+      return;
+    }
+
+    ended = true;
+    clearTimeout(timer);
+    el.removeEventListener(TRANSITION_END, listener, true);
+    classList.remove(baseClass);
+
+    if (cb) {
+      cb();
     }
   }
 }
@@ -93,6 +107,29 @@ function getTransitionCount(el) {
   }
 
   return count;
+}
+
+function getLongestTransitionTime(el) {
+  const computedStyle = window.getComputedStyle(el);
+  const duration = getLongestTimeFromList(computedStyle.transitionDuration);
+  const delay = getLongestTimeFromList(computedStyle.transitionDelay);
+  let max = duration + delay;
+  let child = el.firstElementChild;
+
+  while (child) {
+    max = Math.max(max, getLongestTransitionTime(child));
+    child = child.nextElementSibling;
+  }
+
+  return max;
+}
+
+function getLongestTimeFromList(value) {
+  return value.split(",").reduce((max, item) => {
+    const trimmed = item.trim();
+    const next = trimmed.endsWith("ms") ? Number.parseFloat(trimmed) : Number.parseFloat(trimmed) * 1000;
+    return Number.isFinite(next) ? Math.max(max, next) : max;
+  }, 0);
 }
 /**
  * Runs a function during the next animation frame.

@@ -60,17 +60,26 @@ jobs:
         run: |
           TITLE="${{ steps.pr-info.outputs.title }}"
           # Dependabot PR titles look like "build(deps): bump <pkg> from X to Y"
-          PKG=$(echo "$TITLE" | sed -n 's/^.*[Bb]ump \([^ ]*\) from.*$/\1/p')
+          # or, for grouped/ancestor bumps, "build(deps): bump <pkg>, <pkg> and <pkg>"
+          REST=$(echo "$TITLE" | sed -n 's/^.*[Bb]ump \(.*\)$/\1/p')
+          REST=$(echo "$REST" | sed -E 's/ from .* to .*$//')
+          mapfile -t PACKAGES < <(echo "$REST" | sed -E 's/, /\n/g; s/ and /\n/g')
+
+          OPEN_ALERT_PACKAGES=$(gh api repos/${{ github.repository }}/dependabot/alerts --paginate \
+            --jq '.[] | select(.state == "open") | .dependency.package.name' | sort -u)
 
           IS_SECURITY=false
-          if [ -n "$PKG" ]; then
-            MATCH=$(gh api repos/${{ github.repository }}/dependabot/alerts --paginate \
-              --jq --arg pkg "$PKG" '.[] | select(.state == "open" and .dependency.package.name == $pkg) | .number' | head -1)
-            if [ -n "$MATCH" ]; then
+          MATCHED_PKG=""
+          for PKG in "${PACKAGES[@]}"; do
+            PKG=$(echo "$PKG" | xargs)
+            [ -z "$PKG" ] && continue
+            if echo "$OPEN_ALERT_PACKAGES" | grep -Fxq "$PKG"; then
               IS_SECURITY=true
+              MATCHED_PKG="$PKG"
+              break
             fi
-          fi
-          echo "package=$PKG" >> $GITHUB_OUTPUT
+          done
+          echo "package=$MATCHED_PKG" >> $GITHUB_OUTPUT
           echo "is_security=$IS_SECURITY" >> $GITHUB_OUTPUT
 
       - name: Auto-approve and merge security-only lock file updates

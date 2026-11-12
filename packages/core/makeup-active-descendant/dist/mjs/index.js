@@ -92,15 +92,15 @@ class LinearActiveDescendant extends ActiveDescendant {
     if (this._itemContainerEl !== this._focusEl) {
       focusEl.setAttribute("aria-owns", this._itemContainerEl.id);
     }
+    el.querySelectorAll(itemSelector).forEach((itemEl) => {
+      nextID(itemEl);
+    });
     this._navigationEmitter = createLinearEmitter(el, itemSelector, {
       autoInit: this._options.autoInit,
       autoReset: this._options.autoReset,
       axis: this._options.axis,
       ignoreByDelegateSelector: this._options.ignoreByDelegateSelector,
       wrap: this._options.wrap
-    });
-    this.items.forEach((itemEl) => {
-      nextID(itemEl);
     });
   }
   get index() {

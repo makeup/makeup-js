@@ -24,7 +24,7 @@ function onModelInit(e) {
   const itemEl = items[toIndex];
   if (itemEl) {
     itemEl.classList.add(this._options.activeDescendantClassName);
-    this._focusEl.setAttribute("aria-activedescendant", itemEl.id);
+    this._focusEl.setAttribute("aria-activedescendant", (0, _makeupNextId.default)(itemEl));
   }
   this._el.dispatchEvent(new CustomEvent("activeDescendantInit", {
     detail: e.detail
@@ -122,17 +122,17 @@ class LinearActiveDescendant extends ActiveDescendant {
     if (this._itemContainerEl !== this._focusEl) {
       focusEl.setAttribute("aria-owns", this._itemContainerEl.id);
     }
-
-    // ids must exist before the emitter's init event sets aria-activedescendant
-    el.querySelectorAll(itemSelector).forEach(itemEl => {
-      (0, _makeupNextId.default)(itemEl);
-    });
     this._navigationEmitter = (0, _makeupNavigationEmitter.createLinear)(el, itemSelector, {
       autoInit: this._options.autoInit,
       autoReset: this._options.autoReset,
       axis: this._options.axis,
       ignoreByDelegateSelector: this._options.ignoreByDelegateSelector,
       wrap: this._options.wrap
+    });
+
+    // ensure each item has an id
+    this.items.forEach(itemEl => {
+      (0, _makeupNextId.default)(itemEl);
     });
   }
   get index() {

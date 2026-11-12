@@ -177,6 +177,30 @@ describe("given a list of 3 hidden items in hierarchial relationship", () => {
 });
 /* END STATIC MODEL SIZE TESTS */
 
+describe("given 3 items instantiated with autoInit", () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+            <div class="widget">
+                <input type="text"/>
+                <ul>
+                    <li>Button 1</li>
+                    <li>Button 2</li>
+                    <li>Button 3</li>
+                </ul>
+            </div>
+        `;
+    widgetEl = document.querySelector(".widget");
+    focusEl = widgetEl.querySelector("input");
+    containerEl = widgetEl.querySelector("ul");
+    testActiveDescendant = createLinear(widgetEl, focusEl, containerEl, "li", { autoInit: 1 });
+  });
+
+  it("should point aria-activedescendant at the initial item's id", () => {
+    const itemEl = containerEl.querySelectorAll("li")[1];
+    expect(focusEl.getAttribute("aria-activedescendant")).toBe(itemEl.id);
+  });
+});
+
 /* BEGIN ARROW KEY TESTS */
 
 describe("given 3 items with default options in programmatic relationship", () => {

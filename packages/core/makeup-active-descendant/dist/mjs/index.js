@@ -14,7 +14,7 @@ function onModelInit(e) {
   const itemEl = items[toIndex];
   if (itemEl) {
     itemEl.classList.add(this._options.activeDescendantClassName);
-    this._focusEl.setAttribute("aria-activedescendant", itemEl.id);
+    this._focusEl.setAttribute("aria-activedescendant", nextID(itemEl));
   }
   this._el.dispatchEvent(new CustomEvent("activeDescendantInit", { detail: e.detail }));
 }

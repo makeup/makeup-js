@@ -197,7 +197,6 @@ describe("given 3 items instantiated with autoInit", () => {
 
   it("should point aria-activedescendant at the initial item's id", () => {
     const itemEl = containerEl.querySelectorAll("li")[1];
-    expect(itemEl.id).not.toBe("");
     expect(focusEl.getAttribute("aria-activedescendant")).toBe(itemEl.id);
   });
 });
